@@ -1,9 +1,8 @@
 package com.skosc.tkffintech.ui.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Window
+import android.view.View
 import androidx.lifecycle.Observer
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
@@ -24,9 +23,22 @@ class LoginActivity : TKFActivity() {
         }
 
         vm.status.observe(this, Observer { status ->
-            when(status) {
-                LoginViewModel.LoginStatus.SUCCESS ->
+            when (status) {
+                LoginViewModel.LoginStatus.SUCCESS -> {
                     startActivity(Intent(this, MainActivity::class.java))
+                }
+                LoginViewModel.LoginStatus.IN_PROGRESS -> {
+                    login_loading_status.visibility = View.VISIBLE
+                    login_btn.text = ""
+                }
+                LoginViewModel.LoginStatus.WAITING -> {
+                    login_loading_status.visibility = View.GONE
+                    login_btn.text = getString(R.string.login_login_btn)
+                }
+                LoginViewModel.LoginStatus.ERROR -> {
+                    login_loading_status.visibility = View.GONE
+                    login_btn.text = getString(R.string.login_login_btn)
+                }
             }
         })
     }

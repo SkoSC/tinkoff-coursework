@@ -6,6 +6,8 @@ import org.kodein.di.Kodein
 class TKFApplication : Application() {
     val kodein = Kodein.lazy {
         importOnce(viewModelFactoryModule)
+        importOnce(retrofitModule)
+        importOnce(repoModule)
     }
 
 }
