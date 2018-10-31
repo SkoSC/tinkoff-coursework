@@ -1,9 +1,10 @@
-package com.skosc.tkffintech
+package com.skosc.tkffintech.ui.activity
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import com.skosc.tkffintech.R
 
 class MainActivity : AppCompatActivity() {
 
