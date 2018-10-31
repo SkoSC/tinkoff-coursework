@@ -54,24 +54,39 @@
         android:textAlignment="center"
         android:textCursorDrawable="@drawable/nothing"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/login_btn"
+        app:layout_constraintBottom_toTopOf="@+id/login_btn_frame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/login_btn"
+    <FrameLayout
+        android:id="@+id/login_btn_frame"
         android:layout_width="296dp"
         android:layout_height="56dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="18dp"
-        android:background="@drawable/bcg_button_yellow"
-        android:text="@string/login_login_btn"
-        android:textCursorDrawable="@drawable/nothing"
-        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/login_btn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bcg_button_yellow"
+            android:text="@string/login_login_btn"
+            android:textCursorDrawable="@drawable/nothing"
+            android:textSize="18sp" />
+
+        <ProgressBar
+            android:id="@+id/login_loading_status"
+            android:elevation="2dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:indeterminateTintMode="src_in"
+            android:indeterminateTint="#000000"/>
+    </FrameLayout>
 
     <TextView
         android:id="@+id/textView2"
@@ -87,5 +102,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
