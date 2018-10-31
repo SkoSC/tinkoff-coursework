@@ -7,4 +7,7 @@
     <string name="login_login_btn">Login</string>
     <string name="login_password">Password</string>
     <string name="login_email">Email</string>
+    <string name="nav_event">Events</string>
+    <string name="nav_courses">Courses</string>
+    <string name="nav_profile">Profile</string>
 </resources>
