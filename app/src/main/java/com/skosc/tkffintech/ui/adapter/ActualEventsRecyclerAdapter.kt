@@ -3,11 +3,13 @@ package com.skosc.tkffintech.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
+import com.skosc.tkffintech.ui.model.EventCardModel
 
 class ActualEventsRecyclerAdapter : RecyclerView.Adapter<ActualEventsRecyclerAdapter.ViewHolder>() {
-    val items = listOf(1, 2, 3, 4, 5, 6, 7, 8)
+    var items: List<EventCardModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -17,10 +19,17 @@ class ActualEventsRecyclerAdapter : RecyclerView.Adapter<ActualEventsRecyclerAda
 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        // pass
+        val model = items[position]
+        holder.bind(model)
     }
 
     override fun getItemCount(): Int = items.size
 
-    class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {}
+    class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+        private val title by lazy { view.findViewById<TextView>(R.id.event_card_title) }
+
+        fun bind(model: EventCardModel) {
+            title.text = model.title
+        }
+    }
 }
