@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav_graph"
-    app:startDestination="@id/navg_eventsFragment">
+    app:startDestination="@id/navigation_event">
     <fragment
-        android:id="@+id/navg_eventsFragment"
+        android:id="@+id/navigation_event"
         android:name="com.skosc.tkffintech.ui.fragment.EventsFragment"
         android:label="fragment_events"
         tools:layout="@layout/fragment_events" />
     <fragment
-        android:id="@+id/navg_coursesFragment"
+        android:id="@+id/navigation_course"
         android:name="com.skosc.tkffintech.ui.fragment.CoursesFragment"
         android:label="fragment_courses"
         tools:layout="@layout/fragment_courses" />
     <fragment
-        android:id="@+id/navg_profileFragment"
+        android:id="@+id/navigation_profile"
         android:name="com.skosc.tkffintech.ui.fragment.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
