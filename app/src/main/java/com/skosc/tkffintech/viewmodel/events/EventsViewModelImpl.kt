@@ -18,7 +18,7 @@ class EventsViewModelImpl(private val eventsRepo: EventsRepo) : EventsViewModel(
                 .subscribe({ events ->
                     onGoingEvents.value = events
                 }, {
-                    Log.e("TKFERR", "", it)
+
                 })
 
         cdisp own eventsRepo.getArchiveEvents()
@@ -26,7 +26,7 @@ class EventsViewModelImpl(private val eventsRepo: EventsRepo) : EventsViewModel(
                 .subscribe({ events ->
                     archiveEvents.value = events
                 }, {
-                    Log.e("TKFERR", "", it)
+
                 })
     }
 }

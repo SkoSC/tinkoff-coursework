@@ -1,5 +1,6 @@
 package com.skosc.tkffintech.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.model.EventCardModel
 
-class ActualEventsRecyclerAdapter : RecyclerView.Adapter<ActualEventsRecyclerAdapter.ViewHolder>() {
+class ArchiveEventsRecyclerAdapter : RecyclerView.Adapter<ArchiveEventsRecyclerAdapter.ViewHolder>() {
     var items: List<EventCardModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.card_event_vertical, parent, false)
+                .inflate(R.layout.card_event_horizontal, parent, false)
         return ViewHolder(view)
     }
 
@@ -27,13 +28,12 @@ class ActualEventsRecyclerAdapter : RecyclerView.Adapter<ActualEventsRecyclerAda
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val title by lazy { view.findViewById<TextView>(R.id.event_card_title) }
-        private val date by lazy { view.findViewById<TextView>(R.id.event_date) }
-        private val typeTitle by lazy { view.findViewById<TextView>(R.id.event_card_type_title) }
+        private val dateAndType by lazy { view.findViewById<TextView>(R.id.event_card_type_and_date) }
 
         fun bind(model: EventCardModel) {
+            Log.i("TKF_INFO", model.title)
             title.text = model.title
-            date.text = model.date
-            typeTitle.text = model.typeTitle
+            dateAndType.text = "%s/%s".format(model.typeTitle, model.date)
         }
     }
 }
