@@ -27,7 +27,7 @@ class OnGoingEventsRecyclerAdapter : RecyclerView.Adapter<OnGoingEventsRecyclerA
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val title by lazy { view.findViewById<TextView>(R.id.event_card_title) }
-        private val date by lazy { view.findViewById<TextView>(R.id.event_date) }
+        private val date by lazy { view.findViewById<TextView>(R.id.event_card_date) }
         private val typeTitle by lazy { view.findViewById<TextView>(R.id.event_card_type_title) }
 
         fun bind(model: EventCardModel) {

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -46,5 +47,9 @@ class EventsFragment : TKFFragment() {
         })
         events_archive_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         events_archive_recycler.adapter = ArchiveEventsRecyclerAdapter()
+
+        events_ongoing_more.setOnClickListener {
+            findNavController(events_ongoing_more).navigate(R.id.action_navigation_ongoing_list)
+        }
     }
 }

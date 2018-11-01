@@ -8,7 +8,11 @@
         android:id="@+id/navigation_event"
         android:name="com.skosc.tkffintech.ui.fragment.EventsFragment"
         android:label="fragment_events"
-        tools:layout="@layout/fragment_events" />
+        tools:layout="@layout/fragment_events" >
+        <action
+            android:id="@+id/action_navigation_ongoing_list"
+            app:destination="@id/eventsListFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_course"
         android:name="com.skosc.tkffintech.ui.fragment.CoursesFragment"
@@ -19,4 +23,9 @@
         android:name="com.skosc.tkffintech.ui.fragment.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/eventsListFragment"
+        android:name="com.skosc.tkffintech.ui.fragment.EventsListFragment"
+        android:label="fragment_events_list"
+        tools:layout="@layout/fragment_events_list" />
 </navigation>
