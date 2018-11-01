@@ -9,4 +9,9 @@ class EventsRepoImpl(private val api: TinkoffEventsApi) : EventsRepo {
         return api.getAllEvents()
                 .map { it.body()?.active ?: listOf() }
     }
+
+    override fun getArchiveEvents(): Single<List<EventInfo>> {
+        return api.getAllEvents()
+                .map { it.body()?.archive ?: listOf() }
+    }
 }
