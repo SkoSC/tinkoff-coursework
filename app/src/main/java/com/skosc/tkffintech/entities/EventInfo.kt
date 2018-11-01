@@ -17,7 +17,7 @@ data class EventInfo(
         val place: String = "",
 
         @SerializedName("event_type")
-        val type: EventType = EventType(),
+        val type: EventType? = EventType(),
 
         @SerializedName("url")
         val url: String = "",

@@ -19,4 +19,6 @@
     <string name="placeholder_5x">Lorem Ipsilum Dolor Si Amlet</string>
     <string name="events_header_on_going">On Going</string>
     <string name="events_header_more">More</string>
+
+    <string name="event_type_unknown">Event</string>
 </resources>

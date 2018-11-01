@@ -27,9 +27,13 @@ class ActualEventsRecyclerAdapter : RecyclerView.Adapter<ActualEventsRecyclerAda
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val title by lazy { view.findViewById<TextView>(R.id.event_card_title) }
+        private val date by lazy { view.findViewById<TextView>(R.id.event_date) }
+        private val typeTitle by lazy { view.findViewById<TextView>(R.id.event_card_type_title) }
 
         fun bind(model: EventCardModel) {
             title.text = model.title
+            date.text = model.date
+            typeTitle.text = model.typeTitle
         }
     }
 }
