@@ -11,12 +11,20 @@ import com.skosc.tkffintech.viewmodel.RxViewModel
 
 class EventsViewModelImpl(private val eventsRepo: EventsRepo) : EventsViewModel() {
     override val onGoingEvents: MutableLiveData<List<EventInfo>> = MutableLiveData()
-
+    override val archiveEvents: MutableLiveData<List<EventInfo>> = MutableLiveData()
     init {
         cdisp own eventsRepo.getOnGoingEvents()
                 .observeOnMainThread()
                 .subscribe({ events ->
                     onGoingEvents.value = events
+                }, {
+                    Log.e("TKFERR", "", it)
+                })
+
+        cdisp own eventsRepo.getArchiveEvents()
+                .observeOnMainThread()
+                .subscribe({ events ->
+                    archiveEvents.value = events
                 }, {
                     Log.e("TKFERR", "", it)
                 })
