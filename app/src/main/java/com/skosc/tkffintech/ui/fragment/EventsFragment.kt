@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,7 +13,10 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.ArchiveEventsRecyclerAdapter
+import com.skosc.tkffintech.ui.adapter.EventsListRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.OnGoingEventsRecyclerAdapter
+import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ARCHIVE
+import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ON_GOING
 import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.viewmodel.events.EventsViewModel
 import kotlinx.android.synthetic.main.fragment_events.*
@@ -49,7 +53,17 @@ class EventsFragment : TKFFragment() {
         events_archive_recycler.adapter = ArchiveEventsRecyclerAdapter()
 
         events_ongoing_more.setOnClickListener {
-            findNavController(events_ongoing_more).navigate(R.id.action_navigation_ongoing_list)
+            findNavController(events_ongoing_more).navigate(
+                    R.id.action_navigation_events_more,
+                    bundleOf("mode" to ON_GOING)
+            )
+        }
+
+        events_archive_more.setOnClickListener {
+            findNavController(events_ongoing_more).navigate(
+                    R.id.action_navigation_events_more,
+                    bundleOf("mode" to ARCHIVE)
+            )
         }
     }
 }

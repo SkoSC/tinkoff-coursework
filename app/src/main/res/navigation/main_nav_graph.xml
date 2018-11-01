@@ -10,7 +10,7 @@
         android:label="fragment_events"
         tools:layout="@layout/fragment_events" >
         <action
-            android:id="@+id/action_navigation_ongoing_list"
+            android:id="@+id/action_navigation_events_more"
             app:destination="@id/eventsListFragment" />
     </fragment>
     <fragment
@@ -27,5 +27,9 @@
         android:id="@+id/eventsListFragment"
         android:name="com.skosc.tkffintech.ui.fragment.EventsListFragment"
         android:label="fragment_events_list"
-        tools:layout="@layout/fragment_events_list" />
+        tools:layout="@layout/fragment_events_list" >
+        <argument
+            android:name="mode"
+            app:argType="integer" />
+    </fragment>
 </navigation>

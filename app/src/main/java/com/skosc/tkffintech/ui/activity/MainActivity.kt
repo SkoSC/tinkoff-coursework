@@ -18,4 +18,8 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupWithNavController(navigation, navController)
     }
+
+    override fun onBackPressed() {
+        navController.navigateUp()
+    }
 }

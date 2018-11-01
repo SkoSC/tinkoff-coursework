@@ -1,5 +1,6 @@
 package com.skosc.tkffintech.ui.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.model.EventCardModel
+import java.lang.IllegalArgumentException
 
 class EventsListRecyclerAdapter(private val mode: Int) : RecyclerView.Adapter<EventCardViewHolder>() {
     companion object {
@@ -17,11 +19,18 @@ class EventsListRecyclerAdapter(private val mode: Int) : RecyclerView.Adapter<Ev
     var items: List<EventCardModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventCardViewHolder {
-        val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.card_event_large, parent, false)
         return when(viewType) {
-            MODE_LARGE -> LargeViewHolder(view)
-            else -> TODO("Small Card not implemented")
+            MODE_LARGE -> {
+                val view = LayoutInflater.from(parent.context)
+                        .inflate(R.layout.card_event_large, parent, false)
+                LargeViewHolder(view)
+            }
+            MODE_SMALL -> {
+                val view = LayoutInflater.from(parent.context)
+                        .inflate(R.layout.card_event_small, parent, false)
+                SmallViewHolder(view)
+            }
+            else -> throw IllegalArgumentException("Card Type with id $viewType not supported")
         }
     }
 
@@ -45,6 +54,17 @@ class EventsListRecyclerAdapter(private val mode: Int) : RecyclerView.Adapter<Ev
             date.text = model.date
             typeTitle.text = model.typeTitle
             description.text = model.description
+        }
+    }
+
+    class SmallViewHolder(private val view: View) : EventCardViewHolder(view) {
+        private val title by lazy { view.findViewById<TextView>(R.id.event_card_title) }
+        private val dateAndType by lazy { view.findViewById<TextView>(R.id.event_card_type_and_date) }
+
+        override fun bind(model: EventCardModel) {
+            Log.i("TKF_INFO", model.title)
+            title.text = model.title
+            dateAndType.text = "%s/%s".format(model.typeTitle, model.date)
         }
     }
 }
