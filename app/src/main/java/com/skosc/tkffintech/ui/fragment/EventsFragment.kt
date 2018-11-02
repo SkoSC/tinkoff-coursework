@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.ArchiveEventsRecyclerAdapter
-import com.skosc.tkffintech.ui.adapter.EventsListRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.OnGoingEventsRecyclerAdapter
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ARCHIVE
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ON_GOING
 import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.viewmodel.events.EventsViewModel
+import com.skosc.tkffintech.viewmodel.events.MainActivityViewModel
 import kotlinx.android.synthetic.main.fragment_events.*
 
 class EventsFragment : TKFFragment() {

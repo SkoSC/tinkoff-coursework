@@ -1,7 +1,6 @@
 package com.skosc.tkffintech.ui.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +9,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.ui.adapter.EventCardViewHolder
 import com.skosc.tkffintech.ui.adapter.EventsListRecyclerAdapter
 import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.viewmodel.events.EventsViewModel
+import com.skosc.tkffintech.viewmodel.events.MainActivityViewModel
 import kotlinx.android.synthetic.main.fragment_events_list.*
 import java.lang.IllegalArgumentException
 

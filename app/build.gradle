@@ -65,6 +65,9 @@ dependencies {
     // Serialization
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    // OkHttp Extensions
+    implementation "com.squareup.okhttp3:okhttp-urlconnection:3.0.0-RC1"
+
     // Testing
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'

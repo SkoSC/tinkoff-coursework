@@ -62,7 +62,6 @@ class EventsListRecyclerAdapter(private val mode: Int) : RecyclerView.Adapter<Ev
         private val dateAndType by lazy { view.findViewById<TextView>(R.id.event_card_type_and_date) }
 
         override fun bind(model: EventCardModel) {
-            Log.i("TKF_INFO", model.title)
             title.text = model.title
             dateAndType.text = "%s/%s".format(model.typeTitle, model.date)
         }
