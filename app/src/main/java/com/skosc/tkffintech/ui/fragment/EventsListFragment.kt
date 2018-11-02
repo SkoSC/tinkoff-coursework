@@ -44,7 +44,8 @@ class EventsListFragment : TKFFragment() {
         }
         events.observe(this, Observer { eventsInfo ->
             val adapter = events_recycler.adapter as EventsListRecyclerAdapter
-            adapter.items = eventsInfo.map { EventCardModel.from(context!!, it) }
+            adapter.items = eventsInfo
+                    .map { EventCardModel.from(context!!, it) }
             adapter.notifyDataSetChanged()
         })
     }

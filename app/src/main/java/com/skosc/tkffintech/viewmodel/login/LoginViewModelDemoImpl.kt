@@ -17,7 +17,6 @@ class LoginViewModelDemoImpl(private val userRepo: CurrentUserRepo) : LoginViewM
     override fun login(email: String, password: String) {
         status.value = LoginStatus.IN_PROGRESS
         userRepo.login(email, password)
-                .delay(5, TimeUnit.SECONDS)
                 .observeOnMainThread()
                 .subscribe({ success ->
                     status.value = LoginStatus.SUCCESS
