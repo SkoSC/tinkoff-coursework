@@ -11,8 +11,6 @@ class CurrentUserRepoImpl(private val signUpApi: TinkoffSignUpApi) : CurrentUser
     override fun login(email: String, password: String) : Single<Boolean> {
         val credentials = UserCredentials(email, password)
         return signUpApi.signIn(credentials).map {
-            Log.i("TKF_INFO", it.message())
-            Log.i("TKF_INFO", it.body().toString())
             isLoggedIn.onNext(true)
             true
         }

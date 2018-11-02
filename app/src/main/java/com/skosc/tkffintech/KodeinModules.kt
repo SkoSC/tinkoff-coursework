@@ -1,6 +1,5 @@
 package com.skosc.tkffintech
 
-import android.util.Log
 import com.google.gson.GsonBuilder
 import com.skosc.tkffintech.misc.gsonadapter.JodaDateTimeAdapter
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
@@ -9,6 +8,7 @@ import com.skosc.tkffintech.model.repo.EventsRepo
 import com.skosc.tkffintech.model.repo.EventsRepoImpl
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.model.webservice.TinkoffSignUpApi
+import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
 import com.skosc.tkffintech.viewmodel.events.*
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import com.skosc.tkffintech.viewmodel.login.LoginViewModelFactory
@@ -22,13 +22,9 @@ import org.kodein.di.generic.singleton
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.math.sin
 import okhttp3.internal.JavaNetCookieJar
-import okhttp3.logging.HttpLoggingInterceptor
 import java.net.CookieManager
 import java.net.CookiePolicy
-import java.net.CookiePolicy.ACCEPT_ALL
-import java.net.URI
 
 
 val viewModelFactoryModule = Kodein.Module("view model", false, "tkf") {
@@ -48,9 +44,8 @@ val retrofitModule = Kodein.Module("retrofit", false, "tkf") {
 
     val okhttp = OkHttpClient.Builder()
             .cookieJar(javaNetCookieJar)
-            .addInterceptor(HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { message ->
-                Log.i("TKF_INFO", message)
-            })).build()
+            .addInterceptor(OkHttpLoggingInterceptor("OkHttp"))
+            .build()
 
     cookieManager.cookieStore.removeAll()
 
