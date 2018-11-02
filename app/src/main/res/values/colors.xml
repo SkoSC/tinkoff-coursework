@@ -11,4 +11,5 @@
     <color name="login_activity_background">#3e4757</color>
     <color name="login_activity_field_background">#33ffffff</color>
     <color name="login_activity_button_background">#ffdd2d</color>
+    <color name="login_activity_button_background_ripple">#B5000000</color>
 </resources>
