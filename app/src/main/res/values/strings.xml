@@ -23,4 +23,8 @@
 
     <string name="event_type_unknown">Event</string>
     <string name="events_header_archive">Archive</string>
+
+    <string name="login_error_wrong_credentials">Wrong Credentials</string>
+    <string name="login_error_wrong_unknown">Unknown Error</string>
+
 </resources>

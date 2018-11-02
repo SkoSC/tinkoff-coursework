@@ -47,8 +47,8 @@ class LoginActivity : TKFActivity() {
 
     fun showError(error: LoginViewModel.LoginError) {
         val errText = when(error) {
-            LoginViewModel.LoginError.UNKNOWN -> "Try again next time"
-            LoginViewModel.LoginError.WRONG_CREDENTIALS -> "Wrong credentials"
+            LoginViewModel.LoginError.UNKNOWN -> R.string.login_error_wrong_unknown
+            LoginViewModel.LoginError.WRONG_CREDENTIALS -> R.string.login_error_wrong_credentials
         }
 
         AlertDialog.Builder(this)
