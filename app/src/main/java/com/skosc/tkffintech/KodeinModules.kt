@@ -1,5 +1,6 @@
 package com.skosc.tkffintech
 
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.skosc.tkffintech.misc.gsonadapter.JodaDateTimeAdapter
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
@@ -56,12 +57,13 @@ val retrofitModule = Kodein.Module("retrofit", false, "tkf") {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
+    bind<Gson>() with instance(gson)
     bind<OkHttpClient>() with instance(okhttp)
     bind<TinkoffSignUpApi>() with singleton { retrofit.create(TinkoffSignUpApi::class.java) }
     bind<TinkoffEventsApi>() with singleton { retrofit.create(TinkoffEventsApi::class.java) }
 }
 
 val repoModule = Kodein.Module("repo", false, "tkf") {
-    bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance()) }
+    bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance()) }
 }

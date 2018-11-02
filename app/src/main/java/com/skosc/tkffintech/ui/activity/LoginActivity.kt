@@ -1,5 +1,6 @@
 package com.skosc.tkffintech.ui.activity
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -23,7 +24,7 @@ class LoginActivity : TKFActivity() {
         }
 
         vm.status.observe(this, Observer { status ->
-            when (status) {
+            when (status.login) {
                 LoginViewModel.LoginStatus.SUCCESS -> {
                     startActivity(Intent(this, MainActivity::class.java))
                 }
@@ -38,8 +39,22 @@ class LoginActivity : TKFActivity() {
                 LoginViewModel.LoginStatus.ERROR -> {
                     login_loading_status.visibility = View.GONE
                     login_btn.text = getString(R.string.login_login_btn)
+                    showError(status.error?: LoginViewModel.LoginError.UNKNOWN)
                 }
             }
         })
+    }
+
+    fun showError(error: LoginViewModel.LoginError) {
+        val errText = when(error) {
+            LoginViewModel.LoginError.UNKNOWN -> "Try again next time"
+            LoginViewModel.LoginError.WRONG_CREDENTIALS -> "Wrong credentials"
+        }
+
+        AlertDialog.Builder(this)
+                .setTitle("Login Failed")
+                .setMessage(errText)
+                .create()
+                .show()
     }
 }
