@@ -21,10 +21,16 @@ class MainActivity : TKFActivity() {
 
         NavigationUI.setupWithNavController(navigation, navController)
         vm.isLoggedIn.observe(this, Observer {
-            if (!it) {
-                startActivity(Intent(this, LoginActivity::class.java))
-            }
+            //startActivity(Intent(this, LoginActivity::class.java))
         })
+
+        navController.addOnNavigatedListener { controller, destination ->
+            when (destination.id) {
+                R.id.navigation_profile -> supportActionBar?.hide()
+                else -> supportActionBar?.show()
+            }
+        }
+
     }
 
     override fun onBackPressed() {

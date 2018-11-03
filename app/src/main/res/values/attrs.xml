@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="UserInfoSectionCard">
+        <attr name="header_text" />
+        <attr name="header_icon" />
+    </declare-styleable>
+</resources>

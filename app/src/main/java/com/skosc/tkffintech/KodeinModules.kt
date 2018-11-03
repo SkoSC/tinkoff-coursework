@@ -28,7 +28,7 @@ import java.net.CookieManager
 import java.net.CookiePolicy
 
 
-val viewModelFactoryModule = Kodein.Module("view model", false, "tkf") {
+val viewModelFactoryModule = Kodein.Module("contentView model", false, "tkf") {
     bind<LoginViewModelFactory>(LoginViewModel::class) with provider { LoginViewModelFactory(kodein) }
     bind<EventsViewModelFactory>(EventsViewModel::class) with provider { EventsViewModelFactory(kodein) }
     bind<MainActivityViewModelFactory>(MainActivityViewModel::class) with provider { MainActivityViewModelFactory(kodein) }
