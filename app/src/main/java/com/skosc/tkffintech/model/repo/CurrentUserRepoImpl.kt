@@ -3,19 +3,26 @@ package com.skosc.tkffintech.model.repo
 import android.util.Log
 import com.google.gson.Gson
 import com.skosc.tkffintech.entities.UserCredentials
+import com.skosc.tkffintech.entities.UserInfo
+import com.skosc.tkffintech.model.dao.SecurityDao
 import com.skosc.tkffintech.model.webservice.TinkoffError
-import com.skosc.tkffintech.model.webservice.TinkoffSignUpApi
+import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
-import java.lang.Exception
 import java.lang.RuntimeException
-import java.nio.charset.Charset
 
-class CurrentUserRepoImpl(private val signUpApi: TinkoffSignUpApi, private val gson: Gson) : CurrentUserRepo {
+class CurrentUserRepoImpl(private val userApi: TinkoffUserApi, private val securityDao: SecurityDao, private val gson: Gson) : CurrentUserRepo {
     override fun login(email: String, password: String): Single<Boolean> {
         val credentials = UserCredentials(email, password)
-        return signUpApi.signIn(credentials).map {
+        return userApi.signIn(credentials).map {
             if (it.isSuccessful) {
+                val authCookie = it.headers().values("Set-Cookie")
+                        .find { it.contains("anygen") }
+                        ?.split(";")
+                        ?.first() ?: ""
+
+                securityDao.setAuthCookie(authCookie)
+
                 isLoggedIn.onNext(true)
                 return@map true
             }
@@ -24,6 +31,16 @@ class CurrentUserRepoImpl(private val signUpApi: TinkoffSignUpApi, private val g
     }
 
     override val isLoggedIn: BehaviorSubject<Boolean> = BehaviorSubject.createDefault(false)
+
+    override val info: Single<UserInfo>
+        get() {
+            return securityDao.getAuthCookie()
+                    .flatMap {
+                        userApi.getCurrentUserInfo(it)
+                    }.map {
+                        it.body()!!.body
+                    }
+        }
 
     // TODO Think how to remove dependency on [TinkoffError]
     private fun parseError(body: String): String {

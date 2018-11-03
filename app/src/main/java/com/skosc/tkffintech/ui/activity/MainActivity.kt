@@ -21,7 +21,7 @@ class MainActivity : TKFActivity() {
 
         NavigationUI.setupWithNavController(navigation, navController)
         vm.isLoggedIn.observe(this, Observer {
-            //startActivity(Intent(this, LoginActivity::class.java))
+            if (!it) startActivity(Intent(this, LoginActivity::class.java))
         })
 
         navController.addOnNavigatedListener { controller, destination ->

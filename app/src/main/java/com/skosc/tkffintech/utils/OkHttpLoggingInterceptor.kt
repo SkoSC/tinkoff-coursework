@@ -9,11 +9,12 @@ class OkHttpLoggingInterceptor(private val tag: String) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
 
-        Log.d(tag, "Request: " + request.url())
+
+        Log.d(tag, "Request: " + request.url() + "\nHeaders:\n" + request.headers())
 
         val response = chain.proceed(request)
 
-        Log.d(tag, "Response: " + request.url())
+        Log.d(tag, "Response: " + response.message() + "\nHeaders:\n" + response.headers())
 
         return response
     }

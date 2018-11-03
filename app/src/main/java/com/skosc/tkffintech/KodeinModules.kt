@@ -1,18 +1,24 @@
 package com.skosc.tkffintech
 
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.skosc.tkffintech.misc.gsonadapter.JodaDateTimeAdapter
+import com.skosc.tkffintech.model.dao.SecurityDao
+import com.skosc.tkffintech.model.dao.SecurityDaoPrefImpl
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.model.repo.CurrentUserRepoImpl
 import com.skosc.tkffintech.model.repo.EventsRepo
 import com.skosc.tkffintech.model.repo.EventsRepoImpl
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
-import com.skosc.tkffintech.model.webservice.TinkoffSignUpApi
+import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
 import com.skosc.tkffintech.viewmodel.events.*
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import com.skosc.tkffintech.viewmodel.login.LoginViewModelFactory
+import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
+import com.skosc.tkffintech.viewmodel.profile.ProfileViewModelFactory
+import com.skosc.tkffintech.viewmodel.profile.ProfileViewModelImpl
 import okhttp3.OkHttpClient
 import org.joda.time.DateTime
 import org.kodein.di.Kodein
@@ -27,11 +33,15 @@ import okhttp3.internal.JavaNetCookieJar
 import java.net.CookieManager
 import java.net.CookiePolicy
 
+fun daoModule(ctx: Context) = Kodein.Module("dao", false, "tkf") {
+    bind<SecurityDao>() with singleton { SecurityDaoPrefImpl(ctx) }
+}
 
 val viewModelFactoryModule = Kodein.Module("contentView model", false, "tkf") {
     bind<LoginViewModelFactory>(LoginViewModel::class) with provider { LoginViewModelFactory(kodein) }
     bind<EventsViewModelFactory>(EventsViewModel::class) with provider { EventsViewModelFactory(kodein) }
     bind<MainActivityViewModelFactory>(MainActivityViewModel::class) with provider { MainActivityViewModelFactory(kodein) }
+    bind<ProfileViewModelFactory>(ProfileViewModel::class) with provider { ProfileViewModelFactory(kodein) }
 }
 
 val retrofitModule = Kodein.Module("retrofit", false, "tkf") {
@@ -48,8 +58,6 @@ val retrofitModule = Kodein.Module("retrofit", false, "tkf") {
             .addInterceptor(OkHttpLoggingInterceptor("OkHttp"))
             .build()
 
-    cookieManager.cookieStore.removeAll()
-
     val retrofit = Retrofit.Builder()
             .baseUrl("https://fintech.tinkoff.ru/api/")
             .client(okhttp)
@@ -59,11 +67,11 @@ val retrofitModule = Kodein.Module("retrofit", false, "tkf") {
 
     bind<Gson>() with instance(gson)
     bind<OkHttpClient>() with instance(okhttp)
-    bind<TinkoffSignUpApi>() with singleton { retrofit.create(TinkoffSignUpApi::class.java) }
+    bind<TinkoffUserApi>() with singleton { retrofit.create(TinkoffUserApi::class.java) }
     bind<TinkoffEventsApi>() with singleton { retrofit.create(TinkoffEventsApi::class.java) }
 }
 
 val repoModule = Kodein.Module("repo", false, "tkf") {
-    bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance()) }
+    bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance()) }
 }

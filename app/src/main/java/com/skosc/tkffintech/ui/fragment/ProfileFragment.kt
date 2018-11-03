@@ -7,15 +7,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.ProfileAttributeAdapter
 import com.skosc.tkffintech.ui.view.UserInfoSectionCard
+import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.fragment_profile.*
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : TKFFragment() {
+
+    val vm by lazy { getViewModel(ProfileViewModel::class) }
 
     val contactInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
@@ -50,11 +54,14 @@ class ProfileFragment : Fragment() {
     }
 
 
-
     override fun onStart() {
         super.onStart()
         profile_info_cards.addView(contactInfoCard)
         profile_info_cards.addView(schoolInfoCard)
         profile_info_cards.addView(workInfoCard)
+
+        vm.fullName.observe(this, Observer {
+            profile_name.text = it
+        })
     }
 }
