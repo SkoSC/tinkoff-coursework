@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 28
@@ -67,6 +68,14 @@ dependencies {
 
     // OkHttp Extensions
     implementation "com.squareup.okhttp3:okhttp-urlconnection:3.0.0-RC1"
+
+    // Room Database
+    implementation "androidx.room:room-runtime:2.0.0"
+    kapt "androidx.room:room-compiler:2.0.0"
+    implementation "androidx.room:room-rxjava2:2.0.0"
+
+    // Android Debug Database
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
     // Testing
     testImplementation 'junit:junit:4.12'
