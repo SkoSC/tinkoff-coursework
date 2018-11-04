@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.model.EventCardModel
 
-class ArchiveEventsRecyclerAdapter : RecyclerView.Adapter<ArchiveEventsRecyclerAdapter.ViewHolder>() {
+
+class ArchiveEventsRecyclerAdapter(private val onClick: (EventCardModel) -> Unit) : RecyclerView.Adapter<ArchiveEventsRecyclerAdapter.ViewHolder>() {
     var items: List<EventCardModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -21,7 +22,7 @@ class ArchiveEventsRecyclerAdapter : RecyclerView.Adapter<ArchiveEventsRecyclerA
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = items[position]
-        holder.bind(model)
+        holder.bind(model, onClick)
     }
 
     override fun getItemCount(): Int = items.size
@@ -30,9 +31,12 @@ class ArchiveEventsRecyclerAdapter : RecyclerView.Adapter<ArchiveEventsRecyclerA
         private val title by lazy { view.findViewById<TextView>(R.id.event_card_title) }
         private val dateAndType by lazy { view.findViewById<TextView>(R.id.event_card_type_and_date) }
 
-        fun bind(model: EventCardModel) {
+        fun bind(model: EventCardModel, callback: (EventCardModel) -> Unit) {
             title.text = model.title
             dateAndType.text = "%s/%s".format(model.typeTitle, model.date)
+            view.setOnClickListener {
+                callback(model)
+            }
         }
     }
 }

@@ -10,7 +10,7 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.model.EventCardModel
 import java.lang.IllegalArgumentException
 
-class EventsListRecyclerAdapter(private val mode: Int) : RecyclerView.Adapter<EventCardViewHolder>() {
+class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (EventCardModel) -> Unit) : RecyclerView.Adapter<EventCardViewHolder>() {
     companion object {
         const val MODE_LARGE: Int = 0
         const val MODE_SMALL: Int = 1
@@ -19,7 +19,7 @@ class EventsListRecyclerAdapter(private val mode: Int) : RecyclerView.Adapter<Ev
     var items: List<EventCardModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventCardViewHolder {
-        return when(viewType) {
+        return when (viewType) {
             MODE_LARGE -> {
                 val view = LayoutInflater.from(parent.context)
                         .inflate(R.layout.card_event_large, parent, false)
@@ -36,7 +36,7 @@ class EventsListRecyclerAdapter(private val mode: Int) : RecyclerView.Adapter<Ev
 
     override fun onBindViewHolder(holder: EventCardViewHolder, position: Int) {
         val model = items[position]
-        holder.bind(model)
+        holder.bind(model, onClick)
     }
 
     override fun getItemViewType(position: Int): Int = mode
@@ -49,7 +49,8 @@ class EventsListRecyclerAdapter(private val mode: Int) : RecyclerView.Adapter<Ev
         private val typeTitle by lazy { view.findViewById<TextView>(R.id.event_card_type_title) }
         private val description by lazy { view.findViewById<TextView>(R.id.event_card_description) }
 
-        override fun bind(model: EventCardModel) {
+        override fun bind(model: EventCardModel, onClick: (EventCardModel) -> Unit) {
+            super.bind(model, onClick)
             title.text = model.title
             date.text = model.date
             typeTitle.text = model.typeTitle
@@ -61,7 +62,8 @@ class EventsListRecyclerAdapter(private val mode: Int) : RecyclerView.Adapter<Ev
         private val title by lazy { view.findViewById<TextView>(R.id.event_card_title) }
         private val dateAndType by lazy { view.findViewById<TextView>(R.id.event_card_type_and_date) }
 
-        override fun bind(model: EventCardModel) {
+        override fun bind(model: EventCardModel, onClick: (EventCardModel) -> Unit) {
+            super.bind(model, onClick)
             title.text = model.title
             dateAndType.text = "%s/%s".format(model.typeTitle, model.date)
         }

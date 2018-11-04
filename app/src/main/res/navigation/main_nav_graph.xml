@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_navigation_events_more"
             app:destination="@id/eventsListFragment" />
+        <action
+            android:id="@+id/action_navigation_event_detail"
+            app:destination="@id/eventDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_course"
@@ -31,5 +34,15 @@
         <argument
             android:name="mode"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_navigation_event_detail"
+            app:destination="@id/eventDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventDetailFragment"
+        android:name="com.skosc.tkffintech.ui.fragment.EventDetailFragment"
+        android:label="fragment_event_detail"
+        tools:layout="@layout/fragment_event_detail" >
+        <argument android:name="model" />
     </fragment>
 </navigation>
