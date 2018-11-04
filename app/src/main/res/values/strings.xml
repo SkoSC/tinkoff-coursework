@@ -27,5 +27,16 @@
 
     <string name="login_error_wrong_credentials">Wrong Credentials</string>
     <string name="login_error_wrong_unknown">Unknown Error</string>
+    
+    <string name="profile_attribute_mobile_phone">Mobile Phone</string>
+    <string name="profile_attribute_email">Email</string>
+    <string name="profile_attribute_home_city">Home City</string>
+    <string name="profile_attribute_school">School</string>
+    <string name="profile_attribute_school_grad">School Graduation</string>
+    <string name="profile_attribute_university">University</string>
+    <string name="profile_attribute_university_grad">University Grad</string>
+    <string name="profile_attribute_facility">Facility</string>
+    <string name="profile_attribute_department">Department</string>
+    <string name="profile_attribute_wrokplace">Work Place</string>
 
 </resources>

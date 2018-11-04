@@ -58,7 +58,7 @@
             android:id="@+id/profile_stats_tests_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Score" />
+            android:text="Tests" />
 
     </LinearLayout>
 
@@ -78,7 +78,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/profile_curse_tests"
+            android:id="@+id/profile_stats_curse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="2"
@@ -94,9 +94,9 @@
             android:layout_height="wrap_content"
             android:text="Curse"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/profile_curse_tests"
-            app:layout_constraintStart_toStartOf="@+id/profile_curse_tests"
-            app:layout_constraintTop_toBottomOf="@+id/profile_curse_tests" />
+            app:layout_constraintEnd_toEndOf="@+id/profile_stats_curse"
+            app:layout_constraintStart_toStartOf="@+id/profile_stats_curse"
+            app:layout_constraintTop_toBottomOf="@+id/profile_stats_curse" />
 
     </LinearLayout>
 

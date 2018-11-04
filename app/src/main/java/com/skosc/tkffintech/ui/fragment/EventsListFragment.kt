@@ -47,6 +47,11 @@ class EventsListFragment : TKFFragment() {
             adapter.items = eventsInfo
                     .map { EventCardModel.from(context!!, it) }
             adapter.notifyDataSetChanged()
+            events_refresh.isRefreshing = false
         })
+
+        events_refresh.setOnRefreshListener {
+            vm.update()
+        }
     }
 }
