@@ -38,5 +38,7 @@
     <string name="profile_attribute_facility">Facility</string>
     <string name="profile_attribute_department">Department</string>
     <string name="profile_attribute_wrokplace">Work Place</string>
+    <string name="event_detail_description">Description</string>
+    <string name="event_detail_location">Location</string>
 
 </resources>
