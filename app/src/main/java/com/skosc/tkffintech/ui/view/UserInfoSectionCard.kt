@@ -10,6 +10,8 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import android.widget.TextView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 
 
 class UserInfoSectionCard(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
@@ -41,8 +43,9 @@ class UserInfoSectionCard(context: Context, attributeSet: AttributeSet? = null, 
         useCompatPadding = true
         addView(contentView)
         title.text = localAttrs.getString(R.styleable.UserInfoSectionCard_header_text)
-
         icon.setImageDrawable(localAttrs.getDrawable(R.styleable.UserInfoSectionCard_header_icon))
+        recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        recycler.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
     }
 
 }

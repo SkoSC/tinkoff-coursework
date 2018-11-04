@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,8 +26,7 @@ class ProfileFragment : TKFFragment() {
     val contactInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
             headerText = "Contact Info"
-            iconDrawable = ColorDrawable(R.color.colorAccent)
-            recycler.layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false)
+            iconDrawable = ContextCompat.getDrawable(context, R.drawable.ic_contacts)!!
             recycler.adapter = ProfileAttributeAdapter()
         }
     }
@@ -34,8 +34,7 @@ class ProfileFragment : TKFFragment() {
     val schoolInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
             headerText = "School Info"
-            iconDrawable = ColorDrawable(R.color.colorAccent)
-            recycler.layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false)
+            iconDrawable = ContextCompat.getDrawable(context, R.drawable.ic_education)!!
             recycler.adapter = ProfileAttributeAdapter()
         }
     }
@@ -43,8 +42,7 @@ class ProfileFragment : TKFFragment() {
     val workInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
             headerText = "Work Info"
-            iconDrawable = ColorDrawable(R.color.colorAccent)
-            recycler.layoutManager = LinearLayoutManager(context!!, RecyclerView.VERTICAL, false)
+            iconDrawable = ContextCompat.getDrawable(context, R.drawable.ic_work)!!
             recycler.adapter = ProfileAttributeAdapter()
         }
     }
