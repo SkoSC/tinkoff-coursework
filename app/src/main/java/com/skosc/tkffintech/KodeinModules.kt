@@ -50,7 +50,7 @@ fun daoModule(ctx: Context) = Kodein.Module("dao", false, "tkf") {
     bind<SharedPreferences>("timers") with singleton { ctx.getSharedPreferences("tkf-timers", Context.MODE_PRIVATE) }
 }
 
-val viewModelFactoryModule = Kodein.Module("contentView model", false, "tkf") {
+val viewModelFactoryModule = Kodein.Module("view-model", false, "tkf") {
     bind<LoginViewModelFactory>(LoginViewModel::class) with provider { LoginViewModelFactory(kodein) }
     bind<EventsViewModelFactory>(EventsViewModel::class) with provider { EventsViewModelFactory(kodein) }
     bind<MainActivityViewModelFactory>(MainActivityViewModel::class) with provider { MainActivityViewModelFactory(kodein) }
