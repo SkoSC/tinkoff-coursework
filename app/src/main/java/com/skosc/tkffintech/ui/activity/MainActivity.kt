@@ -29,7 +29,7 @@ class MainActivity : TKFActivity() {
         navController.addOnNavigatedListener { _, destination ->
             when (destination.id) {
                 R.id.navigation_profile -> supportActionBar?.hide()
-                R.id.action_navigation_event_detail -> supportActionBar?.hide()
+                R.id.navigation_event_detail -> supportActionBar?.hide()
                 else -> supportActionBar?.show()
             }
         }

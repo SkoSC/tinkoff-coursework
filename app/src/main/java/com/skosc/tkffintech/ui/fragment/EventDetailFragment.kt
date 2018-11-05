@@ -108,7 +108,7 @@ class EventDetailFragment : TKFFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        event_detail_map.onDestroy()
+        event_detail_map?.let { onDestroy()}
     }
 
     override fun onLowMemory() {

@@ -18,7 +18,7 @@
             app:popExitAnim="@anim/slide_left" />
         <action
             android:id="@+id/action_navigation_event_detail"
-            app:destination="@id/eventDetailFragment"
+            app:destination="@id/navigation_event_detail"
             app:enterAnim="@anim/slide_right"
             app:exitAnim="@anim/slide_left"
             app:popEnterAnim="@anim/slide_right"
@@ -44,14 +44,14 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_navigation_event_detail"
-            app:destination="@id/eventDetailFragment"
+            app:destination="@id/navigation_event_detail"
             app:enterAnim="@anim/slide_right"
             app:exitAnim="@anim/slide_left"
             app:popEnterAnim="@anim/slide_right"
             app:popExitAnim="@anim/slide_left" />
     </fragment>
     <fragment
-        android:id="@+id/eventDetailFragment"
+        android:id="@+id/navigation_event_detail"
         android:name="com.skosc.tkffintech.ui.fragment.EventDetailFragment"
         android:label="fragment_event_detail"
         tools:layout="@layout/fragment_event_detail" >
