@@ -1,26 +1,22 @@
 package com.skosc.tkffintech.ui.fragment
 
 
-import android.annotation.SuppressLint
+import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.model.LatLng
-
-import com.skosc.tkffintech.R
-import kotlinx.android.synthetic.main.fragment_event_detail.*
-import com.google.android.gms.maps.model.MarkerOptions
-import android.location.Geocoder
 import androidx.lifecycle.Observer
-import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
-import java.util.*
-import com.google.android.gms.maps.model.LatLngBounds
-import android.location.Address
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
+import com.skosc.tkffintech.R
 import com.skosc.tkffintech.utils.DateTimeFormatter
+import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
+import kotlinx.android.synthetic.main.fragment_event_detail.*
 
 
 class EventDetailFragment : TKFFragment() {
@@ -108,7 +104,7 @@ class EventDetailFragment : TKFFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        event_detail_map?.let { onDestroy()}
+        event_detail_map?.let { onDestroy() }
     }
 
     override fun onLowMemory() {

@@ -3,7 +3,6 @@ package com.skosc.tkffintech.viewmodel.events
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.model.repo.EventsRepo
-import com.skosc.tkffintech.repoModule
 import com.skosc.tkffintech.utils.observeOnMainThread
 import com.skosc.tkffintech.utils.own
 

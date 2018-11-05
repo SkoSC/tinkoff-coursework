@@ -10,14 +10,12 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.ui.adapter.EventsListRecyclerAdapter
 import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.viewmodel.events.EventsViewModel
 import kotlinx.android.synthetic.main.fragment_events_list.*
-import java.lang.IllegalArgumentException
 
 class EventsListFragment : TKFFragment() {
     companion object {

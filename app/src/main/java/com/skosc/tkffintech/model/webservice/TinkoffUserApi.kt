@@ -6,7 +6,6 @@ import com.skosc.tkffintech.entities.UserInfo
 import io.reactivex.Single
 import retrofit2.Response
 import retrofit2.http.*
-import java.util.*
 
 interface TinkoffUserApi {
     data class UserInfoResponce(

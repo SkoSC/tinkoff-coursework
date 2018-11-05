@@ -9,7 +9,6 @@ import android.util.AttributeSet
 import androidx.cardview.widget.CardView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.utils.dp
-import java.lang.IllegalArgumentException
 
 private const val DEFAULT_SCORE = "0.0"
 
@@ -43,7 +42,6 @@ class ScoreView(context: Context, attributeSet: AttributeSet? = null, defStyleAt
     }
 
     var text: String = localAttrs.getString(R.styleable.ScoreView_score) ?: DEFAULT_SCORE
-        get() = field
         set(value) {
             if (value.length > 3) {
                 throw IllegalArgumentException("Unsupported score value, should be less than 3 characters long")

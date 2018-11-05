@@ -15,8 +15,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:elevation="50dp"
-            android:layout_margin="8dp">
+            android:layout_margin="8dp"
+            android:elevation="50dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -26,10 +26,10 @@
                     android:id="@+id/events_actual_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
-                    android:textColor="@color/text_dark"
+                    android:layout_marginTop="16dp"
                     android:text="@string/events_header_on_going"
+                    android:textColor="@color/text_dark"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -42,9 +42,9 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="@string/events_header_more"
+                    android:textColor="@color/text_link"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="@color/text_link"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -72,8 +72,8 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:elevation="50dp"
-            android:layout_margin="8dp">
+            android:layout_margin="8dp"
+            android:elevation="50dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -83,10 +83,10 @@
                     android:id="@+id/events_archive_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:layout_marginStart="16dp"
-                    android:textColor="@color/text_dark"
+                    android:layout_marginTop="16dp"
                     android:text="@string/events_header_archive"
+                    android:textColor="@color/text_dark"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -99,9 +99,9 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:text="@string/events_header_more"
+                    android:textColor="@color/text_link"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="@color/text_link"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -109,8 +109,8 @@
                     android:id="@+id/events_archive_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginBottom="16dp"
                     android:orientation="vertical"

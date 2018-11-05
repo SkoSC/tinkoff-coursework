@@ -6,6 +6,7 @@ import org.joda.time.DateTime
 
 abstract class EventDetailViewModel : RxViewModel() {
     data class EventDates(val from: DateTime, val to: DateTime)
+
     abstract fun init(hid: Long)
     abstract val title: LiveData<String>
     abstract val description: LiveData<String>

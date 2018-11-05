@@ -1,5 +1,4 @@
 package com.skosc.tkffintech.entities
-import com.skosc.tkffintech.R
 
 object UserInfoAttributes {
     const val FIELD_MOBILE_PHONE = 11

@@ -29,18 +29,19 @@ data class EventInfo(
         @SerializedName("description")
         val description: String = ""
 ) {
-        val hid: Long get() {
-                val titleHash = title.hashCode()
-                val placeHash = place.hashCode()
-                val descriptionHash = description.length.hashCode()
-                val firstPart = cantorPairing(
-                        cantorPairing(titleHash, placeHash), descriptionHash
-                )
+    val hid: Long
+        get() {
+            val titleHash = title.hashCode()
+            val placeHash = place.hashCode()
+            val descriptionHash = description.length.hashCode()
+            val firstPart = cantorPairing(
+                    cantorPairing(titleHash, placeHash), descriptionHash
+            )
 
-                val beginHash = dateBegin.hashCode()
-                val endHash = dateEnd.hashCode()
-                val secondPart = cantorPairing(beginHash, endHash)
+            val beginHash = dateBegin.hashCode()
+            val endHash = dateEnd.hashCode()
+            val secondPart = cantorPairing(beginHash, endHash)
 
-                return cantorPairing(firstPart, secondPart).toLong()
+            return cantorPairing(firstPart, secondPart).toLong()
         }
 }

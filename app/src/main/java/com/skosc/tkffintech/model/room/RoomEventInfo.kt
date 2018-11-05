@@ -3,7 +3,6 @@ package com.skosc.tkffintech.model.room
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.skosc.rtu.utils.cantorPairing
 import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.entities.EventType
 import org.joda.time.DateTime

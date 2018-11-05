@@ -122,10 +122,10 @@
                     android:layout_height="150dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    app:liteMode="true"
                     android:layout_marginBottom="16dp"
                     android:clickable="false"
-                    android:text="@string/placeholder_long" />
+                    android:text="@string/placeholder_long"
+                    app:liteMode="true" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 

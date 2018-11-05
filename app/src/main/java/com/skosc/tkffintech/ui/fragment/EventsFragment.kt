@@ -11,16 +11,13 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.ArchiveEventsRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.OnGoingEventsRecyclerAdapter
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ARCHIVE
-import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ARG_MODE
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ON_GOING
 import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.viewmodel.events.EventsViewModel
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_events.*
 
 class EventsFragment : TKFFragment() {

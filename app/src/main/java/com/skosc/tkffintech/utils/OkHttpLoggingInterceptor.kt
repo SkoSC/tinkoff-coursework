@@ -1,7 +1,6 @@
 package com.skosc.tkffintech.utils
 
 import android.util.Log
-import okhttp3.HttpUrl
 import okhttp3.Interceptor
 import okhttp3.Response
 

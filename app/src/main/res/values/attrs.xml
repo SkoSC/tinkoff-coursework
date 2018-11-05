@@ -7,6 +7,6 @@
 
     <declare-styleable name="ScoreView">
         <attr name="score" />
-        <attr name="color"/>
+        <attr name="color" />
     </declare-styleable>
 </resources>

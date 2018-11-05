@@ -6,14 +6,13 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.UserInfoAttributes
 import com.skosc.tkffintech.entities.UserInfoAttributes.FIELD_MOBILE_PHONE
 import com.skosc.tkffintech.entities.UserInfoAttributes.FIELD_WORKPLACE
-import java.lang.RuntimeException
 
 data class UserInfoAttribute(
         @IntRange(from = FIELD_MOBILE_PHONE.toLong(), to = FIELD_WORKPLACE.toLong()) val field: Int,
         val value: String
 ) {
     companion object {
-        fun from(entry: Map.Entry<Int, String>) : UserInfoAttribute {
+        fun from(entry: Map.Entry<Int, String>): UserInfoAttribute {
             return UserInfoAttribute(entry.key, entry.value)
         }
     }

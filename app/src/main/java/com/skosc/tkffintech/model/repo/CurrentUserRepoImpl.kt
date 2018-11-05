@@ -1,6 +1,5 @@
 package com.skosc.tkffintech.model.repo
 
-import android.util.Log
 import com.google.gson.Gson
 import com.skosc.tkffintech.entities.UserCredentials
 import com.skosc.tkffintech.entities.UserInfo
@@ -9,7 +8,6 @@ import com.skosc.tkffintech.model.webservice.TinkoffError
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import io.reactivex.Single
 import io.reactivex.subjects.BehaviorSubject
-import java.lang.RuntimeException
 
 class CurrentUserRepoImpl(private val userApi: TinkoffUserApi, private val securityDao: SecurityDao, private val gson: Gson) : CurrentUserRepo {
     override fun login(email: String, password: String): Single<Boolean> {

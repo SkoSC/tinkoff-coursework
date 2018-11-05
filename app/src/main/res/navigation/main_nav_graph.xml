@@ -8,7 +8,7 @@
         android:id="@+id/navigation_event"
         android:name="com.skosc.tkffintech.ui.fragment.EventsFragment"
         android:label="fragment_events"
-        tools:layout="@layout/fragment_events" >
+        tools:layout="@layout/fragment_events">
         <action
             android:id="@+id/action_navigation_events_more"
             app:destination="@id/eventsListFragment"
@@ -38,7 +38,7 @@
         android:id="@+id/eventsListFragment"
         android:name="com.skosc.tkffintech.ui.fragment.EventsListFragment"
         android:label="fragment_events_list"
-        tools:layout="@layout/fragment_events_list" >
+        tools:layout="@layout/fragment_events_list">
         <argument
             android:name="mode"
             app:argType="integer" />
@@ -54,7 +54,7 @@
         android:id="@+id/navigation_event_detail"
         android:name="com.skosc.tkffintech.ui.fragment.EventDetailFragment"
         android:label="fragment_event_detail"
-        tools:layout="@layout/fragment_event_detail" >
+        tools:layout="@layout/fragment_event_detail">
         <argument
             android:name="model_hid"
             app:argType="long" />
