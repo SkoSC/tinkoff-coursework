@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -19,6 +20,7 @@ import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ARG_MODE
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ON_GOING
 import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.viewmodel.events.EventsViewModel
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_events.*
 
 class EventsFragment : TKFFragment() {
@@ -72,10 +74,14 @@ class EventsFragment : TKFFragment() {
         })
 
         events_actual_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        events_actual_recycler.adapter = OnGoingEventsRecyclerAdapter {
+        events_actual_recycler.adapter = OnGoingEventsRecyclerAdapter { v, model ->
+            val extras = FragmentNavigator.Extras.Builder()
+                    .addSharedElement(v.findViewById(R.id.event_card_image), "event_card_image_shared")
+                    .build()
+
             navController.navigate(R.id.action_navigation_event_detail, bundleOf(
-                    EventDetailFragment.ARG_MODEL to it
-            ))
+                    EventDetailFragment.ARG_MODEL to model
+            ), null, extras)
         }
 
         events_ongoing_more.setOnClickListener {

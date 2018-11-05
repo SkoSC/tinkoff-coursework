@@ -11,10 +11,18 @@
         tools:layout="@layout/fragment_events" >
         <action
             android:id="@+id/action_navigation_events_more"
-            app:destination="@id/eventsListFragment" />
+            app:destination="@id/eventsListFragment"
+            app:enterAnim="@anim/slide_right"
+            app:exitAnim="@anim/slide_left"
+            app:popEnterAnim="@anim/slide_right"
+            app:popExitAnim="@anim/slide_left" />
         <action
             android:id="@+id/action_navigation_event_detail"
-            app:destination="@id/eventDetailFragment" />
+            app:destination="@id/eventDetailFragment"
+            app:enterAnim="@anim/slide_right"
+            app:exitAnim="@anim/slide_left"
+            app:popEnterAnim="@anim/slide_right"
+            app:popExitAnim="@anim/slide_left" />
     </fragment>
     <fragment
         android:id="@+id/navigation_course"
@@ -36,7 +44,11 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_navigation_event_detail"
-            app:destination="@id/eventDetailFragment" />
+            app:destination="@id/eventDetailFragment"
+            app:enterAnim="@anim/slide_right"
+            app:exitAnim="@anim/slide_left"
+            app:popEnterAnim="@anim/slide_right"
+            app:popExitAnim="@anim/slide_left" />
     </fragment>
     <fragment
         android:id="@+id/eventDetailFragment"

@@ -9,7 +9,7 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.model.EventCardModel
 
 
-class OnGoingEventsRecyclerAdapter(private val onClickCallback: (EventCardModel) -> Unit) : RecyclerView.Adapter<OnGoingEventsRecyclerAdapter.ViewHolder>() {
+class OnGoingEventsRecyclerAdapter(private val onClickCallback: (View, EventCardModel) -> Unit) : RecyclerView.Adapter<OnGoingEventsRecyclerAdapter.ViewHolder>() {
     var items: List<EventCardModel> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -31,12 +31,12 @@ class OnGoingEventsRecyclerAdapter(private val onClickCallback: (EventCardModel)
         private val date by lazy { view.findViewById<TextView>(R.id.event_card_date) }
         private val typeTitle by lazy { view.findViewById<TextView>(R.id.event_card_type_title) }
 
-        fun bind(model: EventCardModel, callback: (EventCardModel) -> Unit) {
+        fun bind(model: EventCardModel, callback: (View, EventCardModel) -> Unit) {
             title.text = model.title
             date.text = model.date
             typeTitle.text = model.typeTitle
             view.setOnClickListener {
-                callback(model)
+                callback(view, model)
             }
         }
     }
