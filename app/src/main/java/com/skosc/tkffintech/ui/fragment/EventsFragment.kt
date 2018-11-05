@@ -15,6 +15,7 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.ArchiveEventsRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.OnGoingEventsRecyclerAdapter
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ARCHIVE
+import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ARG_MODE
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ON_GOING
 import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.viewmodel.events.EventsViewModel
@@ -32,20 +33,12 @@ class EventsFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
-        vm.onGoingEvents.observe(this, Observer { eventsInfo ->
-            val cards = eventsInfo.map { EventCardModel.from(context!!, it) }
-            val adapter = events_actual_recycler.adapter as OnGoingEventsRecyclerAdapter
-            adapter.items = cards
-            adapter.notifyDataSetChanged()
 
-        })
-        events_actual_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        events_actual_recycler.adapter = OnGoingEventsRecyclerAdapter {
-            navController.navigate(R.id.action_navigation_event_detail, bundleOf(
-                    "model" to it
-            ))
-        }
+        setupOnGoingEventsRecycler()
+        setupArchiveEventsRecycler()
+    }
 
+    private fun setupArchiveEventsRecycler() {
         vm.archiveEvents.observe(this, Observer { eventsInfo ->
             val cards = eventsInfo.map { EventCardModel.from(context!!, it) }
             val adapter = events_archive_recycler.adapter as ArchiveEventsRecyclerAdapter
@@ -53,24 +46,42 @@ class EventsFragment : TKFFragment() {
             adapter.notifyDataSetChanged()
 
         })
+
         events_archive_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         events_archive_recycler.adapter = ArchiveEventsRecyclerAdapter {
             navController.navigate(R.id.action_navigation_event_detail, bundleOf(
-                    "model" to it
+                    EventDetailFragment.ARG_MODEL to it
+            ))
+        }
+
+        events_archive_more.setOnClickListener {
+            navController.navigate(
+                    R.id.action_navigation_events_more,
+                    bundleOf(EventsListFragment.ARG_MODE to ARCHIVE)
+            )
+        }
+    }
+
+    private fun setupOnGoingEventsRecycler() {
+        vm.onGoingEvents.observe(this, Observer { eventsInfo ->
+            val cards = eventsInfo.map { EventCardModel.from(context!!, it) }
+            val adapter = events_actual_recycler.adapter as OnGoingEventsRecyclerAdapter
+            adapter.items = cards
+            adapter.notifyDataSetChanged()
+
+        })
+
+        events_actual_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        events_actual_recycler.adapter = OnGoingEventsRecyclerAdapter {
+            navController.navigate(R.id.action_navigation_event_detail, bundleOf(
+                    EventDetailFragment.ARG_MODEL to it
             ))
         }
 
         events_ongoing_more.setOnClickListener {
             navController.navigate(
                     R.id.action_navigation_events_more,
-                    bundleOf("mode" to ON_GOING)
-            )
-        }
-
-        events_archive_more.setOnClickListener {
-            navController.navigate(
-                    R.id.action_navigation_events_more,
-                    bundleOf("mode" to ARCHIVE)
+                    bundleOf(EventsListFragment.ARG_MODE to ON_GOING)
             )
         }
     }

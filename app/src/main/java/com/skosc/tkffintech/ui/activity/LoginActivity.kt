@@ -10,7 +10,6 @@ import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : TKFActivity() {
-
     private val vm by lazy { getViewModel(LoginViewModel::class) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,36 +22,40 @@ class LoginActivity : TKFActivity() {
             vm.login(email, password)
         }
 
-        vm.status.observe(this, Observer { status ->
-            when (status.login) {
-                LoginViewModel.LoginStatus.SUCCESS -> {
-                    startActivity(Intent(this, MainActivity::class.java))
-                }
-                LoginViewModel.LoginStatus.IN_PROGRESS -> {
-                    login_loading_status.visibility = View.VISIBLE
-                    login_btn.text = ""
-                }
-                LoginViewModel.LoginStatus.WAITING -> {
-                    login_loading_status.visibility = View.GONE
-                    login_btn.text = getString(R.string.login_login_btn)
-                }
-                LoginViewModel.LoginStatus.ERROR -> {
-                    login_loading_status.visibility = View.GONE
-                    login_btn.text = getString(R.string.login_login_btn)
-                    showError(status.error?: LoginViewModel.LoginError.UNKNOWN)
-                }
-            }
-        })
+        vm.status.observe(this, Observer(this::showLoginStatus))
     }
 
-    fun showError(error: LoginViewModel.LoginError) {
-        val errText = when(error) {
+    private fun showLoginStatus(status: LoginViewModel.Status) {
+        return when (status.login) {
+            LoginViewModel.LoginStatus.SUCCESS -> {
+                startActivity(
+                        Intent(this, MainActivity::class.java)
+                )
+            }
+            LoginViewModel.LoginStatus.IN_PROGRESS -> {
+                login_loading_status.visibility = View.VISIBLE
+                login_btn.text = ""
+            }
+            LoginViewModel.LoginStatus.WAITING -> {
+                login_loading_status.visibility = View.GONE
+                login_btn.text = getString(R.string.login_login_btn)
+            }
+            LoginViewModel.LoginStatus.ERROR -> {
+                login_loading_status.visibility = View.GONE
+                login_btn.text = getString(R.string.login_login_btn)
+                showError(status.error ?: LoginViewModel.LoginError.UNKNOWN)
+            }
+        }
+    }
+
+    private fun showError(error: LoginViewModel.LoginError) {
+        val errText = when (error) {
             LoginViewModel.LoginError.UNKNOWN -> R.string.login_error_wrong_unknown
             LoginViewModel.LoginError.WRONG_CREDENTIALS -> R.string.login_error_wrong_credentials
         }
 
         AlertDialog.Builder(this)
-                .setTitle("Login Failed")
+                .setTitle(R.string.login_error_title)
                 .setMessage(errText)
                 .create()
                 .show()

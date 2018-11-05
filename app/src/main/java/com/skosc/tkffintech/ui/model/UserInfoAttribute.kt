@@ -12,6 +12,12 @@ data class UserInfoAttribute(
         @IntRange(from = FIELD_MOBILE_PHONE.toLong(), to = FIELD_WORKPLACE.toLong()) val field: Int,
         val value: String
 ) {
+    companion object {
+        fun from(entry: Map.Entry<Int, String>) : UserInfoAttribute {
+            return UserInfoAttribute(entry.key, entry.value)
+        }
+    }
+
     @StringRes
     val fieldName: Int = when (field) {
         UserInfoAttributes.FIELD_MOBILE_PHONE -> R.string.profile_attribute_mobile_phone

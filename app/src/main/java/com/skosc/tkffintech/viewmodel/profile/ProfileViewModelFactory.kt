@@ -2,7 +2,6 @@ package com.skosc.tkffintech.viewmodel.profile
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.skosc.tkffintech.viewmodel.login.LoginViewModelDemoImpl
 import org.kodein.di.Kodein
 import org.kodein.di.direct
 import org.kodein.di.generic.instance

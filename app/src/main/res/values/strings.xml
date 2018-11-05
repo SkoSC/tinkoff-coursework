@@ -40,5 +40,9 @@
     <string name="profile_attribute_wrokplace">Work Place</string>
     <string name="event_detail_description">Description</string>
     <string name="event_detail_location">Location</string>
+    <string name="login_error_title">Login Failed</string>
+    <string name="profile_attributes_card_contact">Contact Info</string>
+    <string name="profile_attributes_card_school">School Info</string>
+    <string name="profile_attributes_card_work">Work Info</string>
 
 </resources>

@@ -5,10 +5,10 @@ import com.f2prateek.rx.preferences2.RxSharedPreferences
 import io.reactivex.Single
 
 class SecurityDaoPrefImpl(ctx: Context) : SecurityDao {
-    private val prefernces = ctx.getSharedPreferences("tkf-security", Context.MODE_PRIVATE)
-    private val rxPrefences: RxSharedPreferences = RxSharedPreferences.create(prefernces)
+    private val preferences = ctx.getSharedPreferences("tkf-security", Context.MODE_PRIVATE)
+    private val rxPresences: RxSharedPreferences = RxSharedPreferences.create(preferences)
 
-    private val authCookie = rxPrefences.getString("auth-cookie")
+    private val authCookie = rxPresences.getString("auth-cookie")
 
     override fun getAuthCookie(): Single<String> = Single.fromCallable { authCookie.get() }
 

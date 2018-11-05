@@ -1,20 +1,18 @@
 package com.skosc.tkffintech.ui.fragment
 
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.ProfileAttributeAdapter
 import com.skosc.tkffintech.ui.model.UserInfoAttribute
 import com.skosc.tkffintech.ui.view.UserInfoSectionCard
+import com.skosc.tkffintech.utils.addViews
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.card_profile_stats.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -25,7 +23,7 @@ class ProfileFragment : TKFFragment() {
 
     val contactInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
-            headerText = "Contact Info"
+            headerText = context.getString(R.string.profile_attributes_card_contact)
             iconDrawable = ContextCompat.getDrawable(context, R.drawable.ic_contacts)!!
             recycler.adapter = ProfileAttributeAdapter()
         }
@@ -33,7 +31,7 @@ class ProfileFragment : TKFFragment() {
 
     val schoolInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
-            headerText = "School Info"
+            headerText = context.getString(R.string.profile_attributes_card_school)
             iconDrawable = ContextCompat.getDrawable(context, R.drawable.ic_education)!!
             recycler.adapter = ProfileAttributeAdapter()
         }
@@ -41,7 +39,7 @@ class ProfileFragment : TKFFragment() {
 
     val workInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
-            headerText = "Work Info"
+            headerText = context.getString(R.string.profile_attributes_card_work)
             iconDrawable = ContextCompat.getDrawable(context, R.drawable.ic_work)!!
             recycler.adapter = ProfileAttributeAdapter()
         }
@@ -55,9 +53,7 @@ class ProfileFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
-        profile_info_cards.addView(contactInfoCard)
-        profile_info_cards.addView(schoolInfoCard)
-        profile_info_cards.addView(workInfoCard)
+        profile_info_cards.addViews(contactInfoCard, schoolInfoCard, workInfoCard)
 
         vm.fullName.observe(this, Observer {
             profile_name.text = it
@@ -83,25 +79,17 @@ class ProfileFragment : TKFFragment() {
             profile_quote.text = it
         })
 
-        vm.contactInfo.observe(this, Observer {
-            val entries = it.entries.map { entry -> UserInfoAttribute(entry.key, entry.value) }
-            val adapter = contactInfoCard.recycler.adapter as ProfileAttributeAdapter
-            adapter.items = entries
-            adapter.notifyDataSetChanged()
-        })
+        vm.contactInfo.observe(this, userInfoAttrebutesObserver(contactInfoCard))
+        vm.schoolInfo.observe(this, userInfoAttrebutesObserver(schoolInfoCard))
+        vm.workInfo.observe(this, userInfoAttrebutesObserver(workInfoCard))
+    }
 
-        vm.schoolInfo.observe(this, Observer {
-            val entries = it.entries.map { entry -> UserInfoAttribute(entry.key, entry.value) }
-            val adapter = schoolInfoCard.recycler.adapter as ProfileAttributeAdapter
+    private fun userInfoAttrebutesObserver(card: UserInfoSectionCard): Observer<Map<Int, String>> {
+        return Observer {
+            val entries = it.entries.map(UserInfoAttribute.Companion::from)
+            val adapter = card.recycler.adapter as ProfileAttributeAdapter
             adapter.items = entries
             adapter.notifyDataSetChanged()
-        })
-
-        vm.workInfo.observe(this, Observer {
-            val entries = it.entries.map { entry -> UserInfoAttribute(entry.key, entry.value) }
-            val adapter = workInfoCard.recycler.adapter as ProfileAttributeAdapter
-            adapter.items = entries
-            adapter.notifyDataSetChanged()
-        })
+        }
     }
 }

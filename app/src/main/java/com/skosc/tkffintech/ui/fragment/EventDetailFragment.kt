@@ -18,9 +18,10 @@ import android.location.Geocoder
 import java.util.*
 
 
-private const val ARG_MODEL = "model"
-
 class EventDetailFragment : Fragment() {
+    companion object {
+        const val ARG_MODEL = "model"
+    }
     private lateinit var model: EventCardModel
 
     override fun onCreate(savedInstanceState: Bundle?) {

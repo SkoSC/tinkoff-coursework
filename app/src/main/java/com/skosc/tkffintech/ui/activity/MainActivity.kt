@@ -20,13 +20,16 @@ class MainActivity : TKFActivity() {
         setContentView(R.layout.activity_main)
 
         NavigationUI.setupWithNavController(navigation, navController)
+
         vm.isLoggedIn.observe(this, Observer {
+            // TODO Add actual check
             //if (!it) startActivity(Intent(this, LoginActivity::class.java))
         })
 
-        navController.addOnNavigatedListener { controller, destination ->
+        navController.addOnNavigatedListener { _, destination ->
             when (destination.id) {
                 R.id.navigation_profile -> supportActionBar?.hide()
+                R.id.action_navigation_event_detail -> supportActionBar?.hide()
                 else -> supportActionBar?.show()
             }
         }
