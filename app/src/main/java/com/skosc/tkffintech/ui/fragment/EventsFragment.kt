@@ -52,7 +52,7 @@ class EventsFragment : TKFFragment() {
         events_archive_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         events_archive_recycler.adapter = ArchiveEventsRecyclerAdapter {
             navController.navigate(R.id.action_navigation_event_detail, bundleOf(
-                    EventDetailFragment.ARG_MODEL to it
+                    EventDetailFragment.ARG_MODEL to it.hid
             ))
         }
 
@@ -80,7 +80,7 @@ class EventsFragment : TKFFragment() {
                     .build()
 
             navController.navigate(R.id.action_navigation_event_detail, bundleOf(
-                    EventDetailFragment.ARG_MODEL to model
+                    EventDetailFragment.ARG_MODEL to model.hid
             ), null, extras)
         }
 

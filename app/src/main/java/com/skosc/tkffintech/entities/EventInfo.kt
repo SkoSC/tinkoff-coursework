@@ -1,6 +1,7 @@
 package com.skosc.tkffintech.entities
 
 import com.google.gson.annotations.SerializedName
+import com.skosc.rtu.utils.cantorPairing
 import org.joda.time.DateTime
 
 data class EventInfo(
@@ -27,4 +28,19 @@ data class EventInfo(
 
         @SerializedName("description")
         val description: String = ""
-)
+) {
+        val hid: Long get() {
+                val titleHash = title.hashCode()
+                val placeHash = place.hashCode()
+                val descriptionHash = description.length.hashCode()
+                val firstPart = cantorPairing(
+                        cantorPairing(titleHash, placeHash), descriptionHash
+                )
+
+                val beginHash = dateBegin.hashCode()
+                val endHash = dateEnd.hashCode()
+                val secondPart = cantorPairing(beginHash, endHash)
+
+                return cantorPairing(firstPart, secondPart).toLong()
+        }
+}

@@ -8,4 +8,5 @@ interface EventsRepo {
     fun forceRefresh()
     fun getOnGoingEvents(): Single<List<EventInfo>>
     fun getArchiveEvents(): Single<List<EventInfo>>
+    fun findEventByHid(hid: Long): Single<EventInfo>
 }

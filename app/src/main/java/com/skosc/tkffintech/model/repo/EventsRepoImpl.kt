@@ -7,6 +7,7 @@ import com.skosc.tkffintech.model.room.EventInfoDao
 import com.skosc.tkffintech.model.room.RoomEventInfo
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.utils.mapEach
+import com.skosc.tkffintech.utils.subscribeOnIoThread
 import io.reactivex.Single
 import org.joda.time.DateTime
 
@@ -45,5 +46,11 @@ class EventsRepoImpl(private val api: TinkoffEventsApi, private val dao: EventIn
         return dao.getArchiveEventInfo().first(listOf()).mapEach {
             it.convert()
         }
+    }
+
+    override fun findEventByHid(hid: Long): Single<EventInfo> {
+        return dao.searchForEventWithId(hid)
+                .map(RoomEventInfo::convert)
+                .firstOrError()
     }
 }

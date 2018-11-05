@@ -21,6 +21,12 @@ interface EventInfoDao {
     @Query("DELETE FROM `event_info`")
     fun deleteAll()
 
+    @Query("SELECT * FROM `event_info` WHERE `id` == :hid")
+    fun searchForEventWithId(hid: Long): Observable<RoomEventInfo>
+
+    @Query("SELECT * FROM `event_info` WHERE `id` == :hid")
+    fun searchForEventWithIdSync(hid: Long): RoomEventInfo
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(infos: List<RoomEventInfo>)
 }

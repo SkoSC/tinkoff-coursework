@@ -17,6 +17,8 @@ import com.skosc.tkffintech.model.room.TKFRoomDatabase
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
+import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
+import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModelFactory
 import com.skosc.tkffintech.viewmodel.events.*
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import com.skosc.tkffintech.viewmodel.login.LoginViewModelFactory
@@ -26,14 +28,11 @@ import com.skosc.tkffintech.viewmodel.profile.ProfileViewModelImpl
 import okhttp3.OkHttpClient
 import org.joda.time.DateTime
 import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.internal.JavaNetCookieJar
+import org.kodein.di.generic.*
 import java.net.CookieManager
 import java.net.CookiePolicy
 
@@ -55,6 +54,7 @@ val viewModelFactoryModule = Kodein.Module("view-model", false, "tkf") {
     bind<EventsViewModelFactory>(EventsViewModel::class) with provider { EventsViewModelFactory(kodein) }
     bind<MainActivityViewModelFactory>(MainActivityViewModel::class) with provider { MainActivityViewModelFactory(kodein) }
     bind<ProfileViewModelFactory>(ProfileViewModel::class) with provider { ProfileViewModelFactory(kodein) }
+    bind<EventDetailViewModelFactory>(EventDetailViewModel::class) with provider { EventDetailViewModelFactory(kodein) }
 }
 
 val retrofitModule = Kodein.Module("retrofit", false, "tkf") {

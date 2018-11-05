@@ -55,6 +55,8 @@
         android:name="com.skosc.tkffintech.ui.fragment.EventDetailFragment"
         android:label="fragment_event_detail"
         tools:layout="@layout/fragment_event_detail" >
-        <argument android:name="model" />
+        <argument
+            android:name="model_hid"
+            app:argType="long" />
     </fragment>
 </navigation>

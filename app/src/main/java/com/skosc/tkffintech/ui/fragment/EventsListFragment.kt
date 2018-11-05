@@ -60,7 +60,7 @@ class EventsListFragment : TKFFragment() {
         events_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         events_recycler.adapter = EventsListRecyclerAdapter(recyclerMode) {
             navController.navigate(R.id.action_navigation_event_detail, bundleOf(
-                    EventDetailFragment.ARG_MODEL to it
+                    EventDetailFragment.ARG_MODEL to it.hid
             ))
         }
 

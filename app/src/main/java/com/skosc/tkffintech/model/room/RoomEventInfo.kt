@@ -46,7 +46,7 @@ class RoomEventInfo(
     companion object {
         fun from(event: EventInfo, isActive: Boolean): RoomEventInfo {
             return RoomEventInfo(
-                    id = makeId(event),
+                    id = event.hid,
                     title = event.title,
                     dateBegin = event.dateBegin,
                     dateEnd = event.dateEnd,
@@ -58,21 +58,6 @@ class RoomEventInfo(
                     description = event.description,
                     isActive = isActive
             )
-        }
-
-        private fun makeId(event: EventInfo): Long {
-            val titleHash = event.title.hashCode()
-            val placeHash = event.place.hashCode()
-            val descriptionHash = event.description.length.hashCode()
-            val firstPart = cantorPairing(
-                    cantorPairing(titleHash, placeHash), descriptionHash
-            ).toLong()
-
-            val beginHash = event.dateBegin.hashCode()
-            val endHash = event.dateEnd.hashCode()
-            val secondPart = cantorPairing(beginHash, endHash)
-
-            return firstPart
         }
     }
 
