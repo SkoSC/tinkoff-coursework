@@ -11,7 +11,7 @@
         tools:layout="@layout/fragment_events">
         <action
             android:id="@+id/action_navigation_events_more"
-            app:destination="@id/eventsListFragment"
+            app:destination="@id/navigation_event_list"
             app:enterAnim="@anim/slide_right"
             app:exitAnim="@anim/slide_left"
             app:popEnterAnim="@anim/slide_right"
@@ -35,7 +35,7 @@
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
-        android:id="@+id/eventsListFragment"
+        android:id="@+id/navigation_event_list"
         android:name="com.skosc.tkffintech.ui.fragment.EventsListFragment"
         android:label="fragment_events_list"
         tools:layout="@layout/fragment_events_list">

@@ -44,5 +44,6 @@
     <string name="profile_attributes_card_contact">Contact Info</string>
     <string name="profile_attributes_card_school">School Info</string>
     <string name="profile_attributes_card_work">Work Info</string>
+    <string name="options_search">Search</string>
 
 </resources>
