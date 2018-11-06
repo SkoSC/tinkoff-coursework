@@ -13,4 +13,11 @@
     <color name="login_activity_button_background">#ffdd2d</color>
     <color name="login_activity_button_background_ripple">#B5000000</color>
     <color name="card_sep_color">#5F5F5F</color>
+
+    <!-- Event chips -->
+    <color name="event_chip_default">@color/event_chip_purple</color>
+    <color name="event_chip_purple">#b1a5ee</color>
+    <color name="event_chip_green">#6cd6a2</color>
+    <color name="event_chip_red">#f79696</color>
+    <color name="event_chip_blue">#72c2ff</color>
 </resources>
