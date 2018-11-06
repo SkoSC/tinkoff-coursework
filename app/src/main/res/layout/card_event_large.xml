@@ -16,7 +16,8 @@
             android:id="@+id/event_card_image"
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:src="@color/colorAccent"
+            android:src="@drawable/bg_fancy"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -28,7 +29,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/bcg_rect_round"
-            android:backgroundTint="#0000FF"
+            android:backgroundTint="@color/event_chip_default"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:text="@string/placeholder_2x"

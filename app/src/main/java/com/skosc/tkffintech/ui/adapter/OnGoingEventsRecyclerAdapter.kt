@@ -1,9 +1,11 @@
 package com.skosc.tkffintech.ui.adapter
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.model.EventCardModel
@@ -34,7 +36,14 @@ class OnGoingEventsRecyclerAdapter(private val onClickCallback: (View, EventCard
         fun bind(model: EventCardModel, callback: (View, EventCardModel) -> Unit) {
             title.text = model.title
             date.text = model.date
-            typeTitle.text = model.typeTitle
+            if (model.typeTitle.isEmpty()) {
+                typeTitle.text = view.resources.getString(R.string.event_type_unknown)
+            } else {
+                typeTitle.text = model.typeTitle
+            }
+            val color = ContextCompat.getColor(view.context, model.typeColor)
+            val colorStateList = ColorStateList.valueOf(color)
+            typeTitle.backgroundTintList = colorStateList
             view.setOnClickListener {
                 callback(view, model)
             }

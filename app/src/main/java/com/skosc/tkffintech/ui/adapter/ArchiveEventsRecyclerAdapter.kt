@@ -3,9 +3,12 @@ package com.skosc.tkffintech.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
+import com.skosc.tkffintech.misc.EventTypeIconFinder
 import com.skosc.tkffintech.ui.model.EventCardModel
 
 
@@ -29,8 +32,11 @@ class ArchiveEventsRecyclerAdapter(private val onClick: (EventCardModel) -> Unit
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val title by lazy { view.findViewById<TextView>(R.id.event_card_title) }
         private val dateAndType by lazy { view.findViewById<TextView>(R.id.event_card_type_and_date) }
+        private val icon by lazy { view.findViewById<ImageView>(R.id.event_card_icon) }
 
         fun bind(model: EventCardModel, callback: (EventCardModel) -> Unit) {
+            val iconId = EventTypeIconFinder.findIconByEventType(model.typeTitle)
+            icon.setImageDrawable(ContextCompat.getDrawable(view.context, iconId))
             title.text = model.title
             dateAndType.text = "%s/%s".format(model.typeTitle, model.date)
             view.setOnClickListener {
