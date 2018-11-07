@@ -1,18 +1,22 @@
 package com.skosc.tkffintech.model.dao
 
-import android.content.Context
-import com.f2prateek.rx.preferences2.RxSharedPreferences
 import io.reactivex.Single
+import java.net.CookieStore
+import java.net.URI
 
-class SecurityDaoPrefImpl(ctx: Context) : SecurityDao {
-    private val preferences = ctx.getSharedPreferences("tkf-security", Context.MODE_PRIVATE)
-    private val rxPresences: RxSharedPreferences = RxSharedPreferences.create(preferences)
+class SecurityDaoPrefImpl(private val cookieStore: CookieStore) : SecurityDao {
+    private val requiredTokens = listOf("csrftoken", "anygen")
 
-    private val authCookie = rxPresences.getString("auth-cookie")
+    override val hasAuthCredentials: Single<Boolean>
+        get() {
+            return Single.fromCallable {
+                val s =cookieStore.get(URI.create("https://fintech.tinkoff.ru/"))
+                        s.map { it.name }
+                        .containsAll(requiredTokens)
+            }
+        }
 
-    override fun getAuthCookie(): Single<String> = Single.fromCallable { authCookie.get() }
-
-    override fun setAuthCookie(cookie: String) {
-        authCookie.set(cookie)
+    override fun clearAuthCredentials() {
+        cookieStore.removeAll()
     }
 }

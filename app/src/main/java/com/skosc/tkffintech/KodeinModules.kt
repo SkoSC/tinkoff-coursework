@@ -2,10 +2,12 @@ package com.skosc.tkffintech
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.skosc.tkffintech.misc.gsonadapter.JodaDateTimeAdapter
+import com.skosc.tkffintech.misc.perscookie.PersistentCookieStore
 import com.skosc.tkffintech.model.dao.SecurityDao
 import com.skosc.tkffintech.model.dao.SecurityDaoPrefImpl
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
@@ -38,8 +40,7 @@ import org.kodein.di.generic.singleton
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.net.CookieManager
-import java.net.CookiePolicy
+import java.net.*
 
 fun roomModule(ctx: Context) = Kodein.Module("room-db", false, "tkf") {
     val db: TKFRoomDatabase = Room.databaseBuilder(ctx, TKFRoomDatabase::class.java, "tkf-default-db")
@@ -50,7 +51,7 @@ fun roomModule(ctx: Context) = Kodein.Module("room-db", false, "tkf") {
 }
 
 fun daoModule(ctx: Context) = Kodein.Module("dao", false, "tkf") {
-    bind<SecurityDao>() with singleton { SecurityDaoPrefImpl(ctx) }
+    bind<SecurityDao>() with singleton { SecurityDaoPrefImpl(instance()) }
     bind<SharedPreferences>("timers") with singleton { ctx.getSharedPreferences("tkf-timers", Context.MODE_PRIVATE) }
 }
 
@@ -62,15 +63,13 @@ val viewModelFactoryModule = Kodein.Module("view-model", false, "tkf") {
     bind<EventDetailViewModelFactory>(EventDetailViewModel::class) with provider { EventDetailViewModelFactory(kodein) }
 }
 
-val retrofitModule = Kodein.Module("retrofit", false, "tkf") {
+fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
     val gson = GsonBuilder()
             .registerTypeAdapter(DateTime::class.java, JodaDateTimeAdapter())
             .create()
 
-    val cookieManager = CookieManager()
-    cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL)
-    val javaNetCookieJar = JavaNetCookieJar(cookieManager)
-
+    val cookieHandler = CookieManager(PersistentCookieStore(ctx), CookiePolicy.ACCEPT_ALL)
+    val javaNetCookieJar = JavaNetCookieJar(cookieHandler)
     val okhttp = OkHttpClient.Builder()
             .cookieJar(javaNetCookieJar)
             .addInterceptor(OkHttpLoggingInterceptor("OkHttp"))
@@ -83,6 +82,7 @@ val retrofitModule = Kodein.Module("retrofit", false, "tkf") {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
+    bind<CookieStore>() with instance(cookieHandler.cookieStore)
     bind<Gson>() with instance(gson)
     bind<OkHttpClient>() with instance(okhttp)
     bind<TinkoffUserApi>() with singleton { retrofit.create(TinkoffUserApi::class.java) }

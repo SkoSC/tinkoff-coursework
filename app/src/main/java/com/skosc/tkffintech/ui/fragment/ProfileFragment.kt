@@ -82,6 +82,9 @@ class ProfileFragment : TKFFragment() {
         vm.contactInfo.observe(this, userInfoAttrebutesObserver(contactInfoCard))
         vm.schoolInfo.observe(this, userInfoAttrebutesObserver(schoolInfoCard))
         vm.workInfo.observe(this, userInfoAttrebutesObserver(workInfoCard))
+        profile_signout_btn.setOnClickListener {
+            vm.signout()
+        }
     }
 
     private fun userInfoAttrebutesObserver(card: UserInfoSectionCard): Observer<Map<Int, String>> {

@@ -23,5 +23,5 @@ interface TinkoffUserApi {
 
     @GET("user")
     @Headers("Content-Type: application/json")
-    fun getCurrentUserInfo(@Header("Cookie") cookies: String): Single<Response<UserInfoResponce>>
+    fun getCurrentUserInfo(): Single<Response<UserInfoResponce>>
 }

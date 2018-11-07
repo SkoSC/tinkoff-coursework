@@ -150,10 +150,11 @@
                     android:text="Edit" />
 
                 <Button
+                    android:id="@+id/profile_signout_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Exit" />
+                    android:text="Sign out" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

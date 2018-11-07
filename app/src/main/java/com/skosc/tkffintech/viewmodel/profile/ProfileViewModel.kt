@@ -14,4 +14,6 @@ abstract class ProfileViewModel : RxViewModel() {
     abstract val contactInfo: LiveData<Map<Int, String>>
     abstract val schoolInfo: LiveData<Map<Int, String>>
     abstract val workInfo: LiveData<Map<Int, String>>
+
+    abstract fun signout()
 }

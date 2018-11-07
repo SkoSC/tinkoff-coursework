@@ -12,7 +12,7 @@ class TKFApplication : Application() {
         importOnce(roomModule(applicationContext))
         importOnce(daoModule(applicationContext))
         importOnce(viewModelFactoryModule)
-        importOnce(retrofitModule)
+        importOnce(webModule(applicationContext))
         importOnce(repoModule)
     }
 
