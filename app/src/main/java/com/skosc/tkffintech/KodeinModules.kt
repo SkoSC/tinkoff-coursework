@@ -2,7 +2,6 @@ package com.skosc.tkffintech
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -10,6 +9,8 @@ import com.skosc.tkffintech.misc.gsonadapter.JodaDateTimeAdapter
 import com.skosc.tkffintech.misc.perscookie.PersistentCookieStore
 import com.skosc.tkffintech.model.dao.SecurityDao
 import com.skosc.tkffintech.model.dao.SecurityDaoPrefImpl
+import com.skosc.tkffintech.model.dao.UserInfoDao
+import com.skosc.tkffintech.model.dao.UserInfoDaoImpl
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.model.repo.CurrentUserRepoImpl
 import com.skosc.tkffintech.model.repo.EventsRepo
@@ -52,7 +53,9 @@ fun roomModule(ctx: Context) = Kodein.Module("room-db", false, "tkf") {
 
 fun daoModule(ctx: Context) = Kodein.Module("dao", false, "tkf") {
     bind<SecurityDao>() with singleton { SecurityDaoPrefImpl(instance()) }
+    bind<UserInfoDao>() with singleton { UserInfoDaoImpl(instance("user-info"), instance()) }
     bind<SharedPreferences>("timers") with singleton { ctx.getSharedPreferences("tkf-timers", Context.MODE_PRIVATE) }
+    bind<SharedPreferences>("user-info") with singleton { ctx.getSharedPreferences("tkf-user-info", Context.MODE_PRIVATE) }
 }
 
 val viewModelFactoryModule = Kodein.Module("view-model", false, "tkf") {
@@ -90,6 +93,6 @@ fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
 }
 
 val repoModule = Kodein.Module("repo", false, "tkf") {
-    bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance()) }
+    bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers")) }
 }

@@ -6,6 +6,7 @@ import com.skosc.tkffintech.viewmodel.RxViewModel
 abstract class ProfileViewModel : RxViewModel() {
     abstract val fullName: LiveData<String>
     abstract val shortInfo: LiveData<String>
+    abstract val avatarUrl: LiveData<String>
     abstract val statsScore: LiveData<Double>
     abstract val statsTests: LiveData<Int>
     abstract val statsCourses: LiveData<Int>
@@ -17,4 +18,5 @@ abstract class ProfileViewModel : RxViewModel() {
 
     abstract fun signout()
     abstract fun refresh()
+    abstract fun forceRefresh()
 }

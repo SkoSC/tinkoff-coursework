@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.ProfileAttributeAdapter
@@ -65,6 +67,13 @@ class ProfileFragment : TKFFragment() {
             profile_info.text = it
         })
 
+        vm.avatarUrl.observe(this, Observer {
+            Glide.with(context!!)
+                    .load(it)
+                    .apply(RequestOptions.fitCenterTransform().circleCrop())
+                    .into(profile_avatar)
+        })
+
         vm.statsScore.observe(this, Observer {
             profile_stats_score.text = it.toString()
         })
@@ -81,20 +90,20 @@ class ProfileFragment : TKFFragment() {
             profile_quote.text = it
         })
 
-        vm.contactInfo.observe(this, userInfoAttrebutesObserver(contactInfoCard))
-        vm.schoolInfo.observe(this, userInfoAttrebutesObserver(schoolInfoCard))
-        vm.workInfo.observe(this, userInfoAttrebutesObserver(workInfoCard))
+        vm.contactInfo.observe(this, userInfoAttributesObserver(contactInfoCard))
+        vm.schoolInfo.observe(this, userInfoAttributesObserver(schoolInfoCard))
+        vm.workInfo.observe(this, userInfoAttributesObserver(workInfoCard))
 
         profile_signout_btn.setOnClickListener {
             vm.signout()
         }
 
         profile_refresh.setOnRefreshListener {
-            vm.refresh()
+            vm.forceRefresh()
         }
     }
 
-    private fun userInfoAttrebutesObserver(card: UserInfoSectionCard): Observer<Map<Int, String>> {
+    private fun userInfoAttributesObserver(card: UserInfoSectionCard): Observer<Map<Int, String>> {
         return Observer {
             val entries = it.entries.map(UserInfoAttribute.Companion::from)
             val adapter = card.recycler.adapter as ProfileAttributeAdapter

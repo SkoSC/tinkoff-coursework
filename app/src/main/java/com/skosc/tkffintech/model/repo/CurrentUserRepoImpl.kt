@@ -4,14 +4,21 @@ import com.google.gson.Gson
 import com.skosc.tkffintech.entities.UserCredentials
 import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.model.dao.SecurityDao
+import com.skosc.tkffintech.model.dao.UserInfoDao
 import com.skosc.tkffintech.model.webservice.TinkoffError
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.utils.own
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
+import java.lang.IllegalStateException
 
-class CurrentUserRepoImpl(private val userApi: TinkoffUserApi, private val securityDao: SecurityDao, private val gson: Gson) : CurrentUserRepo {
+class CurrentUserRepoImpl(
+        private val userApi: TinkoffUserApi,
+        private val securityDao: SecurityDao,
+        private val gson: Gson,
+        private val userInfoDao: UserInfoDao) : CurrentUserRepo {
+
     private val cdisp: CompositeDisposable = CompositeDisposable()
 
     override val isLoggedIn: BehaviorSubject<Boolean> = BehaviorSubject.create()
@@ -24,6 +31,8 @@ class CurrentUserRepoImpl(private val userApi: TinkoffUserApi, private val secur
         val credentials = UserCredentials(email, password)
         return userApi.signIn(credentials).map {
             if (it.isSuccessful) {
+                userInfoDao.saveUserInfo(it.body()
+                        ?: throw IllegalStateException("Login succeeded but server does't returned user data"))
                 cdisp own securityDao.hasAuthCredentials.subscribe(isLoggedIn::onNext)
                 return@map true
             }
@@ -38,8 +47,14 @@ class CurrentUserRepoImpl(private val userApi: TinkoffUserApi, private val secur
 
     override val info: Single<UserInfo>
         get() {
-            return userApi.getCurrentUserInfo().map { it.body()?.body }
+            val webValue = userApi.getCurrentUserInfo().map { it.body()?.body }.doOnSuccess {
+                userInfoDao.saveUserInfo(it!!)
+            }
+            return userInfoDao.userInfo.switchIfEmpty(webValue)
         }
+
+    override fun forceRefreshUserInfo() : Single<UserInfo>
+            = userApi.getCurrentUserInfo().map { it.body()?.body!! }.doOnSuccess { userInfoDao.saveUserInfo(it!!) }!!
 
     // TODO Think how to remove dependency on [TinkoffError]
     private fun parseError(body: String): String {
