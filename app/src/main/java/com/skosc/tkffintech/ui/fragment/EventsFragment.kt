@@ -35,6 +35,9 @@ class EventsFragment : TKFFragment() {
 
         setupOnGoingEventsRecycler()
         setupArchiveEventsRecycler()
+        events_refresh.setOnRefreshListener {
+            vm.update()
+        }
     }
 
     private fun setupArchiveEventsRecycler() {
@@ -63,6 +66,8 @@ class EventsFragment : TKFFragment() {
 
     private fun setupOnGoingEventsRecycler() {
         vm.onGoingEvents.observe(this, Observer { eventsInfo ->
+            // TODO Move refresher hiding from hire
+            events_refresh.isRefreshing = false
             val cards = eventsInfo.map { EventCardModel.from(context!!, it) }
             val adapter = events_actual_recycler.adapter as OnGoingEventsRecyclerAdapter
             adapter.items = cards

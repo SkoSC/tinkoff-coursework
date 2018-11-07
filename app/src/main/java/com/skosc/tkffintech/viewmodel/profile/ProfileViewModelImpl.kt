@@ -20,37 +20,41 @@ class ProfileViewModelImpl(val currentUserRepo: CurrentUserRepo) : ProfileViewMo
 
 
     init {
-        cdisp own currentUserRepo.info
-                .observeOnMainThread()
-                .subscribe { info ->
-            fullName.value = "${info.firstName} ${info.lastName}"
-            shortInfo.value = info.email
-            statsScore.value = 23.4
-            statsTests.value = 7
-            statsCourses.value = 2
-            quote.value = info.description
-
-            contactInfo.value = mapOf(
-                    UserInfoAttributes.FIELD_MOBILE_PHONE to info.phoneMobile,
-                    UserInfoAttributes.FIELD_EMAIL to info.email,
-                    UserInfoAttributes.FIELD_HOME_CITY to info.region
-            )
-
-            schoolInfo.value = mapOf(
-                    UserInfoAttributes.FIELD_SCHOOL to info.school,
-                    UserInfoAttributes.FIELD_SCHOOL_GRADUATION to info.schoolGraduation.toString(),
-                    UserInfoAttributes.FIELD_UNIVERSITY to info.university,
-                    UserInfoAttributes.FIELD_FACILITY to info.faculty,
-                    UserInfoAttributes.FIELD_DEPARTMENT to info.department,
-                    UserInfoAttributes.FIELD_UNIVERSITY_GRADUATION to info.universityGraduation.toString()
-            )
-            workInfo.value = mapOf(
-                    UserInfoAttributes.FIELD_WORKPLACE to info.currentWork
-            )
-        }
+        refresh()
     }
 
     override fun signout() {
         currentUserRepo.signout()
+    }
+
+    override fun refresh() {
+        cdisp own currentUserRepo.info
+                .observeOnMainThread()
+                .subscribe { info ->
+                    fullName.value = "${info.firstName} ${info.lastName}"
+                    shortInfo.value = info.email
+                    statsScore.value = 23.4
+                    statsTests.value = 7
+                    statsCourses.value = 2
+                    quote.value = info.description
+
+                    contactInfo.value = mapOf(
+                            UserInfoAttributes.FIELD_MOBILE_PHONE to info.phoneMobile,
+                            UserInfoAttributes.FIELD_EMAIL to info.email,
+                            UserInfoAttributes.FIELD_HOME_CITY to info.region
+                    )
+
+                    schoolInfo.value = mapOf(
+                            UserInfoAttributes.FIELD_SCHOOL to info.school,
+                            UserInfoAttributes.FIELD_SCHOOL_GRADUATION to info.schoolGraduation.toString(),
+                            UserInfoAttributes.FIELD_UNIVERSITY to info.university,
+                            UserInfoAttributes.FIELD_FACILITY to info.faculty,
+                            UserInfoAttributes.FIELD_DEPARTMENT to info.department,
+                            UserInfoAttributes.FIELD_UNIVERSITY_GRADUATION to info.universityGraduation.toString()
+                    )
+                    workInfo.value = mapOf(
+                            UserInfoAttributes.FIELD_WORKPLACE to info.currentWork
+                    )
+                }
     }
 }

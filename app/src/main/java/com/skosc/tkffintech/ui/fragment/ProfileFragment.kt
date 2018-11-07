@@ -57,6 +57,8 @@ class ProfileFragment : TKFFragment() {
 
         vm.fullName.observe(this, Observer {
             profile_name.text = it
+            // TODO Move refresher hiding from hire
+            profile_refresh.isRefreshing = false
         })
 
         vm.shortInfo.observe(this, Observer {
@@ -82,8 +84,13 @@ class ProfileFragment : TKFFragment() {
         vm.contactInfo.observe(this, userInfoAttrebutesObserver(contactInfoCard))
         vm.schoolInfo.observe(this, userInfoAttrebutesObserver(schoolInfoCard))
         vm.workInfo.observe(this, userInfoAttrebutesObserver(workInfoCard))
+
         profile_signout_btn.setOnClickListener {
             vm.signout()
+        }
+
+        profile_refresh.setOnRefreshListener {
+            vm.refresh()
         }
     }
 

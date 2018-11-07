@@ -16,4 +16,5 @@ abstract class ProfileViewModel : RxViewModel() {
     abstract val workInfo: LiveData<Map<Int, String>>
 
     abstract fun signout()
+    abstract fun refresh()
 }
