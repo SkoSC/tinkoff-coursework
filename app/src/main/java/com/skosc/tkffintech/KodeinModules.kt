@@ -22,14 +22,9 @@ import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.service.NetworkInfoService
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
-import com.skosc.tkffintech.utils.SQLSearchQueryMaker
-import com.skosc.tkffintech.utils.SearchQueryMaker
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModelFactory
-import com.skosc.tkffintech.viewmodel.events.EventsViewModel
-import com.skosc.tkffintech.viewmodel.events.EventsViewModelFactory
-import com.skosc.tkffintech.viewmodel.events.MainActivityViewModel
-import com.skosc.tkffintech.viewmodel.events.MainActivityViewModelFactory
+import com.skosc.tkffintech.viewmodel.events.*
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import com.skosc.tkffintech.viewmodel.login.LoginViewModelFactory
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
@@ -38,10 +33,7 @@ import okhttp3.OkHttpClient
 import okhttp3.internal.JavaNetCookieJar
 import org.joda.time.DateTime
 import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import org.kodein.di.generic.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -65,10 +57,15 @@ fun daoModule(ctx: Context) = Kodein.Module("dao", false, "tkf") {
 
 val viewModelFactoryModule = Kodein.Module("view-model", false, "tkf") {
     bind<LoginViewModelFactory>(LoginViewModel::class) with provider { LoginViewModelFactory(kodein) }
-    bind<EventsViewModelFactory>(EventsViewModel::class) with provider { EventsViewModelFactory(kodein) }
     bind<MainActivityViewModelFactory>(MainActivityViewModel::class) with provider { MainActivityViewModelFactory(kodein) }
     bind<ProfileViewModelFactory>(ProfileViewModel::class) with provider { ProfileViewModelFactory(kodein) }
     bind<EventDetailViewModelFactory>(EventDetailViewModel::class) with provider { EventDetailViewModelFactory(kodein) }
+    bind<EventsListViewModelOngoingFactory>(EventsListViewModelOngoing::class) with provider {
+        EventsListViewModelOngoingFactory(kodein)
+    }
+    bind<EventsListViewModelArchiveFactory>(EventsListViewModelArchive::class) with provider {
+        EventsListViewModelArchiveFactory(kodein)
+    }
 }
 
 fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {

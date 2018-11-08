@@ -17,13 +17,16 @@ import com.skosc.tkffintech.ui.adapter.OnGoingEventsRecyclerAdapter
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ARCHIVE
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ON_GOING
 import com.skosc.tkffintech.ui.model.EventCardModel
-import com.skosc.tkffintech.viewmodel.events.EventsViewModel
+import com.skosc.tkffintech.viewmodel.events.EventsListViewModel
+import com.skosc.tkffintech.viewmodel.events.EventsListViewModelArchive
+import com.skosc.tkffintech.viewmodel.events.EventsListViewModelOngoing
 import kotlinx.android.synthetic.main.fragment_events.*
 
 class EventsFragment : TKFFragment() {
 
-    val vm by lazy { getViewModel(EventsViewModel::class) }
-    val navController by lazy { findNavController(events_ongoing_more) }
+    private val onGoingVm by lazy { getViewModel(EventsListViewModelOngoing::class) }
+    private val archiveVm by lazy { getViewModel(EventsListViewModelArchive::class) }
+    private val navController by lazy { findNavController(events_ongoing_more) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -36,12 +39,15 @@ class EventsFragment : TKFFragment() {
         setupOnGoingEventsRecycler()
         setupArchiveEventsRecycler()
         events_refresh.setOnRefreshListener {
-            vm.update()
+            onGoingVm.update()
+            archiveVm.update()
         }
     }
 
     private fun setupArchiveEventsRecycler() {
-        vm.archiveEvents.observe(this, Observer { eventsInfo ->
+        archiveVm.events.observe(this, Observer { eventsInfo ->
+            // TODO Move refresher hiding from hire
+            events_refresh.isRefreshing = false
             val cards = eventsInfo.map { EventCardModel.from(context!!, it) }
             val adapter = events_archive_recycler.adapter as ArchiveEventsRecyclerAdapter
             adapter.items = cards
@@ -65,7 +71,7 @@ class EventsFragment : TKFFragment() {
     }
 
     private fun setupOnGoingEventsRecycler() {
-        vm.onGoingEvents.observe(this, Observer { eventsInfo ->
+        onGoingVm.events.observe(this, Observer { eventsInfo ->
             // TODO Move refresher hiding from hire
             events_refresh.isRefreshing = false
             val cards = eventsInfo.map { EventCardModel.from(context!!, it) }

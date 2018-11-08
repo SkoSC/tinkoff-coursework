@@ -16,7 +16,8 @@ import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.ui.adapter.EventsListRecyclerAdapter
 import com.skosc.tkffintech.ui.contracts.SearchViewProvider
 import com.skosc.tkffintech.ui.model.EventCardModel
-import com.skosc.tkffintech.viewmodel.events.EventsViewModel
+import com.skosc.tkffintech.viewmodel.events.EventsListViewModelArchive
+import com.skosc.tkffintech.viewmodel.events.EventsListViewModelOngoing
 import kotlinx.android.synthetic.main.fragment_events_list.*
 
 class EventsListFragment : TKFFragment() {
@@ -28,7 +29,14 @@ class EventsListFragment : TKFFragment() {
 
     private val searchView: SearchView by lazy { (activity as SearchViewProvider).searchView }
     private val navController by lazy { Navigation.findNavController(events_refresh) }
-    private val vm by lazy { getViewModel(EventsViewModel::class) }
+    private val vm by lazy {
+        val cls = when (recyclerMode) {
+            ON_GOING -> EventsListViewModelOngoing::class
+            ARCHIVE -> EventsListViewModelArchive::class
+            else -> throw IllegalArgumentException("Unsupported mode")
+        }
+        getViewModel(cls)
+    }
 
     private var recyclerMode = ON_GOING
 
@@ -48,21 +56,11 @@ class EventsListFragment : TKFFragment() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                val fn = when (recyclerMode) {
-                    ON_GOING -> vm::searchOnGoingEvents
-                    ARCHIVE -> vm::searchArchiveEvents
-                    else -> throw IllegalArgumentException("Unsupported mode")
-                }
-                fn(newText ?: "").observe(this@EventsListFragment, Observer {
-                    val adapter = events_recycler.adapter as EventsListRecyclerAdapter
-                    adapter.items = it.map { EventCardModel.from(context!!, it) }
-                    adapter.notifyDataSetChanged()
-                })
+                vm.searchEvents(newText ?: "")
                 return true
             }
         })
@@ -74,7 +72,7 @@ class EventsListFragment : TKFFragment() {
             vm.update()
         }
 
-        getEvents().observe(this, Observer {
+        vm.events.observe(this, Observer {
             events_refresh.isRefreshing = false
         })
     }
@@ -87,20 +85,11 @@ class EventsListFragment : TKFFragment() {
             ))
         }
 
-        getEvents().observe(this, Observer { eventsInfo ->
+        vm.events.observe(this, Observer { eventsInfo ->
             val adapter = events_recycler.adapter as EventsListRecyclerAdapter
             adapter.items = eventsInfo
                     .map { EventCardModel.from(context!!, it) }
             adapter.notifyDataSetChanged()
         })
-    }
-
-    private fun getEvents(): LiveData<List<EventInfo>> {
-        val events = when (recyclerMode) {
-            ON_GOING -> vm.onGoingEvents
-            ARCHIVE -> vm.archiveEvents
-            else -> throw IllegalArgumentException("Unsupported mode")
-        }
-        return events
     }
 }
