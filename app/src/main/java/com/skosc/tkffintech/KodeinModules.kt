@@ -22,6 +22,8 @@ import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.service.NetworkInfoService
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
+import com.skosc.tkffintech.utils.SQLSearchQueryMaker
+import com.skosc.tkffintech.utils.SearchQueryMaker
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModelFactory
 import com.skosc.tkffintech.viewmodel.events.EventsViewModel

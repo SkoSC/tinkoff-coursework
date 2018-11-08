@@ -4,15 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.skosc.tkffintech.R
+import com.skosc.tkffintech.ui.contracts.SearchViewProvider
 import com.skosc.tkffintech.viewmodel.events.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : TKFActivity() {
+class MainActivity : TKFActivity(), SearchViewProvider {
     companion object {
         private const val UNKNOWN_DESTINATION = 0
     }
@@ -20,6 +22,13 @@ class MainActivity : TKFActivity() {
     val navController by lazy { findNavController(nav_host_fragment) }
     val vm by lazy { getViewModel(MainActivityViewModel::class) }
     private var searchMenuItem: MenuItem? = null
+
+    // TODO Should i really check for nullability?
+    override val searchView: SearchView
+        get() {
+            val actionView = searchMenuItem?.actionView
+            return actionView as SearchView
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +54,7 @@ class MainActivity : TKFActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.options_menu, menu)
-        searchMenuItem = menu?.getItem(0)
+        searchMenuItem = menu?.findItem(R.id.app_bar_search)
         updateSearchBarVisibility()
         return true
     }

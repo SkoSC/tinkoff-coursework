@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.ui.adapter.EventsListRecyclerAdapter
+import com.skosc.tkffintech.ui.contracts.SearchViewProvider
 import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.viewmodel.events.EventsViewModel
 import kotlinx.android.synthetic.main.fragment_events_list.*
@@ -24,6 +26,7 @@ class EventsListFragment : TKFFragment() {
         const val ARG_MODE = "mode"
     }
 
+    private val searchView: SearchView by lazy { (activity as SearchViewProvider).searchView }
     private val navController by lazy { Navigation.findNavController(events_refresh) }
     private val vm by lazy { getViewModel(EventsViewModel::class) }
 
@@ -42,6 +45,28 @@ class EventsListFragment : TKFFragment() {
 
         setupEventsRecycler()
         setupRefreshView()
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val fn = when (recyclerMode) {
+                    ON_GOING -> vm::searchOnGoingEvents
+                    ARCHIVE -> vm::searchArchiveEvents
+                    else -> throw IllegalArgumentException("Unsupported mode")
+                }
+                fn(newText ?: "").observe(this@EventsListFragment, Observer {
+                    val adapter = events_recycler.adapter as EventsListRecyclerAdapter
+                    adapter.items = it.map { EventCardModel.from(context!!, it) }
+                    adapter.notifyDataSetChanged()
+                })
+                return true
+            }
+        })
+
     }
 
     private fun setupRefreshView() {

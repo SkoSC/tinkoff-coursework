@@ -29,4 +29,7 @@ interface EventInfoDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(infos: List<RoomEventInfo>)
+
+    @Query("SELECT * FROM `event_info` WHERE `title` LIKE :query AND `is_active` == :isActive")
+    fun search(query: String, isActive: Boolean): Observable<List<RoomEventInfo>>
 }

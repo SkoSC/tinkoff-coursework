@@ -7,6 +7,8 @@ import com.skosc.tkffintech.model.room.EventInfoDao
 import com.skosc.tkffintech.model.room.RoomEventInfo
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.service.NetworkInfoService
+import com.skosc.tkffintech.utils.SQLSearchQueryMaker
+import com.skosc.tkffintech.utils.SearchQueryMaker
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.joda.time.DateTime
@@ -18,6 +20,8 @@ class EventsRepoImpl(
         private val timerSharedPreferences: SharedPreferences,
         private val networknfo: NetworkInfoService
 ) : EventsRepo {
+    private val queryMaker: SearchQueryMaker = SQLSearchQueryMaker()
+
     private val rxSharedPreferences = RxSharedPreferences.create(timerSharedPreferences)
     private val lastUpdatedPref = rxSharedPreferences.getLong("timer-event-info-update", 0)
 
@@ -42,6 +46,11 @@ class EventsRepoImpl(
             dao.insertAll(active + archive)
             lastUpdatedPref.set(DateTime.now().millis)
         }
+    }
+
+    override fun searchEvents(query: String, isOnGoing: Boolean, mode: SearchQueryMaker.Mode): Single<List<EventInfo>> {
+        val sqlQuery = queryMaker.from(query, mode)
+        return dao.search(sqlQuery, isOnGoing).first(listOf()).map { it.map { it.convert() } }
     }
 
     override val onGoingEvents: Observable<List<EventInfo>> by lazy {
