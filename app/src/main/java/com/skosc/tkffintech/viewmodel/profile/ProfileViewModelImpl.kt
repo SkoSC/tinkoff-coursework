@@ -7,6 +7,7 @@ import com.skosc.tkffintech.entities.UserInfoAttributes
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.utils.observeOnMainThread
 import com.skosc.tkffintech.utils.own
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 class ProfileViewModelImpl(val currentUserRepo: CurrentUserRepo) : ProfileViewModel() {
     override val fullName: MutableLiveData<String> = MutableLiveData()
@@ -51,23 +52,17 @@ class ProfileViewModelImpl(val currentUserRepo: CurrentUserRepo) : ProfileViewMo
 
 
     init {
-        refresh()
+        cdisp own currentUserRepo.infoRx
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bindUserInfoToLiveData)
     }
 
     override fun signout() {
         currentUserRepo.signout()
     }
 
-    override fun refresh() {
-        cdisp own currentUserRepo.info
-                .observeOnMainThread()
-                .subscribe(bindUserInfoToLiveData, {})
-    }
-
-    override fun forceRefresh() {
-        cdisp own currentUserRepo.forceRefreshUserInfo()
-                .observeOnMainThread()
-                .subscribe(bindUserInfoToLiveData, {})
+    override fun update() {
+        currentUserRepo.forceRefreshUserInfo()
     }
 
 

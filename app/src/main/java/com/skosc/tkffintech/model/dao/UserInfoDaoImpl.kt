@@ -6,6 +6,8 @@ import com.google.gson.Gson
 import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.model.entity.ExpirationTimer
 import io.reactivex.Maybe
+import io.reactivex.Observable
+import io.reactivex.subjects.BehaviorSubject
 import org.joda.time.DateTime
 
 class UserInfoDaoImpl(sp: SharedPreferences, private val gson: Gson) : UserInfoDao {
@@ -29,10 +31,18 @@ class UserInfoDaoImpl(sp: SharedPreferences, private val gson: Gson) : UserInfoD
                     gson.fromJson(json, UserInfo::class.java)
                 }
 
+    override val rxUserInfo: BehaviorSubject<UserInfo> by lazy {
+        val bh = BehaviorSubject.create<UserInfo>()
+        bh.onNext(userInfoJsonPref.get().let { gson.fromJson(it, UserInfo::class.java) })
+        return@lazy bh
+    }
+
     // TODO Make async
     override fun saveUserInfo(info: UserInfo) {
         userInfoCacheExpiration.rewind(DateTime.now().plusSeconds(CACHE_TIME_SECONDS))
         val json = gson.toJson(info)
         userInfoJsonPref.set(json)
+        rxUserInfo.onNext(info)
+
     }
 }

@@ -9,6 +9,6 @@ interface CurrentUserRepo {
     fun login(email: String, password: String): Single<Boolean>
     fun signout()
     val isLoggedIn: Observable<Boolean>
-    val info: Single<UserInfo>
-    fun forceRefreshUserInfo() : Single<UserInfo>
+    val infoRx: Observable<UserInfo>
+    fun forceRefreshUserInfo()
 }

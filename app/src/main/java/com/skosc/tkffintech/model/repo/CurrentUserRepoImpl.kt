@@ -8,10 +8,10 @@ import com.skosc.tkffintech.model.dao.UserInfoDao
 import com.skosc.tkffintech.model.webservice.TinkoffError
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.utils.own
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
-import java.lang.IllegalStateException
 
 class CurrentUserRepoImpl(
         private val userApi: TinkoffUserApi,
@@ -45,16 +45,15 @@ class CurrentUserRepoImpl(
         cdisp own securityDao.hasAuthCredentials.subscribe(isLoggedIn::onNext)
     }
 
-    override val info: Single<UserInfo>
-        get() {
-            val webValue = userApi.getCurrentUserInfo().map { it.body()?.body }.doOnSuccess {
-                userInfoDao.saveUserInfo(it!!)
-            }
-            return userInfoDao.userInfo.switchIfEmpty(webValue)
-        }
+    override val infoRx: Observable<UserInfo> by lazy {
+        userInfoDao.rxUserInfo
+    }
 
-    override fun forceRefreshUserInfo() : Single<UserInfo>
-            = userApi.getCurrentUserInfo().map { it.body()?.body!! }.doOnSuccess { userInfoDao.saveUserInfo(it!!) }!!
+    override fun forceRefreshUserInfo() {
+        userApi.getCurrentUserInfo()
+                .map { it.body()?.body!! }
+                .subscribe { model -> userInfoDao.saveUserInfo(model!!) }
+    }
 
     // TODO Think how to remove dependency on [TinkoffError]
     private fun parseError(body: String): String {

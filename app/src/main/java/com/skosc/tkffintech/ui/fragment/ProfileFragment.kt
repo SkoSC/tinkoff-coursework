@@ -99,7 +99,7 @@ class ProfileFragment : TKFFragment() {
         }
 
         profile_refresh.setOnRefreshListener {
-            vm.forceRefresh()
+            vm.update()
         }
     }
 
