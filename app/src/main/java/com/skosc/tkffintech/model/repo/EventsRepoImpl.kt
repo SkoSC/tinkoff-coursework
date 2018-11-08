@@ -7,7 +7,6 @@ import com.skosc.tkffintech.model.room.EventInfoDao
 import com.skosc.tkffintech.model.room.RoomEventInfo
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.service.NetworkInfoService
-import com.skosc.tkffintech.utils.mapEach
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.joda.time.DateTime
@@ -23,8 +22,8 @@ class EventsRepoImpl(
     private val lastUpdatedPref = rxSharedPreferences.getLong("timer-event-info-update", 0)
 
     override fun refresh() {
-        Single.create<Long> { lastUpdatedPref.get() }
-                .filter { lastUpdated -> lastUpdated > DateTime.now().minusHours(1).millis }
+        Single.fromCallable { lastUpdatedPref.get() }
+                .filter { lastUpdated -> lastUpdated < DateTime.now().minusHours(1).millis }
                 .filter { networknfo.checkConnection() }
                 .subscribe {
                     tryForceRefresh()
@@ -46,16 +45,20 @@ class EventsRepoImpl(
     }
 
     override val onGoingEvents: Observable<List<EventInfo>> by lazy {
-        dao.getActiveEventInfo().map { it.map { it.convert() } }
+        dao.getActiveEventInfo().convertToBusinessModel()
     }
 
     override val archiveEvents: Observable<List<EventInfo>> by lazy {
-        dao.getArchiveEventInfo().map { it.map { it.convert() } }
+        dao.getArchiveEventInfo().convertToBusinessModel()
     }
-
+    
     override fun findEventByHid(hid: Long): Single<EventInfo> {
         return dao.searchForEventWithId(hid)
                 .map(RoomEventInfo::convert)
                 .firstOrError()
+    }
+    
+    private fun Observable<List<RoomEventInfo>>.convertToBusinessModel(): Observable<List<EventInfo>> {
+        return map { eventList -> eventList.map { event -> event.convert() } }
     }
 }
