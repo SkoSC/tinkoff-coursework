@@ -17,8 +17,10 @@ import com.skosc.tkffintech.model.repo.EventsRepo
 import com.skosc.tkffintech.model.repo.EventsRepoImpl
 import com.skosc.tkffintech.model.room.EventInfoDao
 import com.skosc.tkffintech.model.room.TKFRoomDatabase
+import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
+import com.skosc.tkffintech.service.NetworkInfoService
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModelFactory
@@ -56,6 +58,7 @@ fun daoModule(ctx: Context) = Kodein.Module("dao", false, "tkf") {
     bind<UserInfoDao>() with singleton { UserInfoDaoImpl(instance("user-info"), instance()) }
     bind<SharedPreferences>("timers") with singleton { ctx.getSharedPreferences("tkf-timers", Context.MODE_PRIVATE) }
     bind<SharedPreferences>("user-info") with singleton { ctx.getSharedPreferences("tkf-user-info", Context.MODE_PRIVATE) }
+    bind<NetworkInfoService>() with singleton { NetworkInfoService(ctx) }
 }
 
 val viewModelFactoryModule = Kodein.Module("view-model", false, "tkf") {
@@ -90,9 +93,10 @@ fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
     bind<OkHttpClient>() with instance(okhttp)
     bind<TinkoffUserApi>() with singleton { retrofit.create(TinkoffUserApi::class.java) }
     bind<TinkoffEventsApi>() with singleton { retrofit.create(TinkoffEventsApi::class.java) }
+    bind<TinkoffCursesApi>() with singleton { retrofit.create(TinkoffCursesApi::class.java) }
 }
 
 val repoModule = Kodein.Module("repo", false, "tkf") {
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
-    bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers")) }
+    bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
 }

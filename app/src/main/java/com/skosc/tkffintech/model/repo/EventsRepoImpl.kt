@@ -6,24 +6,36 @@ import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.model.room.EventInfoDao
 import com.skosc.tkffintech.model.room.RoomEventInfo
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
+import com.skosc.tkffintech.service.NetworkInfoService
 import com.skosc.tkffintech.utils.mapEach
+import io.reactivex.Observable
 import io.reactivex.Single
 import org.joda.time.DateTime
+import java.lang.IllegalStateException
 
-class EventsRepoImpl(private val api: TinkoffEventsApi, private val dao: EventInfoDao, private val timerSharedPreferences: SharedPreferences) : EventsRepo {
+class EventsRepoImpl(
+        private val api: TinkoffEventsApi,
+        private val dao: EventInfoDao,
+        private val timerSharedPreferences: SharedPreferences,
+        private val networknfo: NetworkInfoService
+) : EventsRepo {
     private val rxSharedPreferences = RxSharedPreferences.create(timerSharedPreferences)
     private val lastUpdatedPref = rxSharedPreferences.getLong("timer-event-info-update", 0)
 
     override fun refresh() {
         Single.create<Long> { lastUpdatedPref.get() }
                 .filter { lastUpdated -> lastUpdated > DateTime.now().minusHours(1).millis }
+                .filter { networknfo.checkConnection() }
                 .subscribe {
-                    forceRefresh()
+                    tryForceRefresh()
                 }
     }
 
-    override fun forceRefresh() {
+    override fun tryForceRefresh() {
         api.getAllEvents().subscribe { events ->
+            if (!events.isSuccessful) {
+                throw IllegalStateException("Network request failed")
+            }
             dao.deleteAll()
             val eventBucket = events.body() ?: TinkoffEventsApi.EventBucket()
             val active = eventBucket.active.map { RoomEventInfo.from(it, true) }
@@ -33,18 +45,12 @@ class EventsRepoImpl(private val api: TinkoffEventsApi, private val dao: EventIn
         }
     }
 
-    override fun getOnGoingEvents(): Single<List<EventInfo>> {
-        refresh()
-        return dao.getActiveEventInfo().first(listOf()).mapEach {
-            it.convert()
-        }
+    override val onGoingEvents: Observable<List<EventInfo>> by lazy {
+        dao.getActiveEventInfo().map { it.map { it.convert() } }
     }
 
-    override fun getArchiveEvents(): Single<List<EventInfo>> {
-        refresh()
-        return dao.getArchiveEventInfo().first(listOf()).mapEach {
-            it.convert()
-        }
+    override val archiveEvents: Observable<List<EventInfo>> by lazy {
+        dao.getArchiveEventInfo().map { it.map { it.convert() } }
     }
 
     override fun findEventByHid(hid: Long): Single<EventInfo> {

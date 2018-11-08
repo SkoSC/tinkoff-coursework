@@ -2,12 +2,18 @@ package com.skosc.tkffintech.service
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.util.Log
 
 class NetworkInfoService(ctx: Context) {
-    private val connectivityservice: ConnectivityManager = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    companion object {
+        private const val TAG = "TKF_SERVICE_NETWORKINFO"
+    }
+
+    private val connectivityService: ConnectivityManager = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
     fun checkConnection(): Boolean {
-        val networkInfo = connectivityservice.activeNetworkInfo
+        val networkInfo = connectivityService.activeNetworkInfo
+        Log.w(TAG, "Network connection status: is_connected=${networkInfo.isConnected}")
         return networkInfo.isConnected
     }
 }
