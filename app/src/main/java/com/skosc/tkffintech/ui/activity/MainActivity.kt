@@ -23,7 +23,6 @@ class MainActivity : TKFActivity(), SearchViewProvider {
     val vm by lazy { getViewModel(MainActivityViewModel::class) }
     private var searchMenuItem: MenuItem? = null
 
-    // TODO Should i really check for nullability?
     override val searchView: SearchView
         get() {
             val actionView = searchMenuItem?.actionView
@@ -45,6 +44,7 @@ class MainActivity : TKFActivity(), SearchViewProvider {
         navController.addOnNavigatedListener { _, destination ->
             updateSearchBarVisibility(destination)
             updateAppBarVisibility(destination)
+            updateBackButtonVisiblility(destination)
         }
     }
 
@@ -57,6 +57,13 @@ class MainActivity : TKFActivity(), SearchViewProvider {
         searchMenuItem = menu?.findItem(R.id.app_bar_search)
         updateSearchBarVisibility()
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            onBackPressed()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun updateSearchBarVisibility(destination: NavDestination? = navController.currentDestination) {
@@ -74,5 +81,14 @@ class MainActivity : TKFActivity(), SearchViewProvider {
             R.id.navigation_event_detail -> supportActionBar?.hide()
             else -> supportActionBar?.show()
         }
+    }
+
+    private fun updateBackButtonVisiblility(destination: NavDestination? = navController.currentDestination) {
+        val isEnabled = when (destination?.id ?: UNKNOWN_DESTINATION) {
+            R.id.navigation_event_list -> true
+            else -> false
+        }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(isEnabled)
     }
 }
