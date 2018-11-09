@@ -13,6 +13,7 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.contracts.SearchViewProvider
 import com.skosc.tkffintech.viewmodel.events.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.IllegalStateException
 
 class MainActivity : TKFActivity(), SearchViewProvider {
     companion object {
@@ -23,11 +24,9 @@ class MainActivity : TKFActivity(), SearchViewProvider {
     val vm by lazy { getViewModel(MainActivityViewModel::class) }
     private var searchMenuItem: MenuItem? = null
 
-    override val searchView: SearchView
-        get() {
-            val actionView = searchMenuItem?.actionView
-            return actionView as SearchView
-        }
+    override val searchView: SearchView get() = searchMenuItem?.actionView as? SearchView
+            ?: throw IllegalStateException("Search menu item not set")
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -19,12 +19,15 @@ import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import kotlinx.android.synthetic.main.fragment_event_detail.*
 
 
+
 class EventDetailFragment : TKFFragment() {
     companion object {
         const val ARG_MODEL = "model_hid"
+        const val DEFAULT_MAP_PADDING = 10
     }
 
     private val vm by lazy { getViewModel(EventDetailViewModel::class) }
+    private val geocoder by lazy { Geocoder(context) }
 
     private var modelHid: Long = 0
 
@@ -68,23 +71,33 @@ class EventDetailFragment : TKFFragment() {
     }
 
     private fun onMapReady(places: String) = { map: GoogleMap ->
-        val geocoder = Geocoder(context)
-        val latlongbuilder = LatLngBounds.builder()
-        places.split(";")
-                .map { it.trim().toLowerCase() }
-                .map { geocoder.getFromLocationName(it, 1) }
-                .map { it.first() }
-                .map { LatLng(it.latitude, it.longitude) }
-                .forEach {
-                    map.addMarker(MarkerOptions().position(it))
-                    latlongbuilder.include(it)
-                }
-        val bounds = latlongbuilder.build()
-        val width = resources.displayMetrics.widthPixels
-        val height = resources.displayMetrics.heightPixels
-        val padding = (width * 0.10).toInt() // offset from edges of the map 10% of screen
+        data class Location(val title: String, val latLng: LatLng)
 
-        map.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding))
+        map.setOnMarkerClickListener { true }
+
+        val latLngBounds = LatLngBounds.Builder()
+
+        val addresses = places.split(";", ",", "и")
+                .map { rowPlace -> rowPlace.trim().toLowerCase() }
+                .map { name -> geocoder.getFromLocationName(name, 1) }
+                .filter { addresses -> !addresses.isEmpty() }
+                .map { addresses -> addresses.first() }
+                .map { address -> Location(address.featureName, LatLng(address.latitude, address.longitude)) }
+        addresses.forEach { latLngBounds.include(it.latLng) }
+        addresses.forEach {
+            map.addMarker(MarkerOptions()
+                    .position(it.latLng)
+                    .title(it.title)
+            )
+        }
+
+        if (!addresses.isEmpty()) {
+            val bounds = latLngBounds.build()
+
+            val cu = CameraUpdateFactory.newLatLngBounds(bounds, DEFAULT_MAP_PADDING)
+            map.animateCamera(cu)
+
+        }
     }
 
     override fun onStop() {
