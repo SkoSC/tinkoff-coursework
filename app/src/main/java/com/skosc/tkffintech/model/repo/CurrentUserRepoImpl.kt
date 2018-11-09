@@ -45,7 +45,7 @@ class CurrentUserRepoImpl(
         cdisp own securityDao.hasAuthCredentials.subscribe(isLoggedIn::onNext)
     }
 
-    override val infoRx: Observable<UserInfo> by lazy {
+    override val info: Observable<UserInfo> by lazy {
         userInfoDao.rxUserInfo
     }
 
@@ -55,7 +55,6 @@ class CurrentUserRepoImpl(
                 .subscribe { model -> userInfoDao.saveUserInfo(model!!) }
     }
 
-    // TODO Think how to remove dependency on [TinkoffError]
     private fun parseError(body: String): String {
         return try {
             val tinkoffError = gson.fromJson<TinkoffError>(body, TinkoffError::class.java)

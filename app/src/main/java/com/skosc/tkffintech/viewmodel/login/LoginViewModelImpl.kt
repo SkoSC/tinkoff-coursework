@@ -10,11 +10,11 @@ class LoginViewModelImpl(private val userRepo: CurrentUserRepo) : LoginViewModel
     override val status: MutableLiveData<Status> = MutableLiveData()
 
     init {
-        status.value = Status(LoginStatus.WAITING)
+        status.value = LoginViewModel.Status.Waiting
     }
 
     override fun login(email: String, password: String) {
-        status.value = Status(LoginStatus.IN_PROGRESS)
+        status.value = LoginViewModel.Status.InProgress
         val cleanEmail = email.trim()
         val cleanPassword = password.trim()
         cdisp own userRepo.login(cleanEmail, cleanPassword)
@@ -27,15 +27,15 @@ class LoginViewModelImpl(private val userRepo: CurrentUserRepo) : LoginViewModel
             NetworkErrors.WRONG_CREDENTIALS -> LoginError.WRONG_CREDENTIALS
             else -> LoginError.UNKNOWN
         }
-        status.value = Status(LoginStatus.ERROR, loginError)
+        status.value = LoginViewModel.Status.Error(loginError)
     }
 
 
     private fun onLoginPassed(success: Boolean) {
         if (success) {
-            status.value = Status(LoginStatus.SUCCESS)
+            status.value = LoginViewModel.Status.Success
         } else {
-            status.value = Status(LoginStatus.ERROR, LoginError.WRONG_CREDENTIALS)
+            status.value = LoginViewModel.Status.Error(LoginError.WRONG_CREDENTIALS)
         }
     }
 }

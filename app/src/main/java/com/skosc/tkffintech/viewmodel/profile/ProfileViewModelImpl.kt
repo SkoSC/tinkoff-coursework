@@ -1,11 +1,9 @@
 package com.skosc.tkffintech.viewmodel.profile
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.entities.UserInfoAttributes
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
-import com.skosc.tkffintech.utils.observeOnMainThread
 import com.skosc.tkffintech.utils.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -52,7 +50,7 @@ class ProfileViewModelImpl(val currentUserRepo: CurrentUserRepo) : ProfileViewMo
 
 
     init {
-        cdisp own currentUserRepo.infoRx
+        cdisp own currentUserRepo.info
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bindUserInfoToLiveData)
     }

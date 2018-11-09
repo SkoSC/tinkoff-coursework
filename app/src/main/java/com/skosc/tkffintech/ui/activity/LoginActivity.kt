@@ -26,21 +26,21 @@ class LoginActivity : TKFActivity() {
     }
 
     private fun showLoginStatus(status: LoginViewModel.Status) {
-        return when (status.login) {
-            LoginViewModel.LoginStatus.SUCCESS -> {
+        return when (status) {
+            is LoginViewModel.Status.Success-> {
                 startActivity(
                         Intent(this, MainActivity::class.java)
                 )
             }
-            LoginViewModel.LoginStatus.IN_PROGRESS -> {
+            is LoginViewModel.Status.InProgress -> {
                 login_loading_status.visibility = View.VISIBLE
                 login_btn.text = ""
             }
-            LoginViewModel.LoginStatus.WAITING -> {
+            is LoginViewModel.Status.Waiting -> {
                 login_loading_status.visibility = View.GONE
                 login_btn.text = getString(R.string.login_login_btn)
             }
-            LoginViewModel.LoginStatus.ERROR -> {
+            is LoginViewModel.Status.Error -> {
                 login_loading_status.visibility = View.GONE
                 login_btn.text = getString(R.string.login_login_btn)
                 showError(status.error ?: LoginViewModel.LoginError.UNKNOWN)
