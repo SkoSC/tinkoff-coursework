@@ -9,7 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.ui.adapter.CoursesRecyclerAdapter
+import com.skosc.tkffintech.ui.adapter.CoursesDetailedRecyclerAdapter
+import com.skosc.tkffintech.ui.adapter.CoursesPreviewRecyclerAdapter
 import kotlinx.android.synthetic.main.fragment_courses.*
 import kotlinx.android.synthetic.main.incl_cources_list_vertical.*
 
@@ -23,10 +24,10 @@ class CoursesFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         courses_all_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        courses_all_recycler.adapter = CoursesRecyclerAdapter(CoursesRecyclerAdapter.MODE_VERTICAL)
+        courses_all_recycler.adapter = CoursesPreviewRecyclerAdapter()
 
         courses_fresh_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        courses_fresh_recycler.adapter = CoursesRecyclerAdapter(CoursesRecyclerAdapter.MODE_HORIZONTAL)
+        courses_fresh_recycler.adapter = CoursesDetailedRecyclerAdapter()
 
     }
 }
