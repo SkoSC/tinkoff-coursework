@@ -28,6 +28,5 @@ class CoursesFragment : Fragment() {
 
         courses_fresh_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         courses_fresh_recycler.adapter = CoursesDetailedRecyclerAdapter()
-
     }
 }

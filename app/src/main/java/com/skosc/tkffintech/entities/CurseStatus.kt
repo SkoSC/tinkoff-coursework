@@ -1,5 +1,5 @@
 package com.skosc.tkffintech.entities
 
 enum class CurseStatus {
-    PASSED, FAILED, ONGOING
+    PASSED, FAILED, ONGOING, UNKNOWN
 }

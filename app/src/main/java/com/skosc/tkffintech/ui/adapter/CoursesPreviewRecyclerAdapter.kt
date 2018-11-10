@@ -10,9 +10,9 @@ import com.skosc.tkffintech.entities.CurseStatus
 import com.skosc.tkffintech.ui.model.CursePreviewModel
 import org.joda.time.DateTime
 
-class CoursesPreviewRecyclerAdapter() : RecyclerView.Adapter<CoursesPreviewRecyclerAdapter.ViewHolder>() {
+class CoursesPreviewRecyclerAdapter : RecyclerView.Adapter<CoursesPreviewRecyclerAdapter.ViewHolder>() {
 
-    var items = listOf<CursePreviewModel>(
+    var items = listOf(
             CursePreviewModel("Curse 1", DateTime.now().minusDays(32), 23, CurseStatus.PASSED),
             CursePreviewModel("Curse 2", DateTime.now().minusDays(200), 198, CurseStatus.FAILED),
             CursePreviewModel("Curse 3", DateTime.now().minusDays(1), 7, CurseStatus.ONGOING)
