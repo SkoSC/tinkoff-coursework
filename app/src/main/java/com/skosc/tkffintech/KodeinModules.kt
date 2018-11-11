@@ -2,6 +2,7 @@ package com.skosc.tkffintech
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.room.Room
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -86,6 +87,10 @@ fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
+
+    retrofit.create(TinkoffCursesApi::class.java).homeworks("android_fall2018").subscribe { resp ->
+        Log.i("LOGILOG", resp.toString())
+    }
 
     bind<CookieStore>() with instance(cookieHandler.cookieStore)
     bind<Gson>() with instance(gson)
