@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ui.fragment.CourseDetailFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+
+        android:layout_height="300dp"
+        android:layout_margin="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_margin="8dp"
             android:layout_height="match_parent">
 
 
@@ -51,6 +53,21 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/course_detail_tasks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/card_course_task">
+
+        </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.cardview.widget.CardView>
 

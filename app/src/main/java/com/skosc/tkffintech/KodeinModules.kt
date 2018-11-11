@@ -20,6 +20,8 @@ import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.service.NetworkInfoService
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
 import com.skosc.tkffintech.utils.subscribeOnIoThread
+import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModel
+import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModelFactory
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModelFactory
 import com.skosc.tkffintech.viewmodel.events.*
@@ -70,6 +72,9 @@ val viewModelFactoryModule = Kodein.Module("view-model", false, "tkf") {
     }
     bind<EventsListViewModelArchiveFactory>(EventsListViewModelArchive::class) with provider {
         EventsListViewModelArchiveFactory(kodein)
+    }
+    bind<CourseDetailViewModelFactory>(CourseDetailViewModel::class) with provider {
+        CourseDetailViewModelFactory(kodein)
     }
 }
 

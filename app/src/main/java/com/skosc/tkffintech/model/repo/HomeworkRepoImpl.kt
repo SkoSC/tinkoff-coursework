@@ -1,7 +1,9 @@
 package com.skosc.tkffintech.model.repo
 
+import com.skosc.tkffintech.entities.Homework
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.usecase.StatisticsCalculator
+import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
 class HomeworkRepoImpl(private val api: TinkoffCursesApi) : HomeworkRepo {
@@ -20,5 +22,9 @@ class HomeworkRepoImpl(private val api: TinkoffCursesApi) : HomeworkRepo {
                         statisticsCurses.onNext(stats.curses)
                     }
         }
+    }
+
+    override fun homeworks(course: String): Observable<List<Homework>> {
+        return api.homeworks(course).map { it.homeworks.map { it.convert(course) } }.toObservable()
     }
 }
