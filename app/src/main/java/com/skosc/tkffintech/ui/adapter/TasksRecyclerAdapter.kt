@@ -33,7 +33,11 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                         .inflate(R.layout.card_course_task, parent, false)
                 ViewHolderEntry(view)
             }
-            TYPE_HEADER -> ViewHolderHeader(TextView(parent.context))
+            TYPE_HEADER -> {
+                val view = LayoutInflater.from(parent.context)
+                        .inflate(R.layout.card_course_task_header, parent, false)
+                ViewHolderHeader(view)
+            }
             else -> throw IllegalArgumentException("Unsupported type: $viewType")
         }
     }
@@ -52,14 +56,16 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
 
-    class ViewHolderHeader(private val view : TextView): RecyclerView.ViewHolder(view) {
+    class ViewHolderHeader(private val view : View): RecyclerView.ViewHolder(view) {
+        private val title by lazy { view.findViewById<TextView>(R.id.task_header_title) }
+
         fun bind(header: TaskAdapterItem.Header) {
-            view.text = header.title
+            title.text = header.title
         }
     }
 
     class ViewHolderEntry(private val view: View) : RecyclerView.ViewHolder(view) {
-        private val score by lazy { view.findViewById<ScoreView>(R.id.task_score) }
+        private val score by lazy { view.findViewById<ScoreView>(R.id.task_icon) }
         private val title by lazy { view.findViewById<TextView>(R.id.task_title) }
         private val info by lazy { view.findViewById<TextView>(R.id.task_info) }
         private val status by lazy { view.findViewById<TextView>(R.id.task_status) }

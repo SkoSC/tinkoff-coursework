@@ -6,17 +6,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.entities.CurseStatus
-import com.skosc.tkffintech.ui.model.CursePreviewModel
-import org.joda.time.DateTime
+import com.skosc.tkffintech.ui.model.CoursePreviewModel
+import com.skosc.tkffintech.viewmodel.courses.CourseViewModel
 
 class CoursesPreviewRecyclerAdapter : RecyclerView.Adapter<CoursesPreviewRecyclerAdapter.ViewHolder>() {
 
-    var items = listOf(
-            CursePreviewModel("Curse 1", DateTime.now().minusDays(32), 23, CurseStatus.PASSED),
-            CursePreviewModel("Curse 2", DateTime.now().minusDays(200), 198, CurseStatus.FAILED),
-            CursePreviewModel("Curse 3", DateTime.now().minusDays(1), 7, CurseStatus.ONGOING)
-    )
+    var items = listOf<CoursePreviewModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_course, parent, false)
@@ -36,7 +31,7 @@ class CoursesPreviewRecyclerAdapter : RecyclerView.Adapter<CoursesPreviewRecycle
         val score: TextView? by lazy { view.findViewById<TextView>(R.id.courses_entry_score) }
         val date: TextView? by lazy { view.findViewById<TextView>(R.id.courses_entry_date) }
 
-        fun bind(model: CursePreviewModel) {
+        fun bind(model: CoursePreviewModel) {
             title?.text = model.title
             status?.text = model.status.name
             score?.text = model.score.toString()

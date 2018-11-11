@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
@@ -33,6 +34,7 @@ class CourseDetailFragment : TKFFragment() {
         course_detail_tasks.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         val adapter = TasksRecyclerAdapter()
         course_detail_tasks.adapter = adapter
+        course_detail_tasks.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         vm.homeworks.observe(this, Observer {
             adapter.items = it.toAdapterItems()
             adapter.notifyDataSetChanged()

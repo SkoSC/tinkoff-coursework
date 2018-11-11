@@ -22,6 +22,8 @@ import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
 import com.skosc.tkffintech.utils.subscribeOnIoThread
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModel
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModelFactory
+import com.skosc.tkffintech.viewmodel.courses.CourseViewModel
+import com.skosc.tkffintech.viewmodel.courses.CourseViewModelFactory
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModelFactory
 import com.skosc.tkffintech.viewmodel.events.*
@@ -76,6 +78,9 @@ val viewModelFactoryModule = Kodein.Module("view-model", false, "tkf") {
     bind<CourseDetailViewModelFactory>(CourseDetailViewModel::class) with provider {
         CourseDetailViewModelFactory(kodein)
     }
+    bind<CourseViewModelFactory>(CourseViewModel::class) with provider {
+        CourseViewModelFactory(kodein)
+    }
 }
 
 fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
@@ -109,4 +114,5 @@ val repoModule = Kodein.Module("repo", false, "tkf") {
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
     bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance()) }
+    bind<CourseRepo>() with singleton { CourseRepoImpl(instance()) }
 }
