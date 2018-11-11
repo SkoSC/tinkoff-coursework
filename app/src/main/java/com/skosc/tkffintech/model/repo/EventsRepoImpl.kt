@@ -1,7 +1,7 @@
 package com.skosc.tkffintech.model.repo
 
 import android.content.SharedPreferences
-import com.f2prateek.rx.preferences2.RxSharedPreferences
+import com.skosc.rxprefs.RxPreferences
 import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.model.room.EventInfoDao
 import com.skosc.tkffintech.model.room.RoomEventInfo
@@ -22,11 +22,11 @@ class EventsRepoImpl(
 ) : EventsRepo {
     private val queryMaker: SearchQueryMaker = SQLSearchQueryMaker()
 
-    private val rxSharedPreferences = RxSharedPreferences.create(timerSharedPreferences)
+    private val rxSharedPreferences = RxPreferences(timerSharedPreferences)
     private val lastUpdatedPref = rxSharedPreferences.getLong("timer-event-info-update", 0)
 
     override fun refresh() {
-        Single.fromCallable { lastUpdatedPref.get() }
+        lastUpdatedPref.observable().first(0)
                 .filter { lastUpdated -> lastUpdated < DateTime.now().minusHours(1).millis }
                 .filter { networknfo.checkConnection() }
                 .subscribe {
@@ -44,7 +44,7 @@ class EventsRepoImpl(
             val active = eventBucket.active.map { RoomEventInfo.from(it, true) }
             val archive = eventBucket.archive.map { RoomEventInfo.from(it, false) }
             dao.insertAll(active + archive)
-            lastUpdatedPref.set(DateTime.now().millis)
+            lastUpdatedPref.post(DateTime.now().millis)
         }
     }
 

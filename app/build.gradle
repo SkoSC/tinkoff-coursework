@@ -45,7 +45,6 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation "io.reactivex.rxjava2:rxjava:2.2.0"
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
-    implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0'
 
     // DI Framework
     implementation 'org.kodein.di:kodein-di-generic-jvm:5.3.0'
@@ -80,6 +79,9 @@ dependencies {
 
     // Android Debug Database
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
+
+    // RxShared Preferences
+    implementation 'com.github.SkoSC:Android-RxPrefs:28b713340c'
 
     // Testing
     testImplementation 'junit:junit:4.12'

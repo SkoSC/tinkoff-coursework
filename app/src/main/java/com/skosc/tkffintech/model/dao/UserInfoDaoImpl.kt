@@ -1,48 +1,29 @@
 package com.skosc.tkffintech.model.dao
 
 import android.content.SharedPreferences
-import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.google.gson.Gson
+import com.skosc.rxprefs.RxPreferences
+import com.skosc.rxprefs.SerializationAdapter
 import com.skosc.tkffintech.entities.UserInfo
-import com.skosc.tkffintech.model.entity.ExpirationTimer
-import io.reactivex.Maybe
 import io.reactivex.Observable
-import io.reactivex.subjects.BehaviorSubject
-import org.joda.time.DateTime
+
 
 class UserInfoDaoImpl(sp: SharedPreferences, private val gson: Gson) : UserInfoDao {
     companion object {
         private const val CACHE_TIME_SECONDS = 86400
     }
 
-    private val rxSharedPrefs = RxSharedPreferences.create(sp)
-    private val userInfoJsonPref = rxSharedPrefs.getString("user-info", "")
-    private val userInfoCacheExpiration = ExpirationTimer.create(sp, "user-info-exp")
+    private val rxSharedPrefs = RxPreferences(sp)
+    private val userInfoPref = rxSharedPrefs.getObject("user-info", UserInfo(), object : SerializationAdapter<UserInfo> {
+        override fun deserialize(value: String): UserInfo = gson.fromJson(value, UserInfo::class.java)
+        override fun serialize(value: UserInfo): String = gson.toJson(value)
+    })
+    override val rxUserInfo: Observable<UserInfo> =
+        userInfoPref.observable()
 
-
-    override val userInfo: Maybe<UserInfo>
-        get() = userInfoCacheExpiration
-                .isExpired.filter { !it }
-                .map {
-                    val json = userInfoJsonPref.get()
-                    if (json.isEmpty()) {
-                        return@map null
-                    }
-                    gson.fromJson(json, UserInfo::class.java)
-                }
-
-    override val rxUserInfo: BehaviorSubject<UserInfo> by lazy {
-        val bh = BehaviorSubject.create<UserInfo>()
-        bh.onNext(userInfoJsonPref.get().let { gson.fromJson(it, UserInfo::class.java) })
-        return@lazy bh
-    }
 
     // TODO Make async
     override fun saveUserInfo(info: UserInfo) {
-        userInfoCacheExpiration.rewind(DateTime.now().plusSeconds(CACHE_TIME_SECONDS))
-        val json = gson.toJson(info)
-        userInfoJsonPref.set(json)
-        rxUserInfo.onNext(info)
-
+        userInfoPref.post(info)
     }
 }
