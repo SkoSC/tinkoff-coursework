@@ -11,5 +11,8 @@ data class RoomHomework(
         val id: Long,
 
         @ColumnInfo(name = "title")
-        val title: String
+        val title: String,
+
+        @ColumnInfo(name = "course")
+        val course: String
 )

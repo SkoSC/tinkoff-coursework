@@ -15,6 +15,7 @@ data class RoomHomeworkAndTasks(
         fun from(homework: RoomHomeworkAndTasks): Homework = Homework(
                 id = homework.homework.id,
                 title = homework.homework.title,
+                course = homework.homework.course,
                 tasks = homework.tasks.map { it.convert() }
         )
     }
@@ -22,6 +23,7 @@ data class RoomHomeworkAndTasks(
     fun convert(): Homework = Homework(
             id = homework.id,
             title = homework.title,
+            course = homework.course,
             tasks = tasks.map { it.convert() }
     )
 }
