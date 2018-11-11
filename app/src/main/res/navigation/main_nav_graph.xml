@@ -28,7 +28,11 @@
         android:id="@+id/navigation_course"
         android:name="com.skosc.tkffintech.ui.fragment.CoursesFragment"
         android:label="fragment_courses"
-        tools:layout="@layout/fragment_courses" />
+        tools:layout="@layout/fragment_courses" >
+        <action
+            android:id="@+id/action_navigation_course_detail"
+            app:destination="@id/courseDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.skosc.tkffintech.ui.fragment.ProfileFragment"
@@ -59,4 +63,9 @@
             android:name="model_hid"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/courseDetailFragment"
+        android:name="com.skosc.tkffintech.ui.fragment.CourseDetailFragment"
+        android:label="fragment_course_detail"
+        tools:layout="@layout/fragment_course_detail" />
 </navigation>

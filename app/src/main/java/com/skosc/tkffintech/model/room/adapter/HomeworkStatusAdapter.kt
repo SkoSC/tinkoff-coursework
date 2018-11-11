@@ -11,6 +11,7 @@ class HomeworkStatusAdapter {
         return when(value) {
             1 -> HomeworkStatus.NEW
             2 -> HomeworkStatus.ACCEPTED
+            3 -> HomeworkStatus.TEST_RESULT
             else -> HomeworkStatus.UNKNOWN
         }
     }
@@ -20,6 +21,7 @@ class HomeworkStatusAdapter {
         return when(date) {
             HomeworkStatus.NEW -> 1
             HomeworkStatus.ACCEPTED -> 2
+            HomeworkStatus.TEST_RESULT -> 3
             else -> 0
         }
     }

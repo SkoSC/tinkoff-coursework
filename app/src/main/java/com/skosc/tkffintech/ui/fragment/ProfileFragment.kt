@@ -57,10 +57,12 @@ class ProfileFragment : TKFFragment() {
         super.onStart()
         profile_info_cards.addViews(contactInfoCard, schoolInfoCard, workInfoCard)
 
+        vm.dataUpdated.observe(this, Observer {
+            profile_refresh.isRefreshing = false
+        })
+
         vm.fullName.observe(this, Observer {
             profile_name.text = it
-            // TODO Move refresher hiding from hire
-            profile_refresh.isRefreshing = false
         })
 
         vm.shortInfo.observe(this, Observer {
@@ -79,11 +81,11 @@ class ProfileFragment : TKFFragment() {
         })
 
         vm.statsTests.observe(this, Observer {
-            profile_stats_curse.text = it.toString()
+            profile_stats_tests.text = it.toString()
         })
 
         vm.statsCourses.observe(this, Observer {
-            profile_stats_score.text = it.toString()
+            profile_stats_curse.text = it.toString()
         })
 
         vm.quote.observe(this, Observer {

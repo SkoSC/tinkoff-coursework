@@ -3,6 +3,7 @@ package com.skosc.tkffintech.model.room
 import androidx.room.*
 import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.entities.HomeworkTask
+import org.joda.time.DateTime
 
 @Entity(tableName = "homework_task",
         foreignKeys = [ForeignKey(
@@ -36,7 +37,7 @@ data class RoomHomeworkTask(
                         title = task.title,
                         type = task.taskType,
                         maxScore = task.maxScore,
-                        deadlineDate = task.deadlineDate,
+                        deadlineDate = task.deadlineDate ?: DateTime(0),
                         shortName = task.shotName
                 ),
                 status = task.status,

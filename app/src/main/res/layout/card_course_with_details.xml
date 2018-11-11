@@ -162,7 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="@string/events_header_more"
+            android:text="@string/course_more_details"
             android:textColor="@color/text_link"
             android:textSize="20sp"
             android:textStyle="bold"

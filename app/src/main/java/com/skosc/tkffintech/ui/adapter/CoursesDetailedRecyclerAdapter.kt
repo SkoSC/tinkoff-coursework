@@ -14,7 +14,7 @@ import com.skosc.tkffintech.ui.model.CurseDetailModel
 import com.skosc.tkffintech.utils.ratio
 import org.joda.time.DateTime
 
-class CoursesDetailedRecyclerAdapter() : RecyclerView.Adapter<CoursesDetailedRecyclerAdapter.ViewHolder>() {
+class CoursesDetailedRecyclerAdapter(private val onDetailsClick: (v: View, model: CurseDetailModel) -> Unit) : RecyclerView.Adapter<CoursesDetailedRecyclerAdapter.ViewHolder>() {
 
     var items = listOf(
             CurseDetailModel("Curse 1", DateTime.now().minusDays(32), score = Ratio(3, 10)),
@@ -31,10 +31,10 @@ class CoursesDetailedRecyclerAdapter() : RecyclerView.Adapter<CoursesDetailedRec
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val model = items[position]
-        holder.bind(model)
+        holder.bind(model, onDetailsClick)
     }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView by lazy { view.findViewById<TextView>(R.id.courses_entry_title) }
         val score: TextView by lazy { view.findViewById<TextView>(R.id.courses_entry_score) }
         val scoreProgress: ProgressBar by lazy { view.findViewById<ProgressBar>(R.id.courses_entry_score_progress) }
@@ -47,7 +47,7 @@ class CoursesDetailedRecyclerAdapter() : RecyclerView.Adapter<CoursesDetailedRec
         val testsPassed: TextView by lazy { view.findViewById<TextView>(R.id.courses_entry_tests_passed) }
         val homeworkComplited: TextView by lazy { view.findViewById<TextView>(R.id.courses_entry_homework_completed) }
 
-        fun bind(model: CurseDetailModel) {
+        fun bind(model: CurseDetailModel, onDetailsClick: (v: View, model: CurseDetailModel) -> Unit) {
             title.text = model.title
             score.text = model.score.actual.toString()
             scoreProgress.ratio = model.score
@@ -58,6 +58,9 @@ class CoursesDetailedRecyclerAdapter() : RecyclerView.Adapter<CoursesDetailedRec
             globalRate.text = model.globalRate.formatAsRatio("/")
             testsPassed.text = model.testsPassed.formatAsRatio("/")
             homeworkComplited.text = model.homeworkCompleted.formatAsRatio("/")
+            moreDetails.setOnClickListener {
+                onDetailsClick.invoke(view, model)
+            }
         }
     }
 }

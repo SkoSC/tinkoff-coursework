@@ -1,13 +1,15 @@
 package com.skosc.tkffintech.viewmodel.profile
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.entities.UserInfoAttributes
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
+import com.skosc.tkffintech.model.repo.HomeworkRepo
 import com.skosc.tkffintech.utils.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class ProfileViewModelImpl(val currentUserRepo: CurrentUserRepo) : ProfileViewModel() {
+class ProfileViewModelImpl(val currentUserRepo: CurrentUserRepo, val homeworkRepo: HomeworkRepo) : ProfileViewModel() {
     override val fullName: MutableLiveData<String> = MutableLiveData()
     override val shortInfo: MutableLiveData<String> = MutableLiveData()
     override val avatarUrl: MutableLiveData<String> = MutableLiveData()
@@ -20,13 +22,13 @@ class ProfileViewModelImpl(val currentUserRepo: CurrentUserRepo) : ProfileViewMo
     override val schoolInfo: MutableLiveData<Map<Int, String>> = MutableLiveData()
     override val workInfo: MutableLiveData<Map<Int, String>> = MutableLiveData()
 
+    override val dataUpdated: MutableLiveData<*> = MutableLiveData<Unit>()
+
     private val bindUserInfoToLiveData: (UserInfo) -> Unit = { info ->
+        dataUpdated.value = Unit // Trigger
         fullName.value = "${info.firstName} ${info.lastName}"
         shortInfo.value = info.email
         avatarUrl.value = "https://fintech.tinkoff.ru${info.avatar}"
-        statsScore.value = 23.4
-        statsTests.value = 7
-        statsCourses.value = 2
         quote.value = info.description
 
         contactInfo.value = mapOf(
@@ -53,6 +55,27 @@ class ProfileViewModelImpl(val currentUserRepo: CurrentUserRepo) : ProfileViewMo
         cdisp own currentUserRepo.info
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bindUserInfoToLiveData)
+
+        cdisp own homeworkRepo.statisticsScore
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    dataUpdated.value = Unit // Trigger
+                    statsScore.value = it
+                }
+
+        cdisp own homeworkRepo.statisticsTestsCompleted
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    dataUpdated.value = Unit // Trigger
+                    statsTests.value = it
+                }
+
+        cdisp own homeworkRepo.statisticsCurses
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    dataUpdated.value = Unit // Trigger
+                    statsCourses.value = it
+                }
     }
 
     override fun signout() {
@@ -61,6 +84,7 @@ class ProfileViewModelImpl(val currentUserRepo: CurrentUserRepo) : ProfileViewMo
 
     override fun update() {
         currentUserRepo.forceRefreshUserInfo()
+        homeworkRepo.update()
     }
 
 

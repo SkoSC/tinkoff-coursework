@@ -12,10 +12,7 @@ import com.skosc.tkffintech.model.dao.SecurityDao
 import com.skosc.tkffintech.model.dao.SecurityDaoPrefImpl
 import com.skosc.tkffintech.model.dao.UserInfoDao
 import com.skosc.tkffintech.model.dao.UserInfoDaoImpl
-import com.skosc.tkffintech.model.repo.CurrentUserRepo
-import com.skosc.tkffintech.model.repo.CurrentUserRepoImpl
-import com.skosc.tkffintech.model.repo.EventsRepo
-import com.skosc.tkffintech.model.repo.EventsRepoImpl
+import com.skosc.tkffintech.model.repo.*
 import com.skosc.tkffintech.model.room.*
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
@@ -106,4 +103,5 @@ fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
 val repoModule = Kodein.Module("repo", false, "tkf") {
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
+    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance()) }
 }
