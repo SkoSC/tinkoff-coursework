@@ -16,13 +16,13 @@ import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.model.repo.CurrentUserRepoImpl
 import com.skosc.tkffintech.model.repo.EventsRepo
 import com.skosc.tkffintech.model.repo.EventsRepoImpl
-import com.skosc.tkffintech.model.room.EventInfoDao
-import com.skosc.tkffintech.model.room.TKFRoomDatabase
+import com.skosc.tkffintech.model.room.*
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.service.NetworkInfoService
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
+import com.skosc.tkffintech.utils.subscribeOnIoThread
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModelFactory
 import com.skosc.tkffintech.viewmodel.events.*
@@ -30,15 +30,21 @@ import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import com.skosc.tkffintech.viewmodel.login.LoginViewModelFactory
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModelFactory
+import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.internal.JavaNetCookieJar
 import org.joda.time.DateTime
 import org.kodein.di.Kodein
-import org.kodein.di.generic.*
+import org.kodein.di.generic.bind
+import org.kodein.di.generic.instance
+import org.kodein.di.generic.provider
+import org.kodein.di.generic.singleton
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import java.net.*
+import java.net.CookieManager
+import java.net.CookiePolicy
+import java.net.CookieStore
 
 fun roomModule(ctx: Context) = Kodein.Module("room-db", false, "tkf") {
     val db: TKFRoomDatabase = Room.databaseBuilder(ctx, TKFRoomDatabase::class.java, "tkf-default-db")
@@ -46,6 +52,7 @@ fun roomModule(ctx: Context) = Kodein.Module("room-db", false, "tkf") {
             .build()
 
     bind<EventInfoDao>() with singleton { db.eventInfoDao }
+    bind<HomeworkDao>() with singleton { db.homeworkDao }
 }
 
 fun daoModule(ctx: Context) = Kodein.Module("dao", false, "tkf") {
@@ -87,10 +94,6 @@ fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-
-    retrofit.create(TinkoffCursesApi::class.java).homeworks("android_fall2018").subscribe { resp ->
-        Log.i("LOGILOG", resp.toString())
-    }
 
     bind<CookieStore>() with instance(cookieHandler.cookieStore)
     bind<Gson>() with instance(gson)

@@ -29,6 +29,6 @@ data class UserInfoAttribute(
         UserInfoAttributes.FIELD_UNIVERSITY_GRADUATION -> R.string.profile_attribute_university
         UserInfoAttributes.FIELD_DEPARTMENT -> R.string.profile_attribute_department
         UserInfoAttributes.FIELD_WORKPLACE -> R.string.profile_attribute_wrokplace
-        else -> throw RuntimeException("Unsupported user profile attribute with id: $field")
+        else -> throw RuntimeException("Unsupported user profile attribute with homeworkId: $field")
     }
 }

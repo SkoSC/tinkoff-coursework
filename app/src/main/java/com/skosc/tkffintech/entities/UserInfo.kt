@@ -23,7 +23,7 @@ data class UserInfo(
         val firstName: String = "",
         @SerializedName("grade")
         val grade: Any? = Any(),
-        @SerializedName("id")
+        @SerializedName("homeworkId")
         val id: Int = 0,
         @SerializedName("is_client")
         val isClient: Boolean = false,

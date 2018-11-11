@@ -6,6 +6,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import org.joda.time.DateTime
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface TinkoffCursesApi {
     data class ConnectionsResp(val courses: List<Course>) {
@@ -59,5 +60,5 @@ interface TinkoffCursesApi {
     fun connections(): Single<ConnectionsResp>
 
     @GET("course/{course}/homeworks")
-    fun homeworks(course: String): Single<HomeworksResp>
+    fun homeworks(@Path("course") course: String): Single<HomeworksResp>
 }

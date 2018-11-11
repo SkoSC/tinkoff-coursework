@@ -32,7 +32,7 @@ class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (Eve
                         .inflate(R.layout.card_event_small, parent, false)
                 SmallViewHolder(view)
             }
-            else -> throw IllegalArgumentException("Card Type with id $viewType not supported")
+            else -> throw IllegalArgumentException("Card Type with homeworkId $viewType not supported")
         }
     }
 
