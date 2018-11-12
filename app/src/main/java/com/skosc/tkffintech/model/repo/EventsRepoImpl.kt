@@ -18,17 +18,17 @@ class EventsRepoImpl(
         private val api: TinkoffEventsApi,
         private val dao: EventInfoDao,
         private val timerSharedPreferences: SharedPreferences,
-        private val networknfo: NetworkInfoService
+        private val networkInfo: NetworkInfoService
 ) : EventsRepo {
     private val queryMaker: SearchQueryMaker = SQLSearchQueryMaker()
 
-    private val rxSharedPreferences = RxPreferences(timerSharedPreferences)
+    private val rxSharedPreferences = RxPreferences.create(timerSharedPreferences)
     private val lastUpdatedPref = rxSharedPreferences.getLong("timer-event-info-update", 0)
 
     override fun refresh() {
         lastUpdatedPref.observable().first(0)
                 .filter { lastUpdated -> lastUpdated < DateTime.now().minusHours(1).millis }
-                .filter { networknfo.checkConnection() }
+                .filter { networkInfo.checkConnection() }
                 .subscribe {
                     tryForceRefresh()
                 }

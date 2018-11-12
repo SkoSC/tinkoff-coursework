@@ -51,8 +51,8 @@ class CourseDetailFragment : TKFFragment() {
             TaskAdapterItem.Entry(
                     it.title,
                     Ratio(
-                            it.maxScore.toDouble().toInt(),
-                            it.maxScore.toDouble().toInt()
+                            it.maxScore.toDouble(),
+                            it.maxScore.toDouble()
                     ),
                     it.deadlineDate.toString()
             )

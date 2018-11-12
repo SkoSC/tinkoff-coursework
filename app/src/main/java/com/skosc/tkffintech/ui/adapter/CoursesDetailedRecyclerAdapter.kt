@@ -16,9 +16,9 @@ import org.joda.time.DateTime
 class CoursesDetailedRecyclerAdapter(private val onDetailsClick: (v: View, model: CurseDetailModel) -> Unit) : RecyclerView.Adapter<CoursesDetailedRecyclerAdapter.ViewHolder>() {
 
     var items = listOf(
-            CurseDetailModel("Curse 1", DateTime.now().minusDays(32), score = Ratio(3, 10)),
-            CurseDetailModel("Curse 2", DateTime.now().minusDays(200), score = Ratio(4,12)),
-            CurseDetailModel("Curse 3", DateTime.now().minusDays(1), score = Ratio(12, 12))
+            CurseDetailModel("Curse 1", DateTime.now().minusDays(32), score = Ratio(3.0, 10.0)),
+            CurseDetailModel("Curse 2", DateTime.now().minusDays(200), score = Ratio(4.0,12.0)),
+            CurseDetailModel("Curse 3", DateTime.now().minusDays(1), score = Ratio(12.0, 12.0))
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

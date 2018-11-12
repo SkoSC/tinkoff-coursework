@@ -5,7 +5,7 @@ import com.skosc.rxprefs.RxPreferences
 import io.reactivex.Observable
 
 class StatisticsDaoImpl(sp: SharedPreferences) : StatisticsDao {
-    private val rxPreferences = RxPreferences(sp)
+    private val rxPreferences = RxPreferences.create(sp)
 
     private val totalScorePref = rxPreferences
             .getFloat("total-score", 0F)

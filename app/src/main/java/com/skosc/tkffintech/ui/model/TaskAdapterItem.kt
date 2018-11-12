@@ -9,7 +9,7 @@ sealed class TaskAdapterItem {
 
     class Entry(
             val title: String = "",
-            val score: Ratio = Ratio(0, 0),
+            val score: Ratio = Ratio(),
             val info: String = ""
     ) : TaskAdapterItem()
 }

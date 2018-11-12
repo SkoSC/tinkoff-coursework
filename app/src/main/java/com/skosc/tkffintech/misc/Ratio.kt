@@ -1,13 +1,13 @@
 package com.skosc.tkffintech.misc
 
-import java.lang.IllegalArgumentException
+data class Ratio(val actual: Double = 0.0, val max: Double = 0.0) {
+    constructor(actual: Int, max: Int): this(actual.toDouble(), max.toDouble())
 
-data class Ratio(val actual: Int, val max: Int) {
     init {
         if (actual > max) {
             throw IllegalArgumentException("Actual parameter can't be greater than max value")
         }
     }
 
-    val left: Int = max - actual
+    val left: Double = max - actual
 }

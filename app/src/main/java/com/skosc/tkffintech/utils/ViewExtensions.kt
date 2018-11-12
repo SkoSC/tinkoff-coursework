@@ -8,8 +8,8 @@ import com.skosc.tkffintech.misc.Ratio
 fun ViewGroup.addViews(vararg views: View) = views.forEach(this::addView)
 
 var ProgressBar.ratio: Ratio
-    get() = Ratio(progress, max)
+    get() = Ratio(progress.toDouble(), max.toDouble())
     set(value) {
-        progress = value.actual
-        max = value.max
+        progress = value.actual.toInt()
+        max = value.max.toInt()
     }

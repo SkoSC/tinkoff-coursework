@@ -81,7 +81,7 @@ dependencies {
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
     // RxShared Preferences
-    implementation 'com.github.SkoSC:Android-RxPrefs:28b713340c'
+    implementation 'com.github.SkoSC:Android-RxPrefs:-SNAPSHOT'
 
     // Testing
     testImplementation 'junit:junit:4.12'
