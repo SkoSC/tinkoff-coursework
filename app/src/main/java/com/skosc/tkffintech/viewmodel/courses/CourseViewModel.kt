@@ -5,5 +5,6 @@ import com.skosc.tkffintech.entities.CourseInfo
 import com.skosc.tkffintech.viewmodel.RxViewModel
 
 abstract class CourseViewModel : RxViewModel() {
-    abstract val courses: LiveData<List<CourseInfo>>
+    abstract val activeCourses: LiveData<CourseInfo>
+    abstract val allCourses: LiveData<List<CourseInfo>>
 }

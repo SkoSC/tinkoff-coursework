@@ -17,7 +17,7 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.utils.DateTimeFormatter
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import kotlinx.android.synthetic.main.fragment_event_detail.*
-
+import java.lang.Exception
 
 
 class EventDetailFragment : TKFFragment() {
@@ -71,8 +71,19 @@ class EventDetailFragment : TKFFragment() {
     }
 
     private fun onMapReady(places: String) = { map: GoogleMap ->
-        data class Location(val title: String, val latLng: LatLng)
+        try {
+            setupMap(map, places)
+        } catch (e: Exception) {
+            fallbackSetupMap()
+        }
+    }
 
+    private fun fallbackSetupMap() {
+        event_detail_place_card.visibility = View.GONE
+    }
+
+    private fun setupMap(map: GoogleMap, places: String) {
+        data class Location(val title: String, val latLng: LatLng)
         map.setOnMarkerClickListener { true }
 
         val latLngBounds = LatLngBounds.Builder()

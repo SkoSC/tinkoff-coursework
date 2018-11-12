@@ -9,7 +9,5 @@ data class HomeworkTask(
         val taskType: HomeworkTaskType,
         val maxScore: String,
         val deadlineDate: DateTime?,
-        val shotName: String,
-        val status: HomeworkStatus,
-        val mark: String
+        val shotName: String
 )

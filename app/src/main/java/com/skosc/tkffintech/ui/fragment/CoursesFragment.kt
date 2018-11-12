@@ -38,7 +38,7 @@ class CoursesFragment : TKFFragment() {
             navController.navigate(R.id.action_navigation_course_detail)
         }
 
-        vm.courses.observe(this, Observer {
+        vm.allCourses.observe(this, Observer {
             val adapter = courses_all_recycler.adapter as CoursesPreviewRecyclerAdapter
             adapter.items = it.map { CoursePreviewModel(
                     title = it.title,

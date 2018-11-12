@@ -9,16 +9,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.Ratio
 import com.skosc.tkffintech.misc.formatAsRatio
-import com.skosc.tkffintech.ui.model.CurseDetailModel
+import com.skosc.tkffintech.ui.model.CourseDetailModel
 import com.skosc.tkffintech.utils.ratio
 import org.joda.time.DateTime
 
-class CoursesDetailedRecyclerAdapter(private val onDetailsClick: (v: View, model: CurseDetailModel) -> Unit) : RecyclerView.Adapter<CoursesDetailedRecyclerAdapter.ViewHolder>() {
+class CoursesDetailedRecyclerAdapter(private val onDetailsClick: (v: View, model: CourseDetailModel) -> Unit) : RecyclerView.Adapter<CoursesDetailedRecyclerAdapter.ViewHolder>() {
 
     var items = listOf(
-            CurseDetailModel("Curse 1", DateTime.now().minusDays(32), score = Ratio(3.0, 10.0)),
-            CurseDetailModel("Curse 2", DateTime.now().minusDays(200), score = Ratio(4.0,12.0)),
-            CurseDetailModel("Curse 3", DateTime.now().minusDays(1), score = Ratio(12.0, 12.0))
+            CourseDetailModel("Curse 1", DateTime.now().minusDays(32), score = Ratio(3.0, 10.0)),
+            CourseDetailModel("Curse 2", DateTime.now().minusDays(200), score = Ratio(4.0,12.0)),
+            CourseDetailModel("Curse 3", DateTime.now().minusDays(1), score = Ratio(12.0, 12.0))
     )
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,7 +46,7 @@ class CoursesDetailedRecyclerAdapter(private val onDetailsClick: (v: View, model
         val testsPassed: TextView by lazy { view.findViewById<TextView>(R.id.courses_entry_tests_passed) }
         val homeworkComplited: TextView by lazy { view.findViewById<TextView>(R.id.courses_entry_homework_completed) }
 
-        fun bind(model: CurseDetailModel, onDetailsClick: (v: View, model: CurseDetailModel) -> Unit) {
+        fun bind(model: CourseDetailModel, onDetailsClick: (v: View, model: CourseDetailModel) -> Unit) {
             title.text = model.title
             score.text = model.score.actual.toString()
             scoreProgress.ratio = model.score

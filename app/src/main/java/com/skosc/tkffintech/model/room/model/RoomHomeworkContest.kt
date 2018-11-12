@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.model.room
+package com.skosc.tkffintech.model.room.model
 
 import androidx.room.ColumnInfo
 import com.skosc.tkffintech.entities.HomeworkTaskType

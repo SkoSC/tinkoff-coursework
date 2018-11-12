@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import com.skosc.rxprefs.RxPreferences
 import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.model.room.EventInfoDao
-import com.skosc.tkffintech.model.room.RoomEventInfo
+import com.skosc.tkffintech.model.room.model.RoomEventInfo
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.service.NetworkInfoService
 import com.skosc.tkffintech.utils.SQLSearchQueryMaker

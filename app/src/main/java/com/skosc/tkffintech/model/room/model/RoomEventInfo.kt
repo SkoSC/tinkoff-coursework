@@ -1,8 +1,7 @@
-package com.skosc.tkffintech.model.room
+package com.skosc.tkffintech.model.room.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
-import androidx.room.Fts4
 import androidx.room.PrimaryKey
 import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.entities.EventType

@@ -23,7 +23,8 @@ interface TinkoffCursesApi {
                     isTeacher = isTeacher,
                     status = parseStatus(status),
                     starts = starts,
-                    url = url
+                    url = url,
+                    homeWorks = null
             )
 
             private fun parseStatus(string: String) : CourseInfo.Status {
@@ -54,8 +55,6 @@ interface TinkoffCursesApi {
         ) {
             fun convert(): HomeworkTask = HomeworkTask(
                     id = id,
-                    status = HomeworkStatus.form(status),
-                    mark = mark,
                     contestId = info.id,
                     title = info.title,
                     maxScore = info.maxScore,

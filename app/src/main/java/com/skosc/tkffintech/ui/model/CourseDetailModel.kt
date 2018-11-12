@@ -4,7 +4,7 @@ import com.skosc.tkffintech.entities.CourseInfo
 import com.skosc.tkffintech.misc.Ratio
 import org.joda.time.DateTime
 
-data class CurseDetailModel(
+data class CourseDetailModel(
         val title: String = "",
         val date: DateTime = DateTime(0),
         val score: Ratio = Ratio(),

@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.skosc.tkffintech.misc.gsonadapter.JodaDateTimeAdapter
@@ -16,8 +17,10 @@ import com.skosc.tkffintech.model.repo.*
 import com.skosc.tkffintech.model.room.*
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
+import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.service.NetworkInfoService
+import com.skosc.tkffintech.usecase.UpdateGradesInfo
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
 import com.skosc.tkffintech.utils.subscribeOnIoThread
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModel
@@ -31,7 +34,6 @@ import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import com.skosc.tkffintech.viewmodel.login.LoginViewModelFactory
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModelFactory
-import io.reactivex.Single
 import okhttp3.OkHttpClient
 import okhttp3.internal.JavaNetCookieJar
 import org.joda.time.DateTime
@@ -52,8 +54,11 @@ fun roomModule(ctx: Context) = Kodein.Module("room-db", false, "tkf") {
             .fallbackToDestructiveMigration()
             .build()
 
+    bind<RoomDatabase>() with instance(db)
     bind<EventInfoDao>() with singleton { db.eventInfoDao }
     bind<HomeworkDao>() with singleton { db.homeworkDao }
+    bind<GradesDao>() with singleton { db.gradesDao }
+    bind<UserDao>() with singleton { db.userDao }
 }
 
 fun daoModule(ctx: Context) = Kodein.Module("dao", false, "tkf") {
@@ -108,11 +113,14 @@ fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
     bind<TinkoffUserApi>() with singleton { retrofit.create(TinkoffUserApi::class.java) }
     bind<TinkoffEventsApi>() with singleton { retrofit.create(TinkoffEventsApi::class.java) }
     bind<TinkoffCursesApi>() with singleton { retrofit.create(TinkoffCursesApi::class.java) }
+    bind<TinkoffGradesApi>() with singleton { retrofit.create(TinkoffGradesApi::class.java) }
 }
 
 val repoModule = Kodein.Module("repo", false, "tkf") {
+    bind<UpdateGradesInfo>() with provider { UpdateGradesInfo(instance(), instance(), instance()) }
+
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
-    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance()) }
+    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance()) }
     bind<CourseRepo>() with singleton { CourseRepoImpl(instance()) }
 }

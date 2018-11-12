@@ -1,7 +1,6 @@
-package com.skosc.tkffintech.model.room
+package com.skosc.tkffintech.model.room.model
 
 import androidx.room.*
-import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.entities.HomeworkTask
 import org.joda.time.DateTime
 
@@ -20,13 +19,7 @@ data class RoomHomeworkTask(
         val homeworkId: Long,
 
         @Embedded
-        val contest: RoomHomeworkContest,
-
-        @ColumnInfo(name = "status")
-        val status: HomeworkStatus,
-
-        @ColumnInfo(name = "mark")
-        val mark: String
+        val contest: RoomHomeworkContest
 ) {
     companion object {
         fun from(task: HomeworkTask, parentId: Long): RoomHomeworkTask = RoomHomeworkTask(
@@ -39,9 +32,7 @@ data class RoomHomeworkTask(
                         maxScore = task.maxScore,
                         deadlineDate = task.deadlineDate ?: DateTime(0),
                         shortName = task.shotName
-                ),
-                status = task.status,
-                mark = task.mark
+                )
         )
     }
 
@@ -52,8 +43,6 @@ data class RoomHomeworkTask(
             taskType = contest.type,
             maxScore = contest.maxScore,
             deadlineDate = contest.deadlineDate,
-            shotName = contest.shortName,
-            status = status,
-            mark = mark
+            shotName = contest.shortName
     )
 }
