@@ -23,7 +23,7 @@ class EventsRepoImpl(
     private val queryMaker: SearchQueryMaker = SQLSearchQueryMaker()
 
     private val rxSharedPreferences = RxPreferences.create(timerSharedPreferences)
-    private val lastUpdatedPref = rxSharedPreferences.getLong("timer-event-info-update", 0)
+    private val lastUpdatedPref = rxSharedPreferences.getLong("timer-event-info-perform", 0)
 
     override fun refresh() {
         lastUpdatedPref.observable().first(0)

@@ -20,6 +20,8 @@ import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.service.NetworkInfoService
+import com.skosc.tkffintech.usecase.LogoutBomb
+import com.skosc.tkffintech.usecase.UpdateCourseList
 import com.skosc.tkffintech.usecase.UpdateGradesInfo
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
 import com.skosc.tkffintech.utils.subscribeOnIoThread
@@ -59,6 +61,7 @@ fun roomModule(ctx: Context) = Kodein.Module("room-db", false, "tkf") {
     bind<HomeworkDao>() with singleton { db.homeworkDao }
     bind<GradesDao>() with singleton { db.gradesDao }
     bind<UserDao>() with singleton { db.userDao }
+    bind<CourseInfoDao>() with singleton { db.courseInfoDao }
 }
 
 fun daoModule(ctx: Context) = Kodein.Module("dao", false, "tkf") {
@@ -117,10 +120,12 @@ fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
 }
 
 val repoModule = Kodein.Module("repo", false, "tkf") {
-    bind<UpdateGradesInfo>() with provider { UpdateGradesInfo(instance(), instance(), instance()) }
+    bind<UpdateGradesInfo>() with provider { UpdateGradesInfo(instance(), instance(), instance(), instance(), instance()) }
+    bind<UpdateCourseList>() with provider { UpdateCourseList(instance(), instance()) }
+    bind<LogoutBomb>() with provider { LogoutBomb(instance()) }
 
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
-    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance()) }
-    bind<CourseRepo>() with singleton { CourseRepoImpl(instance()) }
+    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance()) }
+    bind<CourseRepo>() with singleton { CourseRepoImpl(instance(), instance()) }
 }

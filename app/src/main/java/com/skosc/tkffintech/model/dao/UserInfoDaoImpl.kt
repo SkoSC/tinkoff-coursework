@@ -18,8 +18,11 @@ class UserInfoDaoImpl(sp: SharedPreferences, private val gson: Gson) : UserInfoD
         override fun deserialize(value: String): UserInfo = gson.fromJson(value, UserInfo::class.java)
         override fun serialize(value: UserInfo): String = gson.toJson(value)
     })
+
+    private val userCoursesPref = rxSharedPrefs.getStringSet("current-user-curses", setOf())
+
     override val rxUserInfo: Observable<UserInfo> =
-        userInfoPref.observable()
+            userInfoPref.observable()
 
 
     // TODO Make async

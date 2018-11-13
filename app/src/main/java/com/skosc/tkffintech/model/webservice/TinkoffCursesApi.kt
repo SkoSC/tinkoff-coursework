@@ -23,8 +23,7 @@ interface TinkoffCursesApi {
                     isTeacher = isTeacher,
                     status = parseStatus(status),
                     starts = starts,
-                    url = url,
-                    homeWorks = null
+                    url = url
             )
 
             private fun parseStatus(string: String) : CourseInfo.Status {

@@ -7,8 +7,7 @@ data class CourseInfo(
         val isTeacher: Boolean,
         val status: Status,
         val starts: DateTime,
-        val url: String,
-        val homeWorks: List<Homework>?
+        val url: String
 ) {
     enum class Status {
         ONGOING, UNKNOWN;
