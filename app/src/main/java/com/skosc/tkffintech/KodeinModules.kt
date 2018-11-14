@@ -127,7 +127,7 @@ val useCaseModule = Kodein.Module("user-case", false, "tkf") {
     bind<UpdateCourseList>() with provider { UpdateCourseList(instance(), instance()) }
     bind<LogoutBomb>() with provider { LogoutBomb(instance()) }
 
-    bind<LoadEvents>() with provider { LoadEvents(instance()) }
+    bind<LoadEvents>() with provider { LoadEvents(instance(), instance("timers")) }
     bind<SearchForEvent>() with provider { SearchForEvent(instance()) }
     bind<LoginUser>() with provider { LoginUser(instance()) }
     bind<IsCurrentUserLoggedIn>() with provider { IsCurrentUserLoggedIn(instance()) }

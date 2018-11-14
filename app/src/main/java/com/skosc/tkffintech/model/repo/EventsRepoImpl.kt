@@ -1,7 +1,6 @@
 package com.skosc.tkffintech.model.repo
 
 import android.content.SharedPreferences
-import com.skosc.rxprefs.RxPreferences
 import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.model.room.EventInfoDao
 import com.skosc.tkffintech.model.room.model.RoomEventInfo
@@ -11,8 +10,7 @@ import com.skosc.tkffintech.utils.SQLSearchQueryMaker
 import com.skosc.tkffintech.utils.SearchQueryMaker
 import io.reactivex.Observable
 import io.reactivex.Single
-import org.joda.time.DateTime
-import java.lang.IllegalStateException
+import retrofit2.Response
 
 class EventsRepoImpl(
         private val api: TinkoffEventsApi,
@@ -22,30 +20,25 @@ class EventsRepoImpl(
 ) : EventsRepo {
     private val queryMaker: SearchQueryMaker = SQLSearchQueryMaker()
 
-    private val rxSharedPreferences = RxPreferences.create(timerSharedPreferences)
-    private val lastUpdatedPref = rxSharedPreferences.getLong("timer-event-info-perform", 0)
 
-    override fun refresh() {
-        lastUpdatedPref.observable().first(0)
-                .filter { lastUpdated -> lastUpdated < DateTime.now().minusHours(1).millis }
-                .filter { networkInfo.checkConnection() }
-                .subscribe {
-                    tryForceRefresh()
+    override fun tryForceRefresh(): Single<Boolean> {
+        return api.getAllEvents()
+                .doAfterSuccess { events ->
+                    saveEventsToDb(events)
+                }.map {
+                    it.isSuccessful
                 }
     }
 
-    override fun tryForceRefresh() {
-        api.getAllEvents().subscribe { events ->
-            if (!events.isSuccessful) {
-                throw IllegalStateException("Network request failed")
-            }
-            dao.deleteAll()
-            val eventBucket = events.body() ?: TinkoffEventsApi.EventBucket()
-            val active = eventBucket.active.map { RoomEventInfo.from(it, true) }
-            val archive = eventBucket.archive.map { RoomEventInfo.from(it, false) }
-            dao.insertAll(active + archive)
-            lastUpdatedPref.post(DateTime.now().millis)
+    private fun saveEventsToDb(events: Response<TinkoffEventsApi.EventBucket>) {
+        if (!events.isSuccessful) {
+            throw IllegalStateException("Network request failed")
         }
+        dao.deleteAll()
+        val eventBucket = events.body() ?: TinkoffEventsApi.EventBucket()
+        val active = eventBucket.active.map { RoomEventInfo.from(it, true) }
+        val archive = eventBucket.archive.map { RoomEventInfo.from(it, false) }
+        dao.insertAll(active + archive)
     }
 
     override fun searchEvents(query: String, isOnGoing: Boolean, mode: SearchQueryMaker.Mode): Observable<List<EventInfo>> {
@@ -60,13 +53,13 @@ class EventsRepoImpl(
     override val archiveEvents: Observable<List<EventInfo>> by lazy {
         dao.getArchiveEventInfo().convertToBusinessModel()
     }
-    
+
     override fun findEventByHid(hid: Long): Single<EventInfo> {
         return dao.searchForEventWithId(hid)
                 .map(RoomEventInfo::convert)
                 .firstOrError()
     }
-    
+
     private fun Observable<List<RoomEventInfo>>.convertToBusinessModel(): Observable<List<EventInfo>> {
         return map { eventList -> eventList.map { event -> event.convert() } }
     }
