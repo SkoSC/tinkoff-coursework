@@ -11,5 +11,5 @@ interface EventsRepo {
     val onGoingEvents: Observable<List<EventInfo>>
     val archiveEvents: Observable<List<EventInfo>>
     fun findEventByHid(hid: Long): Single<EventInfo>
-    fun searchEvents(query: String, isOnGoing: Boolean, mode: SearchQueryMaker.Mode): Single<List<EventInfo>>
+    fun searchEvents(query: String, isOnGoing: Boolean, mode: SearchQueryMaker.Mode): Observable<List<EventInfo>>
 }

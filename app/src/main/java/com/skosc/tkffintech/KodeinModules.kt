@@ -2,7 +2,6 @@ package com.skosc.tkffintech
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.google.gson.Gson
@@ -20,11 +19,8 @@ import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.service.NetworkInfoService
-import com.skosc.tkffintech.usecase.LogoutBomb
-import com.skosc.tkffintech.usecase.UpdateCourseList
-import com.skosc.tkffintech.usecase.UpdateGradesInfo
+import com.skosc.tkffintech.usecase.*
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
-import com.skosc.tkffintech.utils.subscribeOnIoThread
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModel
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModelFactory
 import com.skosc.tkffintech.viewmodel.courses.CourseViewModel
@@ -120,12 +116,22 @@ fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
 }
 
 val repoModule = Kodein.Module("repo", false, "tkf") {
-    bind<UpdateGradesInfo>() with provider { UpdateGradesInfo(instance(), instance(), instance(), instance(), instance()) }
-    bind<UpdateCourseList>() with provider { UpdateCourseList(instance(), instance()) }
-    bind<LogoutBomb>() with provider { LogoutBomb(instance()) }
-
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
     bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance()) }
     bind<CourseRepo>() with singleton { CourseRepoImpl(instance(), instance()) }
+}
+
+val useCaseModule = Kodein.Module("user-case", false, "tkf") {
+    bind<UpdateGradesInfo>() with provider { UpdateGradesInfo(instance(), instance(), instance(), instance(), instance()) }
+    bind<UpdateCourseList>() with provider { UpdateCourseList(instance(), instance()) }
+    bind<LogoutBomb>() with provider { LogoutBomb(instance()) }
+
+    bind<LoadEvents>() with provider { LoadEvents(instance()) }
+    bind<SearchForEvent>() with provider { SearchForEvent(instance()) }
+    bind<LoginUser>() with provider { LoginUser(instance()) }
+    bind<IsCurrentUserLoggedIn>() with provider { IsCurrentUserLoggedIn(instance()) }
+    bind<LoadCurrentUserInfo>() with provider { LoadCurrentUserInfo(instance()) }
+    bind<PerformLogout>() with provider { PerformLogout(instance(), instance()) }
+    bind<LoadCourses>() with provider { LoadCourses(instance()) }
 }

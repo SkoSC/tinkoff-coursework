@@ -6,10 +6,12 @@ import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.entities.UserInfoAttributes
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.model.repo.HomeworkRepo
+import com.skosc.tkffintech.usecase.LoadCurrentUserInfo
+import com.skosc.tkffintech.usecase.PerformLogout
 import com.skosc.tkffintech.utils.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class ProfileViewModelImpl(val currentUserRepo: CurrentUserRepo, val homeworkRepo: HomeworkRepo) : ProfileViewModel() {
+class ProfileViewModelImpl(val loadCurrentUserInfo: LoadCurrentUserInfo, val performLogout: PerformLogout) : ProfileViewModel() {
     override val fullName: MutableLiveData<String> = MutableLiveData()
     override val shortInfo: MutableLiveData<String> = MutableLiveData()
     override val avatarUrl: MutableLiveData<String> = MutableLiveData()
@@ -52,40 +54,16 @@ class ProfileViewModelImpl(val currentUserRepo: CurrentUserRepo, val homeworkRep
 
 
     init {
-        cdisp own currentUserRepo.info
+        cdisp own loadCurrentUserInfo.currentUserInfo
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bindUserInfoToLiveData)
-
-        cdisp own homeworkRepo.statisticsScore
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    dataUpdated.value = Unit // Trigger
-                    statsScore.value = it
-                }
-
-        cdisp own homeworkRepo.statisticsTestsCompleted
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    dataUpdated.value = Unit // Trigger
-                    statsTests.value = it
-                }
-
-        cdisp own homeworkRepo.statisticsCurses
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
-                    dataUpdated.value = Unit // Trigger
-                    statsCourses.value = it
-                }
     }
 
     override fun signout() {
-        currentUserRepo.signout()
+        performLogout.perform()
     }
 
     override fun update() {
-        currentUserRepo.forceRefreshUserInfo()
-        homeworkRepo.update()
+        loadCurrentUserInfo.tryLoadUserInfoFromNetwork()
     }
-
-
 }

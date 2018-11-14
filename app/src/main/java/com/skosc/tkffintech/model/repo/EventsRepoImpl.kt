@@ -48,9 +48,9 @@ class EventsRepoImpl(
         }
     }
 
-    override fun searchEvents(query: String, isOnGoing: Boolean, mode: SearchQueryMaker.Mode): Single<List<EventInfo>> {
+    override fun searchEvents(query: String, isOnGoing: Boolean, mode: SearchQueryMaker.Mode): Observable<List<EventInfo>> {
         val sqlQuery = queryMaker.from(query, mode)
-        return dao.search(sqlQuery, isOnGoing).first(listOf()).map { it.map { it.convert() } }
+        return dao.search(sqlQuery, isOnGoing).map { it.map { it.convert() } }
     }
 
     override val onGoingEvents: Observable<List<EventInfo>> by lazy {

@@ -14,6 +14,7 @@ class TKFApplication : Application() {
         importOnce(viewModelFactoryModule)
         importOnce(webModule(applicationContext))
         importOnce(repoModule)
+        importOnce(useCaseModule)
     }
 
 }

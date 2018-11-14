@@ -8,6 +8,6 @@ import org.kodein.di.generic.instance
 
 class CourseViewModelFactory(private val kodein: Kodein) : ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return CourseViewModelImpl(kodein.direct.instance(), kodein.direct.instance()) as T
+        return CourseViewModelImpl(kodein.direct.instance()) as T
     }
 }

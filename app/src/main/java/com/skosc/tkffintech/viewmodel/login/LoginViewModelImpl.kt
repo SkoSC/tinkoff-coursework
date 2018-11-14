@@ -3,10 +3,11 @@ package com.skosc.tkffintech.viewmodel.login
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.model.repo.NetworkErrors
+import com.skosc.tkffintech.usecase.LoginUser
 import com.skosc.tkffintech.utils.observeOnMainThread
 import com.skosc.tkffintech.utils.own
 
-class LoginViewModelImpl(private val userRepo: CurrentUserRepo) : LoginViewModel() {
+class LoginViewModelImpl(private val loginUser: LoginUser) : LoginViewModel() {
     override val status: MutableLiveData<Status> = MutableLiveData()
 
     init {
@@ -17,7 +18,7 @@ class LoginViewModelImpl(private val userRepo: CurrentUserRepo) : LoginViewModel
         status.value = LoginViewModel.Status.InProgress
         val cleanEmail = email.trim()
         val cleanPassword = password.trim()
-        cdisp own userRepo.login(cleanEmail, cleanPassword)
+        cdisp own loginUser.login(cleanEmail, cleanPassword)
                 .observeOnMainThread()
                 .subscribe(this::onLoginPassed, this::onLoginFailed)
     }
