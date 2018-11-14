@@ -5,4 +5,5 @@ import io.reactivex.Observable
 
 interface CourseRepo {
     val courses: Observable<List<CourseInfo>>
+    fun tryToUpdateAll()
 }

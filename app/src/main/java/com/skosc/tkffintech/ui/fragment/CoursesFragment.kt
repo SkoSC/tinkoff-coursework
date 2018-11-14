@@ -39,6 +39,7 @@ class CoursesFragment : TKFFragment() {
         }
 
         vm.allCourses.observe(this, Observer {
+            courses_refresh.isRefreshing = false
             val adapter = courses_all_recycler.adapter as CoursesPreviewRecyclerAdapter
             adapter.items = it.map { CoursePreviewModel(
                     title = it.title,
@@ -46,5 +47,9 @@ class CoursesFragment : TKFFragment() {
             ) }
             adapter.notifyDataSetChanged()
         })
+
+        courses_refresh.setOnRefreshListener {
+            vm.forceUpdate()
+        }
     }
 }

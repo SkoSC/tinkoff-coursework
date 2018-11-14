@@ -17,4 +17,8 @@ class CourseViewModelImpl(private val loadCourses: LoadCourses) : CourseViewMode
                     allCourses.value = it
                 }
     }
+
+    override fun forceUpdate() {
+        loadCourses.tryLoadCourses()
+    }
 }

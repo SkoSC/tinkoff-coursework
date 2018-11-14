@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/courses_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.CoursesFragment">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:orientation="vertical"
-        tools:listitem="@layout/card_course">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:elevation="10dp"
-            android:layout_margin="8dp"
-            android:id="@+id/courses_fresh_recycler"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:orientation="horizontal"
-            tools:context=".ui.fragment.CoursesFragment"
-            tools:listitem="@layout/card_course_with_details" />
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            tools:listitem="@layout/card_course">
 
-        <include layout="@layout/incl_cources_list_vertical" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:elevation="10dp"
+                android:layout_margin="8dp"
+                android:id="@+id/courses_fresh_recycler"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:orientation="horizontal"
+                tools:context=".ui.fragment.CoursesFragment"
+                tools:listitem="@layout/card_course_with_details" />
 
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+            <include layout="@layout/incl_cources_list_vertical" />
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
