@@ -30,8 +30,8 @@
         android:label="fragment_courses"
         tools:layout="@layout/fragment_courses" >
         <action
-            android:id="@+id/action_navigation_course_detail"
-            app:destination="@id/courseDetailFragment" />
+            android:id="@+id/navigation_course_detail"
+            app:destination="@id/navigation_course_detail" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
@@ -64,8 +64,17 @@
             app:argType="long" />
     </fragment>
     <fragment
-        android:id="@+id/courseDetailFragment"
+        android:id="@+id/navigation_course_detail"
         android:name="com.skosc.tkffintech.ui.fragment.CourseDetailFragment"
         android:label="fragment_course_detail"
-        tools:layout="@layout/fragment_course_detail" />
+        tools:layout="@layout/fragment_course_detail" >
+        <action
+            android:id="@+id/action_navigation_course_grades"
+            app:destination="@id/courseGradesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/courseGradesFragment"
+        android:name="com.skosc.tkffintech.ui.fragment.CourseGradesFragment"
+        android:label="fragment_course_grades"
+        tools:layout="@layout/fragment_course_grades" />
 </navigation>

@@ -118,7 +118,7 @@ fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
 val repoModule = Kodein.Module("repo", false, "tkf") {
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
-    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance()) }
+    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance()) }
     bind<CourseRepo>() with singleton { CourseRepoImpl(instance(), instance()) }
 }
 
@@ -134,4 +134,5 @@ val useCaseModule = Kodein.Module("user-case", false, "tkf") {
     bind<LoadCurrentUserInfo>() with provider { LoadCurrentUserInfo(instance()) }
     bind<PerformLogout>() with provider { PerformLogout(instance(), instance()) }
     bind<LoadCourses>() with provider { LoadCourses(instance()) }
+    bind<LoadGradesForUser>() with provider { LoadGradesForUser(instance(), instance()) }
 }

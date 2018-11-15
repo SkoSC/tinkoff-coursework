@@ -1,7 +1,6 @@
 package com.skosc.tkffintech.model.webservice
 
 import com.google.gson.annotations.SerializedName
-import com.skosc.tkffintech.entities.Homework
 import com.skosc.tkffintech.entities.HomeworkGrade
 import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.entities.User
@@ -21,7 +20,7 @@ interface TinkoffGradesApi {
             val title: String,
 
             @SerializedName("grades")
-            val grades: List<Student>
+            val students: List<Student>
     ) {
         data class GroupedTask(
                 @SerializedName("id")
@@ -72,7 +71,7 @@ interface TinkoffGradesApi {
         fun grades(): List<HomeworkGrade> {
             val tasks = this.groupedTasks.flatMap { it }
 
-            return this.grades.map { student ->
+            return this.students.map { student ->
                 val studentId = student.id
                 student.grades.mapIndexed { index, grade ->
                     grade.toBuissnesGrade(student.toUser(), tasks[index].id)

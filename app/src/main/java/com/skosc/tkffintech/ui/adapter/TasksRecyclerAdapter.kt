@@ -4,8 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.annotation.ColorInt
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
+import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.ui.model.TaskAdapterItem
 import com.skosc.tkffintech.ui.view.ScoreView
 import java.lang.IllegalArgumentException
@@ -16,10 +19,7 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private const val TYPE_ENTRY = 1
     }
 
-    var items = listOf(
-            TaskAdapterItem.Header("Header 1"),
-            TaskAdapterItem.Entry("Entry 1")
-            )
+    var items = listOf<TaskAdapterItem>()
 
     override fun getItemViewType(position: Int): Int = when(items[position]) {
         is TaskAdapterItem.Header -> TYPE_HEADER
@@ -72,6 +72,31 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         fun bind(entry: TaskAdapterItem.Entry) {
             title.text = entry.title
+            score.text = entry.score.actual.toString()
+
+            score.setBgColor(entry.status.toBgColor())
+            score.setBoarderColor(entry.status.toBorderColor())
+
+        }
+
+        @ColorInt
+        private fun HomeworkStatus.toBorderColor(): Int {
+            return when(this) {
+                HomeworkStatus.NEW -> ContextCompat.getColor(view.context, R.color.task_score_inwork)
+                HomeworkStatus.ACCEPTED -> ContextCompat.getColor(view.context, R.color.task_score_success)
+                HomeworkStatus.TEST_RESULT -> ContextCompat.getColor(view.context, R.color.task_score_success)
+                HomeworkStatus.UNKNOWN -> ContextCompat.getColor(view.context, R.color.task_score_failed)
+            }
+        }
+
+        @ColorInt
+        private fun HomeworkStatus.toBgColor(): Int {
+            return when(this) {
+                HomeworkStatus.NEW -> ContextCompat.getColor(view.context, R.color.task_score_inwork_bg)
+                HomeworkStatus.ACCEPTED -> ContextCompat.getColor(view.context, R.color.task_score_success_bg)
+                HomeworkStatus.TEST_RESULT -> ContextCompat.getColor(view.context, R.color.task_score_success_bg)
+                HomeworkStatus.UNKNOWN -> ContextCompat.getColor(view.context, R.color.task_score_failed_bg)
+            }
         }
     }
 }

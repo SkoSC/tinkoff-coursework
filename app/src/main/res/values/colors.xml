@@ -20,4 +20,15 @@
     <color name="event_chip_green">#6cd6a2</color>
     <color name="event_chip_red">#f79696</color>
     <color name="event_chip_blue">#72c2ff</color>
+
+    <!-- Score Colors -->
+    <color name="task_score_success">#00FF00</color>
+    <color name="task_score_success_bg">#6D00FF00</color>
+
+    <color name="task_score_inwork">#646464</color>
+    <color name="task_score_inwork_bg">#54646464</color>
+
+    <color name="task_score_failed">#FF0000</color>
+    <color name="task_score_failed_bg">#6DFF0000</color>
+
 </resources>

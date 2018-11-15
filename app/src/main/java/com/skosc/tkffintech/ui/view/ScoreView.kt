@@ -6,6 +6,8 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.util.AttributeSet
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.cardview.widget.CardView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.utils.dp
@@ -14,6 +16,10 @@ private const val DEFAULT_SCORE = "0.0"
 
 class ScoreView(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : CardView(context, attributeSet, defStyleAttr) {
+    companion object {
+        const val MAX_TEXT_LEN = 4
+    }
+
     constructor(context: Context, attributeSet: AttributeSet?) : this(context, attributeSet, 0)
 
     private val localAttrs = context.obtainStyledAttributes(attributeSet,
@@ -25,15 +31,24 @@ class ScoreView(context: Context, attributeSet: AttributeSet? = null, defStyleAt
     private val borderSize = dp(6)
     private val baseColor = localAttrs.getColor(R.styleable.ScoreView_color, Color.rgb(255, 0, 0))
 
-    private val borderPaint = Paint().apply {
+    private var borderPaint = Paint().apply {
         style = Paint.Style.STROKE
         strokeWidth = borderSize
         color = baseColor
     }
 
-    private val bgPaint = Paint().apply {
+    private var bgPaint = Paint().apply {
         color = Color.argb(64, Color.red(baseColor), Color.green(baseColor), Color.blue(baseColor))
     }
+
+    fun setBoarderColor(@ColorInt color: Int) {
+        borderPaint.color = color
+    }
+
+    fun setBgColor(@ColorInt color: Int) {
+        bgPaint.color = color
+    }
+
 
     private val textPaint = Paint().apply {
         textSize = dp(textSize.toInt() * 2F)
@@ -43,8 +58,8 @@ class ScoreView(context: Context, attributeSet: AttributeSet? = null, defStyleAt
 
     var text: String = localAttrs.getString(R.styleable.ScoreView_score) ?: DEFAULT_SCORE
         set(value) {
-            if (value.length > 3) {
-                throw IllegalArgumentException("Unsupported score value, should be less than 3 characters long")
+            if (value.length > MAX_TEXT_LEN) {
+                throw IllegalArgumentException("Unsupported score value: ($value), should be less than $MAX_TEXT_LEN characters long")
             }
             field = value
             invalidate()

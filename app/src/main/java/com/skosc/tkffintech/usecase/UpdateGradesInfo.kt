@@ -1,15 +1,11 @@
 package com.skosc.tkffintech.usecase
 
-import com.skosc.tkffintech.entities.Homework
-import com.skosc.tkffintech.entities.HomeworkGrade
-import com.skosc.tkffintech.entities.HomeworkTask
 import com.skosc.tkffintech.model.room.GradesDao
 import com.skosc.tkffintech.model.room.HomeworkDao
 import com.skosc.tkffintech.model.room.UserDao
 import com.skosc.tkffintech.model.room.model.*
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
-import io.reactivex.Single
 import io.reactivex.functions.BiFunction
 
 class UpdateGradesInfo(
@@ -25,27 +21,19 @@ class UpdateGradesInfo(
         PR(hw, gr)
     }
 
-    fun perform(curse: String) {
-        Single.zip(cursesApi.homeworks(curse), gradesApi.gradesForCourse(curse), zippper)
-                .subscribe { it ->
-                    val homewroks = it.hw.homeworks.map { it.convert(curse) }
-                    val grades = it.gr.flatMap { it.grades() }
-                    homewroks.forEach { homework ->
-                        val tasksIdSet = homework.tasks.map { it.id }.toSet()
-                        val grades = grades.filter { it.taskId in tasksIdSet }
-
-                        val roomTasks = homework.tasks.map { RoomHomeworkTask.from(it, homework.id) }
-                        val roomHomework = RoomHomework.from(homework)
-                        homeworkDao.insert(RoomHomeworkAndTasks(roomHomework, roomTasks))
-
-                        val users = grades.map { it.user }
-                        val roomUsers = users.map { RoomUser.form(it) }
-                        userDao.insertOrUpdate(roomUsers)
-
-                        val roomGrades = grades.map { RoomGrade.from(it) }
-                        gradesDao.insert(roomGrades)
-                    }
+    fun perform(course: String) {
+        gradesApi.gradesForCourse(course).subscribe { resp ->
+            val students = resp.flatMap { it.students }
+            val roomUsers = students.map { RoomUser(it.id, it.name) }
+            userDao.insertOrUpdate(roomUsers)
+            val grades = resp.flatMap { it.grades() }.map { RoomGrade.from(it) }
+            gradesDao.insert(grades)
+            cursesApi.homeworks(course).subscribe { homeworks ->
+                val homeworks = homeworks.homeworks.map { it.convert(course) }.map { hw ->
+                    RoomHomeworkAndTasks(RoomHomework.from(hw), hw.tasks.map { RoomHomeworkTask.from(it, hw.id) })
                 }
-
+                homeworks.forEach { homeworkDao.insert(it) }
+            }
+        }
     }
 }

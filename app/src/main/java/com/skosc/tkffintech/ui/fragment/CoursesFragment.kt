@@ -35,7 +35,7 @@ class CoursesFragment : TKFFragment() {
 
         courses_fresh_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         courses_fresh_recycler.adapter = CoursesDetailedRecyclerAdapter {_, model ->
-            navController.navigate(R.id.action_navigation_course_detail)
+            navController.navigate(R.id.navigation_course_detail)
         }
 
         vm.allCourses.observe(this, Observer {
