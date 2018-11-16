@@ -17,20 +17,20 @@ class LoadGrades(
             it.map {
                 it to it.tasks.map {
                     TaskWithGrade(it, homeworkRepo.gradesForUserByTask(userId, it.contestId).blockingFirst(
-                            HomeworkGrade(0,"0.0", HomeworkStatus.UNKNOWN, User(0, ""), 0)
+                            HomeworkGrade(0, "0.0", HomeworkStatus.UNKNOWN, User(0, ""), 0)
                     ))
                 }
             }
         }
     }
 
-    fun loadGradesForCurrentUser(course: String) : Observable<List<Pair<Homework, List<TaskWithGrade>>>> {
+    fun loadGradesForCurrentUser(course: String): Observable<List<Pair<Homework, List<TaskWithGrade>>>> {
         return currentUserRepo.info
                 .firstOrError()
                 .flatMapObservable { loadGrades(it.id, course) }
     }
 
-    fun loadGradesSumForAllCourse(course: String) : Observable<List<UserWithGradesSum>> {
+    fun loadGradesSumForAllCourse(course: String): Observable<List<UserWithGradesSum>> {
         return homeworkRepo.gradesTotalForAllUsersWithCourse(course)
     }
 

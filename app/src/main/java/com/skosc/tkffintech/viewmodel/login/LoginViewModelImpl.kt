@@ -1,7 +1,6 @@
 package com.skosc.tkffintech.viewmodel.login
 
 import androidx.lifecycle.MutableLiveData
-import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.model.repo.NetworkErrors
 import com.skosc.tkffintech.usecase.LoginUser
 import com.skosc.tkffintech.utils.observeOnMainThread

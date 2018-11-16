@@ -7,7 +7,6 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.util.AttributeSet
 import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.cardview.widget.CardView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.utils.dp

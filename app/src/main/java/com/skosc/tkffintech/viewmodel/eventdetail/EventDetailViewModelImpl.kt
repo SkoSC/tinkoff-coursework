@@ -1,7 +1,6 @@
 package com.skosc.tkffintech.viewmodel.eventdetail
 
 import androidx.lifecycle.MutableLiveData
-import com.skosc.tkffintech.model.repo.EventsRepo
 import com.skosc.tkffintech.usecase.LoadEvents
 import com.skosc.tkffintech.utils.observeOnMainThread
 

@@ -5,10 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.skosc.tkffintech.TKFApplication
-import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
-import com.skosc.tkffintech.usecase.LogoutBomb
-import com.skosc.tkffintech.usecase.UpdateGradesInfo
-import com.skosc.tkffintech.utils.subscribeOnIoThread
 import org.kodein.di.direct
 import org.kodein.di.generic.instance
 import kotlin.reflect.KClass

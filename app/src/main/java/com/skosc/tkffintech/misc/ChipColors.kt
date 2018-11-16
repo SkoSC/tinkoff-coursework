@@ -21,7 +21,7 @@ object ChipColors {
 
     @ColorRes
     fun colorForName(name: String): Int {
-        return when(name.trim().toLowerCase()) {
+        return when (name.trim().toLowerCase()) {
             "purple" -> R.color.event_chip_purple
             "green" -> R.color.event_chip_green
             "orange" -> R.color.event_chip_red

@@ -7,7 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.model.CoursePreviewModel
-import com.skosc.tkffintech.viewmodel.courses.CourseViewModel
 
 class CoursesPreviewRecyclerAdapter : RecyclerView.Adapter<CoursesPreviewRecyclerAdapter.ViewHolder>() {
 

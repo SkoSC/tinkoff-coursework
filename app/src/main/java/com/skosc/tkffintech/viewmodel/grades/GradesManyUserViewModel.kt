@@ -1,9 +1,7 @@
 package com.skosc.tkffintech.viewmodel.grades
 
 import androidx.lifecycle.LiveData
-import com.skosc.tkffintech.entities.User
 import com.skosc.tkffintech.utils.ItemSorter
-import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 import com.skosc.tkffintech.viewmodel.RxViewModel
 import com.skosc.tkffintech.viewmodel.UserWithGradesSum
 

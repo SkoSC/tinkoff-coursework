@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.skosc.tkffintech.ui.fragment.CourseGradesManyFragment
 import com.skosc.tkffintech.ui.fragment.CourseGradesSingleFragment
-import java.lang.IllegalStateException
 
 class CourseGradesFragmentsAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     companion object {

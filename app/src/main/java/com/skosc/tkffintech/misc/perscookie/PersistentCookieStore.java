@@ -19,8 +19,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.net.CookieStore;
 import java.net.HttpCookie;
 import java.net.URI;
@@ -32,9 +30,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import io.reactivex.Emitter;
-import io.reactivex.Observable;
 
 public class PersistentCookieStore implements CookieStore {
     private static final String TAG = PersistentCookieStore.class
@@ -55,6 +50,33 @@ public class PersistentCookieStore implements CookieStore {
         sharedPreferences = context.getSharedPreferences(SP_COOKIE_STORE,
                 Context.MODE_PRIVATE);
         loadAllFromPersistence();
+    }
+
+    /**
+     * Get the real URI from the cookie "domain" and "path" attributes, if they
+     * are not set then uses the URI provided (coming from the response)
+     *
+     * @param uri
+     * @param cookie
+     * @return
+     */
+    private static URI cookieUri(URI uri, HttpCookie cookie) {
+        URI cookieUri = uri;
+        if (cookie.getDomain() != null) {
+            // Remove the starting dot character of the domain, if exists (e.g: .domain.com -> domain.com)
+            String domain = cookie.getDomain();
+            if (domain.charAt(0) == '.') {
+                domain = domain.substring(1);
+            }
+            try {
+                cookieUri = new URI(uri.getScheme() == null ? "http"
+                        : uri.getScheme(), domain,
+                        cookie.getPath() == null ? "/" : cookie.getPath(), null);
+            } catch (URISyntaxException e) {
+                Log.w(TAG, e);
+            }
+        }
+        return cookieUri;
     }
 
     private void loadAllFromPersistence() {
@@ -97,33 +119,6 @@ public class PersistentCookieStore implements CookieStore {
         targetCookies.add(cookie);
 
         saveToPersistence(uri, cookie);
-    }
-
-    /**
-     * Get the real URI from the cookie "domain" and "path" attributes, if they
-     * are not set then uses the URI provided (coming from the response)
-     *
-     * @param uri
-     * @param cookie
-     * @return
-     */
-    private static URI cookieUri(URI uri, HttpCookie cookie) {
-        URI cookieUri = uri;
-        if (cookie.getDomain() != null) {
-            // Remove the starting dot character of the domain, if exists (e.g: .domain.com -> domain.com)
-            String domain = cookie.getDomain();
-            if (domain.charAt(0) == '.') {
-                domain = domain.substring(1);
-            }
-            try {
-                cookieUri = new URI(uri.getScheme() == null ? "http"
-                        : uri.getScheme(), domain,
-                        cookie.getPath() == null ? "/" : cookie.getPath(), null);
-            } catch (URISyntaxException e) {
-                Log.w(TAG, e);
-            }
-        }
-        return cookieUri;
     }
 
     private void saveToPersistence(URI uri, HttpCookie cookie) {

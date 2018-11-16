@@ -28,7 +28,10 @@ import com.skosc.tkffintech.viewmodel.courses.CourseViewModelFactory
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModelFactory
 import com.skosc.tkffintech.viewmodel.events.*
-import com.skosc.tkffintech.viewmodel.grades.*
+import com.skosc.tkffintech.viewmodel.grades.GradesManyUserViewModel
+import com.skosc.tkffintech.viewmodel.grades.GradesManyUserViewModelFactory
+import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModel
+import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModelFactory
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import com.skosc.tkffintech.viewmodel.login.LoginViewModelFactory
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel

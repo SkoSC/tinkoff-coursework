@@ -17,7 +17,7 @@ class CoursesDetailedRecyclerAdapter(private val onDetailsClick: (v: View, model
 
     var items = listOf(
             CourseDetailModel("Curse 1", DateTime.now().minusDays(32), score = Ratio(3.0, 10.0)),
-            CourseDetailModel("Curse 2", DateTime.now().minusDays(200), score = Ratio(4.0,12.0)),
+            CourseDetailModel("Curse 2", DateTime.now().minusDays(200), score = Ratio(4.0, 12.0)),
             CourseDetailModel("Curse 3", DateTime.now().minusDays(1), score = Ratio(12.0, 12.0))
     )
 

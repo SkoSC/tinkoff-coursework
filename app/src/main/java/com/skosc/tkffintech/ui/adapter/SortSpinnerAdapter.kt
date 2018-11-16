@@ -2,7 +2,6 @@ package com.skosc.tkffintech.ui.adapter
 
 import android.content.Context
 import android.widget.ArrayAdapter
-import com.skosc.tkffintech.entities.User
 import com.skosc.tkffintech.utils.ItemSorter
 import com.skosc.tkffintech.viewmodel.UserWithGradesSum
 

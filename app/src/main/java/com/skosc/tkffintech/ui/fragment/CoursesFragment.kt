@@ -34,17 +34,19 @@ class CoursesFragment : TKFFragment() {
         courses_all_recycler.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
 
         courses_fresh_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        courses_fresh_recycler.adapter = CoursesDetailedRecyclerAdapter {_, model ->
+        courses_fresh_recycler.adapter = CoursesDetailedRecyclerAdapter { _, model ->
             navController.navigate(R.id.navigation_course_detail)
         }
 
         vm.allCourses.observe(this, Observer {
             courses_refresh.isRefreshing = false
             val adapter = courses_all_recycler.adapter as CoursesPreviewRecyclerAdapter
-            adapter.items = it.map { CoursePreviewModel(
-                    title = it.title,
-                    status = it.status
-            ) }
+            adapter.items = it.map {
+                CoursePreviewModel(
+                        title = it.title,
+                        status = it.status
+                )
+            }
             adapter.notifyDataSetChanged()
         })
 

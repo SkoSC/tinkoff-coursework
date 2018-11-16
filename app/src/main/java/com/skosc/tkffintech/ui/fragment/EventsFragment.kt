@@ -17,7 +17,6 @@ import com.skosc.tkffintech.ui.adapter.OnGoingEventsRecyclerAdapter
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ARCHIVE
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ON_GOING
 import com.skosc.tkffintech.ui.model.EventCardModel
-import com.skosc.tkffintech.viewmodel.events.EventsListViewModel
 import com.skosc.tkffintech.viewmodel.events.EventsListViewModelArchive
 import com.skosc.tkffintech.viewmodel.events.EventsListViewModelOngoing
 import kotlinx.android.synthetic.main.fragment_events.*

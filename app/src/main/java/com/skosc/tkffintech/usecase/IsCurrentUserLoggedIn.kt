@@ -1,6 +1,5 @@
 package com.skosc.tkffintech.usecase
 
-import com.skosc.tkffintech.model.dao.UserInfoDao
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import io.reactivex.Observable
 

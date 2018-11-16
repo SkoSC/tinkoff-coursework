@@ -6,7 +6,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 interface EventsRepo {
-    fun tryForceRefresh() : Single<Boolean>
+    fun tryForceRefresh(): Single<Boolean>
     val onGoingEvents: Observable<List<EventInfo>>
     val archiveEvents: Observable<List<EventInfo>>
     fun findEventByHid(hid: Long): Single<EventInfo>

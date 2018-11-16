@@ -27,7 +27,7 @@ class LoginActivity : TKFActivity() {
 
     private fun showLoginStatus(status: LoginViewModel.Status) {
         return when (status) {
-            is LoginViewModel.Status.Success-> {
+            is LoginViewModel.Status.Success -> {
                 startActivity(
                         Intent(this, MainActivity::class.java)
                 )
@@ -43,7 +43,7 @@ class LoginActivity : TKFActivity() {
             is LoginViewModel.Status.Error -> {
                 login_loading_status.visibility = View.GONE
                 login_btn.text = getString(R.string.login_login_btn)
-                showError(status.error ?: LoginViewModel.LoginError.UNKNOWN)
+                showError(status.error)
             }
         }
     }

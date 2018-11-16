@@ -1,14 +1,13 @@
 package com.skosc.tkffintech.viewmodel.grades
 
 import androidx.lifecycle.MutableLiveData
-import com.skosc.tkffintech.utils.ItemSorter
-import com.skosc.tkffintech.viewmodel.UserWithGradesSum
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.usecase.LoadGrades
+import com.skosc.tkffintech.utils.ItemSorter
 import com.skosc.tkffintech.utils.own
+import com.skosc.tkffintech.viewmodel.UserWithGradesSum
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
-import java.util.concurrent.TimeUnit
 
 class GradesManyUserViewModelImpl(private val gradesLoader: LoadGrades) : GradesManyUserViewModel() {
     private var course: String = ""

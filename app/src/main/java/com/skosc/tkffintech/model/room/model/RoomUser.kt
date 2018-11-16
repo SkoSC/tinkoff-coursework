@@ -14,9 +14,9 @@ data class RoomUser(
         @ColumnInfo(name = "name")
         val name: String
 ) {
-        companion object {
-            fun form(user: User) = RoomUser(user.id, user.name)
-        }
+    companion object {
+        fun form(user: User) = RoomUser(user.id, user.name)
+    }
 
-        fun convert(): User = User(id, name)
+    fun convert(): User = User(id, name)
 }

@@ -10,8 +10,8 @@ class SecurityDaoPrefImpl(private val cookieStore: CookieStore) : SecurityDao {
     override val hasAuthCredentials: Single<Boolean>
         get() {
             return Single.fromCallable {
-                val s =cookieStore.get(URI.create("https://fintech.tinkoff.ru/"))
-                        s.map { it.name }
+                val s = cookieStore.get(URI.create("https://fintech.tinkoff.ru/"))
+                s.map { it.name }
                         .containsAll(requiredTokens)
             }
         }

@@ -7,7 +7,6 @@ import com.skosc.tkffintech.model.room.UserDao
 import com.skosc.tkffintech.model.room.allBusiness
 import com.skosc.tkffintech.model.room.model.RoomCourseInfo
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
-import com.skosc.tkffintech.usecase.UpdateCourseList
 import io.reactivex.Observable
 
 class CourseRepoImpl(

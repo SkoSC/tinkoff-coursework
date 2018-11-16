@@ -13,20 +13,20 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.ui.model.TaskAdapterItem
 import com.skosc.tkffintech.ui.view.ScoreView
-import java.lang.IllegalArgumentException
 
 class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         private const val TYPE_HEADER = 0
         private const val TYPE_ENTRY = 1
     }
+
     val differ = AsyncListDiffer(this, TaskAdapterDiffCallback)
 
     fun submitItems(items: List<TaskAdapterItem>) {
         differ.submitList(items)
     }
 
-    override fun getItemViewType(position: Int): Int = when(differ.currentList[position]) {
+    override fun getItemViewType(position: Int): Int = when (differ.currentList[position]) {
         is TaskAdapterItem.Header -> TYPE_HEADER
         is TaskAdapterItem.Entry -> TYPE_ENTRY
     }
@@ -60,8 +60,7 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int = differ.currentList.size
 
 
-
-    class ViewHolderHeader(private val view : View): RecyclerView.ViewHolder(view) {
+    class ViewHolderHeader(private val view: View) : RecyclerView.ViewHolder(view) {
         private val title by lazy { view.findViewById<TextView>(R.id.task_header_title) }
 
         fun bind(header: TaskAdapterItem.Header) {
@@ -86,7 +85,7 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         @ColorInt
         private fun HomeworkStatus.toBorderColor(): Int {
-            return when(this) {
+            return when (this) {
                 HomeworkStatus.NEW -> ContextCompat.getColor(view.context, R.color.task_score_inwork)
                 HomeworkStatus.ACCEPTED -> ContextCompat.getColor(view.context, R.color.task_score_success)
                 HomeworkStatus.TEST_RESULT -> ContextCompat.getColor(view.context, R.color.task_score_success)
@@ -96,7 +95,7 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         @ColorInt
         private fun HomeworkStatus.toBgColor(): Int {
-            return when(this) {
+            return when (this) {
                 HomeworkStatus.NEW -> ContextCompat.getColor(view.context, R.color.task_score_inwork_bg)
                 HomeworkStatus.ACCEPTED -> ContextCompat.getColor(view.context, R.color.task_score_success_bg)
                 HomeworkStatus.TEST_RESULT -> ContextCompat.getColor(view.context, R.color.task_score_success_bg)

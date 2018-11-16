@@ -1,6 +1,5 @@
 package com.skosc.tkffintech.usecase
 
-import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.model.repo.HomeworkRepo
 import io.reactivex.Observable

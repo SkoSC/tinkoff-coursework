@@ -18,18 +18,18 @@ data class RoomHomework(
         @ColumnInfo(name = "course")
         val course: String
 ) {
-        companion object {
-            fun from(homework: Homework): RoomHomework = RoomHomework(
-                    id = homework.id,
-                    title = homework.title,
-                    course = homework.course
-            )
-        }
-
-        fun convert(tasks: List<HomeworkTask>) : Homework = Homework(
-                id = id,
-                course = course,
-                title = title,
-                tasks = tasks
+    companion object {
+        fun from(homework: Homework): RoomHomework = RoomHomework(
+                id = homework.id,
+                title = homework.title,
+                course = homework.course
         )
+    }
+
+    fun convert(tasks: List<HomeworkTask>): Homework = Homework(
+            id = id,
+            course = course,
+            title = title,
+            tasks = tasks
+    )
 }

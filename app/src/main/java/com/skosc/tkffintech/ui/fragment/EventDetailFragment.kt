@@ -17,7 +17,6 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.utils.DateTimeFormatter
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import kotlinx.android.synthetic.main.fragment_event_detail.*
-import java.lang.Exception
 
 
 class EventDetailFragment : TKFFragment() {

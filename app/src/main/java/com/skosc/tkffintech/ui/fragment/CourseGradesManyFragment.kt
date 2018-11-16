@@ -2,28 +2,19 @@ package com.skosc.tkffintech.ui.fragment
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.entities.User
 import com.skosc.tkffintech.ui.adapter.GradesSumRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.SortSpinnerAdapter
-import com.skosc.tkffintech.ui.adapter.TasksRecyclerAdapter
-import com.skosc.tkffintech.ui.adapter.UsersSpinnerAdapter
-import com.skosc.tkffintech.ui.model.toAdapterItems
 import com.skosc.tkffintech.viewmodel.grades.GradesManyUserViewModel
-import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModel
 import kotlinx.android.synthetic.main.fragment_course_grades_many.*
-import kotlinx.android.synthetic.main.fragment_course_grades_single.*
 
 class CourseGradesManyFragment : TKFFragment() {
     companion object {

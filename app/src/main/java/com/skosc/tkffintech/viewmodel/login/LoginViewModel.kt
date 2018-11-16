@@ -4,9 +4,6 @@ import androidx.lifecycle.LiveData
 import com.skosc.tkffintech.viewmodel.RxViewModel
 
 
-
-
-
 abstract class LoginViewModel : RxViewModel() {
     enum class LoginError { UNKNOWN, WRONG_CREDENTIALS }
     sealed class Status {

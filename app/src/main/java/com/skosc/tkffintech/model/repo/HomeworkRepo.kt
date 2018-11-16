@@ -13,7 +13,7 @@ interface HomeworkRepo {
 
     fun update()
 
-    fun homeworks(course: String) : Observable<List<Homework>>
+    fun homeworks(course: String): Observable<List<Homework>>
     fun countAllCourses(): Observable<Int>
 
     fun gradesForUserByTask(user: Long, task: Long): Observable<HomeworkGrade>

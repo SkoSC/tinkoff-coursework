@@ -1,7 +1,10 @@
 package com.skosc.tkffintech.model.webservice
 
 import com.google.gson.annotations.SerializedName
-import com.skosc.tkffintech.entities.*
+import com.skosc.tkffintech.entities.CourseInfo
+import com.skosc.tkffintech.entities.Homework
+import com.skosc.tkffintech.entities.HomeworkTask
+import com.skosc.tkffintech.entities.HomeworkTaskType
 import io.reactivex.Single
 import org.joda.time.DateTime
 import retrofit2.http.GET
@@ -26,9 +29,9 @@ interface TinkoffCursesApi {
                     url = url
             )
 
-            private fun parseStatus(string: String) : CourseInfo.Status {
+            private fun parseStatus(string: String): CourseInfo.Status {
                 val clean = string.trim().toLowerCase()
-                return when(clean) {
+                return when (clean) {
                     "ongoing" -> CourseInfo.Status.ONGOING
                     else -> CourseInfo.Status.UNKNOWN
                 }
@@ -38,7 +41,7 @@ interface TinkoffCursesApi {
 
     data class HomeworksResp(val homeworks: List<HomeworkResp>) {
         data class HomeworkResp(val id: Long, val title: String, val tasks: List<TaskResp>) {
-            fun convert(course: String) : Homework = Homework(
+            fun convert(course: String): Homework = Homework(
                     id = id,
                     title = title,
                     course = course,

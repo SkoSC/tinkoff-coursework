@@ -4,7 +4,6 @@ import com.google.gson.*
 import com.skosc.tkffintech.utils.DateTimeFormatter.DATE_TIME_FORMATTER_FULL
 import com.skosc.tkffintech.utils.DateTimeFormatter.DATE_TIME_FORMATTER_FULL_MILIS
 import org.joda.time.DateTime
-import java.lang.Exception
 import java.lang.reflect.Type
 
 
@@ -14,7 +13,7 @@ class JodaDateTimeAdapter : JsonDeserializer<DateTime>, JsonSerializer<DateTime>
         return if (je.asString.isEmpty()) {
             null
         } else {
-            try{
+            try {
                 DATE_TIME_FORMATTER_FULL.parseDateTime(je.asString)
             } catch (e: Exception) {
                 DATE_TIME_FORMATTER_FULL_MILIS.parseDateTime(je.asString)

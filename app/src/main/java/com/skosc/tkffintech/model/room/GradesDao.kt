@@ -4,10 +4,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.skosc.tkffintech.entities.HomeworkGrade
 import com.skosc.tkffintech.model.room.model.RoomGrade
 import com.skosc.tkffintech.model.room.model.RoomUserWithGradesSum
-import com.skosc.tkffintech.viewmodel.UserWithGradesSum
 import io.reactivex.Observable
 
 @Dao

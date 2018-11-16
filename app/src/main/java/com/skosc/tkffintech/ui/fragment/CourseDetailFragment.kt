@@ -11,13 +11,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.entities.HomeworkGrade
-import com.skosc.tkffintech.entities.HomeworkTask
-import com.skosc.tkffintech.misc.Ratio
 import com.skosc.tkffintech.ui.adapter.TasksRecyclerAdapter
-import com.skosc.tkffintech.ui.model.TaskAdapterItem
 import com.skosc.tkffintech.ui.model.toAdapterItems
-import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModel
 import kotlinx.android.synthetic.main.fragment_course_detail.*
 

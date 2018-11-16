@@ -1,7 +1,6 @@
 package com.skosc.tkffintech.model.room
 
 import androidx.room.*
-import com.skosc.tkffintech.entities.Homework
 import com.skosc.tkffintech.model.room.model.RoomHomework
 import com.skosc.tkffintech.model.room.model.RoomHomeworkAndTasks
 import com.skosc.tkffintech.model.room.model.RoomHomeworkTask

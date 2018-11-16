@@ -25,7 +25,7 @@ data class RoomCourseInfo(
         val url: String
 ) {
     companion object {
-        fun from(info: CourseInfo) : RoomCourseInfo = RoomCourseInfo(
+        fun from(info: CourseInfo): RoomCourseInfo = RoomCourseInfo(
                 title = info.title,
                 isTeacher = info.isTeacher,
                 starts = info.starts,

@@ -23,7 +23,7 @@ class LoadEvents(private val eventsRepo: EventsRepo, sp: SharedPreferences) {
     val ongoingEvents: Observable<List<EventInfo>> get() = eventsRepo.onGoingEvents
     val archiveEvents: Observable<List<EventInfo>> get() = eventsRepo.archiveEvents
 
-    fun tryLoadEventsFromNetwork() : Single<Boolean> {
+    fun tryLoadEventsFromNetwork(): Single<Boolean> {
         return eventsRepo.tryForceRefresh()
     }
 
