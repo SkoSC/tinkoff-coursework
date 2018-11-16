@@ -15,7 +15,7 @@ android {
     }
     buildTypes {
         all {
-            buildConfigField "String", "MODULE_SHORT_NAME", "tkfm"
+            buildConfigField "String", "MODULE_SHORT_NAME", "\"tkfm\""
         }
 
         release {

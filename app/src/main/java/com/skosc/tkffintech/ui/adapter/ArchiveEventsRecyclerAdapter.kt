@@ -5,11 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.EventTypeIconFinder
 import com.skosc.tkffintech.ui.model.EventCardModel
+import com.skosc.tkffintech.utils.getDrawableCompat
 
 
 class ArchiveEventsRecyclerAdapter(private val onClick: (EventCardModel) -> Unit) : RecyclerView.Adapter<ArchiveEventsRecyclerAdapter.ViewHolder>() {
@@ -36,7 +36,7 @@ class ArchiveEventsRecyclerAdapter(private val onClick: (EventCardModel) -> Unit
 
         fun bind(model: EventCardModel, callback: (EventCardModel) -> Unit) {
             val iconId = EventTypeIconFinder.findIconByEventType(model.typeTitle)
-            icon.setImageDrawable(ContextCompat.getDrawable(view.context, iconId))
+            icon.setImageDrawable(view.context.getDrawableCompat(iconId))
             title.text = model.title
             dateAndType.text = "%s/%s".format(model.typeTitle, model.date)
             view.setOnClickListener {

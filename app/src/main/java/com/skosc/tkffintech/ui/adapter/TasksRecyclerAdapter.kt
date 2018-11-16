@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ColorInt
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -13,6 +12,7 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.ui.model.TaskAdapterItem
 import com.skosc.tkffintech.ui.view.ScoreView
+import com.skosc.tkffintech.utils.getColorCompat
 
 class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
@@ -86,20 +86,20 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         @ColorInt
         private fun HomeworkStatus.toBorderColor(): Int {
             return when (this) {
-                HomeworkStatus.NEW -> ContextCompat.getColor(view.context, R.color.task_score_inwork)
-                HomeworkStatus.ACCEPTED -> ContextCompat.getColor(view.context, R.color.task_score_success)
-                HomeworkStatus.TEST_RESULT -> ContextCompat.getColor(view.context, R.color.task_score_success)
-                HomeworkStatus.UNKNOWN -> ContextCompat.getColor(view.context, R.color.task_score_failed)
+                HomeworkStatus.NEW -> view.context.getColorCompat(R.color.task_score_inwork)
+                HomeworkStatus.ACCEPTED -> view.context.getColorCompat(R.color.task_score_success)
+                HomeworkStatus.TEST_RESULT -> view.context.getColorCompat(R.color.task_score_success)
+                HomeworkStatus.UNKNOWN -> view.context.getColorCompat(R.color.task_score_failed)
             }
         }
 
         @ColorInt
         private fun HomeworkStatus.toBgColor(): Int {
             return when (this) {
-                HomeworkStatus.NEW -> ContextCompat.getColor(view.context, R.color.task_score_inwork_bg)
-                HomeworkStatus.ACCEPTED -> ContextCompat.getColor(view.context, R.color.task_score_success_bg)
-                HomeworkStatus.TEST_RESULT -> ContextCompat.getColor(view.context, R.color.task_score_success_bg)
-                HomeworkStatus.UNKNOWN -> ContextCompat.getColor(view.context, R.color.task_score_failed_bg)
+                HomeworkStatus.NEW -> view.context.getColorCompat(R.color.task_score_inwork_bg)
+                HomeworkStatus.ACCEPTED -> view.context.getColorCompat(R.color.task_score_success_bg)
+                HomeworkStatus.TEST_RESULT -> view.context.getColorCompat(R.color.task_score_success_bg)
+                HomeworkStatus.UNKNOWN -> view.context.getColorCompat(R.color.task_score_failed_bg)
             }
         }
     }

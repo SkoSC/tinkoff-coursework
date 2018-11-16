@@ -6,11 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.EventTypeIconFinder
 import com.skosc.tkffintech.ui.model.EventCardModel
+import com.skosc.tkffintech.utils.getColorCompat
+import com.skosc.tkffintech.utils.getDrawableCompat
 
 class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (EventCardModel) -> Unit) : RecyclerView.Adapter<EventCardViewHolder>() {
     companion object {
@@ -61,7 +62,7 @@ class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (Eve
             } else {
                 typeTitle.text = model.typeTitle
             }
-            val color = ContextCompat.getColor(view.context, model.typeColor)
+            val color = view.context.getColorCompat(model.typeColor)
             val colorStateList = ColorStateList.valueOf(color)
             typeTitle.backgroundTintList = colorStateList
             description.text = model.description
@@ -76,7 +77,7 @@ class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (Eve
         override fun bind(model: EventCardModel, onClick: (EventCardModel) -> Unit) {
             super.bind(model, onClick)
             val iconId = EventTypeIconFinder.findIconByEventType(model.typeTitle)
-            icon.setImageDrawable(ContextCompat.getDrawable(view.context, iconId))
+            icon.setImageDrawable(view.context.getDrawableCompat(iconId))
             title.text = model.title
             dateAndType.text = "%s/%s".format(model.typeTitle, model.date)
         }

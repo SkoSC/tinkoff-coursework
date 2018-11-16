@@ -5,10 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.model.EventCardModel
+import com.skosc.tkffintech.utils.getColorCompat
 
 
 class OnGoingEventsRecyclerAdapter(private val onClickCallback: (View, EventCardModel) -> Unit) : RecyclerView.Adapter<OnGoingEventsRecyclerAdapter.ViewHolder>() {
@@ -41,7 +41,7 @@ class OnGoingEventsRecyclerAdapter(private val onClickCallback: (View, EventCard
             } else {
                 typeTitle.text = model.typeTitle
             }
-            val color = ContextCompat.getColor(view.context, model.typeColor)
+            val color = view.context.getColorCompat(model.typeColor)
             val colorStateList = ColorStateList.valueOf(color)
             typeTitle.backgroundTintList = colorStateList
             view.setOnClickListener {

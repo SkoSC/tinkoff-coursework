@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -16,6 +15,7 @@ import com.skosc.tkffintech.ui.model.UserInfoAttribute
 import com.skosc.tkffintech.ui.view.UserInfoSectionCard
 import com.skosc.tkffintech.utils.NumberFormatter
 import com.skosc.tkffintech.utils.addViews
+import com.skosc.tkffintech.utils.getDrawableCompat
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.card_profile_stats.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -27,7 +27,7 @@ class ProfileFragment : TKFFragment() {
     val contactInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
             headerText = context.getString(R.string.profile_attributes_card_contact)
-            iconDrawable = ContextCompat.getDrawable(context, R.drawable.ic_contacts)!!
+            iconDrawable = context.getDrawableCompat(R.drawable.ic_contacts)!!
             recycler.adapter = ProfileAttributeAdapter()
         }
     }
@@ -35,7 +35,7 @@ class ProfileFragment : TKFFragment() {
     val schoolInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
             headerText = context.getString(R.string.profile_attributes_card_school)
-            iconDrawable = ContextCompat.getDrawable(context, R.drawable.ic_education)!!
+            iconDrawable = context.getDrawable(R.drawable.ic_education)!!
             recycler.adapter = ProfileAttributeAdapter()
         }
     }
@@ -43,7 +43,7 @@ class ProfileFragment : TKFFragment() {
     val workInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
             headerText = context.getString(R.string.profile_attributes_card_work)
-            iconDrawable = ContextCompat.getDrawable(context, R.drawable.ic_work)!!
+            iconDrawable = context.getDrawableCompat(R.drawable.ic_work)!!
             recycler.adapter = ProfileAttributeAdapter()
         }
     }
