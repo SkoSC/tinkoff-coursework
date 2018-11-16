@@ -5,6 +5,7 @@ import com.skosc.tkffintech.entities.UserCredentials
 import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.model.dao.SecurityDao
 import com.skosc.tkffintech.model.dao.UserInfoDao
+import com.skosc.tkffintech.model.room.HomeworkDao
 import com.skosc.tkffintech.model.webservice.TinkoffError
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.utils.own
@@ -17,7 +18,8 @@ class CurrentUserRepoImpl(
         private val userApi: TinkoffUserApi,
         private val securityDao: SecurityDao,
         private val gson: Gson,
-        private val userInfoDao: UserInfoDao) : CurrentUserRepo {
+        private val userInfoDao: UserInfoDao
+) : CurrentUserRepo {
 
     private val cdisp: CompositeDisposable = CompositeDisposable()
 

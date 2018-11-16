@@ -29,4 +29,18 @@ abstract class GradesDao {
 
     @Query("SELECT SUM(grade.mark) FROM grade WHERE grade.user_id_fk == :user")
     abstract fun totalScoreOfUser(user: Long): Observable<Double>
+
+    @Query("SELECT * FROM grade WHERE grade.user_id_fk == :user")
+    abstract fun allGradesOfUser(user: Long): Observable<List<RoomGrade>>
+
+    @Query("""
+        SELECT grade.* FROM grade
+        LEFT JOIN homework_task ON homework_task.contest_id == grade.task_id_fk
+        WHERE (
+	        homework_task.contest_type == 1
+		        AND
+	        grade.user_id_fk == :user
+        )
+        """)
+    abstract fun testGradesForUser(user: Long): Observable<List<RoomGrade>>
 }

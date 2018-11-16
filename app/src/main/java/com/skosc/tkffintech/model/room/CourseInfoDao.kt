@@ -15,6 +15,9 @@ interface CourseInfoDao {
 
     @Query("SELECT * FROM `course_info`")
     fun all(): Observable<List<RoomCourseInfo>>
+
+    @Query("SELECT COUNT(*) FROM course_info")
+    fun count(): Observable<Int>
 }
 
 fun CourseInfoDao.allBusiness(): Observable<List<CourseInfo>> = this.all()

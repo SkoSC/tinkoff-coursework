@@ -1,11 +1,8 @@
 package com.skosc.tkffintech.viewmodel.profile
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.entities.UserInfoAttributes
-import com.skosc.tkffintech.model.repo.CurrentUserRepo
-import com.skosc.tkffintech.model.repo.HomeworkRepo
 import com.skosc.tkffintech.usecase.LoadCurrentUserInfo
 import com.skosc.tkffintech.usecase.PerformLogout
 import com.skosc.tkffintech.usecase.StatisticsCalculator
@@ -67,6 +64,18 @@ class ProfileViewModelImpl(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     statsScore.value = it
+                }
+
+        cdisp own statisticsCalculator.totalTests
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    statsTests.value = it
+                }
+
+        cdisp own statisticsCalculator.totalCourses
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    statsCourses.value = it
                 }
     }
 

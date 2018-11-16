@@ -22,7 +22,7 @@ abstract class HomeworkDao {
     abstract fun _insertHomeworkTasks(tasks: List<RoomHomeworkTask>)
 
     @Query("SELECT * FROM `homework` WHERE `course` == :course")
-    abstract fun homeworksForCourse(course: String): Observable<List<RoomHomeworkAndTasks>>
+    abstract fun homeWorksForCourse(course: String): Observable<List<RoomHomeworkAndTasks>>
 
     @Transaction
     open fun insert(homework: RoomHomeworkAndTasks) {

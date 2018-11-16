@@ -33,6 +33,9 @@ class HomeworkRepoImpl(
     override val statisticsTestsCompleted: BehaviorSubject<Int> = BehaviorSubject.create()
     override val statisticsCurses: BehaviorSubject<Int> = BehaviorSubject.create()
 
+    override fun countAllCourses(): Observable<Int> {
+        return courseInfoDao.count()
+    }
 
     override fun update() {
         updateCourseList.perform()
@@ -54,5 +57,19 @@ class HomeworkRepoImpl(
 
     override fun gradesSumForUser(user: Long): Observable<Double> {
         return gradesDao.totalScoreOfUser(user)
+    }
+
+    override fun gradesForUser(user: Long): Observable<List<HomeworkGrade>> {
+        return usersDao.findById(user).flatMap {
+            val user = it.convert()
+            gradesDao.allGradesOfUser(user.id).map { it.map { it.convert(user) } }
+        }
+    }
+
+    override fun testGradesForUser(user: Long): Observable<List<HomeworkGrade>> {
+        return usersDao.findById(user).flatMap {
+            val user = it.convert()
+            gradesDao.testGradesForUser(user.id).map { it.map { it.convert(user) } }
+        }
     }
 }
