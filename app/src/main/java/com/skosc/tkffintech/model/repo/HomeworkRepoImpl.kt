@@ -6,6 +6,7 @@ import com.skosc.tkffintech.model.room.*
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.usecase.UpdateCourseList
 import com.skosc.tkffintech.usecase.UpdateGradesInfo
+import com.skosc.tkffintech.viewmodel.UserWithGradesSum
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
 
@@ -45,5 +46,9 @@ class HomeworkRepoImpl(
 
     override fun homeworks(course: String): Observable<List<Homework>> {
         return cursesApi.homeworks(course).map { it.homeworks.map { it.convert(course) } }.toObservable()
+    }
+
+    override fun gradesTotalForAllUsersWithCourse(course: String): Observable<List<UserWithGradesSum>> {
+        return gradesDao.gradesTotalForUsersWithCourse(course).map { it.map { it.convert() } }
     }
 }

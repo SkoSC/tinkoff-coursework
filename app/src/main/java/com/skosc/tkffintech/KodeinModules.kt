@@ -28,9 +28,7 @@ import com.skosc.tkffintech.viewmodel.courses.CourseViewModelFactory
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModelFactory
 import com.skosc.tkffintech.viewmodel.events.*
-import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModel
-import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModelFactory
-import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModelImpl
+import com.skosc.tkffintech.viewmodel.grades.*
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import com.skosc.tkffintech.viewmodel.login.LoginViewModelFactory
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
@@ -91,6 +89,9 @@ val viewModelFactoryModule = Kodein.Module("view-model", false, "tkf") {
     bind<GradesSingleUserViewModelFactory>(GradesSingleUserViewModel::class) with provider {
         GradesSingleUserViewModelFactory(kodein)
     }
+    bind<GradesManyUserViewModelFactory>(GradesManyUserViewModel::class) with provider {
+        GradesManyUserViewModelFactory(kodein)
+    }
 }
 
 fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
@@ -140,6 +141,6 @@ val useCaseModule = Kodein.Module("user-case", false, "tkf") {
     bind<LoadCurrentUserInfo>() with provider { LoadCurrentUserInfo(instance()) }
     bind<PerformLogout>() with provider { PerformLogout(instance(), instance()) }
     bind<LoadCourses>() with provider { LoadCourses(instance()) }
-    bind<LoadGradesForUser>() with provider { LoadGradesForUser(instance(), instance()) }
+    bind<LoadGrades>() with provider { LoadGrades(instance(), instance()) }
     bind<LoadUsersForCourse>() with provider { LoadUsersForCourse(instance()) }
 }

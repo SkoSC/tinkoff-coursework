@@ -47,4 +47,7 @@
     <string name="options_search">Search</string>
     <string name="course_more_details">Details</string>
 
+    <string name="sort_descending">Descending</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_by_name">By Name</string>
 </resources>

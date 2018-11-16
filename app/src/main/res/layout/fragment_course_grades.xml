@@ -5,11 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.CourseGradesFragment">
-    <androidx.viewpager.widget.PagerTabStrip
-        android:background="@color/colorPrimary"
-        android:id="@+id/pagerTitleStrip"
+    <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="top">
-    </androidx.viewpager.widget.PagerTabStrip>
+        android:layout_gravity="top" />
 </androidx.viewpager.widget.ViewPager>
