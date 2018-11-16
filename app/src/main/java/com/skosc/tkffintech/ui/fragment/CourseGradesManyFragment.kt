@@ -78,8 +78,7 @@ class CourseGradesManyFragment : TKFFragment() {
         val adapter = GradesSumRecyclerAdapter()
         grades_recycler.adapter = adapter
         vm.userWithGradesSum.observe(this, Observer {
-            adapter.items = it
-            adapter.notifyDataSetChanged()
+            adapter.submitItems(it)
         })
     }
 

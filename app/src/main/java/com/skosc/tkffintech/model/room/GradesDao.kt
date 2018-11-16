@@ -26,4 +26,7 @@ abstract class GradesDao {
         GROUP BY user.student_id
     """)
     abstract fun gradesTotalForUsersWithCourse(course: String): Observable<List<RoomUserWithGradesSum>>
+
+    @Query("SELECT SUM(grade.mark) FROM grade WHERE grade.user_id_fk == :user")
+    abstract fun totalScoreOfUser(user: Long): Observable<Double>
 }

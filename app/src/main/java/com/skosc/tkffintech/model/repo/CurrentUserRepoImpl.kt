@@ -21,7 +21,13 @@ class CurrentUserRepoImpl(
 
     private val cdisp: CompositeDisposable = CompositeDisposable()
 
+    override val info: Observable<UserInfo> by lazy {
+        userInfoDao.rxUserInfo
+    }
+
     override val isLoggedIn: BehaviorSubject<Boolean> = BehaviorSubject.create()
+
+    override val id: Observable<Long> = info.map { it.id }
 
     init {
         cdisp own securityDao.hasAuthCredentials.subscribe(isLoggedIn::onNext)
@@ -43,10 +49,6 @@ class CurrentUserRepoImpl(
     override fun signout() {
         securityDao.clearAuthCredentials()
         cdisp own securityDao.hasAuthCredentials.subscribe(isLoggedIn::onNext)
-    }
-
-    override val info: Observable<UserInfo> by lazy {
-        userInfoDao.rxUserInfo
     }
 
     override fun forceRefreshUserInfo() {

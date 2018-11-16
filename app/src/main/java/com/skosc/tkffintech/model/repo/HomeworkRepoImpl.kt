@@ -51,4 +51,8 @@ class HomeworkRepoImpl(
     override fun gradesTotalForAllUsersWithCourse(course: String): Observable<List<UserWithGradesSum>> {
         return gradesDao.gradesTotalForUsersWithCourse(course).map { it.map { it.convert() } }
     }
+
+    override fun gradesSumForUser(user: Long): Observable<Double> {
+        return gradesDao.totalScoreOfUser(user)
+    }
 }

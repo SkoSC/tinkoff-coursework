@@ -8,6 +8,7 @@ import com.skosc.tkffintech.usecase.LoadGrades
 import com.skosc.tkffintech.utils.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
+import java.util.concurrent.TimeUnit
 
 class GradesManyUserViewModelImpl(private val gradesLoader: LoadGrades) : GradesManyUserViewModel() {
     private var course: String = ""
@@ -33,7 +34,9 @@ class GradesManyUserViewModelImpl(private val gradesLoader: LoadGrades) : Grades
 
     override fun init(course: String) {
         this.course = course
-        gradesLoader.loadGradesSumForAllCourse(course).subscribe(gradesSubject)
+        gradesLoader.loadGradesSumForAllCourse(course)
+                .distinct()
+                .subscribe(gradesSubject)
         cdisp own gradesSubject
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { grades ->

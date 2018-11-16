@@ -8,10 +8,15 @@ import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.model.repo.HomeworkRepo
 import com.skosc.tkffintech.usecase.LoadCurrentUserInfo
 import com.skosc.tkffintech.usecase.PerformLogout
+import com.skosc.tkffintech.usecase.StatisticsCalculator
 import com.skosc.tkffintech.utils.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 
-class ProfileViewModelImpl(val loadCurrentUserInfo: LoadCurrentUserInfo, val performLogout: PerformLogout) : ProfileViewModel() {
+class ProfileViewModelImpl(
+        private val loadCurrentUserInfo: LoadCurrentUserInfo,
+        private val performLogout: PerformLogout,
+        private val statisticsCalculator: StatisticsCalculator) : ProfileViewModel() {
+
     override val fullName: MutableLiveData<String> = MutableLiveData()
     override val shortInfo: MutableLiveData<String> = MutableLiveData()
     override val avatarUrl: MutableLiveData<String> = MutableLiveData()
@@ -57,6 +62,12 @@ class ProfileViewModelImpl(val loadCurrentUserInfo: LoadCurrentUserInfo, val per
         cdisp own loadCurrentUserInfo.currentUserInfo
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(bindUserInfoToLiveData)
+
+        cdisp own statisticsCalculator.totalScore
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    statsScore.value = it
+                }
     }
 
     override fun signout() {
