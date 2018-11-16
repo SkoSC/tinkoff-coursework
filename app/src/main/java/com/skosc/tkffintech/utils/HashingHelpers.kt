@@ -1,4 +1,4 @@
-package com.skosc.rtu.utils
+package com.skosc.tkffintech.utils
 
 /**
  * Hashes to ints together.

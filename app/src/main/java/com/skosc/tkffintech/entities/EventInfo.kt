@@ -1,7 +1,7 @@
 package com.skosc.tkffintech.entities
 
 import com.google.gson.annotations.SerializedName
-import com.skosc.rtu.utils.cantorPairing
+import com.skosc.tkffintech.utils.cantorPairing
 import org.joda.time.DateTime
 
 data class EventInfo(
