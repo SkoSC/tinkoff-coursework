@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.HomeworkStatus
@@ -18,10 +20,13 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private const val TYPE_HEADER = 0
         private const val TYPE_ENTRY = 1
     }
+    val differ = AsyncListDiffer(this, TaskAdapterDiffCallback)
 
-    var items = listOf<TaskAdapterItem>()
+    fun submitItems(items: List<TaskAdapterItem>) {
+        differ.submitList(items)
+    }
 
-    override fun getItemViewType(position: Int): Int = when(items[position]) {
+    override fun getItemViewType(position: Int): Int = when(differ.currentList[position]) {
         is TaskAdapterItem.Header -> TYPE_HEADER
         is TaskAdapterItem.Entry -> TYPE_ENTRY
     }
@@ -44,15 +49,15 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is ViewHolderHeader) {
-            holder.bind(items[position] as TaskAdapterItem.Header)
+            holder.bind(differ.currentList[position] as TaskAdapterItem.Header)
         }
 
         if (holder is ViewHolderEntry) {
-            holder.bind(items[position] as TaskAdapterItem.Entry)
+            holder.bind(differ.currentList[position] as TaskAdapterItem.Entry)
         }
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = differ.currentList.size
 
 
 
@@ -98,5 +103,15 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 HomeworkStatus.UNKNOWN -> ContextCompat.getColor(view.context, R.color.task_score_failed_bg)
             }
         }
+    }
+}
+
+private object TaskAdapterDiffCallback : DiffUtil.ItemCallback<TaskAdapterItem>() {
+    override fun areItemsTheSame(oldItem: TaskAdapterItem, newItem: TaskAdapterItem): Boolean {
+        return oldItem === newItem
+    }
+
+    override fun areContentsTheSame(oldItem: TaskAdapterItem, newItem: TaskAdapterItem): Boolean {
+        return oldItem == newItem
     }
 }

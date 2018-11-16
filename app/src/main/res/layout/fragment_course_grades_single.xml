@@ -11,12 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Spinner
+            android:id="@+id/grades_user_spinner"
             android:layout_margin="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/grades_list_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/card_course_task"/>

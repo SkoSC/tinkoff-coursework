@@ -26,6 +26,10 @@ class UpdateGradesInfo(
             val students = resp.flatMap { it.students }
             val roomUsers = students.map { RoomUser(it.id, it.name) }
             userDao.insertOrUpdate(roomUsers)
+
+            val courseRelation = roomUsers.map { RoomUserCourseRelation(0, it.id, course) }
+            userDao.insertCourseUserRelations(courseRelation)
+
             val grades = resp.flatMap { it.grades() }.map { RoomGrade.from(it) }
             gradesDao.insert(grades)
             cursesApi.homeworks(course).subscribe { homeworks ->

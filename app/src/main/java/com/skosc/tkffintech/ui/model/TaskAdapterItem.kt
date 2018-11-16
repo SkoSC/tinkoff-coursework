@@ -1,7 +1,10 @@
 package com.skosc.tkffintech.ui.model
 
+import com.skosc.tkffintech.entities.HomeworkGrade
 import com.skosc.tkffintech.entities.HomeworkStatus
+import com.skosc.tkffintech.entities.HomeworkTask
 import com.skosc.tkffintech.misc.Ratio
+import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 
 sealed class TaskAdapterItem {
     class Header(
@@ -14,4 +17,24 @@ sealed class TaskAdapterItem {
             val info: String = "",
             val status: HomeworkStatus
     ) : TaskAdapterItem()
+}
+
+fun List<HomeworkWithGrades>.toAdapterItems(): List<TaskAdapterItem> {
+    return this.flatMap { listOf(TaskAdapterItem.Header(it.homework.title)) + it.grades.toAdapterItems() }
+}
+
+@JvmName("tasksToAdapterItems")
+fun List<Pair<HomeworkTask, HomeworkGrade>>.toAdapterItems(): List<TaskAdapterItem> {
+    return this.map { pair ->
+        val (task, grade) = pair
+        TaskAdapterItem.Entry(
+                task.title,
+                Ratio(
+                        grade.mark.toDouble(),
+                        task.maxScore.toDouble()
+                ),
+                task.deadlineDate.toString(),
+                grade.status
+        )
+    }
 }

@@ -16,6 +16,8 @@ import com.skosc.tkffintech.entities.HomeworkTask
 import com.skosc.tkffintech.misc.Ratio
 import com.skosc.tkffintech.ui.adapter.TasksRecyclerAdapter
 import com.skosc.tkffintech.ui.model.TaskAdapterItem
+import com.skosc.tkffintech.ui.model.toAdapterItems
+import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModel
 import kotlinx.android.synthetic.main.fragment_course_detail.*
 
@@ -38,32 +40,13 @@ class CourseDetailFragment : TKFFragment() {
         course_detail_tasks.adapter = adapter
         course_detail_tasks.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         vm.grades.observe(this, Observer {
-            adapter.items = it.toAdapterItems()
+            val items = it.toAdapterItems()
+            adapter.submitItems(items)
             adapter.notifyDataSetChanged()
         })
 
         courses_entry_score_progress.setOnClickListener {
             navController.navigate(R.id.action_navigation_course_grades)
-        }
-    }
-
-    private fun List<CourseDetailViewModel.HomeworkWithGrades>.toAdapterItems(): List<TaskAdapterItem> {
-        return this.flatMap { listOf(TaskAdapterItem.Header(it.homework.title)) + it.grades.toAdapterItems() }
-    }
-
-    @JvmName("tasksToAdapterItems")
-    private fun List<Pair<HomeworkTask, HomeworkGrade>>.toAdapterItems(): List<TaskAdapterItem> {
-        return this.map { pair ->
-            val (task, grade) = pair
-            TaskAdapterItem.Entry(
-                    task.title,
-                    Ratio(
-                            grade.mark.toDouble(),
-                            task.maxScore.toDouble()
-                    ),
-                    task.deadlineDate.toString(),
-                    grade.status
-            )
         }
     }
 }

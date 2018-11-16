@@ -1,7 +1,5 @@
 package com.skosc.tkffintech.ui.fragment
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.ui.adapter.CourseGradesAdapter
+import com.skosc.tkffintech.ui.adapter.CourseGradesFragmentsAdapter
 import kotlinx.android.synthetic.main.fragment_course_grades.*
 
 class CourseGradesFragment : Fragment() {
@@ -24,6 +22,6 @@ class CourseGradesFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        course_grades_pager.adapter = CourseGradesAdapter(childFragmentManager)
+        course_grades_pager.adapter = CourseGradesFragmentsAdapter(childFragmentManager)
     }
 }

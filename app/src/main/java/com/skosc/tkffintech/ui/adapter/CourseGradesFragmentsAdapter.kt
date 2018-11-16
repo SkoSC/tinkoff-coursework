@@ -7,12 +7,12 @@ import com.skosc.tkffintech.ui.fragment.CourseGradesManyFragment
 import com.skosc.tkffintech.ui.fragment.CourseGradesSingleFragment
 import java.lang.IllegalStateException
 
-class CourseGradesAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class CourseGradesFragmentsAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
     companion object {
         const val ONLY_2_FRAGMENTS_ALLOWED_ERR = "Only 2 fragments allowed in this adapter"
     }
 
-    private val single = CourseGradesSingleFragment()
+    private val single = CourseGradesSingleFragment.newInstance("android_fall2018")
     private val many = CourseGradesManyFragment()
 
     override fun getItem(position: Int): Fragment {

@@ -21,9 +21,10 @@ import com.skosc.tkffintech.model.room.model.*
             RoomHomeworkTask::class,
             RoomGrade::class,
             RoomUser::class,
-            RoomCourseInfo::class
+            RoomCourseInfo::class,
+            RoomUserCourseRelation::class
         ],
-        version = 16
+        version = 18
 )
 abstract class TKFRoomDatabase : RoomDatabase() {
     abstract val eventInfoDao: EventInfoDao

@@ -1,9 +1,9 @@
 package com.skosc.tkffintech.viewmodel.coursedetail
 
 import androidx.lifecycle.MutableLiveData
-import com.skosc.tkffintech.entities.Homework
 import com.skosc.tkffintech.usecase.LoadGradesForUser
 import com.skosc.tkffintech.utils.own
+import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class CourseDetailViewModelImpl(private val loader: LoadGradesForUser) : CourseDetailViewModel() {

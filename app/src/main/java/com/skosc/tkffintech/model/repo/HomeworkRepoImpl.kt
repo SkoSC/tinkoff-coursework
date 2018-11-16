@@ -14,6 +14,7 @@ class HomeworkRepoImpl(
         private val courseInfoDao: CourseInfoDao,
         private val gradesDao: GradesDao,
         private val usersDao: UserDao,
+        private val homeworkDao: HomeworkDao,
         private val updateCourseList: UpdateCourseList,
         private val updateGradesInfo: UpdateGradesInfo
 ) : HomeworkRepo {

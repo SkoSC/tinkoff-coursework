@@ -28,6 +28,9 @@ import com.skosc.tkffintech.viewmodel.courses.CourseViewModelFactory
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModelFactory
 import com.skosc.tkffintech.viewmodel.events.*
+import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModel
+import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModelFactory
+import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModelImpl
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import com.skosc.tkffintech.viewmodel.login.LoginViewModelFactory
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
@@ -85,6 +88,9 @@ val viewModelFactoryModule = Kodein.Module("view-model", false, "tkf") {
     bind<CourseViewModelFactory>(CourseViewModel::class) with provider {
         CourseViewModelFactory(kodein)
     }
+    bind<GradesSingleUserViewModelFactory>(GradesSingleUserViewModel::class) with provider {
+        GradesSingleUserViewModelFactory(kodein)
+    }
 }
 
 fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
@@ -118,8 +124,8 @@ fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
 val repoModule = Kodein.Module("repo", false, "tkf") {
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
-    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance()) }
-    bind<CourseRepo>() with singleton { CourseRepoImpl(instance(), instance()) }
+    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance(), instance()) }
+    bind<CourseRepo>() with singleton { CourseRepoImpl(instance(), instance(), instance()) }
 }
 
 val useCaseModule = Kodein.Module("user-case", false, "tkf") {
@@ -135,4 +141,5 @@ val useCaseModule = Kodein.Module("user-case", false, "tkf") {
     bind<PerformLogout>() with provider { PerformLogout(instance(), instance()) }
     bind<LoadCourses>() with provider { LoadCourses(instance()) }
     bind<LoadGradesForUser>() with provider { LoadGradesForUser(instance(), instance()) }
+    bind<LoadUsersForCourse>() with provider { LoadUsersForCourse(instance()) }
 }
