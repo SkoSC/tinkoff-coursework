@@ -1,5 +1,8 @@
 package com.skosc.tkffintech.misc
 
+/**
+ * Describes ratio between two values. Useful for describing loading bars, scores and other similar things
+ */
 data class Ratio(val actual: Double = 0.0, val max: Double = 0.0) {
     constructor(actual: Int, max: Int) : this(actual.toDouble(), max.toDouble())
 

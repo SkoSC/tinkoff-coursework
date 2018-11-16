@@ -20,6 +20,7 @@ import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.service.NetworkInfoService
 import com.skosc.tkffintech.usecase.*
+import com.skosc.tkffintech.utils.DefaultModule
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModel
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModelFactory
@@ -51,7 +52,7 @@ import java.net.CookieManager
 import java.net.CookiePolicy
 import java.net.CookieStore
 
-fun roomModule(ctx: Context) = Kodein.Module("room-db", false, "tkf") {
+fun roomModule(ctx: Context) = Kodein.DefaultModule("room-db") {
     val db: TKFRoomDatabase = Room.databaseBuilder(ctx, TKFRoomDatabase::class.java, "tkf-default-db")
             .fallbackToDestructiveMigration()
             .build()
@@ -64,7 +65,7 @@ fun roomModule(ctx: Context) = Kodein.Module("room-db", false, "tkf") {
     bind<CourseInfoDao>() with singleton { db.courseInfoDao }
 }
 
-fun daoModule(ctx: Context) = Kodein.Module("dao", false, "tkf") {
+fun daoModule(ctx: Context) = Kodein.DefaultModule("dao") {
     bind<SecurityDao>() with singleton { SecurityDaoPrefImpl(instance()) }
     bind<UserInfoDao>() with singleton { UserInfoDaoImpl(instance("user-info"), instance()) }
     bind<SharedPreferences>("timers") with singleton { ctx.getSharedPreferences("tkf-timers", Context.MODE_PRIVATE) }
@@ -72,7 +73,7 @@ fun daoModule(ctx: Context) = Kodein.Module("dao", false, "tkf") {
     bind<NetworkInfoService>() with singleton { NetworkInfoService(ctx) }
 }
 
-val viewModelFactoryModule = Kodein.Module("view-model", false, "tkf") {
+val viewModelFactoryModule = Kodein.DefaultModule("view-model") {
     bind<LoginViewModelFactory>(LoginViewModel::class) with provider { LoginViewModelFactory(kodein) }
     bind<MainActivityViewModelFactory>(MainActivityViewModel::class) with provider { MainActivityViewModelFactory(kodein) }
     bind<ProfileViewModelFactory>(ProfileViewModel::class) with provider { ProfileViewModelFactory(kodein) }
@@ -97,7 +98,7 @@ val viewModelFactoryModule = Kodein.Module("view-model", false, "tkf") {
     }
 }
 
-fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
+fun webModule(ctx: Context) = Kodein.DefaultModule("retrofit") {
     val gson = GsonBuilder()
             .registerTypeAdapter(DateTime::class.java, JodaDateTimeAdapter())
             .create()
@@ -125,14 +126,14 @@ fun webModule(ctx: Context) = Kodein.Module("retrofit", false, "tkf") {
     bind<TinkoffGradesApi>() with singleton { retrofit.create(TinkoffGradesApi::class.java) }
 }
 
-val repoModule = Kodein.Module("repo", false, "tkf") {
+val repoModule = Kodein.DefaultModule("repo") {
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
     bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance(), instance()) }
     bind<CourseRepo>() with singleton { CourseRepoImpl(instance(), instance(), instance()) }
 }
 
-val useCaseModule = Kodein.Module("user-case", false, "tkf") {
+val useCaseModule = Kodein.DefaultModule("user-case") {
     bind<UpdateGradesInfo>() with provider { UpdateGradesInfo(instance(), instance(), instance(), instance(), instance()) }
     bind<UpdateCourseList>() with provider { UpdateCourseList(instance(), instance()) }
     bind<LogoutBomb>() with provider { LogoutBomb(instance()) }

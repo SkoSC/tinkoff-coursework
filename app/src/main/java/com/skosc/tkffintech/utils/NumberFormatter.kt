@@ -3,6 +3,10 @@ package com.skosc.tkffintech.utils
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+/**
+ * Provides number of formatting functions for numbers :)
+ * All included functions build for satisfying UI needs in mind so, output may change often
+ */
 object NumberFormatter {
     fun userScore(value: Double): String {
         return value.round(2).toString()

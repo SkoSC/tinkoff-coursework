@@ -3,7 +3,7 @@ package com.skosc.tkffintech.viewmodel.grades
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.usecase.LoadGrades
-import com.skosc.tkffintech.utils.ItemSorter
+import com.skosc.tkffintech.misc.ItemSorter
 import com.skosc.tkffintech.utils.own
 import com.skosc.tkffintech.viewmodel.UserWithGradesSum
 import io.reactivex.android.schedulers.AndroidSchedulers

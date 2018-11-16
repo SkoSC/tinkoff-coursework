@@ -7,6 +7,10 @@ import org.joda.time.DateTime
 import java.lang.reflect.Type
 
 
+/**
+ * Gson adapter for [DateTime] from joda library. Uses [DATE_TIME_FORMATTER_FULL] as default formatter,
+ * and [DATE_TIME_FORMATTER_FULL] as fallback.
+ */
 class JodaDateTimeAdapter : JsonDeserializer<DateTime>, JsonSerializer<DateTime> {
     override fun deserialize(je: JsonElement, type: Type,
                              jdc: JsonDeserializationContext): DateTime? {

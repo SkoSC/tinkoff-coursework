@@ -4,6 +4,9 @@ import android.util.Log
 import okhttp3.Interceptor
 import okhttp3.Response
 
+/**
+ * Logs intercepted requests of OKHTTP
+ */
 class OkHttpLoggingInterceptor(private val tag: String) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
