@@ -43,12 +43,16 @@ class MainActivity : TKFActivity(), SearchViewProvider {
         navController.addOnNavigatedListener { _, destination ->
             updateSearchBarVisibility(destination)
             updateAppBarVisibility(destination)
-            updateBackButtonVisiblility(destination)
+            updateBackButtonVisibility(destination)
         }
     }
 
     override fun onBackPressed() {
-        navController.navigateUp()
+        // TODO Add more elegant way to handle exiting application
+        val success = navController.navigateUp()
+        if (!success) {
+            finishAndRemoveTask()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -82,7 +86,7 @@ class MainActivity : TKFActivity(), SearchViewProvider {
         }
     }
 
-    private fun updateBackButtonVisiblility(destination: NavDestination? = navController.currentDestination) {
+    private fun updateBackButtonVisibility(destination: NavDestination? = navController.currentDestination) {
         val isEnabled = when (destination?.id ?: UNKNOWN_DESTINATION) {
             R.id.navigation_event_list -> true
             else -> false
