@@ -4,12 +4,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.model.UserInfoAttribute
 
 class ProfileAttributeAdapter : RecyclerView.Adapter<ProfileAttributeAdapter.ViewHolder>() {
-    var items = listOf<UserInfoAttribute>()
+    private val differ = AsyncListDiffer(this, UserInfoAttributeDiffCallback)
+
+    fun submitItems(items: List<UserInfoAttribute>) {
+        differ.submitList(items)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -18,11 +24,11 @@ class ProfileAttributeAdapter : RecyclerView.Adapter<ProfileAttributeAdapter.Vie
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val model = items[position]
+        val model = differ.currentList[position]
         holder.bind(model)
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = differ.currentList.size
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val title by lazy { view.findViewById<TextView>(R.id.profile_attribute_title) }
@@ -33,4 +39,15 @@ class ProfileAttributeAdapter : RecyclerView.Adapter<ProfileAttributeAdapter.Vie
             value.text = model.value
         }
     }
+}
+
+private object UserInfoAttributeDiffCallback : DiffUtil.ItemCallback<UserInfoAttribute>() {
+    override fun areItemsTheSame(oldItem: UserInfoAttribute, newItem: UserInfoAttribute): Boolean {
+        return oldItem === newItem
+    }
+
+    override fun areContentsTheSame(oldItem: UserInfoAttribute, newItem: UserInfoAttribute): Boolean {
+        return oldItem == newItem
+    }
+
 }

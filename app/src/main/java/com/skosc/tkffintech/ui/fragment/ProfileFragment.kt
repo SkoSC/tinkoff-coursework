@@ -56,8 +56,18 @@ class ProfileFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
-        profile_info_cards.addViews(contactInfoCard, schoolInfoCard, workInfoCard)
+        setupDataUpdateListener()
+        setupPrimaryInfo()
+        setupStatisticsCard()
+        setupInfoCards()
+        setupBottomButtons()
+    }
 
+    private fun setupDataUpdateListener() {
+        profile_info_cards.addViews(contactInfoCard, schoolInfoCard, workInfoCard)
+    }
+
+    private fun setupPrimaryInfo() {
         vm.dataUpdated.observe(this, Observer {
             profile_refresh.isRefreshing = false
         })
@@ -77,26 +87,12 @@ class ProfileFragment : TKFFragment() {
                     .into(profile_avatar)
         })
 
-        vm.statsScore.observe(this, Observer { scoreSum ->
-            card_stats_left_slot.text = NumberFormatter.userScore(scoreSum)
-        })
-
-        vm.statsTests.observe(this, Observer {
-            card_stats_center_slot.text = it.toString()
-        })
-
-        vm.statsCourses.observe(this, Observer {
-            card_stats_right_slot.text = it.toString()
-        })
-
         vm.quote.observe(this, Observer {
             profile_quote.text = it
         })
+    }
 
-        vm.contactInfo.observe(this, userInfoAttributesObserver(contactInfoCard))
-        vm.schoolInfo.observe(this, userInfoAttributesObserver(schoolInfoCard))
-        vm.workInfo.observe(this, userInfoAttributesObserver(workInfoCard))
-
+    private fun setupBottomButtons() {
         profile_signout_btn.setOnClickListener {
             vm.signout()
         }
@@ -106,12 +102,34 @@ class ProfileFragment : TKFFragment() {
         }
     }
 
+    private fun setupInfoCards() {
+        vm.contactInfo.observe(this, userInfoAttributesObserver(contactInfoCard))
+        vm.schoolInfo.observe(this, userInfoAttributesObserver(schoolInfoCard))
+        vm.workInfo.observe(this, userInfoAttributesObserver(workInfoCard))
+    }
+
+    private fun setupStatisticsCard() {
+        card_stats_left_slot_text.text = getString(R.string.stats_score)
+        vm.statsScore.observe(this, Observer { scoreSum ->
+            card_stats_left_slot.text = NumberFormatter.userScore(scoreSum)
+        })
+
+        card_stats_center_slot_text.text = getString(R.string.stats_tests)
+        vm.statsTests.observe(this, Observer {
+            card_stats_center_slot.text = it.toString()
+        })
+
+        card_stats_right_slot_text.text = getString(R.string.stats_courses)
+        vm.statsCourses.observe(this, Observer {
+            card_stats_right_slot.text = it.toString()
+        })
+    }
+
     private fun userInfoAttributesObserver(card: UserInfoSectionCard): Observer<Map<Int, String>> {
         return Observer {
             val entries = it.entries.map(UserInfoAttribute.Companion::from)
             val adapter = card.recycler.adapter as ProfileAttributeAdapter
-            adapter.items = entries
-            adapter.notifyDataSetChanged()
+            adapter.submitItems(entries)
         }
     }
 }

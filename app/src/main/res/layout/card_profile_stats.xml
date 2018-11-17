@@ -92,7 +92,7 @@
             android:id="@+id/card_stats_right_slot_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/stats_curse"
+            android:text="@string/stats_courses"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/card_stats_right_slot"
             app:layout_constraintStart_toStartOf="@+id/card_stats_right_slot"

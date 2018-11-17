@@ -29,7 +29,7 @@ class ProfileViewModelImpl(
     override val dataUpdated: MutableLiveData<*> = MutableLiveData<Unit>()
 
     private val bindUserInfoToLiveData: (UserInfo) -> Unit = { info ->
-        dataUpdated.value = Unit // Trigger
+        dataUpdated.value = Unit
         fullName.value = "${info.firstName} ${info.lastName}"
         shortInfo.value = info.email
         avatarUrl.value = "https://fintech.tinkoff.ru${info.avatar}"
