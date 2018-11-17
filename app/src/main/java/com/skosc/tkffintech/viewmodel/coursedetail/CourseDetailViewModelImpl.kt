@@ -9,6 +9,7 @@ import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class CourseDetailViewModelImpl(
+        private val course: String,
         private val loader: LoadGrades,
         private val statisticsCalculatorForCourse: StatisticsCalculatorForCourse
 ) : CourseDetailViewModel() {
@@ -19,7 +20,7 @@ class CourseDetailViewModelImpl(
     override val statsHomeWorks: MutableLiveData<Int> = MutableLiveData()
 
     init {
-        cdisp own loader.loadGradesForCurrentUser("android_fall2018").map {
+        cdisp own loader.loadGradesForCurrentUser(course).map {
             it.map { HomeworkWithGrades(it.first, it.second.map { it.task to it.grade }) }
         }.observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
@@ -27,19 +28,19 @@ class CourseDetailViewModelImpl(
                 }
 
 
-        cdisp own statisticsCalculatorForCourse.totalScore("android_fall2018")
+        cdisp own statisticsCalculatorForCourse.totalScore(course)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     statsScore.value = it
                 }
 
-        cdisp own statisticsCalculatorForCourse.totalTests("android_fall2018")
+        cdisp own statisticsCalculatorForCourse.totalTests(course)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     statsTests.value = it
                 }
 
-        cdisp own statisticsCalculatorForCourse.totalHomeworks("android_fall2018")
+        cdisp own statisticsCalculatorForCourse.totalHomeworks(course)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     statsHomeWorks.value = it

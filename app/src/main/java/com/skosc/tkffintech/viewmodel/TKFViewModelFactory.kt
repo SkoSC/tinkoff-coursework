@@ -18,10 +18,3 @@ abstract class TKFViewModelFactory<T : ViewModel>(protected val kodein: Kodein) 
 
     protected inline fun <reified T : Any> inject(): T = kodein.direct.instance()
 }
-
-abstract class TKFViewModelFactoryWithArgs<T : ViewModel>(
-        protected val kodein: Kodein,
-        arguments: ViewModelArgs
-) : ViewModelProvider.Factory {
-    protected inline fun <reified T : Any> inject(): T = kodein.direct.instance()
-}

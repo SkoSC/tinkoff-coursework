@@ -22,6 +22,7 @@ import com.skosc.tkffintech.service.NetworkInfoService
 import com.skosc.tkffintech.usecase.*
 import com.skosc.tkffintech.utils.DefaultModule
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
+import com.skosc.tkffintech.viewmodel.ViewModelArgs
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModel
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModelFactory
 import com.skosc.tkffintech.viewmodel.courses.CourseViewModel
@@ -42,10 +43,7 @@ import okhttp3.OkHttpClient
 import okhttp3.internal.JavaNetCookieJar
 import org.joda.time.DateTime
 import org.kodein.di.Kodein
-import org.kodein.di.generic.bind
-import org.kodein.di.generic.instance
-import org.kodein.di.generic.provider
-import org.kodein.di.generic.singleton
+import org.kodein.di.generic.*
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -85,8 +83,8 @@ val viewModelFactoryModule = Kodein.DefaultModule("view-model") {
     bind<EventsListViewModelArchiveFactory>(EventsListViewModelArchive::class) with provider {
         EventsListViewModelArchiveFactory(kodein)
     }
-    bind<CourseDetailViewModelFactory>(CourseDetailViewModel::class) with provider {
-        CourseDetailViewModelFactory(kodein)
+    bind<CourseDetailViewModelFactory>(CourseDetailViewModel::class) with factory { args: ViewModelArgs ->
+        CourseDetailViewModelFactory(kodein, args)
     }
     bind<CourseViewModelFactory>(CourseViewModel::class) with provider {
         CourseViewModelFactory(kodein)

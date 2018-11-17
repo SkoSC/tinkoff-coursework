@@ -38,7 +38,7 @@ class CoursesFragment : TKFFragment() {
         courses_fresh_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         courses_fresh_recycler.adapter = CoursesDetailedRecyclerAdapter { _, model ->
             navController.navigate(R.id.navigation_course_detail, bundleOf(
-                    "course_name" to model.url
+                    CourseDetailFragment.ARG_COURSE to model.url
             ))
         }
 
@@ -61,7 +61,8 @@ class CoursesFragment : TKFFragment() {
             adapter.items = it.map {
                 CourseDetailModel(
                         title = it.title,
-                        status = it.status
+                        status = it.status,
+                        url = it.url
                 )
             }
             adapter.notifyDataSetChanged()

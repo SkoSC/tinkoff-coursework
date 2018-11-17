@@ -22,14 +22,18 @@ import kotlinx.android.synthetic.main.fragment_course_detail.*
 
 class CourseDetailFragment : TKFFragment() {
     companion object {
-        private const val ARG_COURSE = "course_name"
+        const val ARG_COURSE = "course_name"
     }
 
     private lateinit var course: String
 
     private val navController by lazy { Navigation.findNavController(course_detail_tasks) }
 
-    private val vm by lazy { getViewModel(CourseDetailViewModel::class) }
+    private val vm by lazy {
+        getViewModel(CourseDetailViewModel::class, mapOf(
+                CourseDetailViewModel.COURSE_ARG to course
+        ))
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
