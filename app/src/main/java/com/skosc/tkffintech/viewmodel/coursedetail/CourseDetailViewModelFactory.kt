@@ -1,13 +1,10 @@
 package com.skosc.tkffintech.viewmodel.coursedetail
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import com.skosc.tkffintech.viewmodel.TKFViewModelFactory
 import org.kodein.di.Kodein
-import org.kodein.di.direct
-import org.kodein.di.generic.instance
 
-class CourseDetailViewModelFactory(private val kodein: Kodein) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return CourseDetailViewModelImpl(kodein.direct.instance(), kodein.direct.instance()) as T
+class CourseDetailViewModelFactory(kodein: Kodein) : TKFViewModelFactory<CourseDetailViewModel>(kodein) {
+    override fun create(): CourseDetailViewModel {
+        return CourseDetailViewModelImpl(inject(), inject())
     }
 }

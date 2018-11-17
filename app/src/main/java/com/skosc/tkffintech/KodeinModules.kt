@@ -35,6 +35,7 @@ import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModel
 import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModelFactory
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import com.skosc.tkffintech.viewmodel.login.LoginViewModelFactory
+import com.skosc.tkffintech.viewmodel.main.MainActivityViewModelFactory
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModelFactory
 import okhttp3.OkHttpClient
