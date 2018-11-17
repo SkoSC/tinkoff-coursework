@@ -1,5 +1,6 @@
 package com.skosc.tkffintech.utils
 
+import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -11,6 +12,7 @@ infix fun CompositeDisposable.own(disp: Disposable) {
 }
 
 fun <T, F> Single<List<T>>.mapEach(fn: (T) -> F): Single<List<F>> = this.map { it.map(fn) }
+fun <T, F> Observable<List<T>>.mapEach(fn: (T) -> F): Observable<List<F>> = this.map { it.map(fn) }
 
 fun <T> Single<List<T>>.filterEach(fn: (T) -> Boolean): Single<List<T>> = this.map { it.filter(fn) }
 

@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.TasksRecyclerAdapter
 import com.skosc.tkffintech.ui.model.toAdapterItems
+import com.skosc.tkffintech.utils.NumberFormatter
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModel
+import kotlinx.android.synthetic.main.card_profile_stats.*
 import kotlinx.android.synthetic.main.fragment_course_detail.*
 
 
@@ -43,5 +45,20 @@ class CourseDetailFragment : TKFFragment() {
         courses_entry_score_progress.setOnClickListener {
             navController.navigate(R.id.action_navigation_course_grades)
         }
+
+        card_stats_left_slot_text.text = getString(R.string.stats_score)
+        vm.statsScore.observe(this, Observer {
+            card_stats_left_slot.text = NumberFormatter.userScore(it)
+        })
+
+        card_stats_center_slot_text.text = getString(R.string.stats_tests)
+        vm.statsTests.observe(this, Observer {
+            card_stats_center_slot.text = it.toString()
+        })
+
+        card_stats_right_slot_text.text = getString(R.string.stats_homeworks)
+        vm.statsHomeWorks.observe(this, Observer {
+            card_stats_right_slot.text = it.toString()
+        })
     }
 }

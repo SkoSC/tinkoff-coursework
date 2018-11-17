@@ -78,15 +78,15 @@ class ProfileFragment : TKFFragment() {
         })
 
         vm.statsScore.observe(this, Observer { scoreSum ->
-            profile_stats_score.text = NumberFormatter.userScore(scoreSum)
+            card_stats_left_slot.text = NumberFormatter.userScore(scoreSum)
         })
 
         vm.statsTests.observe(this, Observer {
-            profile_stats_tests.text = it.toString()
+            card_stats_center_slot.text = it.toString()
         })
 
         vm.statsCourses.observe(this, Observer {
-            profile_stats_curse.text = it.toString()
+            card_stats_right_slot.text = it.toString()
         })
 
         vm.quote.observe(this, Observer {

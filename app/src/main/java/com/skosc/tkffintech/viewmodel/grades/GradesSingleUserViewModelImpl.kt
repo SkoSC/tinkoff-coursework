@@ -8,6 +8,7 @@ import com.skosc.tkffintech.utils.own
 import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
+import java.util.concurrent.TimeUnit
 
 class GradesSingleUserViewModelImpl(private val loadGrades: LoadGrades, private val loadUsers: LoadUsersForCourse) : GradesSingleUserViewModel() {
     private var course: String = ""
@@ -32,9 +33,11 @@ class GradesSingleUserViewModelImpl(private val loadGrades: LoadGrades, private 
     }
 
     override fun setUser(user: User) {
-        cdisp own loadGrades.loadGrades(user.id, "android_fall2018").map {
-            it.map { HomeworkWithGrades(it.first, it.second.map { it.task to it.grade }) }
-        }.observeOn(AndroidSchedulers.mainThread())
+        grades.value = listOf()
+        cdisp own loadGrades.loadGrades(user.id, "android_fall2018")
+                .map {
+                    it.map { HomeworkWithGrades(it.first, it.second.map { it.task to it.grade }) }
+                }.observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     grades.value = it
                 }

@@ -21,4 +21,5 @@ interface HomeworkRepo {
     fun gradesSumForUser(user: Long): Observable<Double>
     fun gradesForUser(user: Long): Observable<List<HomeworkGrade>>
     fun testGradesForUser(user: Long): Observable<List<HomeworkGrade>>
+    fun totalGradesForCourse(user: Long, course: String): Observable<Double>
 }

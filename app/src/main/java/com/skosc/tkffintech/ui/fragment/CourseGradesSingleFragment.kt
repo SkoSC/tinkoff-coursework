@@ -76,6 +76,11 @@ class CourseGradesSingleFragment : TKFFragment() {
         grades_list_recycler.adapter = adapter
         grades_list_recycler.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         vm.grades.observe(this, Observer {
+            if (it.isEmpty()) {
+                grades_loading.visibility = View.VISIBLE
+            } else {
+                grades_loading.visibility = View.GONE
+            }
             val items = it.toAdapterItems()
             adapter.submitItems(items)
             adapter.notifyDataSetChanged()

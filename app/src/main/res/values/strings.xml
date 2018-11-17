@@ -46,4 +46,8 @@
     <string name="sort_ascending">Ascending</string>
     <string name="sort_by_name">By Name</string>
     <string name="placeholder_digit_x1">2</string>
+    <string name="stats_score">Score</string>
+    <string name="stats_tests">Tests</string>
+    <string name="stats_curse">Curse</string>
+    <string name="stats_homeworks">Tests</string>
 </resources>

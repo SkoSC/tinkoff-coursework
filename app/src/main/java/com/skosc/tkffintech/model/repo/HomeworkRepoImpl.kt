@@ -72,4 +72,8 @@ class HomeworkRepoImpl(
             gradesDao.testGradesForUser(user.id).map { it.map { it.convert(user) } }
         }
     }
+
+    override fun totalGradesForCourse(user: Long, course: String): Observable<Double> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 }
