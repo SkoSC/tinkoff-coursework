@@ -6,6 +6,7 @@ import com.skosc.tkffintech.entities.UserInfoAttributes
 import com.skosc.tkffintech.usecase.LoadCurrentUserInfo
 import com.skosc.tkffintech.usecase.PerformLogout
 import com.skosc.tkffintech.usecase.StatisticsCalculator
+import com.skosc.tkffintech.utils.Trigger
 import com.skosc.tkffintech.utils.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -26,10 +27,10 @@ class ProfileViewModelImpl(
     override val schoolInfo: MutableLiveData<Map<Int, String>> = MutableLiveData()
     override val workInfo: MutableLiveData<Map<Int, String>> = MutableLiveData()
 
-    override val dataUpdated: MutableLiveData<*> = MutableLiveData<Unit>()
+    override val dataUpdated: Trigger = Trigger()
 
     private val bindUserInfoToLiveData: (UserInfo) -> Unit = { info ->
-        dataUpdated.value = Unit
+        dataUpdated.trigger()
         fullName.value = "${info.firstName} ${info.lastName}"
         shortInfo.value = info.email
         avatarUrl.value = "https://fintech.tinkoff.ru${info.avatar}"
@@ -58,7 +59,9 @@ class ProfileViewModelImpl(
     init {
         cdisp own loadCurrentUserInfo.currentUserInfo
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(bindUserInfoToLiveData)
+                .subscribe {
+                    bindUserInfoToLiveData(it)
+                }
 
         cdisp own statisticsCalculator.totalScore
                 .observeOn(AndroidSchedulers.mainThread())

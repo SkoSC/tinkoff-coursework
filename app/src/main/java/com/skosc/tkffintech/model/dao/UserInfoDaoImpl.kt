@@ -6,27 +6,27 @@ import com.skosc.rxprefs.RxPreferences
 import com.skosc.rxprefs.SerializerAdapter
 import com.skosc.tkffintech.entities.UserInfo
 import io.reactivex.Observable
+import io.reactivex.subjects.BehaviorSubject
 
 
-class UserInfoDaoImpl(sp: SharedPreferences, private val gson: Gson) : UserInfoDao {
+class UserInfoDaoImpl(private val sp: SharedPreferences, private val gson: Gson) : UserInfoDao {
     companion object {
-        private const val CACHE_TIME_SECONDS = 86400
+        private const val KEY_USER_INFO = "user-info"
     }
 
-    private val rxSharedPrefs = RxPreferences.create(sp)
-    private val userInfoPref = rxSharedPrefs.getObject("user-info", UserInfo(), object : SerializerAdapter<UserInfo> {
-        override fun deserialize(value: String): UserInfo = gson.fromJson(value, UserInfo::class.java)
-        override fun serialize(value: UserInfo): String = gson.toJson(value)
-    })
+    override val rxUserInfo: BehaviorSubject<UserInfo> = BehaviorSubject.create()
 
-    private val userCoursesPref = rxSharedPrefs.getStringSet("current-user-curses", setOf())
-
-    override val rxUserInfo: Observable<UserInfo> =
-            userInfoPref.observable()
-
+    init {
+        val json = sp.getString(KEY_USER_INFO, "")
+        val userInfo = gson.fromJson<UserInfo>(json, UserInfo::class.java)
+        rxUserInfo.onNext(userInfo)
+    }
 
     // TODO Make async
     override fun saveUserInfo(info: UserInfo) {
-        userInfoPref.post(info)
+        sp.edit()
+                .putString(KEY_USER_INFO, gson.toJson(info))
+                .apply()
+        rxUserInfo.onNext(info)
     }
 }

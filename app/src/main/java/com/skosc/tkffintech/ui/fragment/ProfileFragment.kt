@@ -68,9 +68,9 @@ class ProfileFragment : TKFFragment() {
     }
 
     private fun setupPrimaryInfo() {
-        vm.dataUpdated.observe(this, Observer {
+        vm.dataUpdated.observe(this) {
             profile_refresh.isRefreshing = false
-        })
+        }
 
         vm.fullName.observe(this, Observer {
             profile_name.text = it
