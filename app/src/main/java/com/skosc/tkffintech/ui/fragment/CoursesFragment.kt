@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.CoursesDetailedRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.CoursesPreviewRecyclerAdapter
+import com.skosc.tkffintech.ui.model.CourseDetailModel
 import com.skosc.tkffintech.ui.model.CoursePreviewModel
 import com.skosc.tkffintech.viewmodel.courses.CourseViewModel
 import kotlinx.android.synthetic.main.fragment_courses.*
@@ -35,14 +37,29 @@ class CoursesFragment : TKFFragment() {
 
         courses_fresh_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         courses_fresh_recycler.adapter = CoursesDetailedRecyclerAdapter { _, model ->
-            navController.navigate(R.id.navigation_course_detail)
+            navController.navigate(R.id.navigation_course_detail, bundleOf(
+                    "course_name" to model.url
+            ))
         }
+
 
         vm.allCourses.observe(this, Observer {
             courses_refresh.isRefreshing = false
             val adapter = courses_all_recycler.adapter as CoursesPreviewRecyclerAdapter
             adapter.items = it.map {
                 CoursePreviewModel(
+                        title = it.title,
+                        status = it.status
+                )
+            }
+            adapter.notifyDataSetChanged()
+        })
+
+        vm.activeCourses.observe(this, Observer {
+            courses_refresh.isRefreshing = false
+            val adapter = courses_fresh_recycler.adapter as CoursesDetailedRecyclerAdapter
+            adapter.items = it.map {
+                CourseDetailModel(
                         title = it.title,
                         status = it.status
                 )

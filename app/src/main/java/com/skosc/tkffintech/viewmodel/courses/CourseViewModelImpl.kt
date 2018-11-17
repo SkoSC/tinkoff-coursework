@@ -7,7 +7,7 @@ import com.skosc.tkffintech.utils.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class CourseViewModelImpl(private val loadCourses: LoadCourses) : CourseViewModel() {
-    override val activeCourses: MutableLiveData<CourseInfo> = MutableLiveData()
+    override val activeCourses: MutableLiveData<List<CourseInfo>> = MutableLiveData()
     override val allCourses: MutableLiveData<List<CourseInfo>> = MutableLiveData()
 
     init {
@@ -15,6 +15,7 @@ class CourseViewModelImpl(private val loadCourses: LoadCourses) : CourseViewMode
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     allCourses.value = it
+                    activeCourses.value = it //TODO Perform actual filtering
                 }
     }
 

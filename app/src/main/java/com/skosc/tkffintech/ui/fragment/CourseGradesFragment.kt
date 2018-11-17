@@ -10,14 +10,30 @@ import com.skosc.tkffintech.ui.adapter.CourseGradesFragmentsAdapter
 import kotlinx.android.synthetic.main.fragment_course_grades.*
 
 class CourseGradesFragment : Fragment() {
+    companion object {
+        private const val ARG_COURSE = "course_name"
+    }
+
+    private lateinit var course: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_course_grades, container, false)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            course = it.getString(ARG_COURSE)
+                    ?: throw IllegalStateException("${CourseGradesFragment::class.java.simpleName} " +
+                    "requires: $ARG_COURSE argument")
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         course_grades_pager.adapter = CourseGradesFragmentsAdapter(childFragmentManager)
     }
+
+
 }

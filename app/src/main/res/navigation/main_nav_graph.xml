@@ -71,10 +71,15 @@
         <action
             android:id="@+id/action_navigation_course_grades"
             app:destination="@id/courseGradesFragment" />
+        <argument
+            android:name="course"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/courseGradesFragment"
         android:name="com.skosc.tkffintech.ui.fragment.CourseGradesFragment"
         android:label="fragment_course_grades"
-        tools:layout="@layout/fragment_course_grades" />
+        tools:layout="@layout/fragment_course_grades" >
+        <argument android:name="course" />
+    </fragment>
 </navigation>

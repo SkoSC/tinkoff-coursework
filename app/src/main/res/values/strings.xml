@@ -49,5 +49,5 @@
     <string name="stats_score">Score</string>
     <string name="stats_tests">Tests</string>
     <string name="stats_curse">Curse</string>
-    <string name="stats_homeworks">Tests</string>
+    <string name="stats_homeworks">Home works</string>
 </resources>

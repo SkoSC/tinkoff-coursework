@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -20,6 +21,12 @@ import kotlinx.android.synthetic.main.fragment_course_detail.*
 
 
 class CourseDetailFragment : TKFFragment() {
+    companion object {
+        private const val ARG_COURSE = "course_name"
+    }
+
+    private lateinit var course: String
+
     private val navController by lazy { Navigation.findNavController(course_detail_tasks) }
 
     private val vm by lazy { getViewModel(CourseDetailViewModel::class) }
@@ -29,6 +36,14 @@ class CourseDetailFragment : TKFFragment() {
         return inflater.inflate(R.layout.fragment_course_detail, container, false)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            course = it.getString(ARG_COURSE)
+                    ?: throw IllegalStateException("${CourseDetailFragment::class.java.simpleName} " +
+                    "requires: $ARG_COURSE argument")
+        }
+    }
 
     override fun onStart() {
         super.onStart()
@@ -43,7 +58,9 @@ class CourseDetailFragment : TKFFragment() {
         })
 
         courses_entry_score_progress.setOnClickListener {
-            navController.navigate(R.id.action_navigation_course_grades)
+            navController.navigate(R.id.action_navigation_course_grades, bundleOf(
+                    "course_name" to course
+            ))
         }
 
         card_stats_left_slot_text.text = getString(R.string.stats_score)
