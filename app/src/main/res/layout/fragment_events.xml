@@ -67,9 +67,20 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/events_actual_label"
-                        tools:listitem="@layout/card_event_vertical">
+                        tools:listitem="@layout/card_event_vertical" />
 
-                    </androidx.recyclerview.widget.RecyclerView>
+                    <ProgressBar
+                        android:id="@+id/events_loading_spinner_ongoing"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/events_actual_recycler"
+                        app:layout_constraintStart_toStartOf="@+id/events_actual_recycler"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -128,6 +139,18 @@
                         tools:listitem="@layout/card_event_horizontal">
 
                     </androidx.recyclerview.widget.RecyclerView>
+
+                    <ProgressBar
+                        android:id="@+id/events_loading_spinner_archive"
+                        style="?android:attr/progressBarStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/events_archive_recycler"
+                        app:layout_constraintStart_toStartOf="@+id/events_archive_recycler"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
