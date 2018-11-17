@@ -22,7 +22,6 @@ class UserInfoDaoImpl(private val sp: SharedPreferences, private val gson: Gson)
         rxUserInfo.onNext(userInfo)
     }
 
-    // TODO Make async
     override fun saveUserInfo(info: UserInfo) {
         sp.edit()
                 .putString(KEY_USER_INFO, gson.toJson(info))
