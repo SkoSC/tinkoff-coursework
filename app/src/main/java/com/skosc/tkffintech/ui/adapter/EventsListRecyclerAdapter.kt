@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.EventTypeIconFinder
@@ -13,13 +15,18 @@ import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.utils.getColorCompat
 import com.skosc.tkffintech.utils.getDrawableCompat
 
-class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (EventCardModel) -> Unit) : RecyclerView.Adapter<EventCardViewHolder>() {
+class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (EventCardModel) -> Unit)
+    : RecyclerView.Adapter<EventCardViewHolder>() {
     companion object {
         const val MODE_LARGE: Int = 0
         const val MODE_SMALL: Int = 1
     }
 
-    var items: List<EventCardModel> = listOf()
+    private val differ = AsyncListDiffer(this, EventsListEventCardModelDiffCallback)
+
+    fun submitItems(items: List<EventCardModel>) {
+        differ.submitList(items)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventCardViewHolder {
         return when (viewType) {
@@ -38,13 +45,13 @@ class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (Eve
     }
 
     override fun onBindViewHolder(holder: EventCardViewHolder, position: Int) {
-        val model = items[position]
+        val model = differ.currentList[position]
         holder.bind(model, onClick)
     }
 
     override fun getItemViewType(position: Int): Int = mode
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = differ.currentList.size
 
     class LargeViewHolder(private val view: View) : EventCardViewHolder(view) {
         private val title by lazy { view.findViewById<TextView>(R.id.event_card_title) }
@@ -81,5 +88,15 @@ class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (Eve
             title.text = model.title
             dateAndType.text = "%s/%s".format(model.typeTitle, model.date)
         }
+    }
+}
+
+private object EventsListEventCardModelDiffCallback : DiffUtil.ItemCallback<EventCardModel>() {
+    override fun areItemsTheSame(oldItem: EventCardModel, newItem: EventCardModel): Boolean {
+        return oldItem === newItem
+    }
+
+    override fun areContentsTheSame(oldItem: EventCardModel, newItem: EventCardModel): Boolean {
+        return oldItem == newItem
     }
 }

@@ -14,6 +14,7 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.EventsListRecyclerAdapter
 import com.skosc.tkffintech.ui.contracts.SearchViewProvider
 import com.skosc.tkffintech.ui.model.EventCardModel
+import com.skosc.tkffintech.ui.model.toAdapterModels
 import com.skosc.tkffintech.viewmodel.events.EventsListViewModelArchive
 import com.skosc.tkffintech.viewmodel.events.EventsListViewModelOngoing
 import kotlinx.android.synthetic.main.fragment_events_list.*
@@ -25,24 +26,23 @@ class EventsListFragment : TKFFragment() {
         const val ARG_MODE = "mode"
     }
 
-    private val searchView: SearchView by lazy { (activity as SearchViewProvider).searchView }
-    private val navController by lazy { Navigation.findNavController(events_refresh) }
     private val vm by lazy {
         val cls = when (recyclerMode) {
             ON_GOING -> EventsListViewModelOngoing::class
             ARCHIVE -> EventsListViewModelArchive::class
-            else -> throw IllegalArgumentException("Unsupported mode")
+            else -> throw IllegalArgumentException("Unsupported mode: $recyclerMode")
         }
         getViewModel(cls)
     }
+
+    private val navController by lazy { Navigation.findNavController(events_refresh) }
+    private val searchView: SearchView by lazy { (activity as SearchViewProvider).searchView }
 
     private var recyclerMode = ON_GOING
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-
         recyclerMode = arguments?.getInt(ARG_MODE) ?: EventsListRecyclerAdapter.MODE_LARGE
-
         return inflater.inflate(R.layout.fragment_events_list, container, false)
     }
 
@@ -51,7 +51,10 @@ class EventsListFragment : TKFFragment() {
 
         setupEventsRecycler()
         setupRefreshView()
+        setupSearch()
+    }
 
+    private fun setupSearch() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -62,12 +65,11 @@ class EventsListFragment : TKFFragment() {
                 return true
             }
         })
-
     }
 
     private fun setupRefreshView() {
         events_refresh.setOnRefreshListener {
-            vm.update()
+            vm.forceUpdate()
         }
 
         vm.events.observe(this, Observer {
@@ -85,8 +87,8 @@ class EventsListFragment : TKFFragment() {
 
         vm.events.observe(this, Observer { eventsInfo ->
             val adapter = events_recycler.adapter as EventsListRecyclerAdapter
-            adapter.items = eventsInfo
-                    .map { EventCardModel.from(context!!, it) }
+            val items = eventsInfo.toAdapterModels(context!!)
+            adapter.submitItems(items)
             adapter.notifyDataSetChanged()
         })
     }

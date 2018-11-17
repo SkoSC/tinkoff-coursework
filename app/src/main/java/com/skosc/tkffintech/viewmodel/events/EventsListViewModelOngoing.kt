@@ -29,7 +29,7 @@ class EventsListViewModelOngoing(private val eventsLoader: LoadEvents, private v
                 }
     }
 
-    override fun update() {
+    override fun forceUpdate() {
         cdisp own eventsLoader.tryLoadEventsFromNetwork().subscribe { success ->
 
         }

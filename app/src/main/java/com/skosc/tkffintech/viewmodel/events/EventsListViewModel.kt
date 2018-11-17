@@ -7,6 +7,6 @@ import com.skosc.tkffintech.viewmodel.RxViewModel
 abstract class EventsListViewModel : RxViewModel() {
     abstract val events: LiveData<List<EventInfo>>
     abstract fun searchEvents(query: String)
-    abstract fun update()
+    abstract fun forceUpdate()
 
 }

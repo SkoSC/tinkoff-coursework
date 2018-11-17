@@ -20,6 +20,7 @@ import com.skosc.tkffintech.ui.adapter.OnGoingEventsRecyclerAdapter
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ARCHIVE
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ON_GOING
 import com.skosc.tkffintech.ui.model.EventCardModel
+import com.skosc.tkffintech.ui.model.toAdapterModels
 import com.skosc.tkffintech.viewmodel.events.EventsListViewModelArchive
 import com.skosc.tkffintech.viewmodel.events.EventsListViewModelOngoing
 import kotlinx.android.synthetic.main.fragment_events.*
@@ -49,8 +50,8 @@ class EventsFragment : TKFFragment() {
 
     private fun setupRefresh() {
         events_refresh.setOnRefreshListener {
-            onGoingVm.update()
-            archiveVm.update()
+            onGoingVm.forceUpdate()
+            archiveVm.forceUpdate()
         }
 
         // Listen to data, hide refresh indicator if data is updated
@@ -84,9 +85,12 @@ class EventsFragment : TKFFragment() {
         data.observe(this, Observer { eventsInfo ->
             setLoadingSpinnerVisibility(progressBar, eventsInfo)
 
-            val cards = eventsInfo.toAdapterModels().take(MAX_RECYCLER_ITEMS)
+            val cards = eventsInfo.toAdapterModels(context!!)
+                    .take(MAX_RECYCLER_ITEMS)
+
             @Suppress("UNCHECKED_CAST")
             val adapter = recycler.adapter as GenericRecyclerAdapter<EventCardModel, *>
+
             adapter.submitItems(cards)
         })
     }
@@ -113,9 +117,5 @@ class EventsFragment : TKFFragment() {
         } else {
             spinner.visibility = View.GONE
         }
-    }
-
-    private fun List<EventInfo>.toAdapterModels(): List<EventCardModel> {
-        return this.map { EventCardModel.from(context!!, it) }
     }
 }

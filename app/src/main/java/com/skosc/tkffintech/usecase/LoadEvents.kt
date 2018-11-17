@@ -12,7 +12,7 @@ class LoadEvents(private val eventsRepo: EventsRepo, sp: SharedPreferences) {
         const val UPDATE_TIME_MILLIS = 60 * 60
     }
 
-    val updateTimer = ExpirationTimer.create(sp, "events-needs-to-update")
+    val updateTimer = ExpirationTimer.create(sp, "events-needs-to-forceUpdate")
 
     init {
         updateTimer.isExpired.filter { it }.subscribe { needsUpdate ->

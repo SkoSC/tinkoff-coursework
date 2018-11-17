@@ -30,3 +30,7 @@ data class EventCardModel(
         }
     }
 }
+
+fun List<EventInfo>.toAdapterModels(context: Context): List<EventCardModel> {
+    return this.map { EventCardModel.from(context, it) }
+}
