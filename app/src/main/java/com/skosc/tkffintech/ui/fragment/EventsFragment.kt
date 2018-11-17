@@ -65,7 +65,7 @@ class EventsFragment : TKFFragment() {
         events_archive_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         events_archive_recycler.adapter = ArchiveEventsRecyclerAdapter(this::onEventClickedListener)
 
-        events_ongoing_more.setOnClickListener(onMoreEventsClickedClosure(ARCHIVE))
+        events_archive_more.setOnClickListener(onMoreEventsClickedClosure(ARCHIVE))
         bindRecyclerToData(events_archive_recycler, events_loading_spinner_archive, archiveVm.events)
     }
 
