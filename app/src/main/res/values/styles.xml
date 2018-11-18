@@ -17,4 +17,38 @@
         <item name="android:windowContentTransitions">true</item>
     </style>
 
+    <style name="Tinkoff.Text.Card.Header" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Tinkoff.Text.Card.Header2" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="Tinkoff.Text.Card.Header0" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/text_dark</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Tinkoff.Text.Card.Link" parent="TextAppearance.AppCompat">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/text_link</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Tinkoff.Text.Chip.Simple" parent="TextAppearance.AppCompat">
+        <item name="android:background">@drawable/bcg_rect_round</item>
+        <item name="android:backgroundTint">@color/event_chip_default</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:elevation">1dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+    </style>
+
 </resources>

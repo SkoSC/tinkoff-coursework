@@ -24,14 +24,12 @@
 
         <TextView
             android:id="@+id/event_detail_title"
+            style="@style/Tinkoff.Text.Card.Header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingStart="16dp"
             android:layout_marginBottom="8dp"
+            android:paddingStart="16dp"
             android:text="@string/placeholder_3x"
-            android:textColor="@color/text_dark"
-            android:textSize="24sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/event_detail_short_info"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -42,7 +40,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
             android:text="@string/placeholder_2x"
-            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/event_card_image"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -63,13 +60,11 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/Tinkoff.Text.Card.Header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="@string/event_detail_description"
-                    android:textColor="@color/text_dark"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:text="@string/event_detail_description" />
 
                 <TextView
                     android:id="@+id/event_detail_description"
@@ -99,13 +94,11 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/Tinkoff.Text.Card.Header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:text="@string/event_detail_location"
-                    android:textColor="@color/text_dark"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:text="@string/event_detail_location" />
 
                 <TextView
                     android:id="@+id/event_detail_place"

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
@@ -15,12 +14,10 @@
 
         <TextView
             android:id="@+id/card_stats_left_slot"
+            style="@style/Tinkoff.Text.Card.Header0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="126"
-            android:textColor="@color/text_dark"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:text="126" />
 
         <TextView
             android:id="@+id/card_stats_left_slot_text"
@@ -46,12 +43,10 @@
 
         <TextView
             android:id="@+id/card_stats_center_slot"
+            style="@style/Tinkoff.Text.Card.Header0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="18"
-            android:textColor="@color/text_dark"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:text="18" />
 
 
         <TextView
@@ -79,14 +74,10 @@
 
         <TextView
             android:id="@+id/card_stats_right_slot"
+            style="@style/Tinkoff.Text.Card.Header0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2"
-            android:textColor="@color/text_dark"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            tools:layout_editor_absoluteX="263dp"
-            tools:layout_editor_absoluteY="18dp" />
+            android:text="2" />
 
         <TextView
             android:id="@+id/card_stats_right_slot_text"

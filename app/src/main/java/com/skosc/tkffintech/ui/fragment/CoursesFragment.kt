@@ -18,7 +18,7 @@ import com.skosc.tkffintech.ui.model.CourseDetailModel
 import com.skosc.tkffintech.ui.model.CoursePreviewModel
 import com.skosc.tkffintech.viewmodel.courses.CourseViewModel
 import kotlinx.android.synthetic.main.fragment_courses.*
-import kotlinx.android.synthetic.main.incl_cources_list_vertical.*
+import kotlinx.android.synthetic.main.incl_courses_list_vertical.*
 
 class CoursesFragment : TKFFragment() {
     private val navController by lazy { Navigation.findNavController(courses_all_recycler) }

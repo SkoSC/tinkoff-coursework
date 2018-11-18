@@ -9,7 +9,7 @@
         android:id="@+id/task_header_icon"
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:src="@drawable/ic_event_special"
@@ -24,9 +24,7 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/placeholder_2x"
-        android:textColor="@color/text_dark"
-        android:textSize="22sp"
-        android:textStyle="bold"
+        style="@style/Tinkoff.Text.Card.Header"
         app:layout_constraintStart_toEndOf="@+id/task_header_icon"
         app:layout_constraintTop_toTopOf="parent" />
 

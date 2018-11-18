@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -9,14 +8,12 @@
 
     <TextView
         android:id="@+id/courses_entry_title"
+        style="@style/Tinkoff.Text.Card.Header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/placeholder_5x"
-        android:textColor="@color/text_dark"
-        android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,14 +31,10 @@
 
     <TextView
         android:id="@+id/courses_entry_status"
+        style="@style/Tinkoff.Text.Chip.Simple"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:background="@drawable/bcg_rect_round"
-        android:backgroundTint="@color/colorAccent"
-        android:padding="4dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:text="@string/placeholder_1x"
         app:layout_constraintBottom_toBottomOf="@+id/courses_entry_title"
         app:layout_constraintEnd_toEndOf="parent"

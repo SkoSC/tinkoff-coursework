@@ -16,7 +16,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/placeholder_3x"
-        android:textColor="@color/text_dark"
-        android:textSize="18sp" />
+        style="@style/Tinkoff.Text.Card.Header2" />
 
 </LinearLayout>
