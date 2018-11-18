@@ -13,7 +13,7 @@ class NetworkInfoService(ctx: Context) {
 
     fun checkConnection(): Boolean {
         val networkInfo = connectivityService.activeNetworkInfo
-        Log.w(TAG, "Network connection status: is_connected=${networkInfo.isConnected}")
+        Log.w(TAG, "Network connection date: is_connected=${networkInfo.isConnected}")
         return networkInfo.isConnected
     }
 }

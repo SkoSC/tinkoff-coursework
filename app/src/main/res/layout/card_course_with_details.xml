@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    app:cardUseCompatPadding="true"
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -50,7 +51,7 @@
             app:layout_constraintTop_toTopOf="@+id/courses_entry_score_progress">
 
             <TextView
-                android:id="@+id/courses_entry_score"
+                android:id="@+id/courses_entry_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="136"

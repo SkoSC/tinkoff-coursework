@@ -31,6 +31,7 @@ abstract class GradesDao {
     @Query("SELECT * FROM grade WHERE grade.user_id_fk == :user")
     abstract fun allGradesOfUser(user: Long): Observable<List<RoomGrade>>
 
+
     @Query("""
         SELECT grade.* FROM grade
         LEFT JOIN homework_task ON homework_task.contest_id == grade.task_id_fk
@@ -41,4 +42,16 @@ abstract class GradesDao {
         )
         """)
     abstract fun testGradesForUser(user: Long): Observable<List<RoomGrade>>
+
+    @Query("""
+        SELECT grade.* FROM grade
+        LEFT JOIN homework_task ON homework_task.contest_id == grade.task_id_fk
+        LEFT JOIN homework ON homework.homework_id == homework_task.homework_id_fk
+        WHERE (
+          homework.course = :course
+	        AND
+          grade.user_id_fk == :user
+        )
+    """)
+    abstract fun gradesForUserOnCourse(user: Long, course: String): Observable<List<RoomGrade>>
 }

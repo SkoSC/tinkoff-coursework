@@ -35,7 +35,7 @@ class CoursesDetailedRecyclerAdapter(private val onDetailsClick: (v: View, model
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val title: TextView by lazy { view.findViewById<TextView>(R.id.courses_entry_title) }
-        val score: TextView by lazy { view.findViewById<TextView>(R.id.courses_entry_score) }
+        val score: TextView by lazy { view.findViewById<TextView>(R.id.courses_entry_date) }
         val scoreProgress: ProgressBar by lazy { view.findViewById<ProgressBar>(R.id.courses_entry_score_progress) }
         val lessonsTotal: TextView by lazy { view.findViewById<TextView>(R.id.courses_entry_lessons_total) }
         val lessonsProgress: ProgressBar by lazy { view.findViewById<ProgressBar>(R.id.courses_entry_progress_lessons) }

@@ -147,5 +147,5 @@ val useCaseModule = Kodein.DefaultModule("user-case") {
     bind<LoadGrades>() with provider { LoadGrades(instance(), instance()) }
     bind<LoadUsersForCourse>() with provider { LoadUsersForCourse(instance()) }
     bind<StatisticsCalculator>() with provider { StatisticsCalculator(instance(), instance()) }
-    bind<StatisticsCalculatorForCourse>() with provider { StatisticsCalculatorForCourse(instance(), instance()) }
+    bind<CourseStatisticsCalculatorForCurrentUser>() with provider { CourseStatisticsCalculatorForCurrentUser(instance(), instance()) }
 }

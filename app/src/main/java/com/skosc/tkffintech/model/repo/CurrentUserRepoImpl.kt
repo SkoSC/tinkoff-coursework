@@ -53,7 +53,7 @@ class CurrentUserRepoImpl(
     }
 
     override fun forceRefreshUserInfo() {
-        userApi.getCurrentUserInfo()
+        cdisp own userApi.getCurrentUserInfo()
                 .map { it.body()?.body!! }
                 .subscribe { model -> userInfoDao.saveUserInfo(model!!) }
     }

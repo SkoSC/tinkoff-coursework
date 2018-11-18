@@ -14,7 +14,7 @@ data class RoomCourseInfo(
         @ColumnInfo(name = "is_teacher")
         val isTeacher: Boolean,
 
-        @ColumnInfo(name = "status")
+        @ColumnInfo(name = "date")
         val status: CourseInfo.Status,
 
         @ColumnInfo(name = "starts")

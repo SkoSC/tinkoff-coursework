@@ -16,7 +16,7 @@ data class RoomGrade(
         @ColumnInfo(name = "mark")
         val mark: String,
 
-        @ColumnInfo(name = "status")
+        @ColumnInfo(name = "date")
         val status: HomeworkStatus,
 
         @ColumnInfo(name = "user_id_fk")

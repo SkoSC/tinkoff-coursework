@@ -46,10 +46,11 @@ class CoursesFragment : TKFFragment() {
         vm.allCourses.observe(this, Observer {
             courses_refresh.isRefreshing = false
             val adapter = courses_all_recycler.adapter as CoursesPreviewRecyclerAdapter
-            adapter.items = it.map {
+            adapter.items = it.map { info ->
                 CoursePreviewModel(
-                        title = it.title,
-                        status = it.status
+                        title = info.title,
+                        status = info.status,
+                        date = info.starts
                 )
             }
             adapter.notifyDataSetChanged()
@@ -58,11 +59,11 @@ class CoursesFragment : TKFFragment() {
         vm.activeCourses.observe(this, Observer {
             courses_refresh.isRefreshing = false
             val adapter = courses_fresh_recycler.adapter as CoursesDetailedRecyclerAdapter
-            adapter.items = it.map {
+            adapter.items = it.map { info ->
                 CourseDetailModel(
-                        title = it.title,
-                        status = it.status,
-                        url = it.url
+                        title = info.info.title,
+                        status = info.info.status,
+                        url = info.info.url
                 )
             }
             adapter.notifyDataSetChanged()

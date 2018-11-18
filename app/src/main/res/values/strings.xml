@@ -50,4 +50,7 @@
     <string name="stats_tests">Tests</string>
     <string name="stats_courses">Curse</string>
     <string name="stats_homeworks">Home works</string>
+
+    <string name="course_status_ongoing">Ongoing</string>
+    <string name="course_status_unknown">Unknown</string>
 </resources>

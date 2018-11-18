@@ -2,21 +2,44 @@ package com.skosc.tkffintech.viewmodel.courses
 
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.CourseInfo
+import com.skosc.tkffintech.usecase.CourseStatisticsCalculatorForCurrentUser
 import com.skosc.tkffintech.usecase.LoadCourses
+import com.skosc.tkffintech.utils.mapEach
 import com.skosc.tkffintech.utils.own
+import com.skosc.tkffintech.viewmodel.CourseWithStatistics
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class CourseViewModelImpl(private val loadCourses: LoadCourses) : CourseViewModel() {
-    override val activeCourses: MutableLiveData<List<CourseInfo>> = MutableLiveData()
+class CourseViewModelImpl(
+        private val loadCourses: LoadCourses,
+        private val statistics: CourseStatisticsCalculatorForCurrentUser
+) : CourseViewModel() {
+
+    override val activeCourses: MutableLiveData<List<CourseWithStatistics>> = MutableLiveData()
     override val allCourses: MutableLiveData<List<CourseInfo>> = MutableLiveData()
 
     init {
-        cdisp own loadCourses.allCourses
+        val allCoursesObservable = loadCourses.allCourses
+        cdisp own allCoursesObservable
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     allCourses.value = it
-                    activeCourses.value = it //TODO Perform actual filtering
                 }
+        cdisp own allCoursesObservable
+                .subscribeOn(Schedulers.io())
+                .mapEach { resolveStatisticsBlocking(it) }
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    activeCourses.value = it
+                }
+    }
+
+    private fun resolveStatisticsBlocking(course: CourseInfo): CourseWithStatistics {
+        val bundle = statistics.bundled(course.url).blockingGet()
+        return CourseWithStatistics(
+                info = course,
+                statistics = bundle
+        )
     }
 
     override fun forceUpdate() {
