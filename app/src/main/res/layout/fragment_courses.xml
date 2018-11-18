@@ -29,7 +29,7 @@
                 tools:context=".ui.fragment.CoursesFragment"
                 tools:listitem="@layout/card_course_with_details" />
 
-            <include layout="@layout/incl_cources_list_vertical" />
+            <include layout="@layout/incl_courses_list_vertical" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
