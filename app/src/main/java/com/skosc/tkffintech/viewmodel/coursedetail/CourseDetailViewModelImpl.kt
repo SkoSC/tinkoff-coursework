@@ -45,4 +45,8 @@ class CourseDetailViewModelImpl(
                     statsHomeWorks.value = it
                 }
     }
+
+    override fun checkForUpdates() {
+        loader.checkForUpdate()
+    }
 }

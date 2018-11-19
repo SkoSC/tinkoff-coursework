@@ -51,6 +51,7 @@ class CourseDetailFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
+        vm.checkForUpdates()
         course_detail_tasks.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         val adapter = TasksRecyclerAdapter()
         course_detail_tasks.adapter = adapter

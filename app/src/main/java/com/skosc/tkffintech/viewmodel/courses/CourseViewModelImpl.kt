@@ -45,4 +45,8 @@ class CourseViewModelImpl(
     override fun forceUpdate() {
         loadCourses.tryLoadCourses()
     }
+
+    override fun checkForUpdate() {
+        loadCourses.checkForUpdates()
+    }
 }

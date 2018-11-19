@@ -128,14 +128,12 @@ fun webModule(ctx: Context) = Kodein.DefaultModule("retrofit") {
 val repoModule = Kodein.DefaultModule("repo") {
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
-    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance(), instance()) }
-    bind<CourseRepo>() with singleton { CourseRepoImpl(instance(), instance(), instance()) }
+    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance(), instance("timers"), instance()) }
+    bind<CourseRepo>() with singleton { CourseRepoImpl(instance(), instance(), instance(), instance("timers"), instance()) }
 }
 
 val useCaseModule = Kodein.DefaultModule("user-case") {
-    bind<UpdateGradesInfo>() with provider { UpdateGradesInfo(instance(), instance(), instance(), instance(), instance()) }
-    bind<UpdateCourseList>() with provider { UpdateCourseList(instance(), instance()) }
-    bind<LogoutBomb>() with provider { LogoutBomb(instance()) }
+    bind<LogoutBomb>() with provider { LogoutBomb(instance(), listOf(instance("timers"), instance("user-info"))) }
 
     bind<LoadEvents>() with provider { LoadEvents(instance(), instance("timers")) }
     bind<SearchForEvent>() with provider { SearchForEvent(instance()) }

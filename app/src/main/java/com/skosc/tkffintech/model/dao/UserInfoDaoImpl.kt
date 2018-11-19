@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.skosc.rxprefs.RxPreferences
 import com.skosc.rxprefs.SerializerAdapter
+import com.skosc.tkffintech.entities.User
 import com.skosc.tkffintech.entities.UserInfo
 import io.reactivex.Observable
 import io.reactivex.subjects.BehaviorSubject
@@ -18,7 +19,7 @@ class UserInfoDaoImpl(private val sp: SharedPreferences, private val gson: Gson)
 
     init {
         val json = sp.getString(KEY_USER_INFO, "")
-        val userInfo = gson.fromJson<UserInfo>(json, UserInfo::class.java)
+        val userInfo = gson.fromJson<UserInfo>(json, UserInfo::class.java) ?: UserInfo()
         rxUserInfo.onNext(userInfo)
     }
 

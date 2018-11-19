@@ -8,5 +8,5 @@ abstract class EventsListViewModel : RxViewModel() {
     abstract val events: LiveData<List<EventInfo>>
     abstract fun searchEvents(query: String)
     abstract fun forceUpdate()
-
+    abstract fun checkForUpdates()
 }

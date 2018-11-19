@@ -7,11 +7,7 @@ import io.reactivex.Observable
 
 
 interface HomeworkRepo {
-    val statisticsScore: Observable<Double>
-    val statisticsTestsCompleted: Observable<Int>
-    val statisticsCurses: Observable<Int>
-
-    fun update()
+    fun tryForceUpdate()
 
     fun homeworks(course: String): Observable<List<Homework>>
     fun countAllCourses(): Observable<Int>
@@ -21,4 +17,5 @@ interface HomeworkRepo {
     fun gradesSumForUser(user: Long): Observable<Double>
     fun gradesForUser(user: Long): Observable<List<HomeworkGrade>>
     fun testGradesForUser(user: Long): Observable<List<HomeworkGrade>>
+    fun performSoftUpdate()
 }

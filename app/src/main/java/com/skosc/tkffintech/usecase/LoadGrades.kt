@@ -34,4 +34,8 @@ class LoadGrades(
         return homeworkRepo.gradesTotalForAllUsersWithCourse(course)
     }
 
+    fun checkForUpdate() {
+        homeworkRepo.performSoftUpdate()
+    }
+
 }

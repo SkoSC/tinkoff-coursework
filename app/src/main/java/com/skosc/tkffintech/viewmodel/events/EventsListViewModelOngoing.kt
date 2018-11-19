@@ -35,4 +35,7 @@ class EventsListViewModelOngoing(private val eventsLoader: LoadEvents, private v
         }
     }
 
+    override fun checkForUpdates() {
+        eventsLoader.checkForUpdates()
+    }
 }

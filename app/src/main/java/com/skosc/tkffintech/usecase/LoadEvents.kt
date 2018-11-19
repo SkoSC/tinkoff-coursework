@@ -28,4 +28,8 @@ class LoadEvents(private val eventsRepo: EventsRepo, sp: SharedPreferences) {
     }
 
     fun loadEvent(id: Long) = eventsRepo.findEventByHid(id)
+
+    fun checkForUpdates() {
+        eventsRepo.performSoftUpdate()
+    }
 }

@@ -9,4 +9,5 @@ abstract class CourseViewModel : RxViewModel() {
     abstract val activeCourses: LiveData<List<CourseWithStatistics>>
     abstract val allCourses: LiveData<List<CourseInfo>>
     abstract fun forceUpdate()
+    abstract fun checkForUpdate()
 }

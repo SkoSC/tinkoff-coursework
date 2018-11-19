@@ -19,7 +19,7 @@ class ExpirationTimer private constructor(private val sp: SharedPreferences, pri
 
     val isExpired: Single<Boolean>
         get() = Single.fromCallable {
-            val timestamp = sp.getLong(name, Long.MIN_VALUE)
+            val timestamp = sp.getLong(name, 0)
             val dateTime = DateTime(timestamp)
             dateTime < DateTime.now()
         }.subscribeOnIoThread()

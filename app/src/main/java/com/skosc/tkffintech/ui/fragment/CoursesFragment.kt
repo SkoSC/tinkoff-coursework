@@ -31,6 +31,9 @@ class CoursesFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
+
+        vm.checkForUpdate()
+
         courses_all_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         courses_all_recycler.adapter = CoursesPreviewRecyclerAdapter()
         courses_all_recycler.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
@@ -76,4 +79,5 @@ class CoursesFragment : TKFFragment() {
             vm.forceUpdate()
         }
     }
+
 }
