@@ -10,7 +10,9 @@ class LoadGrades(
         private val homeworkRepo: HomeworkRepo,
         private val currentUserRepo: CurrentUserRepo
 ) {
-    data class TaskWithGrade(val task: HomeworkTask, val grade: HomeworkGrade)
+    data class TaskWithGrade(
+            val task: HomeworkTask,
+            val grade: HomeworkGrade)
 
     fun loadGrades(userId: Long, course: String): Observable<List<Pair<Homework, List<TaskWithGrade>>>> {
         return homeworkRepo.homeworks(course).map {
@@ -23,6 +25,7 @@ class LoadGrades(
             }
         }
     }
+
 
     fun loadGradesForCurrentUser(course: String): Observable<List<Pair<Homework, List<TaskWithGrade>>>> {
         return currentUserRepo.info

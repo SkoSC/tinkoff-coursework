@@ -2,7 +2,7 @@ package com.skosc.tkffintech.viewmodel.courses
 
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.CourseInfo
-import com.skosc.tkffintech.usecase.CourseStatisticsCalculatorForCurrentUser
+import com.skosc.tkffintech.usecase.CourseStatisticsCalculator
 import com.skosc.tkffintech.usecase.LoadCourses
 import com.skosc.tkffintech.utils.mapEach
 import com.skosc.tkffintech.utils.own
@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
 
 class CourseViewModelImpl(
         private val loadCourses: LoadCourses,
-        private val statistics: CourseStatisticsCalculatorForCurrentUser
+        private val statistics: CourseStatisticsCalculator
 ) : CourseViewModel() {
 
     override val activeCourses: MutableLiveData<List<CourseWithStatistics>> = MutableLiveData()

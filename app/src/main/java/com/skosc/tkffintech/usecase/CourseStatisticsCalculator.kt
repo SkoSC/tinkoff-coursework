@@ -9,7 +9,7 @@ import com.skosc.tkffintech.viewmodel.CourseStatistics
 import io.reactivex.Observable
 import io.reactivex.Single
 
-class CourseStatisticsCalculatorForCurrentUser(
+class CourseStatisticsCalculator(
         private val loadGrades: LoadGrades,
         private val homeworkRepo: HomeworkRepo
 ) {
@@ -33,7 +33,7 @@ class CourseStatisticsCalculatorForCurrentUser(
     }
 
     fun bundled(course: String): Single<CourseStatistics> {
-        return loadGrades.loadGradesForCurrentUser(course)
+        return loadGrades.loadGradesForCurrentUser(course).doOnNext { it }
                 .firstOrError()
                 .map(this::calculateStatics)
     }

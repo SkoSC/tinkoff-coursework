@@ -2,7 +2,7 @@ package com.skosc.tkffintech.viewmodel.coursedetail
 
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.usecase.LoadGrades
-import com.skosc.tkffintech.usecase.CourseStatisticsCalculatorForCurrentUser
+import com.skosc.tkffintech.usecase.CourseStatisticsCalculator
 import com.skosc.tkffintech.utils.own
 import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -10,7 +10,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 class CourseDetailViewModelImpl(
         private val course: String,
         private val loader: LoadGrades,
-        private val statisticsCalculatorForCourse: CourseStatisticsCalculatorForCurrentUser
+        private val statisticsCalculatorForCourse: CourseStatisticsCalculator
 ) : CourseDetailViewModel() {
 
     override val grades: MutableLiveData<List<HomeworkWithGrades>> = MutableLiveData()

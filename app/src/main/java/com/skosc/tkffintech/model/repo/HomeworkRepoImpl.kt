@@ -113,6 +113,7 @@ class HomeworkRepoImpl(
     override fun performSoftUpdate() {
         cdisp own expTimer.isExpired.map { it && networkInfo.checkConnection() }.subscribe { needsUpdate ->
             if (needsUpdate) {
+                tryForceUpdate()
                 Single.just(DataUpdateResult.Updated)
             } else {
                 Single.just(DataUpdateResult.NotUpdated)
