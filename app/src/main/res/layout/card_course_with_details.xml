@@ -28,10 +28,12 @@
             android:layout_height="123dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
             android:indeterminate="false"
             android:max="100"
             android:progress="65"
             android:progressDrawable="@drawable/circle_progress"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/courses_entry_title" />
 
@@ -61,85 +63,42 @@
                 android:text="Score" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/courses_entry_lessons_total"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:text="Progress"
-            style="@style/Tinkoff.Text.Card.Header2"
-            app:layout_constraintBottom_toTopOf="@+id/courses_entry_progress_lessons"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/courses_entry_score_progress" />
-
-        <ProgressBar
-            android:id="@+id/courses_entry_progress_lessons"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="9dp"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="24dp"
-            android:max="100"
-            android:progress="45"
-            app:layout_constraintBottom_toTopOf="@+id/textView6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="Complited"
-            app:layout_constraintBottom_toTopOf="@+id/courses_entry_lessons_left"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/courses_entry_lessons_left"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginBottom="16dp"
-            android:text="10 Lessons"
-            style="@style/Tinkoff.Text.Card.Header2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="Left"
-            app:layout_constraintBottom_toTopOf="@+id/courses_entry_lessons_total_mini"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <TextView
-            android:id="@+id/courses_entry_lessons_total_mini"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="12dp"
-            android:text="12 Lessons"
-            style="@style/Tinkoff.Text.Card.Header2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="96dp"
+            android:layout_marginStart="24dp"
             android:text="Global rating 🌟"
             app:layout_constraintBaseline_toBaselineOf="@+id/courses_entry_global_rate"
-            app:layout_constraintEnd_toStartOf="@+id/courses_entry_global_rate" />
+            app:layout_constraintStart_toEndOf="@+id/courses_entry_score_progress" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="Tests completed"
+            app:layout_constraintEnd_toStartOf="@+id/courses_entry_tests_passed"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:text="Homeworks completed"
+            app:layout_constraintBaseline_toBaselineOf="@+id/courses_entry_homework_completed"
+            app:layout_constraintEnd_toStartOf="@+id/courses_entry_homework_completed"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/textView10" />
+
+
+
 
         <TextView
             android:id="@+id/courses_entry_global_rate"
@@ -173,18 +132,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/courses_entry_global_rate" />
 
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Tests completed"
-            app:layout_constraintEnd_toStartOf="@+id/courses_entry_tests_passed"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
         <TextView
             android:id="@+id/courses_entry_homework_completed"
@@ -197,16 +145,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/courses_entry_tests_passed" />
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:text="Homeworks completed"
-            app:layout_constraintBaseline_toBaselineOf="@+id/courses_entry_homework_completed"
-            app:layout_constraintEnd_toStartOf="@+id/courses_entry_homework_completed"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView10" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

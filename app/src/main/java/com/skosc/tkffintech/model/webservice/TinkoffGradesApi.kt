@@ -56,7 +56,7 @@ interface TinkoffGradesApi {
                 @SerializedName("mark")
                 val mark: String,
 
-                @SerializedName("date")
+                @SerializedName("status")
                 val status: String?
         ) {
             fun toBuissnesGrade(user: User, taskId: Long): HomeworkGrade = HomeworkGrade(

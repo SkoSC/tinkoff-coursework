@@ -9,11 +9,13 @@
     <TextView
         android:id="@+id/courses_entry_title"
         style="@style/Tinkoff.Text.Card.Header"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:text="@string/placeholder_5x"
+        app:layout_constraintEnd_toStartOf="@+id/courses_entry_status"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

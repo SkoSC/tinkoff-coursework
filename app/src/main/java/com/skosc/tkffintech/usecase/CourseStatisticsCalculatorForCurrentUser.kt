@@ -6,7 +6,6 @@ import com.skosc.tkffintech.entities.HomeworkTaskType
 import com.skosc.tkffintech.misc.Ratio
 import com.skosc.tkffintech.model.repo.HomeworkRepo
 import com.skosc.tkffintech.viewmodel.CourseStatistics
-import com.skosc.tkffintech.viewmodel.CourseWithStatistics
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -43,11 +42,33 @@ class CourseStatisticsCalculatorForCurrentUser(
         val homeworksTotal = it.size
         val homeworkCompleted = it
                 .map { it.second }
-                .filter { it.map { it.grade }.all { it.status == HomeworkStatus.ACCEPTED } }
+                .filter { it.map { it.grade }.all {
+                    // TODO Change filtering criteria
+                    it.status == HomeworkStatus.ACCEPTED }
+                }
                 .count()
 
+        val tests = it
+                .flatMap { it.second }
+                .filter { it.task.taskType == HomeworkTaskType.TEST }
+        val testsTotal = tests.size
+        val testsCompleted = tests
+                .map { it.grade }
+                .filter { it.status == HomeworkStatus.ACCEPTED }
+                .size
+
+        val scorePossible = tests.map { it.task.maxScore.toDouble() }.sum()
+        val scoreTotal = tests.map { it.grade.mark.toDouble() }.sum()
+
+        val homeworkRatio = Ratio(homeworkCompleted, homeworksTotal)
+        val testRatio = Ratio(testsCompleted, testsTotal)
+        val scoreRatio = Ratio(scoreTotal, scorePossible)
+        val completionRatio = homeworkRatio + testRatio + scoreRatio
         return CourseStatistics(
-                homeworkRatio = Ratio(homeworkCompleted, homeworksTotal)
+                homeworkRatio = homeworkRatio,
+                testRatio = testRatio,
+                scoreRatio = scoreRatio,
+                completionRatio = completionRatio
         )
     }
 }

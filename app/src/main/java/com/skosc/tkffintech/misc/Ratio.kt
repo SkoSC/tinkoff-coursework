@@ -13,4 +13,8 @@ data class Ratio(val actual: Double = 0.0, val max: Double = 0.0) {
     }
 
     val left: Double = max - actual
+
+    operator fun plus(other: Ratio): Ratio {
+        return Ratio(this.actual * other.actual, this.max * other.max)
+    }
 }

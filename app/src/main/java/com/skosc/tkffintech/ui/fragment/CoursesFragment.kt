@@ -62,8 +62,11 @@ class CoursesFragment : TKFFragment() {
             adapter.items = it.map { info ->
                 CourseDetailModel(
                         title = info.info.title,
-                        status = info.info.status,
-                        url = info.info.url
+                        url = info.info.url,
+                        homeworkCompleted = info.statistics.homeworkRatio,
+                        testsPassed = info.statistics.testRatio,
+                        scoreRate = info.statistics.scoreRatio,
+                        completionRatio = info.statistics.completionRatio
                 )
             }
             adapter.notifyDataSetChanged()
