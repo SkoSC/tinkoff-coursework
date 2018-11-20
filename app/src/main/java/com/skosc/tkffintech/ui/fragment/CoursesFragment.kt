@@ -35,7 +35,11 @@ class CoursesFragment : TKFFragment() {
         vm.checkForUpdate()
 
         courses_all_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        courses_all_recycler.adapter = CoursesPreviewRecyclerAdapter()
+        courses_all_recycler.adapter = CoursesPreviewRecyclerAdapter { _, model ->
+            navController.navigate(R.id.navigation_course_grades, bundleOf(
+                    CourseGradesFragment.ARG_COURSE to model.url
+            ))
+        }
         courses_all_recycler.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
 
         courses_fresh_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
@@ -51,6 +55,7 @@ class CoursesFragment : TKFFragment() {
             val adapter = courses_all_recycler.adapter as CoursesPreviewRecyclerAdapter
             adapter.items = it.map { info ->
                 CoursePreviewModel(
+                        url = info.url,
                         title = info.title,
                         status = info.status,
                         date = info.starts

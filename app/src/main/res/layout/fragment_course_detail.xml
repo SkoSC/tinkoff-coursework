@@ -18,23 +18,6 @@
             android:layout_height="match_parent">
 
 
-            <ProgressBar
-                android:id="@+id/courses_entry_score_progress"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="99dp"
-                android:layout_height="100dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:indeterminate="false"
-                android:max="100"
-                android:progress="65"
-                android:progressDrawable="@drawable/circle_progress"
-                app:layout_constraintBottom_toTopOf="@+id/frameLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <FrameLayout
                 android:id="@+id/frameLayout"
@@ -48,14 +31,15 @@
             </FrameLayout>
 
             <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="70dp"
-                android:layout_height="57dp"
-                android:src="@drawable/ic_prize"
-                app:layout_constraintBottom_toBottomOf="@+id/courses_entry_score_progress"
-                app:layout_constraintEnd_toEndOf="@+id/courses_entry_score_progress"
-                app:layout_constraintStart_toStartOf="@+id/courses_entry_score_progress"
-                app:layout_constraintTop_toTopOf="@+id/courses_entry_score_progress" />
+                android:id="@+id/course_detail_top_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_smiling"
+                app:layout_constraintBottom_toTopOf="@+id/frameLayout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

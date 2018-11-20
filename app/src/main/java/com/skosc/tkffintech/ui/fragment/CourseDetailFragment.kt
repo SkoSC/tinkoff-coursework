@@ -62,9 +62,9 @@ class CourseDetailFragment : TKFFragment() {
             adapter.notifyDataSetChanged()
         })
 
-        courses_entry_score_progress.setOnClickListener {
+        course_detail_top_image.setOnClickListener {
             navController.navigate(R.id.action_navigation_course_grades, bundleOf(
-                    "course_name" to course
+                    CourseDetailFragment.ARG_COURSE to course
             ))
         }
 

@@ -53,4 +53,6 @@
 
     <string name="course_status_ongoing">Ongoing</string>
     <string name="course_status_unknown">Unknown</string>
+    <string name="grades_sorted_by">Sorted by:</string>
+    <string name="courses_my_courses">My Courses</string>
 </resources>

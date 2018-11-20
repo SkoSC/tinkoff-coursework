@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_course_grades.*
 
 class CourseGradesFragment : Fragment() {
     companion object {
-        private const val ARG_COURSE = "course_name"
+        const val ARG_COURSE = "course_name"
     }
 
     private lateinit var course: String

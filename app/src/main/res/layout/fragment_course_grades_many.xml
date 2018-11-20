@@ -20,10 +20,9 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
-                android:textColor="@color/text_dark"
-                android:textStyle="bold"
-                android:textSize="22sp"
-                android:text="@string/placeholder_1x"/>
+                android:layout_marginStart="16dp"
+                android:textSize="18sp"
+                android:text="@string/grades_sorted_by"/>
 
             <Spinner
                 android:id="@+id/grades_sort_spinner"
