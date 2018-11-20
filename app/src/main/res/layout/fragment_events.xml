@@ -19,23 +19,38 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
+                android:animateLayoutChanges="true"
+                android:minHeight="64dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:elevation="50dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/events_ongoing_const"
+                    android:animateLayoutChanges="true"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp">
+                    android:layout_height="wrap_content"
+                    tools:layout_height="300dp">
+
+                    <ImageView
+                        android:id="@+id/events_ongoing_dropdown"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/ic_arrow_drop_down"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/events_actual_label"
                         style="@style/Tinkoff.Text.Card.Header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="22dp"
                         android:text="@string/events_header_on_going"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/events_ongoing_dropdown"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
@@ -50,11 +65,11 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/events_actual_recycler"
+                        android:id="@+id/events_ongoing_recycler"
                         android:layout_width="match_parent"
-                        android:layout_height="244dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
                         android:orientation="horizontal"
@@ -72,8 +87,8 @@
                         android:layout_marginEnd="8dp"
                         android:layout_marginBottom="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="@+id/events_actual_recycler"
-                        app:layout_constraintStart_toStartOf="@+id/events_actual_recycler"
+                        app:layout_constraintEnd_toEndOf="@+id/events_ongoing_recycler"
+                        app:layout_constraintStart_toStartOf="@+id/events_ongoing_recycler"
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -82,23 +97,36 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
+                android:minHeight="64dp"
                 android:layout_height="match_parent"
+                android:animateLayoutChanges="true"
                 android:layout_margin="8dp"
                 android:elevation="50dp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:animateLayoutChanges="true"
                     android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/events_archive_dropdown"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="16dp"
+                        android:src="@drawable/ic_arrow_drop_down"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
                         android:id="@+id/events_archive_label"
                         style="@style/Tinkoff.Text.Card.Header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="22dp"
                         android:text="@string/events_header_archive"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/events_archive_dropdown"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView

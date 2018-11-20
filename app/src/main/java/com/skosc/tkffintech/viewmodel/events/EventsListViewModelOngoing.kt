@@ -1,5 +1,6 @@
 package com.skosc.tkffintech.viewmodel.events
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.usecase.LoadEvents
@@ -10,10 +11,13 @@ import io.reactivex.subjects.PublishSubject
 
 class EventsListViewModelOngoing(private val eventsLoader: LoadEvents, private val eventSearcher: SearchForEvent) : EventsListViewModel() {
     private val eventsSubject = PublishSubject.create<List<EventInfo>>()
+
     override val events: MutableLiveData<List<EventInfo>> = MutableLiveData()
+    override val cardExpanded: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         eventsLoader.ongoingEvents.subscribe(eventsSubject)
+        cardExpanded.value = false
 
         cdisp own eventsSubject
                 .observeOn(AndroidSchedulers.mainThread())
@@ -37,5 +41,13 @@ class EventsListViewModelOngoing(private val eventsLoader: LoadEvents, private v
 
     override fun checkForUpdates() {
         eventsLoader.checkForUpdates()
+    }
+
+    override fun collapseCard() {
+        cardExpanded.value = false
+    }
+
+    override fun expandCard() {
+        cardExpanded.value = true
     }
 }

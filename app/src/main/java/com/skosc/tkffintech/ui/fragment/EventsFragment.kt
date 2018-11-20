@@ -44,6 +44,9 @@ class EventsFragment : TKFFragment() {
     override fun onStart() {
         super.onStart()
 
+        setupCardExpansion(onGoingVm, events_ongoing_recycler, events_ongoing_dropdown)
+        setupCardExpansion(archiveVm, events_archive_recycler, events_archive_dropdown)
+
         setupOnGoingEventsRecycler()
         setupArchiveEventsRecycler()
         setupRefresh()
@@ -52,7 +55,25 @@ class EventsFragment : TKFFragment() {
 
     override fun onResume() {
         super.onResume()
-        listOf(onGoingVm, archiveVm).forEach(EventsListViewModel::checkForUpdates)
+        listOf(onGoingVm, archiveVm)
+                .forEach(EventsListViewModel::checkForUpdates)
+    }
+
+    private fun setupCardExpansion(vm: EventsListViewModel, recycler: RecyclerView, button: View) {
+        vm.cardExpanded.observe(this, Observer { expanded ->
+            recycler.visibility = if (expanded) View.VISIBLE else View.GONE
+            val rotation = if (expanded) 180F else 0F // if expanded - up, if collapsed - down
+            button.animate().rotation(rotation)
+        })
+
+        button.setOnClickListener {
+            // IMPORTANT: Card expands if vm.cardExpanded.value == null, by design
+            if (vm.cardExpanded.value == true) {
+                vm.collapseCard()
+            } else {
+                vm.expandCard()
+            }
+        }
     }
 
     private fun setupRefresh() {
@@ -78,11 +99,11 @@ class EventsFragment : TKFFragment() {
     }
 
     private fun setupOnGoingEventsRecycler() {
-        events_actual_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
-        events_actual_recycler.adapter = OnGoingEventsRecyclerAdapter(this::onEventClickedListener)
+        events_ongoing_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+        events_ongoing_recycler.adapter = OnGoingEventsRecyclerAdapter(this::onEventClickedListener)
 
         events_ongoing_more.setOnClickListener(onMoreEventsClickedClosure(ON_GOING))
-        bindRecyclerToData(events_actual_recycler, events_loading_spinner_ongoing, onGoingVm.events)
+        bindRecyclerToData(events_ongoing_recycler, events_loading_spinner_ongoing, onGoingVm.events)
     }
 
     /**
@@ -102,12 +123,18 @@ class EventsFragment : TKFFragment() {
         })
     }
 
+    /**
+     * Navigates to event detail
+     */
     private fun onEventClickedListener(v: View, model: EventCardModel) {
         navController.navigate(R.id.action_navigation_event_detail, bundleOf(
                 EventDetailFragment.ARG_MODEL to model.hid
         ))
     }
 
+    /**
+     * Returns function that navigates to [R.id.action_navigation_events_more] with passed mode
+     */
     private fun onMoreEventsClickedClosure(mode: Int): (View) -> Unit = {
         navController.navigate(
                 R.id.action_navigation_events_more,
