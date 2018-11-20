@@ -8,17 +8,23 @@ import io.reactivex.Observable
 
 
 interface HomeworkRepo {
-    fun tryForceUpdate()
+
+    // Simple operations
 
     fun homeworks(course: String): Observable<List<Homework>>
     fun countAllCourses(): Observable<Int>
 
-    fun gradesForUserByTask(user: Long, task: Long): Observable<HomeworkGrade>
-    fun gradesTotalForAllUsersWithCourse(course: String): Observable<List<UserWithGradesSum>>
-    fun gradesSumForUser(user: Long): Observable<Double>
-    fun gradesForUser(user: Long): Observable<List<HomeworkGrade>>
-    fun testGradesForUser(user: Long): Observable<List<HomeworkGrade>>
-    fun performSoftUpdate()
+    // Complicated operations
 
+    fun gradesForUserByTask(userId: Long, task: Long): Observable<HomeworkGrade>
+    fun gradesTotalForAllUsersWithCourse(course: String): Observable<List<UserWithGradesSum>>
+    fun gradesSumForUser(userId: Long): Observable<Double>
+    fun gradesForUser(userId: Long): Observable<List<HomeworkGrade>>
+    fun testGradesForUser(userId: Long): Observable<List<HomeworkGrade>>
     fun gradesWithHomework(user: Long, course: String): Observable<List<Pair<Homework, List<TaskWithGrade>>>>
+
+    // Updating methods
+
+    fun tryForceUpdate()
+    fun performSoftUpdate()
 }

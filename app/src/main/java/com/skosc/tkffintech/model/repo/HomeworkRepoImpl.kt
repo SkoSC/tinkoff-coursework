@@ -27,7 +27,7 @@ class HomeworkRepoImpl(
         private val gradesDao: GradesDao,
         private val userDao: UserDao,
         private val homeworkDao: HomeworkDao,
-        private val timersSharedPreferences: SharedPreferences,
+        timersSharedPreferences: SharedPreferences,
         private val networkInfo: NetworkInfoService
 ) : HomeworkRepo {
     companion object {
@@ -38,31 +38,34 @@ class HomeworkRepoImpl(
     private val expTimer = ExpirationTimer.create(timersSharedPreferences, "homework-update")
 
     override fun tryForceUpdate() {
-        cdisp own courseInfoDao.allBusiness().subscribe {
-            it.map { model ->
+        cdisp own courseInfoDao.allBusiness().subscribe { courseInfos ->
+            val a = courseInfos.map { model ->
                 val course = model.url
-                gradesApi.gradesForCourse(course).subscribe { resp ->
-                    val nextUpdateTime = DateTime.now().plusSeconds(UPDATE_TIME_POLITIC_SECONDS)
-                    expTimer.rewind(nextUpdateTime)
-                    val students = resp.flatMap { it.students }
-                    val roomUsers = students.map { RoomUser(it.id, it.name) }
-                    userDao.insertOrUpdate(roomUsers)
-
-                    val courseRelation = roomUsers.map { RoomUserCourseRelation(0, it.id, course) }
-                    userDao.insertCourseUserRelations(courseRelation)
-
-                    val grades = resp.flatMap { it.grades() }.map { RoomGrade.from(it) }
-                    gradesDao.insert(grades)
-                    cursesApi.homeworks(course).subscribe { homeworks ->
-                        val homeworks = homeworks.homeworks.map { it.convert(course) }.map { hw ->
-                            RoomHomeworkAndTasks(RoomHomework.from(hw), hw.tasks.map { RoomHomeworkTask.from(it, hw.id) })
-                        }
-                        homeworks.forEach { homeworkDao.insert(it) }
-                    }
-                }
+                return@map gradesApi.gradesForCourse(course).subscribe(saveData(course))
             }
         }
 
+    }
+
+    // TODO Refactor
+    fun saveData(course: String) = { resp: List<TinkoffGradesApi.GradesResp> ->
+        val nextUpdateTime = DateTime.now().plusSeconds(UPDATE_TIME_POLITIC_SECONDS)
+        expTimer.rewind(nextUpdateTime)
+        val students = resp.flatMap { it.students }
+        val roomUsers = students.map { RoomUser(it.id, it.name) }
+        userDao.insertOrUpdate(roomUsers)
+
+        val courseRelation = roomUsers.map { RoomUserCourseRelation(0, it.id, course) }
+        userDao.insertCourseUserRelations(courseRelation)
+
+        val grades = resp.flatMap { it.grades() }.map { RoomGrade.from(it) }
+        gradesDao.insert(grades)
+        cdisp own cursesApi.homeworks(course).subscribe { homeworksRow ->
+            val homeworks = homeworksRow.homeworks.map { it.convert(course) }.map { hw ->
+                RoomHomeworkAndTasks(RoomHomework.from(hw), hw.tasks.map { RoomHomeworkTask.from(it, hw.id) })
+            }
+            homeworks.forEach { homeworkDao.insert(it) }
+        }
     }
 
 
@@ -82,32 +85,37 @@ class HomeworkRepoImpl(
 
     override fun homeworks(course: String): Observable<List<Homework>> {
         performSoftUpdate()
-        return homeworkDao.homeWorksForCourse(course).mapEach { it -> it.homework.convert(it.tasks.map { it.convert() }) }
+        return homeworkDao.homeWorksForCourse(course).mapEach { homeworkAndTasks ->
+            homeworkAndTasks.homework.convert(
+                    homeworkAndTasks.tasks.map { task -> task.convert() }
+            )
+        }
     }
 
     override fun gradesTotalForAllUsersWithCourse(course: String): Observable<List<UserWithGradesSum>> {
         performSoftUpdate()
-        return gradesDao.gradesTotalForUsersWithCourse(course).map { it.map { it.convert() } }
+        return gradesDao.gradesTotalForUsersWithCourse(course)
+                .mapEach { it.convert() }
     }
 
-    override fun gradesSumForUser(user: Long): Observable<Double> {
+    override fun gradesSumForUser(userId: Long): Observable<Double> {
         performSoftUpdate()
-        return gradesDao.totalScoreOfUser(user)
+        return gradesDao.totalScoreOfUser(userId)
     }
 
-    override fun gradesForUser(user: Long): Observable<List<HomeworkGrade>> {
+    override fun gradesForUser(userId: Long): Observable<List<HomeworkGrade>> {
         performSoftUpdate()
-        return userDao.findById(user).flatMap {
+        return userDao.findById(userId).flatMap {
             val user = it.convert()
-            gradesDao.allGradesOfUser(user.id).map { it.map { it.convert(user) } }
+            gradesDao.allGradesOfUser(user.id).mapEach { grade -> grade.convert(user) }
         }
     }
 
-    override fun testGradesForUser(user: Long): Observable<List<HomeworkGrade>> {
+    override fun testGradesForUser(userId: Long): Observable<List<HomeworkGrade>> {
         performSoftUpdate()
-        return userDao.findById(user).flatMap {
+        return userDao.findById(userId).flatMap {
             val user = it.convert()
-            gradesDao.testGradesForUser(user.id).map { it.map { it.convert(user) } }
+            gradesDao.testGradesForUser(user.id).mapEach { grade -> grade.convert(user) }
         }
     }
 
@@ -124,13 +132,15 @@ class HomeworkRepoImpl(
 
     override fun gradesWithHomework(user: Long, course: String): Observable<List<Pair<Homework, List<TaskWithGrade>>>> {
         return gradesDao.gradesWithHomework(user, course)
-                .map { it.groupBy { it.homework } }
-                .map {
-                    it.map {
-                        val tasks = it.value.map { it.task!!.convert() }
-                        val homework = it.key!!.convert(tasks)
-                        val grades = it.value.map { it.grade?.convert(User(0, "")) }
-                        return@map homework to tasks.mapIndexed { index, homeworkTask -> TaskWithGrade(homeworkTask, grades[index]!!) }
+                .map { homeworkMappings -> homeworkMappings.groupBy { it.homework } }
+                .map { groupedHomework ->
+                    groupedHomework.map { grouped ->
+                        val tasks = grouped.value.map { it.task.convert() }
+                        val homework = grouped.key.convert(tasks)
+                        val grades = grouped.value.map { it.grade.convert(User(0, "")) }
+                        return@map homework to tasks.mapIndexed { index, homeworkTask ->
+                            TaskWithGrade(homeworkTask, grades[index])
+                        }
                     }
                 }
     }
