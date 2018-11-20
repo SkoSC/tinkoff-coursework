@@ -6,8 +6,11 @@ import com.skosc.tkffintech.viewmodel.RxViewModel
 import com.skosc.tkffintech.viewmodel.UserWithGradesSum
 
 abstract class GradesManyUserViewModel : RxViewModel() {
+    companion object {
+        const val ARG_COURSE = "course"
+    }
+
     abstract val sorters: LiveData<List<ItemSorter<UserWithGradesSum>>>
     abstract val userWithGradesSum: LiveData<List<UserWithGradesSum>>
     abstract fun setSorter(sorter: ItemSorter<UserWithGradesSum>)
-    abstract fun init(course: String)
 }

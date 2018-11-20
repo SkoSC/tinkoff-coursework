@@ -6,13 +6,13 @@ import androidx.fragment.app.FragmentPagerAdapter
 import com.skosc.tkffintech.ui.fragment.CourseGradesManyFragment
 import com.skosc.tkffintech.ui.fragment.CourseGradesSingleFragment
 
-class CourseGradesFragmentsAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class CourseGradesFragmentsAdapter(course: String, fm: FragmentManager) : FragmentPagerAdapter(fm) {
     companion object {
         const val ONLY_2_FRAGMENTS_ALLOWED_ERR = "Only 2 fragments allowed in this adapter"
     }
 
-    private val single = CourseGradesSingleFragment.newInstance("android_fall2018")
-    private val many = CourseGradesManyFragment()
+    private val single = CourseGradesSingleFragment.newInstance(course)
+    private val many = CourseGradesManyFragment.newInstance(course)
 
     override fun getItem(position: Int): Fragment {
         return when (position) {

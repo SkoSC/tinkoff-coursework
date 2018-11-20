@@ -29,7 +29,10 @@ import com.skosc.tkffintech.viewmodel.courses.CourseViewModel
 import com.skosc.tkffintech.viewmodel.courses.CourseViewModelFactory
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModelFactory
-import com.skosc.tkffintech.viewmodel.events.*
+import com.skosc.tkffintech.viewmodel.events.EventsListViewModelArchive
+import com.skosc.tkffintech.viewmodel.events.EventsListViewModelArchiveFactory
+import com.skosc.tkffintech.viewmodel.events.EventsListViewModelOngoing
+import com.skosc.tkffintech.viewmodel.events.EventsListViewModelOngoingFactory
 import com.skosc.tkffintech.viewmodel.grades.GradesManyUserViewModel
 import com.skosc.tkffintech.viewmodel.grades.GradesManyUserViewModelFactory
 import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModel
@@ -93,11 +96,11 @@ val viewModelFactoryModule = Kodein.DefaultModule("view-model") {
     bind<CourseViewModelFactory>(CourseViewModel::class) with provider {
         CourseViewModelFactory(kodein)
     }
-    bind<GradesSingleUserViewModelFactory>(GradesSingleUserViewModel::class) with provider {
-        GradesSingleUserViewModelFactory(kodein)
+    bind<GradesSingleUserViewModelFactory>(GradesSingleUserViewModel::class) with factory { args: ViewModelArgs ->
+        GradesSingleUserViewModelFactory(kodein, args)
     }
-    bind<GradesManyUserViewModelFactory>(GradesManyUserViewModel::class) with provider {
-        GradesManyUserViewModelFactory(kodein)
+    bind<GradesManyUserViewModelFactory>(GradesManyUserViewModel::class) with factory { args: ViewModelArgs ->
+        GradesManyUserViewModelFactory(kodein, args)
     }
 }
 

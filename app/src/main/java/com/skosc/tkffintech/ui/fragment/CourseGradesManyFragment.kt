@@ -20,8 +20,8 @@ class CourseGradesManyFragment : TKFFragment() {
     companion object {
         private const val ARG_COURSE = "course_name"
 
-        fun newInstance(course: String): CourseGradesSingleFragment {
-            return CourseGradesSingleFragment().apply {
+        fun newInstance(course: String): CourseGradesManyFragment {
+            return CourseGradesManyFragment().apply {
                 arguments = bundleOf(
                         ARG_COURSE to course
                 )
@@ -30,11 +30,12 @@ class CourseGradesManyFragment : TKFFragment() {
     }
 
     private lateinit var courseName: String
-    private val vm by lazy { getViewModel(GradesManyUserViewModel::class) }
+    private val vm by lazy { getViewModel(GradesManyUserViewModel::class, mapOf(
+            GradesManyUserViewModel.ARG_COURSE to courseName
+    )) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_course_grades_many, container, false)
     }
 
@@ -49,7 +50,6 @@ class CourseGradesManyFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
-        vm.init("android_fall2018")
         vm.sorters.observe(this, Observer {
             grades_sort_spinner.adapter = SortSpinnerAdapter(context!!, it)
         })

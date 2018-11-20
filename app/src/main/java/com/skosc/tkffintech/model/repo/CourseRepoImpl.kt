@@ -32,7 +32,7 @@ class CourseRepoImpl(
     }
 
     private val cdisp = CompositeDisposable()
-    private val expTimer = ExpirationTimer.create(timerSharedPreferences, "course-info-tryForceUpdate")
+    private val expTimer = ExpirationTimer.create(timerSharedPreferences, "course-info-update")
     override val courses: Observable<List<CourseInfo>> get() = cursesDao.allBusiness()
 
     override fun tryForceUpdate(): Single<Boolean> {

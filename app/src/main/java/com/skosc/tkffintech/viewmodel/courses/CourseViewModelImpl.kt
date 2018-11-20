@@ -19,22 +19,21 @@ class CourseViewModelImpl(
     override val allCourses: MutableLiveData<List<CourseInfo>> = MutableLiveData()
 
     init {
-        val allCoursesObservable = loadCourses.allCourses
-        cdisp own allCoursesObservable
+        cdisp own loadCourses.allCourses
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     allCourses.value = it
                 }
-        cdisp own allCoursesObservable
+        cdisp own loadCourses.allCourses
                 .subscribeOn(Schedulers.io())
-                .mapEach { resolveStatisticsBlocking(it) }
+                .mapEach { resolveStatistics(it) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     activeCourses.value = it
                 }
     }
 
-    private fun resolveStatisticsBlocking(course: CourseInfo): CourseWithStatistics {
+    private fun resolveStatistics(course: CourseInfo): CourseWithStatistics {
         val bundle = statistics.bundled(course.url).blockingGet()
         return CourseWithStatistics(
                 info = course,

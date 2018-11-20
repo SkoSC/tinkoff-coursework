@@ -17,7 +17,7 @@ class CourseStatisticsCalculator(
     fun totalScore(course: String): Observable<Double> {
         return loadGrades.loadGradesForCurrentUser(course)
                 .map { it.map { it.second }.flatMap { it.map { it.grade.mark } }.map { it.toDouble() } }
-                .map { it -> it.reduce { a, b -> a + b } }
+                .map { it -> it.sum() }
     }
 
 

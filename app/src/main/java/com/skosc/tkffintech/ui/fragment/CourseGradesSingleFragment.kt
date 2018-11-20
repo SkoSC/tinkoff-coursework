@@ -34,7 +34,11 @@ class CourseGradesSingleFragment : TKFFragment() {
     }
 
     private lateinit var courseName: String
-    private val vm by lazy { getViewModel(GradesSingleUserViewModel::class) }
+    private val vm by lazy {
+        getViewModel(GradesSingleUserViewModel::class, mapOf(
+                GradesSingleUserViewModel.ARG_COURSE to courseName
+        ))
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -53,7 +57,6 @@ class CourseGradesSingleFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
-        vm.init(courseName)
         vm.setUser(User(3196, "ME"))
         vm.users.observe(this, Observer {
             grades_user_spinner.adapter = UsersSpinnerAdapter(context!!, it)
