@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName
 import com.skosc.tkffintech.utils.cantorPairing
 import org.joda.time.DateTime
 
+/**
+ * Information about single event
+ */
 data class EventInfo(
         @SerializedName("title")
         val title: String = "",
@@ -29,6 +32,9 @@ data class EventInfo(
         @SerializedName("description")
         val description: String = ""
 ) {
+    /**
+     * Id generated based but not equal to this object hash
+     */
     val hid: Long
         get() {
             val titleHash = title.hashCode()

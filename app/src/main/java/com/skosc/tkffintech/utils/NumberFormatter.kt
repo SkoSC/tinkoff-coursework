@@ -12,6 +12,9 @@ object NumberFormatter {
         return value.round(2).toString()
     }
 
+    /**
+     * Rounds number "half up". Can be slow, should use faster implementation on big arrays of numbers
+     */
     private fun Double.round(places: Int): Double {
         if (places < 0) {
             throw IllegalArgumentException("Rounding should be for more then 0 places")

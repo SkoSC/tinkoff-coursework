@@ -2,6 +2,9 @@ package com.skosc.tkffintech.entities
 
 import com.google.gson.annotations.SerializedName
 
+/**
+ * Expanded user info, generaly used to represent current user
+ */
 data class UserInfo(
         @SerializedName("admin")
         val admin: Boolean = false,

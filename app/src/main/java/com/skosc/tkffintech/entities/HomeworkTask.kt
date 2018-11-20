@@ -2,6 +2,9 @@ package com.skosc.tkffintech.entities
 
 import org.joda.time.DateTime
 
+/**
+ * Information about single task inside [Homework]
+ */
 data class HomeworkTask(
         val id: Long,
         val contestId: Long,

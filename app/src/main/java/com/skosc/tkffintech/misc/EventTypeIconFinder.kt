@@ -2,7 +2,14 @@ package com.skosc.tkffintech.misc
 
 import com.skosc.tkffintech.R
 
+/**
+ * Helper methods for finding icon for event
+ */
 object EventTypeIconFinder {
+
+    /**
+     * Resolves icon by event type, if not found fallbacks to [R.drawable.ic_event_generic]
+     */
     fun findIconByEventType(name: String): Int {
         return when (name) {
             "Курсы для школьников" -> R.drawable.ic_event_study

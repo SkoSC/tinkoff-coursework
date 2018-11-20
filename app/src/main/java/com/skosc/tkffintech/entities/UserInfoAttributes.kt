@@ -1,5 +1,8 @@
 package com.skosc.tkffintech.entities
 
+/**
+ * List of all known user attributes, mapable to [UserInfo]
+ */
 object UserInfoAttributes {
     const val FIELD_MOBILE_PHONE = 11
     const val FIELD_EMAIL = 12
