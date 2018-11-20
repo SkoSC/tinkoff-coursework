@@ -1,8 +1,8 @@
-package com.skosc.tkffintech.viewmodel.main
+package com.skosc.tkffintech.viewmodel.splash
 
 import androidx.lifecycle.LiveData
 import com.skosc.tkffintech.viewmodel.RxViewModel
 
-abstract class MainActivityViewModel : RxViewModel() {
+abstract class SplashScreenViewModel : RxViewModel() {
     abstract val isLoggedIn: LiveData<Boolean>
 }

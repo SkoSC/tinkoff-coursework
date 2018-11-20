@@ -31,4 +31,6 @@
     <color name="task_score_failed">#FF0000</color>
     <color name="task_score_failed_bg">#6DFF0000</color>
 
+    <color name="splash_bg">#408bff</color>
+
 </resources>

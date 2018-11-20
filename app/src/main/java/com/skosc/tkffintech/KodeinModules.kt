@@ -36,9 +36,12 @@ import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModel
 import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModelFactory
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import com.skosc.tkffintech.viewmodel.login.LoginViewModelFactory
+import com.skosc.tkffintech.viewmodel.main.MainActivityViewModel
 import com.skosc.tkffintech.viewmodel.main.MainActivityViewModelFactory
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModelFactory
+import com.skosc.tkffintech.viewmodel.splash.SplashScreenViewModel
+import com.skosc.tkffintech.viewmodel.splash.SplashScreenViewModelFactory
 import okhttp3.OkHttpClient
 import okhttp3.internal.JavaNetCookieJar
 import org.joda.time.DateTime
@@ -75,6 +78,7 @@ fun daoModule(ctx: Context) = Kodein.DefaultModule("dao") {
 val viewModelFactoryModule = Kodein.DefaultModule("view-model") {
     bind<LoginViewModelFactory>(LoginViewModel::class) with provider { LoginViewModelFactory(kodein) }
     bind<MainActivityViewModelFactory>(MainActivityViewModel::class) with provider { MainActivityViewModelFactory(kodein) }
+    bind<SplashScreenViewModelFactory>(SplashScreenViewModel::class) with provider { SplashScreenViewModelFactory(kodein) }
     bind<ProfileViewModelFactory>(ProfileViewModel::class) with provider { ProfileViewModelFactory(kodein) }
     bind<EventDetailViewModelFactory>(EventDetailViewModel::class) with provider { EventDetailViewModelFactory(kodein) }
     bind<EventsListViewModelOngoingFactory>(EventsListViewModelOngoing::class) with provider {
@@ -134,7 +138,6 @@ val repoModule = Kodein.DefaultModule("repo") {
 
 val useCaseModule = Kodein.DefaultModule("user-case") {
     bind<LogoutBomb>() with provider { LogoutBomb(instance(), listOf(instance("timers"), instance("user-info"))) }
-
     bind<LoadEvents>() with provider { LoadEvents(instance(), instance("timers")) }
     bind<SearchForEvent>() with provider { SearchForEvent(instance()) }
     bind<LoginUser>() with provider { LoginUser(instance()) }

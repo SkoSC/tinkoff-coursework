@@ -11,7 +11,7 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.contracts.SearchViewProvider
-import com.skosc.tkffintech.viewmodel.events.MainActivityViewModel
+import com.skosc.tkffintech.viewmodel.main.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : TKFActivity(), SearchViewProvider {
@@ -19,8 +19,9 @@ class MainActivity : TKFActivity(), SearchViewProvider {
         private const val UNKNOWN_DESTINATION = 0
     }
 
-    val navController by lazy { findNavController(nav_host_fragment) }
     val vm by lazy { getViewModel(MainActivityViewModel::class) }
+
+    val navController by lazy { findNavController(nav_host_fragment) }
     private var searchMenuItem: MenuItem? = null
 
     override val searchView: SearchView
@@ -34,10 +35,12 @@ class MainActivity : TKFActivity(), SearchViewProvider {
 
         NavigationUI.setupWithNavController(navigation, navController)
 
-        vm.isLoggedIn.observe(this, Observer {
-            if (!it) {
+        vm.isLoggedIn.observe(this, Observer { isLoggedIn ->
+            if (!isLoggedIn) {
                 startActivity(Intent(this, LoginActivity::class.java))
             }
+
+
         })
 
         navController.addOnNavigatedListener { _, destination ->
