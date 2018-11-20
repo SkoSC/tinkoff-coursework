@@ -2,14 +2,13 @@ package com.skosc.tkffintech.ui.activity
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.net.toUri
 import androidx.lifecycle.Observer
+import com.skosc.tkffintech.R
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
-import com.skosc.tkffintech.R
 
 class LoginActivity : TKFActivity() {
     companion object {

@@ -30,9 +30,11 @@ class CourseGradesManyFragment : TKFFragment() {
     }
 
     private lateinit var courseName: String
-    private val vm by lazy { getViewModel(GradesManyUserViewModel::class, mapOf(
-            GradesManyUserViewModel.ARG_COURSE to courseName
-    )) }
+    private val vm by lazy {
+        getViewModel(GradesManyUserViewModel::class, mapOf(
+                GradesManyUserViewModel.ARG_COURSE to courseName
+        ))
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

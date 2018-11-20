@@ -1,7 +1,6 @@
 package com.skosc.tkffintech.model.repo
 
 import android.content.SharedPreferences
-import android.net.NetworkInfo
 import com.skosc.tkffintech.entities.Homework
 import com.skosc.tkffintech.entities.HomeworkGrade
 import com.skosc.tkffintech.entities.User
@@ -126,11 +125,13 @@ class HomeworkRepoImpl(
     override fun gradesWithHomework(user: Long, course: String): Observable<List<Pair<Homework, List<TaskWithGrade>>>> {
         return gradesDao.gradesWithHomework(user, course)
                 .map { it.groupBy { it.homework } }
-                .map { it.map {
-                    val tasks = it.value.map { it.task!!.convert() }
-                    val homework = it.key!!.convert(tasks)
-                    val grades = it.value.map { it.grade?.convert(User(0, "")) }
-                    return@map homework to tasks.mapIndexed { index, homeworkTask -> TaskWithGrade(homeworkTask, grades[index]!!) }
-                } }
+                .map {
+                    it.map {
+                        val tasks = it.value.map { it.task!!.convert() }
+                        val homework = it.key!!.convert(tasks)
+                        val grades = it.value.map { it.grade?.convert(User(0, "")) }
+                        return@map homework to tasks.mapIndexed { index, homeworkTask -> TaskWithGrade(homeworkTask, grades[index]!!) }
+                    }
+                }
     }
 }

@@ -8,7 +8,6 @@ import com.skosc.tkffintech.utils.own
 import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
-import java.util.concurrent.TimeUnit
 
 class GradesSingleUserViewModelImpl(private val course: String, private val loadGrades: LoadGrades, private val loadUsers: LoadUsersForCourse) : GradesSingleUserViewModel() {
     private val gradesSubject = BehaviorSubject.create<List<HomeworkWithGrades>>()

@@ -1,8 +1,6 @@
 package com.skosc.tkffintech.ui.model
 
-import com.skosc.tkffintech.entities.CourseInfo
 import com.skosc.tkffintech.misc.Ratio
-import org.joda.time.DateTime
 
 data class CourseDetailModel(
         val title: String = "",

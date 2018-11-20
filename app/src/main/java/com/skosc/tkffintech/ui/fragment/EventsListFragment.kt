@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.EventsListRecyclerAdapter
 import com.skosc.tkffintech.ui.contracts.SearchViewProvider
-import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.ui.model.toAdapterModels
 import com.skosc.tkffintech.viewmodel.events.EventsListViewModelArchive
 import com.skosc.tkffintech.viewmodel.events.EventsListViewModelOngoing

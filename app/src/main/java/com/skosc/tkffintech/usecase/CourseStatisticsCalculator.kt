@@ -42,9 +42,11 @@ class CourseStatisticsCalculator(
         val homeworksTotal = it.size
         val homeworkCompleted = it
                 .map { it.second }
-                .filter { it.map { it.grade }.all {
-                    // TODO Change filtering criteria
-                    it.status == HomeworkStatus.ACCEPTED }
+                .filter {
+                    it.map { it.grade }.all {
+                        // TODO Change filtering criteria
+                        it.status == HomeworkStatus.ACCEPTED
+                    }
                 }
                 .count()
 

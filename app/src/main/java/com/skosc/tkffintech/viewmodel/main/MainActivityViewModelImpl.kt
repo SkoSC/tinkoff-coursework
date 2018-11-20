@@ -1,6 +1,5 @@
 package com.skosc.tkffintech.viewmodel.main
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.usecase.IsCurrentUserLoggedIn
 import com.skosc.tkffintech.utils.own

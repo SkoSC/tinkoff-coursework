@@ -1,6 +1,6 @@
 package com.skosc.tkffintech.usecase
 
-import com.skosc.tkffintech.entities.*
+import com.skosc.tkffintech.entities.Homework
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.model.repo.HomeworkRepo
 import com.skosc.tkffintech.viewmodel.UserWithGradesSum

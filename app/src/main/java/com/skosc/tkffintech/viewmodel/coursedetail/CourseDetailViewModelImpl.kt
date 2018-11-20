@@ -1,8 +1,8 @@
 package com.skosc.tkffintech.viewmodel.coursedetail
 
 import androidx.lifecycle.MutableLiveData
-import com.skosc.tkffintech.usecase.LoadGrades
 import com.skosc.tkffintech.usecase.CourseStatisticsCalculator
+import com.skosc.tkffintech.usecase.LoadGrades
 import com.skosc.tkffintech.utils.own
 import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 import io.reactivex.android.schedulers.AndroidSchedulers
