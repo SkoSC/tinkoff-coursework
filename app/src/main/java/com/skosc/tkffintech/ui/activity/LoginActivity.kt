@@ -2,19 +2,30 @@ package com.skosc.tkffintech.ui.activity
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.net.toUri
 import androidx.lifecycle.Observer
-import com.skosc.tkffintech.R
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
+import com.skosc.tkffintech.R
 
 class LoginActivity : TKFActivity() {
+    companion object {
+        private const val TINKOFF_REGISTER_URL = "https://fintech.tinkoff.ru/register"
+    }
+
     private val vm by lazy { getViewModel(LoginViewModel::class) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        login_register.setOnClickListener {
+            val browserIntent = Intent(Intent.ACTION_VIEW, TINKOFF_REGISTER_URL.toUri())
+            startActivity(browserIntent)
+        }
 
         login_btn.setOnClickListener {
             val email = email_et.text.toString()
