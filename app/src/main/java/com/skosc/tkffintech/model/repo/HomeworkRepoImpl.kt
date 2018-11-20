@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import android.net.NetworkInfo
 import com.skosc.tkffintech.entities.Homework
 import com.skosc.tkffintech.entities.HomeworkGrade
+import com.skosc.tkffintech.entities.User
 import com.skosc.tkffintech.misc.DataUpdateResult
 import com.skosc.tkffintech.model.entity.ExpirationTimer
 import com.skosc.tkffintech.model.room.*
@@ -11,6 +12,7 @@ import com.skosc.tkffintech.model.room.model.*
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
 import com.skosc.tkffintech.service.NetworkInfoService
+import com.skosc.tkffintech.usecase.TaskWithGrade
 import com.skosc.tkffintech.utils.mapEach
 import com.skosc.tkffintech.utils.own
 import com.skosc.tkffintech.viewmodel.UserWithGradesSum
@@ -119,5 +121,16 @@ class HomeworkRepoImpl(
                 Single.just(DataUpdateResult.NotUpdated)
             }
         }
+    }
+
+    override fun gradesWithHomework(user: Long, course: String): Observable<List<Pair<Homework, List<TaskWithGrade>>>> {
+        return gradesDao.gradesWithHomework(user, course)
+                .map { it.groupBy { it.homework } }
+                .map { it.map {
+                    val tasks = it.value.map { it.task!!.convert() }
+                    val homework = it.key!!.convert(tasks)
+                    val grades = it.value.map { it.grade?.convert(User(0, "")) }
+                    return@map homework to tasks.mapIndexed { index, homeworkTask -> TaskWithGrade(homeworkTask, grades[index]!!) }
+                } }
     }
 }

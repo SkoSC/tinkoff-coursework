@@ -2,6 +2,7 @@ package com.skosc.tkffintech.model.repo
 
 import com.skosc.tkffintech.entities.Homework
 import com.skosc.tkffintech.entities.HomeworkGrade
+import com.skosc.tkffintech.usecase.TaskWithGrade
 import com.skosc.tkffintech.viewmodel.UserWithGradesSum
 import io.reactivex.Observable
 
@@ -18,4 +19,6 @@ interface HomeworkRepo {
     fun gradesForUser(user: Long): Observable<List<HomeworkGrade>>
     fun testGradesForUser(user: Long): Observable<List<HomeworkGrade>>
     fun performSoftUpdate()
+
+    fun gradesWithHomework(user: Long, course: String): Observable<List<Pair<Homework, List<TaskWithGrade>>>>
 }

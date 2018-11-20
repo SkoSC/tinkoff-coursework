@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.skosc.tkffintech.model.room.model.RoomGrade
+import com.skosc.tkffintech.model.room.model.RoomHomworkToTasks
 import com.skosc.tkffintech.model.room.model.RoomUserWithGradesSum
 import io.reactivex.Observable
 
@@ -54,4 +55,13 @@ abstract class GradesDao {
         )
     """)
     abstract fun gradesForUserOnCourse(user: Long, course: String): Observable<List<RoomGrade>>
+
+    @Query("""
+        SELECT homework.*, homework_task.*, grade.* FROM user
+        LEFT JOIN homework ON homework.course == :course
+        LEFT JOIN homework_task ON homework_task.homework_id_fk == homework.homework_id
+        LEFT JOIN grade ON grade.user_id_fk == user.student_id AND grade.task_id_fk == homework_task.contest_id
+        WHERE user.student_id == :user
+    """)
+    abstract fun gradesWithHomework(user: Long, course: String): Observable<List<RoomHomworkToTasks>>
 }

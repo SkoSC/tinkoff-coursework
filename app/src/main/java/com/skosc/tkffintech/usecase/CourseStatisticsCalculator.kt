@@ -38,7 +38,7 @@ class CourseStatisticsCalculator(
                 .map(this::calculateStatics)
     }
 
-    private fun calculateStatics(it: List<Pair<Homework, List<LoadGrades.TaskWithGrade>>>): CourseStatistics {
+    private fun calculateStatics(it: List<Pair<Homework, List<TaskWithGrade>>>): CourseStatistics {
         val homeworksTotal = it.size
         val homeworkCompleted = it
                 .map { it.second }
