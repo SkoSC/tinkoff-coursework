@@ -70,12 +70,15 @@ fun roomModule(ctx: Context) = Kodein.DefaultModule("room-db") {
     bind<CourseInfoDao>() with singleton { db.courseInfoDao }
 }
 
-fun daoModule(ctx: Context) = Kodein.DefaultModule("dao") {
-    bind<SecurityDao>() with singleton { SecurityDaoPrefImpl(instance()) }
-    bind<UserInfoDao>() with singleton { UserInfoDaoImpl(instance("user-info"), instance()) }
+fun systemService(ctx: Context) = Kodein.DefaultModule("system-service"){
     bind<SharedPreferences>("timers") with singleton { ctx.getSharedPreferences("tkf-timers", Context.MODE_PRIVATE) }
     bind<SharedPreferences>("user-info") with singleton { ctx.getSharedPreferences("tkf-user-info", Context.MODE_PRIVATE) }
     bind<NetworkInfoService>() with singleton { NetworkInfoService(ctx) }
+}
+
+val daoModule = Kodein.DefaultModule("dao") {
+    bind<SecurityDao>() with singleton { SecurityDaoPrefImpl(instance()) }
+    bind<UserInfoDao>() with singleton { UserInfoDaoImpl(instance("user-info"), instance()) }
 }
 
 val viewModelFactoryModule = Kodein.DefaultModule("view-model") {
