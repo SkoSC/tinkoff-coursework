@@ -139,7 +139,7 @@ val repoModule = Kodein.DefaultModule("repo") {
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
     bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance(), instance("timers"), instance()) }
-    bind<CourseRepo>() with singleton { CourseRepoImpl(instance(), instance(), instance(), instance("timers"), instance()) }
+    bind<CourseRepo>() with singleton { CourseRepoImplV2(instance(), instance(), instance(), instance("timers"), instance()) }
 }
 
 val useCaseModule = Kodein.DefaultModule("user-case") {
@@ -150,8 +150,8 @@ val useCaseModule = Kodein.DefaultModule("user-case") {
     bind<IsCurrentUserLoggedIn>() with provider { IsCurrentUserLoggedIn(instance()) }
     bind<LoadCurrentUserInfo>() with provider { LoadCurrentUserInfo(instance()) }
     bind<PerformLogout>() with provider { PerformLogout(instance(), instance()) }
-    bind<LoadCourses>() with provider { LoadCourses(instance()) }
-    bind<LoadGrades>() with provider { LoadGrades(instance(), instance()) }
+    bind<LoadCourses>() with provider { LoadCourses(instance(), instance()) }
+    bind<LoadGrades>() with provider { LoadGrades(instance(), instance(), instance()) }
     bind<LoadUsersForCourse>() with provider { LoadUsersForCourse(instance()) }
     bind<StatisticsCalculator>() with provider { StatisticsCalculator(instance(), instance()) }
     bind<CourseStatisticsCalculator>() with provider { CourseStatisticsCalculator(instance(), instance()) }

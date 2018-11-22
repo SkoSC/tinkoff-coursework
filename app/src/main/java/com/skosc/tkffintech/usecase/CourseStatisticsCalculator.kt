@@ -1,11 +1,14 @@
 package com.skosc.tkffintech.usecase
 
+import com.skosc.tkffintech.entities.CourseInfo
 import com.skosc.tkffintech.entities.Homework
 import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.entities.HomeworkTaskType
 import com.skosc.tkffintech.misc.Ratio
 import com.skosc.tkffintech.model.repo.HomeworkRepo
+import com.skosc.tkffintech.utils.mapEach
 import com.skosc.tkffintech.viewmodel.CourseStatistics
+import com.skosc.tkffintech.viewmodel.CourseWithStatistics
 import io.reactivex.Observable
 import io.reactivex.Single
 
@@ -32,10 +35,20 @@ class CourseStatisticsCalculator(
         return homeworkRepo.homeworks(course).map { it.size }
     }
 
-    fun bundled(course: String): Single<CourseStatistics> {
+    fun bundled(course: String): Observable<CourseStatistics> {
         return loadGrades.loadGradesForCurrentUser(course).doOnNext { it }
-                .firstOrError()
                 .map(this::calculateStatics)
+    }
+
+    fun bundled(course: List<CourseInfo>): List<CourseWithStatistics> {
+        return course.map {
+            val grades = loadGrades.loadGradesForCurrentUser(it.url).blockingFirst(listOf())
+            return@map CourseWithStatistics(
+                    info = it,
+                    statistics = calculateStatics(grades)
+            )
+        }
+
     }
 
     private fun calculateStatics(it: List<Pair<Homework, List<TaskWithGrade>>>): CourseStatistics {

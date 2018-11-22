@@ -41,7 +41,7 @@ class HomeworkRepoImpl(
         cdisp own courseInfoDao.allBusiness().subscribe { courseInfos ->
             val a = courseInfos.map { model ->
                 val course = model.url
-                return@map gradesApi.gradesForCourse(course).subscribe(saveData(course))
+                return@map gradesApi.gradesForCourse(course).subscribe { it -> saveData(course)(it) }
             }
         }
 
@@ -60,7 +60,7 @@ class HomeworkRepoImpl(
 
         val grades = resp.flatMap { it.grades() }.map { RoomGrade.from(it) }
         gradesDao.insert(grades)
-        cdisp own cursesApi.homeworks(course).subscribe { homeworksRow ->
+        cursesApi.homeworks(course).subscribe { homeworksRow ->
             val homeworks = homeworksRow.homeworks.map { it.convert(course) }.map { hw ->
                 RoomHomeworkAndTasks(RoomHomework.from(hw), hw.tasks.map { RoomHomeworkTask.from(it, hw.id) })
             }
@@ -105,10 +105,7 @@ class HomeworkRepoImpl(
 
     override fun gradesForUser(userId: Long): Observable<List<HomeworkGrade>> {
         performSoftUpdate()
-        return userDao.findById(userId).flatMap {
-            val user = it.convert()
-            gradesDao.allGradesOfUser(user.id).mapEach { grade -> grade.convert(user) }
-        }
+        return gradesDao.allGradesOfUser(userId).mapEach { grade -> grade.convert(User(0, "")) }
     }
 
     override fun testGradesForUser(userId: Long): Observable<List<HomeworkGrade>> {
@@ -138,6 +135,7 @@ class HomeworkRepoImpl(
                         val tasks = grouped.value.map { it.task.convert() }
                         val homework = grouped.key.convert(tasks)
                         val grades = grouped.value.map { it.grade.convert(User(0, "")) }
+                        assert(grades.size == tasks.size)
                         return@map homework to tasks.mapIndexed { index, homeworkTask ->
                             TaskWithGrade(homeworkTask, grades[index])
                         }

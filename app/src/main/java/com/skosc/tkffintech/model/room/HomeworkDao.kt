@@ -14,10 +14,10 @@ abstract class HomeworkDao {
     @Query("DELETE FROM `homework`")
     abstract fun deleteAllHomeworks()
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun _insertHomework(hw: RoomHomework)
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun _insertHomeworkTasks(tasks: List<RoomHomeworkTask>)
 
     @Query("SELECT * FROM `homework` WHERE `course` == :course")

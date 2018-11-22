@@ -29,6 +29,7 @@ class CurrentUserRepoImpl(
     override val isLoggedIn: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     override val id: Observable<Long> = info.map { it.id }
+    override var idBlocking: Long? = userInfoDao.rxUserInfo.map { it.id }.blockingFirst(null)
 
     init {
         cdisp own securityDao.hasAuthCredentials.subscribe(isLoggedIn::onNext)

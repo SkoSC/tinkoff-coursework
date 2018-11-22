@@ -2,11 +2,14 @@ package com.skosc.tkffintech.viewmodel.courses
 
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.CourseInfo
+import com.skosc.tkffintech.misc.Ratio
 import com.skosc.tkffintech.usecase.CourseStatisticsCalculator
 import com.skosc.tkffintech.usecase.LoadCourses
 import com.skosc.tkffintech.utils.mapEach
 import com.skosc.tkffintech.utils.own
+import com.skosc.tkffintech.viewmodel.CourseStatistics
 import com.skosc.tkffintech.viewmodel.CourseWithStatistics
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -19,6 +22,8 @@ class CourseViewModelImpl(
     override val allCourses: MutableLiveData<List<CourseInfo>> = MutableLiveData()
 
     init {
+        loadCourses.checkForUpdates()
+
         cdisp own loadCourses.allCourses
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
@@ -26,19 +31,11 @@ class CourseViewModelImpl(
                 }
         cdisp own loadCourses.allCourses
                 .subscribeOn(Schedulers.io())
-                .mapEach { resolveStatistics(it) }
+                .map { statistics.bundled(it) }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     activeCourses.value = it
                 }
-    }
-
-    private fun resolveStatistics(course: CourseInfo): CourseWithStatistics {
-        val bundle = statistics.bundled(course.url).blockingGet()
-        return CourseWithStatistics(
-                info = course,
-                statistics = bundle
-        )
     }
 
     override fun forceUpdate() {

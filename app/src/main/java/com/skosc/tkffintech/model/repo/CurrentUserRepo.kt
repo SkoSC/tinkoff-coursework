@@ -10,5 +10,6 @@ interface CurrentUserRepo {
     val isLoggedIn: Observable<Boolean>
     val info: Observable<UserInfo>
     val id: Observable<Long>
+    val idBlocking: Long?
     fun forceRefreshUserInfo()
 }

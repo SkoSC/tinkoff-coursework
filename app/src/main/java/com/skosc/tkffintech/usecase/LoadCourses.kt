@@ -1,13 +1,15 @@
 package com.skosc.tkffintech.usecase
 
 import com.skosc.tkffintech.model.repo.CourseRepo
+import com.skosc.tkffintech.model.repo.HomeworkRepo
 
-class LoadCourses(private val repo: CourseRepo) {
-    val allCourses = repo.courses
+class LoadCourses(private val courseRepo: CourseRepo, private val homeworkRepo: HomeworkRepo) {
+    val allCourses = courseRepo.courses
 
-    fun tryLoadCourses() = repo.tryForceUpdate()
+    fun tryLoadCourses() = courseRepo.tryForceUpdate()
 
     fun checkForUpdates() {
-        repo.performSoftUpdate()
+        courseRepo.performSoftUpdate()
+        homeworkRepo.performSoftUpdate()
     }
 }
