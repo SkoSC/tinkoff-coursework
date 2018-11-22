@@ -1,7 +1,6 @@
 package com.skosc.tkffintech.model.repo
 
 import android.content.SharedPreferences
-import com.skosc.tkffintech.daoModule
 import com.skosc.tkffintech.entities.CourseInfo
 import com.skosc.tkffintech.entities.User
 import com.skosc.tkffintech.misc.DataUpdateResult
@@ -10,8 +9,8 @@ import com.skosc.tkffintech.model.room.CourseInfoDao
 import com.skosc.tkffintech.model.room.UserDao
 import com.skosc.tkffintech.model.room.allBusiness
 import com.skosc.tkffintech.model.room.model.RoomCourseInfo
+import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
-import com.skosc.tkffintech.service.NetworkInfoService
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.joda.time.DateTime

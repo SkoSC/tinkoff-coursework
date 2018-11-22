@@ -2,6 +2,7 @@ package com.skosc.tkffintech.usecase
 
 import android.content.SharedPreferences
 import com.skosc.tkffintech.entities.EventInfo
+import com.skosc.tkffintech.misc.DataUpdateResult
 import com.skosc.tkffintech.model.entity.ExpirationTimer
 import com.skosc.tkffintech.model.repo.EventsRepo
 import io.reactivex.Observable
@@ -14,22 +15,16 @@ class LoadEvents(private val eventsRepo: EventsRepo, sp: SharedPreferences) {
 
     val updateTimer = ExpirationTimer.create(sp, "events-needs-to-forceUpdate")
 
-    init {
-        updateTimer.isExpired.filter { it }.subscribe { needsUpdate ->
-            eventsRepo.tryForceRefresh()
-        }
-    }
-
     val ongoingEvents: Observable<List<EventInfo>> get() = eventsRepo.onGoingEvents
     val archiveEvents: Observable<List<EventInfo>> get() = eventsRepo.archiveEvents
 
-    fun tryLoadEventsFromNetwork(): Single<Boolean> {
-        return eventsRepo.tryForceRefresh()
-    }
-
     fun loadEvent(id: Long) = eventsRepo.findEventByHid(id)
 
-    fun checkForUpdates() {
-        eventsRepo.performSoftUpdate()
+    fun checkForUpdates() : Single<DataUpdateResult>{
+        return eventsRepo.softUpdate()
+    }
+
+    fun tryLoadEventsFromNetwork(): Single<DataUpdateResult> {
+        return eventsRepo.tryForceRefresh()
     }
 }

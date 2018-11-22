@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.service
+package com.skosc.tkffintech.model.service
 
 import android.content.Context
 import android.net.ConnectivityManager

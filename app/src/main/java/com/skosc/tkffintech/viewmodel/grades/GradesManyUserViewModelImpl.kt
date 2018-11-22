@@ -3,13 +3,12 @@ package com.skosc.tkffintech.viewmodel.grades
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.ItemSorter
-import com.skosc.tkffintech.usecase.LoadGrades
 import com.skosc.tkffintech.utils.own
 import com.skosc.tkffintech.viewmodel.UserWithGradesSum
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.BehaviorSubject
 
-class GradesManyUserViewModelImpl(private val course: String, private val gradesLoader: LoadGrades) : GradesManyUserViewModel() {
+class GradesManyUserViewModelImpl(private val course: String) : GradesManyUserViewModel() {
     private var currentSorter: ItemSorter<UserWithGradesSum>
     private val gradesSubject = BehaviorSubject.createDefault<List<UserWithGradesSum>>(listOf())
 
@@ -28,10 +27,6 @@ class GradesManyUserViewModelImpl(private val course: String, private val grades
         )
 
         currentSorter = sorters.value!![0]
-
-        gradesLoader.loadGradesSumForAllCourse(course)
-                .distinct()
-                .subscribe(gradesSubject)
 
         cdisp own gradesSubject
                 .observeOn(AndroidSchedulers.mainThread())

@@ -5,6 +5,6 @@ import org.kodein.di.Kodein
 
 class CourseViewModelFactory(kodein: Kodein) : TKFViewModelFactory<CourseViewModel>(kodein) {
     override fun create(): CourseViewModel {
-        return CourseViewModelImpl(inject(), inject())
+        return CourseViewModelImpl()
     }
 }

@@ -14,8 +14,8 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.EventsListRecyclerAdapter
 import com.skosc.tkffintech.ui.contracts.SearchViewProvider
 import com.skosc.tkffintech.ui.model.toAdapterModels
-import com.skosc.tkffintech.viewmodel.events.EventsListViewModelArchive
-import com.skosc.tkffintech.viewmodel.events.EventsListViewModelOngoing
+import com.skosc.tkffintech.viewmodel.events.ArchiveEventsListViewModel
+import com.skosc.tkffintech.viewmodel.events.OngoingEventsListViewModel
 import kotlinx.android.synthetic.main.fragment_events_list.*
 
 class EventsListFragment : TKFFragment() {
@@ -27,8 +27,8 @@ class EventsListFragment : TKFFragment() {
 
     private val vm by lazy {
         val cls = when (recyclerMode) {
-            ON_GOING -> EventsListViewModelOngoing::class
-            ARCHIVE -> EventsListViewModelArchive::class
+            ON_GOING -> OngoingEventsListViewModel::class
+            ARCHIVE -> ArchiveEventsListViewModel::class
             else -> throw IllegalArgumentException("Unsupported mode: $recyclerMode")
         }
         getViewModel(cls)

@@ -14,11 +14,11 @@ import com.skosc.tkffintech.model.dao.UserInfoDao
 import com.skosc.tkffintech.model.dao.UserInfoDaoImpl
 import com.skosc.tkffintech.model.repo.*
 import com.skosc.tkffintech.model.room.*
+import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
-import com.skosc.tkffintech.service.NetworkInfoService
 import com.skosc.tkffintech.usecase.*
 import com.skosc.tkffintech.utils.DefaultModule
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
@@ -29,10 +29,10 @@ import com.skosc.tkffintech.viewmodel.courses.CourseViewModel
 import com.skosc.tkffintech.viewmodel.courses.CourseViewModelFactory
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModelFactory
-import com.skosc.tkffintech.viewmodel.events.EventsListViewModelArchive
+import com.skosc.tkffintech.viewmodel.events.ArchiveEventsListViewModel
 import com.skosc.tkffintech.viewmodel.events.EventsListViewModelArchiveFactory
-import com.skosc.tkffintech.viewmodel.events.EventsListViewModelOngoing
 import com.skosc.tkffintech.viewmodel.events.EventsListViewModelOngoingFactory
+import com.skosc.tkffintech.viewmodel.events.OngoingEventsListViewModel
 import com.skosc.tkffintech.viewmodel.grades.GradesManyUserViewModel
 import com.skosc.tkffintech.viewmodel.grades.GradesManyUserViewModelFactory
 import com.skosc.tkffintech.viewmodel.grades.GradesSingleUserViewModel
@@ -87,10 +87,10 @@ val viewModelFactoryModule = Kodein.DefaultModule("view-model") {
     bind<SplashScreenViewModelFactory>(SplashScreenViewModel::class) with provider { SplashScreenViewModelFactory(kodein) }
     bind<ProfileViewModelFactory>(ProfileViewModel::class) with provider { ProfileViewModelFactory(kodein) }
     bind<EventDetailViewModelFactory>(EventDetailViewModel::class) with provider { EventDetailViewModelFactory(kodein) }
-    bind<EventsListViewModelOngoingFactory>(EventsListViewModelOngoing::class) with provider {
+    bind<EventsListViewModelOngoingFactory>(OngoingEventsListViewModel::class) with provider {
         EventsListViewModelOngoingFactory(kodein)
     }
-    bind<EventsListViewModelArchiveFactory>(EventsListViewModelArchive::class) with provider {
+    bind<EventsListViewModelArchiveFactory>(ArchiveEventsListViewModel::class) with provider {
         EventsListViewModelArchiveFactory(kodein)
     }
     bind<CourseDetailViewModelFactory>(CourseDetailViewModel::class) with factory { args: ViewModelArgs ->
@@ -150,9 +150,4 @@ val useCaseModule = Kodein.DefaultModule("user-case") {
     bind<IsCurrentUserLoggedIn>() with provider { IsCurrentUserLoggedIn(instance()) }
     bind<LoadCurrentUserInfo>() with provider { LoadCurrentUserInfo(instance()) }
     bind<PerformLogout>() with provider { PerformLogout(instance(), instance()) }
-    bind<LoadCourses>() with provider { LoadCourses(instance(), instance()) }
-    bind<LoadGrades>() with provider { LoadGrades(instance(), instance(), instance()) }
-    bind<LoadUsersForCourse>() with provider { LoadUsersForCourse(instance()) }
-    bind<StatisticsCalculator>() with provider { StatisticsCalculator(instance(), instance()) }
-    bind<CourseStatisticsCalculator>() with provider { CourseStatisticsCalculator(instance(), instance()) }
 }

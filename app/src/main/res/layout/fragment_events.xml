@@ -18,8 +18,10 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/events_ongoing_card"
                 android:layout_width="match_parent"
                 android:animateLayoutChanges="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:minHeight="64dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -96,8 +98,10 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/events_archive_card"
                 android:layout_width="match_parent"
                 android:minHeight="64dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_height="match_parent"
                 android:animateLayoutChanges="true"
                 android:layout_margin="8dp"

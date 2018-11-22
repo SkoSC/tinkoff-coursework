@@ -1,6 +1,7 @@
 package com.skosc.tkffintech.ui.fragment
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.EventInfo
+import com.skosc.tkffintech.misc.DataUpdateResult
 import com.skosc.tkffintech.ui.adapter.ArchiveEventsRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.GenericRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.OnGoingEventsRecyclerAdapter
@@ -21,9 +23,9 @@ import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ARCHIVE
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ON_GOING
 import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.ui.model.toAdapterModels
+import com.skosc.tkffintech.viewmodel.events.ArchiveEventsListViewModel
 import com.skosc.tkffintech.viewmodel.events.EventsListViewModel
-import com.skosc.tkffintech.viewmodel.events.EventsListViewModelArchive
-import com.skosc.tkffintech.viewmodel.events.EventsListViewModelOngoing
+import com.skosc.tkffintech.viewmodel.events.OngoingEventsListViewModel
 import kotlinx.android.synthetic.main.fragment_events.*
 
 class EventsFragment : TKFFragment() {
@@ -31,8 +33,8 @@ class EventsFragment : TKFFragment() {
         private const val MAX_RECYCLER_ITEMS = 10
     }
 
-    private val onGoingVm by lazy { getViewModel(EventsListViewModelOngoing::class) }
-    private val archiveVm by lazy { getViewModel(EventsListViewModelArchive::class) }
+    private val onGoingVm by lazy { getViewModel(OngoingEventsListViewModel::class) }
+    private val archiveVm by lazy { getViewModel(ArchiveEventsListViewModel::class) }
 
     private val navController by lazy { findNavController(events_ongoing_more) }
 
@@ -56,7 +58,9 @@ class EventsFragment : TKFFragment() {
     override fun onResume() {
         super.onResume()
         listOf(onGoingVm, archiveVm)
-                .forEach(EventsListViewModel::checkForUpdates)
+                .forEach {
+                    it.checkForUpdates().observe(this, Observer { handleUpdate(it) })
+                }
     }
 
     private fun setupCardExpansion(vm: EventsListViewModel, recycler: RecyclerView, button: View) {
@@ -78,15 +82,9 @@ class EventsFragment : TKFFragment() {
 
     private fun setupRefresh() {
         events_refresh.setOnRefreshListener {
-            onGoingVm.forceUpdate()
-            archiveVm.forceUpdate()
-        }
-
-        // Listen to data, hide refresh indicator if data is updated
-        listOf(onGoingVm.events, archiveVm.events).forEach { liveData ->
-            liveData.observe(this, Observer {
-                events_refresh.isRefreshing = false
-            })
+            listOf(onGoingVm.forceUpdate(), archiveVm.forceUpdate()).map {
+                it.observe(this, Observer { handleUpdate(it) })
+            }
         }
     }
 
@@ -150,6 +148,18 @@ class EventsFragment : TKFFragment() {
             spinner.visibility = View.VISIBLE
         } else {
             spinner.visibility = View.GONE
+        }
+    }
+
+    private fun handleUpdate(update: DataUpdateResult) {
+        events_refresh.isRefreshing = false
+
+        if (update is DataUpdateResult.Error) {
+            AlertDialog.Builder(context)
+                    .setTitle("Error")
+                    .setMessage("Some error occurred during data updating")
+                    .create()
+                    .show()
         }
     }
 }
