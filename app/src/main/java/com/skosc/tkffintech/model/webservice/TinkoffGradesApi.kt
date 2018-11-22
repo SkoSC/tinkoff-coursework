@@ -5,6 +5,7 @@ import com.skosc.tkffintech.entities.HomeworkGrade
 import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.entities.User
 import io.reactivex.Single
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -81,5 +82,5 @@ interface TinkoffGradesApi {
     }
 
     @GET("course/{course}/grades")
-    fun gradesForCourse(@Path("course") course: String): Single<List<GradesResp>>
+    fun gradesForCourse(@Path("course") course: String): Single<Response<List<GradesResp>>>
 }

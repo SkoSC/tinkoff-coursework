@@ -12,6 +12,6 @@ class CourseDetailViewModelFactory(kodein: Kodein, private val args: ViewModelAr
                 ?: throw IllegalStateException("No argument: 'course' passed to factory")
 
     override fun create(): CourseDetailViewModel {
-        return CourseDetailViewModelImpl(course)
+        return CourseDetailViewModelImpl(course, inject())
     }
 }

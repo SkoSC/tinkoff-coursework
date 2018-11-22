@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
+import com.skosc.tkffintech.misc.DataUpdateResult
 import com.skosc.tkffintech.ui.adapter.TasksRecyclerAdapter
 import com.skosc.tkffintech.ui.model.toAdapterItems
 import com.skosc.tkffintech.utils.NumberFormatter
@@ -51,7 +52,7 @@ class CourseDetailFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
-        vm.checkForUpdates()
+        vm.checkForUpdates().observe(this, Observer { handleUpdate(it) })
         course_detail_tasks.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         val adapter = TasksRecyclerAdapter()
         course_detail_tasks.adapter = adapter
@@ -82,5 +83,9 @@ class CourseDetailFragment : TKFFragment() {
         vm.statsHomeWorks.observe(this, Observer {
             card_stats_right_slot.text = it.toString()
         })
+    }
+
+    fun handleUpdate(status: DataUpdateResult) {
+
     }
 }

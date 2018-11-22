@@ -7,11 +7,14 @@ import com.skosc.tkffintech.model.room.CourseInfoDao
 import com.skosc.tkffintech.model.room.GradesDao
 import com.skosc.tkffintech.model.room.HomeworkDao
 import com.skosc.tkffintech.model.room.UserDao
+import com.skosc.tkffintech.model.room.model.*
 import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
+import com.skosc.tkffintech.utils.own
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import org.joda.time.DateTime
 import retrofit2.Response
 
 class HomeworkRepoImpl(
@@ -32,10 +35,33 @@ class HomeworkRepoImpl(
     private val dataRefresh = HashMap<String, ExpirationTimer>()
 
 
-    private val dataFreshUtil = ExpirationTimer.create(timersSharedPreferences, "homework-update")
-
     override fun tryForceRefresh(course: String): Single<DataUpdateResult> {
-        TODO()
+        return gradesApi.gradesForCourse(course)
+                .doOnSuccess { it -> saveData(course, it) }
+                .map(this::successToUpdateResult)
+    }
+
+    // TODO Refactor
+    private fun saveData(course: String, resp: Response<List<TinkoffGradesApi.GradesResp>>) {
+        val nextUpdateTime = DateTime.now().plusSeconds(UPDATE_TIME_POLITIC_SECONDS)
+        dataRefresh[course]!!.rewind(nextUpdateTime)
+
+        val rowGrades = resp.body()!!
+        val students = rowGrades.flatMap { it.students }
+        val roomUsers = students.map { RoomUser(it.id, it.name) }
+        userDao.insertOrUpdate(roomUsers)
+
+        val courseRelation = roomUsers.map { RoomUserCourseRelation(0, it.id, course) }
+        userDao.insertCourseUserRelations(courseRelation)
+
+        val grades = rowGrades.flatMap { it.grades() }.map { RoomGrade.from(it) }
+        gradesDao.insert(grades)
+        cdisp own cursesApi.homeworks(course).subscribe { homeworksRow ->
+            val homeworks = homeworksRow.homeworks.map { it.convert(course) }.map { hw ->
+                RoomHomeworkAndTasks(RoomHomework.from(hw), hw.tasks.map { RoomHomeworkTask.from(it, hw.id) })
+            }
+            homeworks.forEach { homeworkDao.insert(it) }
+        }
     }
 
     override fun checkForUpdates(course: String): Single<DataUpdateResult> {
@@ -59,7 +85,7 @@ class HomeworkRepoImpl(
     }
 
     private fun makeRefreshKey(course: String): String {
-        return "homework-refresh-$course"
+        return "homework-refresh-($course)"
     }
 
     private fun successToUpdateResult(resp: Response<*>): DataUpdateResult {
