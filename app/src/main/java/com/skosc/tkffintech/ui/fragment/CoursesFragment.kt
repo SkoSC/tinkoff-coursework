@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
+import com.skosc.tkffintech.misc.DataUpdateResult
 import com.skosc.tkffintech.ui.adapter.CoursesDetailedRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.CoursesPreviewRecyclerAdapter
 import com.skosc.tkffintech.ui.model.CourseDetailModel
@@ -32,7 +33,9 @@ class CoursesFragment : TKFFragment() {
     override fun onStart() {
         super.onStart()
 
-        vm.checkForUpdate()
+        vm.checkForUpdate().observe(this, Observer { result ->
+            handleUdateResult(result)
+        })
 
         courses_all_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         courses_all_recycler.adapter = CoursesPreviewRecyclerAdapter { _, model ->
@@ -51,7 +54,6 @@ class CoursesFragment : TKFFragment() {
 
 
         vm.allCourses.observe(this, Observer {
-            courses_refresh.isRefreshing = false
             val adapter = courses_all_recycler.adapter as CoursesPreviewRecyclerAdapter
             adapter.items = it.map { info ->
                 CoursePreviewModel(
@@ -65,7 +67,6 @@ class CoursesFragment : TKFFragment() {
         })
 
         vm.activeCourses.observe(this, Observer {
-            courses_refresh.isRefreshing = false
             val adapter = courses_fresh_recycler.adapter as CoursesDetailedRecyclerAdapter
             adapter.items = it.map { info ->
                 CourseDetailModel(
@@ -81,8 +82,14 @@ class CoursesFragment : TKFFragment() {
         })
 
         courses_refresh.setOnRefreshListener {
-            vm.forceUpdate()
+            vm.forceUpdate().observe(this, Observer { result ->
+                handleUdateResult(result)
+            })
         }
+    }
+
+    private fun handleUdateResult(result: DataUpdateResult) {
+        courses_refresh.isRefreshing = false
     }
 
 }

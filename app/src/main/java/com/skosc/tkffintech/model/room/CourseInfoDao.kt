@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.skosc.tkffintech.entities.CourseInfo
 import com.skosc.tkffintech.model.room.model.RoomCourseInfo
 import io.reactivex.Observable
+import io.reactivex.Single
 
 @Dao
 interface CourseInfoDao {
@@ -14,11 +15,8 @@ interface CourseInfoDao {
     fun insert(items: List<RoomCourseInfo>)
 
     @Query("SELECT * FROM `course_info`")
-    fun all(): Observable<List<RoomCourseInfo>>
+    fun all(): Single<List<RoomCourseInfo>>
 
     @Query("SELECT COUNT(*) FROM course_info")
     fun count(): Observable<Int>
 }
-
-fun CourseInfoDao.allBusiness(): Observable<List<CourseInfo>> = this.all()
-        .map { it.map { it.convert() } }
