@@ -13,8 +13,10 @@ import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
 import com.skosc.tkffintech.utils.extractUpdateResult
+import com.skosc.tkffintech.utils.mapEach
 import com.skosc.tkffintech.utils.own
 import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
+import com.skosc.tkffintech.viewmodel.UserWithGradesSum
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import org.joda.time.DateTime
@@ -41,6 +43,10 @@ class HomeworkRepoImpl(
         return gradesDao.gradesWithHomework(user, course).map {
             transform(it)
         }
+    }
+
+    override fun gradesSum(course: String): Single<List<UserWithGradesSum>> {
+        return gradesDao.gradesTotalForUsersWithCourse(course).mapEach(RoomUserWithGradesSum::convert)
     }
 
     private fun transform(roomData: List<RoomHomworkToTasks>): List<HomeworkWithGrades> {

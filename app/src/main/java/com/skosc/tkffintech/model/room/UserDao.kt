@@ -7,6 +7,7 @@ import androidx.room.Query
 import com.skosc.tkffintech.model.room.model.RoomUser
 import com.skosc.tkffintech.model.room.model.RoomUserCourseRelation
 import io.reactivex.Observable
+import io.reactivex.Single
 
 @Dao
 abstract class UserDao {
@@ -20,5 +21,5 @@ abstract class UserDao {
     abstract fun insertCourseUserRelations(realtions: List<RoomUserCourseRelation>): LongArray
 
     @Query("SELECT user.* FROM user JOIN  user_course_rel WHERE user_course_rel.course_url == :course AND user_course_rel.user_id == user.student_id")
-    abstract fun usersForCourse(course: String): Observable<List<RoomUser>>
+    abstract fun usersForCourse(course: String): Single<List<RoomUser>>
 }

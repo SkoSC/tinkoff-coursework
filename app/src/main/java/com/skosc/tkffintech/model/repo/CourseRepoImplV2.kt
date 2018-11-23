@@ -2,11 +2,13 @@ package com.skosc.tkffintech.model.repo
 
 import android.content.SharedPreferences
 import com.skosc.tkffintech.entities.CourseInfo
+import com.skosc.tkffintech.entities.User
 import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.model.entity.ExpirationTimer
 import com.skosc.tkffintech.model.room.CourseInfoDao
 import com.skosc.tkffintech.model.room.UserDao
 import com.skosc.tkffintech.model.room.model.RoomCourseInfo
+import com.skosc.tkffintech.model.room.model.RoomUser
 import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.utils.extractUpdateResult
@@ -49,6 +51,10 @@ class CourseRepoImplV2(
                     dataFreshUtil.rewind(nextUpdateTime)
                     saveCoursesToDb(events)
                 }.map(Response<*>::extractUpdateResult)
+    }
+
+    override fun usersWithCourse(course: String): Single<List<User>> {
+        return userDao.usersForCourse(course).mapEach(RoomUser::convert)
     }
 
     private fun saveCoursesToDb(events: Response<TinkoffCursesApi.ConnectionsResp>) {

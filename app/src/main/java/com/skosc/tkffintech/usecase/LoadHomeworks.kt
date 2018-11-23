@@ -6,11 +6,15 @@ import com.skosc.tkffintech.model.repo.HomeworkRepo
 import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 import io.reactivex.Single
 
-class LoadHomeworks(private val userRepo: CurrentUserRepo, private val homeworkRepo: HomeworkRepo) {
+class LoadHomeworks(private val currentUserRepo: CurrentUserRepo, private val homeworkRepo: HomeworkRepo) {
     fun gradesForCurrentUser(course: String): Single<List<HomeworkWithGrades>> {
-        val id = userRepo.idBlocking
+        val id = currentUserRepo.idBlocking
                 ?: return Single.error(IllegalStateException("User not logged in"))
-        return homeworkRepo.grades(id, course)
+        return gradesForUser(id, course)
+    }
+
+    fun gradesForUser(user: Long, course: String): Single<List<HomeworkWithGrades>> {
+        return homeworkRepo.grades(user, course)
     }
 
     fun checkForUpdates(course: String): Single<UpdateResult> {

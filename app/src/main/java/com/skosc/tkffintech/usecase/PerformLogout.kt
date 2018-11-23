@@ -4,10 +4,10 @@ import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 
-class PerformLogout(private val userRepo: CurrentUserRepo, private val logoutBomb: LogoutBomb) {
+class PerformLogout(private val currentUserRepo: CurrentUserRepo, private val logoutBomb: LogoutBomb) {
     fun perform() {
         Single.fromCallable {
-            userRepo.signout()
+            currentUserRepo.signout()
             logoutBomb.perform()
         }.subscribeOn(Schedulers.io())
                 .subscribe()
