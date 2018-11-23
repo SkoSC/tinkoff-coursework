@@ -2,7 +2,7 @@ package com.skosc.tkffintech.model.repo
 
 import android.content.SharedPreferences
 import com.skosc.tkffintech.entities.CourseInfo
-import com.skosc.tkffintech.misc.DataUpdateResult
+import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.model.entity.ExpirationTimer
 import com.skosc.tkffintech.model.room.CourseInfoDao
 import com.skosc.tkffintech.model.room.UserDao
@@ -31,17 +31,17 @@ class CourseRepoImplV2(
     override val courses: Single<List<CourseInfo>>
         get() = coursesDao.all().mapEach(RoomCourseInfo::convert)
 
-    override fun checkForUpdates(): Single<DataUpdateResult> {
+    override fun checkForUpdates(): Single<UpdateResult> {
         return needsUpdate.flatMap {
             if (it) {
                 tryForceRefresh()
             } else {
-                Single.just(DataUpdateResult.NotUpdated)
+                Single.just(UpdateResult.NotUpdated)
             }
         }
     }
 
-    override fun tryForceRefresh(): Single<DataUpdateResult> {
+    override fun tryForceRefresh(): Single<UpdateResult> {
         return api.connections()
                 .doAfterSuccess { events ->
                     val nextUpdateTime = DateTime.now().plusSeconds(UPDATE_TIME_POLITIC_SECONDS)
@@ -69,11 +69,11 @@ class CourseRepoImplV2(
                             .map { count -> count == 0 || isExpired }
                 }
 
-    private fun successToUpdateResult(resp: Response<*>): DataUpdateResult {
+    private fun successToUpdateResult(resp: Response<*>): UpdateResult {
         return if (resp.isSuccessful) {
-            DataUpdateResult.Updated
+            UpdateResult.Updated
         } else {
-            DataUpdateResult.Error
+            UpdateResult.Error
         }
     }
 

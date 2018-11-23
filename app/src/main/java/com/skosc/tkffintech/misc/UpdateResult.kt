@@ -3,19 +3,19 @@ package com.skosc.tkffintech.misc
 /**
  * Result of soft data updating
  */
-sealed class DataUpdateResult {
+sealed class UpdateResult {
     /**
      * Data updated and saved successful
      */
-    object Updated : DataUpdateResult()
+    object Updated : UpdateResult()
 
     /**
      * No need to update data
      */
-    object NotUpdated : DataUpdateResult()
+    object NotUpdated : UpdateResult()
 
     /**
      * Data not updated, some error occurred
      */
-    object Error : DataUpdateResult()
+    object Error : UpdateResult()
 }

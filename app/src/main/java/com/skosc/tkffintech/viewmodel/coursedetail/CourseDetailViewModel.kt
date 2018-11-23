@@ -1,7 +1,7 @@
 package com.skosc.tkffintech.viewmodel.coursedetail
 
 import androidx.lifecycle.LiveData
-import com.skosc.tkffintech.misc.DataUpdateResult
+import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 import com.skosc.tkffintech.viewmodel.RxViewModel
 
@@ -14,6 +14,6 @@ abstract class CourseDetailViewModel : RxViewModel() {
     abstract val statsScore: LiveData<Double>
     abstract val statsTests: LiveData<Int>
     abstract val statsHomeWorks: LiveData<Int>
-    abstract fun checkForUpdates():  LiveData<DataUpdateResult>
-    abstract fun forceReload(): LiveData<DataUpdateResult>
+    abstract fun checkForUpdates():  LiveData<UpdateResult>
+    abstract fun forceReload(): LiveData<UpdateResult>
 }

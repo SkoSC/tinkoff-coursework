@@ -2,7 +2,7 @@ package com.skosc.tkffintech.usecase
 
 import android.content.SharedPreferences
 import com.skosc.tkffintech.entities.EventInfo
-import com.skosc.tkffintech.misc.DataUpdateResult
+import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.model.entity.ExpirationTimer
 import com.skosc.tkffintech.model.repo.EventsRepo
 import io.reactivex.Observable
@@ -20,11 +20,11 @@ class LoadEvents(private val eventsRepo: EventsRepo, sp: SharedPreferences) {
 
     fun loadEvent(id: Long) = eventsRepo.findEventByHid(id)
 
-    fun checkForUpdates() : Single<DataUpdateResult>{
+    fun checkForUpdates() : Single<UpdateResult>{
         return eventsRepo.softUpdate()
     }
 
-    fun tryLoadEventsFromNetwork(): Single<DataUpdateResult> {
+    fun tryLoadEventsFromNetwork(): Single<UpdateResult> {
         return eventsRepo.tryForceRefresh()
     }
 }

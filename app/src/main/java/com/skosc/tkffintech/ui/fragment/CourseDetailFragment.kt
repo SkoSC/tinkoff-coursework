@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.misc.DataUpdateResult
+import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.ui.adapter.TasksRecyclerAdapter
 import com.skosc.tkffintech.ui.model.toAdapterItems
 import com.skosc.tkffintech.utils.NumberFormatter
@@ -85,7 +85,7 @@ class CourseDetailFragment : TKFFragment() {
         })
     }
 
-    fun handleUpdate(status: DataUpdateResult) {
+    fun handleUpdate(status: UpdateResult) {
 
     }
 }

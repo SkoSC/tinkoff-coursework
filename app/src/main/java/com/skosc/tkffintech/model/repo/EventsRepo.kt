@@ -1,14 +1,14 @@
 package com.skosc.tkffintech.model.repo
 
 import com.skosc.tkffintech.entities.EventInfo
-import com.skosc.tkffintech.misc.DataUpdateResult
+import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.utils.SearchQueryMaker
 import io.reactivex.Observable
 import io.reactivex.Single
 
 interface EventsRepo {
-    fun tryForceRefresh(): Single<DataUpdateResult>
-    fun softUpdate():  Single<DataUpdateResult>
+    fun tryForceRefresh(): Single<UpdateResult>
+    fun softUpdate():  Single<UpdateResult>
 
     val onGoingEvents: Observable<List<EventInfo>>
     val archiveEvents: Observable<List<EventInfo>>

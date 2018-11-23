@@ -2,7 +2,7 @@ package com.skosc.tkffintech.model.repo
 
 import android.content.SharedPreferences
 import com.skosc.tkffintech.entities.EventInfo
-import com.skosc.tkffintech.misc.DataUpdateResult
+import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.model.entity.ExpirationTimer
 import com.skosc.tkffintech.model.room.EventInfoDao
 import com.skosc.tkffintech.model.room.model.RoomEventInfo
@@ -29,7 +29,7 @@ class EventsRepoImpl(
     private val queryMaker: SearchQueryMaker = SQLSearchQueryMaker()
 
 
-    override fun tryForceRefresh(): Single<DataUpdateResult> {
+    override fun tryForceRefresh(): Single<UpdateResult> {
         return api.getAllEvents()
                 .doAfterSuccess { events ->
                     val nextUpdateTime = DateTime.now().plusSeconds(UPDATE_TIME_POLITIC_SECONDS)
@@ -68,21 +68,21 @@ class EventsRepoImpl(
                 .firstOrError()
     }
 
-    override fun softUpdate(): Single<DataUpdateResult> {
+    override fun softUpdate(): Single<UpdateResult> {
         return expTimer.isExpired.map { it && networkInfo.checkConnection() }.flatMap { needsUpdate ->
             if (needsUpdate) {
                 tryForceRefresh()
             } else {
-                Single.just(DataUpdateResult.NotUpdated)
+                Single.just(UpdateResult.NotUpdated)
             }
         }
     }
 
-    private fun successToUpdateResult(resp: Response<*>): DataUpdateResult {
+    private fun successToUpdateResult(resp: Response<*>): UpdateResult {
         return if (resp.isSuccessful) {
-            DataUpdateResult.Updated
+            UpdateResult.Updated
         } else {
-            DataUpdateResult.Error
+            UpdateResult.Error
         }
     }
 

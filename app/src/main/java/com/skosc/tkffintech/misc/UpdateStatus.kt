@@ -1,6 +1,6 @@
 package com.skosc.tkffintech.misc
 
-//TODO SEE DataUpdateResult
+//TODO SEE UpdateResult
 
 enum class UpdatingError { UNKNOWN, NO_NETWORK, SERVER_ERROR }
 

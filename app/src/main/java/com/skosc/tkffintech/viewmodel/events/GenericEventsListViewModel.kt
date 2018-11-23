@@ -3,7 +3,7 @@ package com.skosc.tkffintech.viewmodel.events
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.EventInfo
-import com.skosc.tkffintech.misc.DataUpdateResult
+import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.utils.own
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -18,8 +18,8 @@ abstract class GenericEventsListViewModel : EventsListViewModel() {
 
     protected abstract val allEvents: Observable<List<EventInfo>>
     protected abstract fun search(query: String): Observable<List<EventInfo>>
-    protected abstract fun checkForUpdatesImpl(): Single<DataUpdateResult>
-    protected abstract fun forceUpdateImpl(): Single<DataUpdateResult>
+    protected abstract fun checkForUpdatesImpl(): Single<UpdateResult>
+    protected abstract fun forceUpdateImpl(): Single<UpdateResult>
 
     init {
         cardExpanded.value = false
@@ -37,27 +37,27 @@ abstract class GenericEventsListViewModel : EventsListViewModel() {
                 }
     }
 
-    final override fun forceUpdate(): LiveData<DataUpdateResult> {
-        val indicator = MutableLiveData<DataUpdateResult>()
+    final override fun forceUpdate(): LiveData<UpdateResult> {
+        val indicator = MutableLiveData<UpdateResult>()
         cdisp own forceUpdateImpl()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe ({ success ->
                     indicator.value = success
                 }, {
-                    indicator.value = DataUpdateResult.Error
+                    indicator.value = UpdateResult.Error
                 })
 
         return indicator
     }
 
-    final override fun checkForUpdates(): LiveData<DataUpdateResult> {
-        val indicator = MutableLiveData<DataUpdateResult>()
+    final override fun checkForUpdates(): LiveData<UpdateResult> {
+        val indicator = MutableLiveData<UpdateResult>()
         cdisp own checkForUpdatesImpl()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ success ->
                     indicator.value = success
                 }, {
-                    indicator.value = DataUpdateResult.Error
+                    indicator.value = UpdateResult.Error
                 })
 
         return indicator

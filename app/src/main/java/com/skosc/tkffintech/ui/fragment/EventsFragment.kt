@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.EventInfo
-import com.skosc.tkffintech.misc.DataUpdateResult
+import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.ui.adapter.ArchiveEventsRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.GenericRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.OnGoingEventsRecyclerAdapter
@@ -151,10 +151,10 @@ class EventsFragment : TKFFragment() {
         }
     }
 
-    private fun handleUpdate(update: DataUpdateResult) {
+    private fun handleUpdate(update: UpdateResult) {
         events_refresh.isRefreshing = false
 
-        if (update is DataUpdateResult.Error) {
+        if (update is UpdateResult.Error) {
             AlertDialog.Builder(context)
                     .setTitle("Error")
                     .setMessage("Some error occurred during data updating")
