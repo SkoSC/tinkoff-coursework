@@ -15,10 +15,10 @@ abstract class HomeworkDao {
     abstract fun deleteAllHomeworks()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun _insertHomework(hw: RoomHomework)
+    abstract fun _insertHomework(hw: RoomHomework): Long
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun _insertHomeworkTasks(tasks: List<RoomHomeworkTask>)
+    abstract fun _insertHomeworkTasks(tasks: List<RoomHomeworkTask>): LongArray
 
     @Query("SELECT * FROM `homework` WHERE `course` == :course")
     abstract fun homeWorksForCourse(course: String): Observable<List<RoomHomeworkAndTasks>>

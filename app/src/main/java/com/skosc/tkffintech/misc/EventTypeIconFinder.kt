@@ -11,7 +11,7 @@ object EventTypeIconFinder {
      * Resolves icon by event type, if not found fallbacks to [R.drawable.ic_event_generic]
      */
     fun findIconByEventType(name: String): Int {
-        return when (name) {
+        return when (name.trim()) {
             "Курсы для школьников" -> R.drawable.ic_event_study
             "Финтех Школа" -> R.drawable.ic_event_fintech
             "Летние стажировки" -> R.drawable.ic_event_staging

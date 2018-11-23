@@ -83,9 +83,13 @@ class CourseDetailFragment : TKFFragment() {
         vm.statsHomeWorks.observe(this, Observer {
             card_stats_right_slot.text = it.toString()
         })
+
+        course_detail_refresh.setOnRefreshListener {
+            vm.forceRefresh().observe(this, Observer { handleUpdate(it) })
+        }
     }
 
-    fun handleUpdate(status: UpdateResult) {
-
+    private fun handleUpdate(status: UpdateResult) {
+        course_detail_refresh.isRefreshing = false
     }
 }

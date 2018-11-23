@@ -15,5 +15,5 @@ abstract class CourseDetailViewModel : RxViewModel() {
     abstract val statsTests: LiveData<Int>
     abstract val statsHomeWorks: LiveData<Int>
     abstract fun checkForUpdates():  LiveData<UpdateResult>
-    abstract fun forceReload(): LiveData<UpdateResult>
+    abstract fun forceRefresh(): LiveData<UpdateResult>
 }

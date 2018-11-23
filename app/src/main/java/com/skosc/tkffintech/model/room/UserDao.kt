@@ -11,13 +11,13 @@ import io.reactivex.Observable
 @Dao
 abstract class UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract fun insertOrUpdate(users: List<RoomUser>)
+    abstract fun insertOrUpdate(users: List<RoomUser>): LongArray
 
     @Query("SELECT * FROM `user` WHERE `student_id` == :id LIMIT 1")
     abstract fun findById(id: Long): Observable<RoomUser>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    abstract fun insertCourseUserRelations(realtions: List<RoomUserCourseRelation>)
+    abstract fun insertCourseUserRelations(realtions: List<RoomUserCourseRelation>): LongArray
 
     @Query("SELECT user.* FROM user JOIN  user_course_rel WHERE user_course_rel.course_url == :course AND user_course_rel.user_id == user.student_id")
     abstract fun usersForCourse(course: String): Observable<List<RoomUser>>

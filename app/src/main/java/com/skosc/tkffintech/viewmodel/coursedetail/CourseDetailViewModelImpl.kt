@@ -8,6 +8,7 @@ import com.skosc.tkffintech.utils.own
 import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 class CourseDetailViewModelImpl(
         private val course: String,
@@ -18,36 +19,36 @@ class CourseDetailViewModelImpl(
     override val statsTests: MutableLiveData<Int> = MutableLiveData()
     override val statsHomeWorks: MutableLiveData<Int> = MutableLiveData()
 
-    init {
-        checkForUpdates()
-    }
-
-
     override fun checkForUpdates(): LiveData<UpdateResult> {
         val indicator = MutableLiveData<UpdateResult>()
         cdisp own loadHomeworks.checkForUpdates(course)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { success ->
+                .subscribe ({ success ->
                     indicator.value = success
                     pushGrades()
-                }
+                }, {
+                    indicator.value = UpdateResult.Error
+                })
         return indicator
     }
 
-    override fun forceReload(): LiveData<UpdateResult> {
+    override fun forceRefresh(): LiveData<UpdateResult> {
         val indicator = MutableLiveData<UpdateResult>()
         cdisp own loadHomeworks.tryLoadHomewroksFromNetwork(course)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { success ->
+                .subscribe ({ success ->
                     indicator.value = success
                     pushGrades()
-                }
+                }, {
+                    indicator.value = UpdateResult.Error
+                })
         return indicator
     }
 
     private fun pushGrades() {
         cdisp own loadHomeworks.gradesForCurrentUser(course)
                 .subscribeOn(Schedulers.io())
+                .delay(500, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { freshGrades -> grades.value = freshGrades }
     }
