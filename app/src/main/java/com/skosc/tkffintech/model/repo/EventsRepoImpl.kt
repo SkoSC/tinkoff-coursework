@@ -10,6 +10,7 @@ import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.utils.SQLSearchQueryMaker
 import com.skosc.tkffintech.utils.SearchQueryMaker
+import com.skosc.tkffintech.utils.extractUpdateResult
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.joda.time.DateTime
@@ -35,7 +36,7 @@ class EventsRepoImpl(
                     val nextUpdateTime = DateTime.now().plusSeconds(UPDATE_TIME_POLITIC_SECONDS)
                     expTimer.rewind(nextUpdateTime)
                     saveEventsToDb(events)
-                }.map(this::successToUpdateResult)
+                }.map(Response<*>::extractUpdateResult)
     }
 
     private fun saveEventsToDb(events: Response<TinkoffEventsApi.EventBucket>) {
@@ -75,14 +76,6 @@ class EventsRepoImpl(
             } else {
                 Single.just(UpdateResult.NotUpdated)
             }
-        }
-    }
-
-    private fun successToUpdateResult(resp: Response<*>): UpdateResult {
-        return if (resp.isSuccessful) {
-            UpdateResult.Updated
-        } else {
-            UpdateResult.Error
         }
     }
 

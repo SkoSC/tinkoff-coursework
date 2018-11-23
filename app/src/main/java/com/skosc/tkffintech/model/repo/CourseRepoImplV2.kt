@@ -9,6 +9,7 @@ import com.skosc.tkffintech.model.room.UserDao
 import com.skosc.tkffintech.model.room.model.RoomCourseInfo
 import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
+import com.skosc.tkffintech.utils.extractUpdateResult
 import com.skosc.tkffintech.utils.mapEach
 import io.reactivex.Single
 import org.joda.time.DateTime
@@ -47,7 +48,7 @@ class CourseRepoImplV2(
                     val nextUpdateTime = DateTime.now().plusSeconds(UPDATE_TIME_POLITIC_SECONDS)
                     dataFreshUtil.rewind(nextUpdateTime)
                     saveCoursesToDb(events)
-                }.map(this::successToUpdateResult)
+                }.map(Response<*>::extractUpdateResult)
     }
 
     private fun saveCoursesToDb(events: Response<TinkoffCursesApi.ConnectionsResp>) {
@@ -68,13 +69,5 @@ class CourseRepoImplV2(
                             .first(0)
                             .map { count -> count == 0 || isExpired }
                 }
-
-    private fun successToUpdateResult(resp: Response<*>): UpdateResult {
-        return if (resp.isSuccessful) {
-            UpdateResult.Updated
-        } else {
-            UpdateResult.Error
-        }
-    }
 
 }
