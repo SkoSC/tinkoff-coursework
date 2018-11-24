@@ -16,7 +16,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/placeholder_digit_x1"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/grades_sum_username"

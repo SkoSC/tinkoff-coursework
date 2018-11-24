@@ -24,6 +24,10 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val differ = AsyncListDiffer(this, TaskAdapterDiffCallback)
 
+    init {
+        setHasStableIds(true)
+    }
+
     fun submitItems(items: List<TaskAdapterItem>) {
         differ.submitList(items)
     }
@@ -61,6 +65,9 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount(): Int = differ.currentList.size
 
+    override fun getItemId(position: Int): Long {
+        return differ.currentList[position].hashCode().toLong()
+    }
 
     class ViewHolderHeader(private val view: View) : RecyclerView.ViewHolder(view) {
         private val title by lazy { view.findViewById<TextView>(R.id.task_header_title) }

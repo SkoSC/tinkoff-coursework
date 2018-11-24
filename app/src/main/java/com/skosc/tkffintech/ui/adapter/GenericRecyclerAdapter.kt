@@ -8,18 +8,32 @@ abstract class GenericRecyclerAdapter<T, VH : BindableViewHolder<T>>(
         diffCallback: DiffUtil.ItemCallback<T>
 ) : RecyclerView.Adapter<VH>() {
 
+    protected abstract fun getItemId(item: T): Long
+
+    init {
+        setHasStableIds(true)
+    }
+
     @Suppress("LeakingThis")
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    fun submitItems(items: List<T>) {
+    final fun submitItems(items: List<T>) {
         differ.submitList(items)
     }
 
-    override fun getItemCount(): Int = differ.currentList.size
+    override fun getItemId(position: Int): Long {
+        val item = differ.currentList[position]
+        return getItemId(item)
+    }
 
-    override fun onBindViewHolder(holder: VH, position: Int) {
+    final override fun getItemCount(): Int = differ.currentList.size
+
+    final override fun onBindViewHolder(holder: VH, position: Int) {
         val model = differ.currentList[position]
         holder.bind(model)
     }
 
+    final override fun setHasStableIds(hasStableIds: Boolean) {
+        super.setHasStableIds(hasStableIds)
+    }
 }

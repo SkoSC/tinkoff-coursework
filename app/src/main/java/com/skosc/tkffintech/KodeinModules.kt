@@ -2,6 +2,7 @@ package com.skosc.tkffintech
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.google.gson.Gson
@@ -15,10 +16,7 @@ import com.skosc.tkffintech.model.dao.UserInfoDaoImpl
 import com.skosc.tkffintech.model.repo.*
 import com.skosc.tkffintech.model.room.*
 import com.skosc.tkffintech.model.service.NetworkInfoService
-import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
-import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
-import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
-import com.skosc.tkffintech.model.webservice.TinkoffUserApi
+import com.skosc.tkffintech.model.webservice.*
 import com.skosc.tkffintech.usecase.*
 import com.skosc.tkffintech.utils.DefaultModule
 import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor

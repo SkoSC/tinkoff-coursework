@@ -14,6 +14,10 @@ import com.skosc.tkffintech.utils.getDrawableCompat
 class ArchiveEventsRecyclerAdapter(private val onClick: (View, EventCardModel) -> Unit)
     : GenericRecyclerAdapter<EventCardModel, ArchiveEventsRecyclerAdapter.ViewHolder>(EventCardModelDifferCallback) {
 
+    override fun getItemId(item: EventCardModel): Long {
+        return item.hid
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.card_event_horizontal, parent, false)
