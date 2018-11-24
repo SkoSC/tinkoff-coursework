@@ -3,7 +3,7 @@ package com.skosc.tkffintech.entities
 /**
  * List of all known user attributes, mapable to [UserInfo]
  */
-object UserInfoAttributes {
+object ProfileAttributes {
     const val FIELD_MOBILE_PHONE = 11
     const val FIELD_EMAIL = 12
     const val FIELD_HOME_CITY = 13

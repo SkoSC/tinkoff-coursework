@@ -27,7 +27,7 @@ class UserInfoSectionCard(context: Context, attributeSet: AttributeSet? = null, 
             0
     )
 
-    val contentView: View = inflate(context, R.layout.card_user_info_section, null)
+    private val contentView: View = inflate(context, R.layout.card_user_info_section, null)
     val recycler: RecyclerView by lazy { contentView.findViewById<RecyclerView>(R.id.user_info_entry_recycler) }
 
     var headerText: CharSequence

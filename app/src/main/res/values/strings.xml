@@ -30,6 +30,7 @@
     <string name="profile_attribute_school">School</string>
     <string name="profile_attribute_school_grad">School Graduation</string>
     <string name="profile_attribute_university">University</string>
+    <string name="profile_attribute_university_grad">University Graduation</string>
     <string name="profile_attribute_facility">Facility</string>
     <string name="profile_attribute_department">Department</string>
     <string name="profile_attribute_wrokplace">Work Place</string>

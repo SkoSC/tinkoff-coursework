@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.ProfileField
 
-class ProfileAttributeAdapter : RecyclerView.Adapter<ProfileAttributeAdapter.ViewHolder>() {
+class ProfileAttributeEditAdapter : RecyclerView.Adapter<ProfileAttributeEditAdapter.ViewHolder>() {
+
     private val differ = AsyncListDiffer(this, ProfileFieldAttributeDiffCallback)
 
     fun submitItems(items: List<ProfileField>) {
@@ -18,7 +19,7 @@ class ProfileAttributeAdapter : RecyclerView.Adapter<ProfileAttributeAdapter.Vie
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.card_user_info_section_entry, parent, false)
+                .inflate(R.layout.card_user_info_section_entry_edit, parent, false)
         return ViewHolder(view)
     }
 
@@ -39,4 +40,3 @@ class ProfileAttributeAdapter : RecyclerView.Adapter<ProfileAttributeAdapter.Vie
         }
     }
 }
-

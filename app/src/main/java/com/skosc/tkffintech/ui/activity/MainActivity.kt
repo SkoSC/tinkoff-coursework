@@ -84,6 +84,7 @@ class MainActivity : TKFActivity(), SearchViewProvider {
     private fun updateAppBarVisibility(destination: NavDestination? = navController.currentDestination) {
         when (destination?.id ?: UNKNOWN_DESTINATION) {
             R.id.navigation_profile -> supportActionBar?.hide()
+            R.id.navigation_profile_edit -> supportActionBar?.hide()
             R.id.navigation_event_detail -> supportActionBar?.hide()
             else -> supportActionBar?.show()
         }

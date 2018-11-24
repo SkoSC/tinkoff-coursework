@@ -40,7 +40,11 @@
         android:id="@+id/navigation_profile"
         android:name="com.skosc.tkffintech.ui.fragment.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_profileEditFragment"
+            app:destination="@id/navigation_profile_edit" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_event_list"
         android:name="com.skosc.tkffintech.ui.fragment.EventsListFragment"
@@ -85,4 +89,8 @@
         tools:layout="@layout/fragment_course_grades" >
         <argument android:name="course" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_profile_edit"
+        android:name="com.skosc.tkffintech.ui.fragment.ProfileEditFragment"
+        android:label="ProfileEditFragment" />
 </navigation>
