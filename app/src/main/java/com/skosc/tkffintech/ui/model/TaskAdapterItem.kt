@@ -4,6 +4,7 @@ import com.skosc.tkffintech.entities.HomeworkGrade
 import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.entities.HomeworkTask
 import com.skosc.tkffintech.misc.Ratio
+import com.skosc.tkffintech.utils.DateTimeFormatter
 import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
 
 sealed class TaskAdapterItem {
@@ -33,7 +34,7 @@ fun List<Pair<HomeworkTask, HomeworkGrade>>.toAdapterItems(): List<TaskAdapterIt
                         grade.mark.toDouble(),
                         task.maxScore.toDouble()
                 ),
-                task.deadlineDate.toString(),
+                DateTimeFormatter.DATE_FORMATTER_SHORT_EU.print(task.deadlineDate),
                 grade.status
         )
     }

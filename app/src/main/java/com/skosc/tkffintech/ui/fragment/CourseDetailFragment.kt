@@ -11,6 +11,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.ui.adapter.TasksRecyclerAdapter
@@ -58,6 +60,8 @@ class CourseDetailFragment : TKFFragment() {
         course_detail_tasks.adapter = adapter
         course_detail_tasks.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
         vm.grades.observe(this, Observer {
+            course_detail_empty_msg.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+
             val items = it.toAdapterItems()
             adapter.submitItems(items)
             adapter.notifyDataSetChanged()
@@ -87,6 +91,26 @@ class CourseDetailFragment : TKFFragment() {
         course_detail_refresh.setOnRefreshListener {
             vm.forceRefresh().observe(this, Observer { handleUpdate(it) })
         }
+
+        vm.topIcon.observe(this, Observer {
+            if (it != null) {
+                course_detail_top_progress.animate()
+                        .alpha(0F)
+                        .setDuration(500)
+                        .start()
+
+                Glide.with(this)
+                        .load(it)
+                        .transition(DrawableTransitionOptions.withCrossFade())
+                        .into(course_detail_top_image)
+            } else {
+                course_detail_top_progress.animate()
+                        .alpha(1F)
+                        .setDuration(500)
+                        .start()
+                course
+            }
+        })
     }
 
     private fun handleUpdate(status: UpdateResult) {

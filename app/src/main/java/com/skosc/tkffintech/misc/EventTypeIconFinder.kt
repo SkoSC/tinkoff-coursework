@@ -3,12 +3,12 @@ package com.skosc.tkffintech.misc
 import com.skosc.tkffintech.R
 
 /**
- * Helper methods for finding icon for event
+ * Helper methods for finding topIcon for event
  */
 object EventTypeIconFinder {
 
     /**
-     * Resolves icon by event type, if not found fallbacks to [R.drawable.ic_event_generic]
+     * Resolves topIcon by event type, if not found fallbacks to [R.drawable.ic_event_generic]
      */
     fun findIconByEventType(name: String): Int {
         return when (name.trim()) {

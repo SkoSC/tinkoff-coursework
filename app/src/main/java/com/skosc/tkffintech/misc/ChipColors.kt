@@ -2,6 +2,7 @@ package com.skosc.tkffintech.misc
 
 import androidx.annotation.ColorRes
 import com.skosc.tkffintech.R
+import com.skosc.tkffintech.entities.HomeworkStatus
 import java.util.*
 
 /**
@@ -26,6 +27,19 @@ object ChipColors {
             "green" -> R.color.event_chip_green
             "orange" -> R.color.event_chip_red
             else -> randomColor()
+        }
+    }
+
+    /**
+     * Color of chip based on homework status. Consistent
+     */
+    @ColorRes
+    fun colorForHomeworkStatus(status: HomeworkStatus): Int {
+        return when(status) {
+            HomeworkStatus.ACCEPTED -> R.color.event_chip_green
+            HomeworkStatus.NEW -> R.color.event_chip_purple
+            HomeworkStatus.TEST_RESULT -> R.color.event_chip_blue
+            HomeworkStatus.UNKNOWN -> R.color.event_chip_red
         }
     }
 

@@ -42,12 +42,20 @@
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginBottom="8dp"
-                    android:src="@drawable/ic_smiling"
                     app:layout_constraintBottom_toTopOf="@+id/frameLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <ProgressBar
+                    android:id="@+id/course_detail_top_progress"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:elevation="10dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/course_detail_top_image"
+                    app:layout_constraintEnd_toEndOf="@+id/course_detail_top_image"
+                    app:layout_constraintStart_toStartOf="@+id/course_detail_top_image"
+                    app:layout_constraintTop_toTopOf="@+id/course_detail_top_image" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -55,7 +63,7 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="8dp">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -63,8 +71,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:listitem="@layout/card_course_task">
-
             </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/course_detail_empty_msg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/course_detail_empty_msg"/>
 
         </androidx.cardview.widget.CardView>
 

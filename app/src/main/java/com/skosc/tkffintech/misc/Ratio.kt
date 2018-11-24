@@ -1,5 +1,7 @@
 package com.skosc.tkffintech.misc
 
+import kotlin.math.sqrt
+
 /**
  * Describes ratio between two values. Useful for describing loading bars, scores and other similar things
  */
@@ -17,7 +19,17 @@ data class Ratio(val actual: Double = 0.0, val max: Double = 0.0) {
      */
     val left: Double = max - actual
 
-    operator fun plus(other: Ratio): Ratio {
-        return Ratio(this.actual * other.actual, this.max * other.max)
+    /**
+     * Ratio value in range from 0 to 1
+     * */
+    fun asDouble(): Double = actual / max
+
+    infix fun mean(other: Ratio): Ratio {
+        val thisRatio = this.asDouble()
+        val otherRatio = other.asDouble()
+
+        val combRatio = sqrt(thisRatio * otherRatio)
+
+        return Ratio(combRatio, 1.0)
     }
 }

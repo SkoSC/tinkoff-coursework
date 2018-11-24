@@ -13,7 +13,7 @@ fun Ratio.formatAsPersantage(): String {
  * Formats [Ratio] to string as / ratio.
  * Example: Ratio(1, 2) = 1/2
  */
-fun Ratio.formatAsRatio(sep: String): String {
+fun Ratio.formatAsRatio(sep: String = "/"): String {
     return "$actual$sep$max"
 }
 

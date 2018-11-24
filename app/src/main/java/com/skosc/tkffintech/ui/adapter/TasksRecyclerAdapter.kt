@@ -1,5 +1,6 @@
 package com.skosc.tkffintech.ui.adapter
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.HomeworkStatus
+import com.skosc.tkffintech.misc.ChipColors
 import com.skosc.tkffintech.ui.model.TaskAdapterItem
 import com.skosc.tkffintech.ui.view.ScoreView
 import com.skosc.tkffintech.utils.getColorCompat
@@ -81,6 +83,16 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             score.setBgColor(entry.status.toBgColor())
             score.setBoarderColor(entry.status.toBorderColor())
 
+            status.backgroundTintList = entry.status.toChipColor()
+            status.text = view.context.getString(entry.status.resourse)
+
+            info.text = entry.info
+        }
+
+        private fun HomeworkStatus.toChipColor(): ColorStateList {
+            val statusColorId = ChipColors.colorForHomeworkStatus(this)
+            val colorValue = view.context.getColorCompat(statusColorId)
+            return ColorStateList.valueOf(colorValue)
         }
 
         @ColorInt

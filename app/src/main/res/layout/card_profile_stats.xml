@@ -17,7 +17,7 @@
             style="@style/Tinkoff.Text.Card.Header0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="126" />
+            android:text="@string/placeholder_digit_empty" />
 
         <TextView
             android:id="@+id/card_stats_left_slot_text"
@@ -46,7 +46,7 @@
             style="@style/Tinkoff.Text.Card.Header0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="18" />
+            android:text="@string/placeholder_digit_empty" />
 
 
         <TextView
@@ -77,7 +77,7 @@
             style="@style/Tinkoff.Text.Card.Header0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2" />
+            android:text="@string/placeholder_digit_empty" />
 
         <TextView
             android:id="@+id/card_stats_right_slot_text"

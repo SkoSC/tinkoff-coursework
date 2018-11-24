@@ -1,10 +1,15 @@
 package com.skosc.tkffintech.entities
 
+import com.skosc.tkffintech.R
+
 /**
  * Status of homework, generally meaning completion stage
  */
-enum class HomeworkStatus {
-    NEW, ACCEPTED, TEST_RESULT, UNKNOWN;
+enum class HomeworkStatus(@Transient val resourse: Int) {
+    NEW(R.string.homework_status_new),
+    ACCEPTED(R.string.homework_status_accepted),
+    TEST_RESULT(R.string.homework_status_test_result),
+    UNKNOWN(R.string.homework_status_unknown);
 
     companion object {
         /**

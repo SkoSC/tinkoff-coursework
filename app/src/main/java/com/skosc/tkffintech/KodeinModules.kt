@@ -153,5 +153,5 @@ val useCaseModule = Kodein.DefaultModule("user-case") {
     bind<LoadCourses>() with provider { LoadCourses(instance()) }
     bind<LoadHomeworks>() with provider { LoadHomeworks(instance(), instance()) }
     bind<LoadUsers>() with provider { LoadUsers(instance()) }
-    bind<LoadCourseStatistics>() with provider { LoadCourseStatistics(instance()) }
+    bind<LoadCourseStatistics>() with provider { LoadCourseStatistics(instance(), instance()) }
 }

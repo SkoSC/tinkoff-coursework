@@ -55,4 +55,12 @@
     <string name="course_status_unknown">Unknown</string>
     <string name="grades_sorted_by">Sorted by:</string>
     <string name="courses_my_courses">My Courses</string>
+    <string name="course_detail_empty_msg">Nothing here yet, either you don\'t have any homeworks yet,  or you should reload the page</string>
+    <string name="placeholder_digit_empty">0</string>
+
+    <string name="homework_status_new">New</string>
+    <string name="homework_status_accepted">Accepted</string>
+    <string name="homework_status_test_result">Test Result</string>
+    <string name="homework_status_unknown">Unknown</string>
+
 </resources>

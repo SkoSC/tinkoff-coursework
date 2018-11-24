@@ -106,8 +106,9 @@ class HomeworkRepoImpl(
         }
 
         val key = makeRefreshKey(course)
-        dataRefresh[course] = ExpirationTimer.create(timersSharedPreferences, key)
-        return Single.just(true)
+        val expirationTimer = ExpirationTimer.create(timersSharedPreferences, key)
+        dataRefresh[course] = expirationTimer
+        return expirationTimer.isExpired
     }
 
     private fun makeRefreshKey(course: String): String {
