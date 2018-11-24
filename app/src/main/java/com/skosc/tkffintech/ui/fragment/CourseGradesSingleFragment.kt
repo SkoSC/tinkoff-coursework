@@ -57,7 +57,6 @@ class CourseGradesSingleFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
-        vm.setUser(User(3196, "ME"))
         vm.users.observe(this, Observer {
             grades_user_spinner.adapter = UsersSpinnerAdapter(context!!, it)
         })

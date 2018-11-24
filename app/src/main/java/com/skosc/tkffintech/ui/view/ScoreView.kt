@@ -50,7 +50,7 @@ class ScoreView(context: Context, attributeSet: AttributeSet? = null, defStyleAt
 
 
     private val textPaint = Paint().apply {
-        textSize = dp(textSize.toInt() * 2F)
+        textSize = dp(textSize.toInt() * 1.5F)
         textAlign = Paint.Align.CENTER
         typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
     }
@@ -74,10 +74,11 @@ class ScoreView(context: Context, attributeSet: AttributeSet? = null, defStyleAt
                 borderSize / 2,
                 width.toFloat() - borderSize / 2,
                 height.toFloat() - borderSize / 2,
-                bgPaint)
+                bgPaint
+        )
 
         val xPos = width / 2
-        val yPos = (height / 2 - (textPaint.descent() + textPaint.ascent()) / 2)
+        val yPos = height / 2 - (textPaint.descent() + textPaint.ascent()) / 2
 
         canvas.drawText(text, xPos.toFloat(), yPos, textPaint)
 
