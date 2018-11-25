@@ -1,6 +1,5 @@
 package com.skosc.tkffintech.misc
 
-import android.util.Log
 import com.skosc.tkffintech.utils.logging.LoggerProvider
 import okhttp3.Interceptor
 import okhttp3.Response

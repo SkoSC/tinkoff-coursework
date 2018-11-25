@@ -2,6 +2,8 @@ package com.skosc.tkffintech.model.repo
 
 import android.content.SharedPreferences
 import com.skosc.tkffintech.entities.User
+import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
+import com.skosc.tkffintech.entities.composite.UserWithGradesSum
 import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.model.entity.ExpirationTimer
 import com.skosc.tkffintech.model.room.CourseInfoDao
@@ -15,8 +17,6 @@ import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
 import com.skosc.tkffintech.utils.extensions.extractUpdateResult
 import com.skosc.tkffintech.utils.extensions.mapEach
 import com.skosc.tkffintech.utils.extensions.own
-import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
-import com.skosc.tkffintech.entities.composite.UserWithGradesSum
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import org.joda.time.DateTime

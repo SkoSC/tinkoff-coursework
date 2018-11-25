@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.skosc.tkffintech.entities.CourseInfo
 import com.skosc.tkffintech.model.room.model.RoomCourseInfo
 import io.reactivex.Observable
 import io.reactivex.Single

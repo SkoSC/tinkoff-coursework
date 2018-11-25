@@ -13,9 +13,9 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.ProfileFieldFactory
 import com.skosc.tkffintech.ui.adapter.ProfileAttributeAdapter
 import com.skosc.tkffintech.ui.view.UserInfoSectionCard
-import com.skosc.tkffintech.utils.formatting.NumberFormatter
 import com.skosc.tkffintech.utils.extensions.addViews
 import com.skosc.tkffintech.utils.extensions.getDrawableCompat
+import com.skosc.tkffintech.utils.formatting.NumberFormatter
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.card_profile_stats.*
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -52,10 +52,6 @@ class ProfileFragment : TKFFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_profile, container, false)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onStart() {

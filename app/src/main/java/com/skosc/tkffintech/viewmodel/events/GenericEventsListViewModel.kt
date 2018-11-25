@@ -41,7 +41,7 @@ abstract class GenericEventsListViewModel : EventsListViewModel() {
         val indicator = MutableLiveData<UpdateResult>()
         cdisp own forceUpdateImpl()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe ({ success ->
+                .subscribe({ success ->
                     indicator.value = success
                 }, {
                     indicator.value = UpdateResult.Error

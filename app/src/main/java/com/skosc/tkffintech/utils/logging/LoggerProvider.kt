@@ -10,11 +10,11 @@ object LoggerProvider {
      * Returns logger for given context, supports: Strings, KClasses and other arbitrary Objects.
      */
     fun get(context: Any): Logger {
-       return when(context) {
-           is String -> loggerForString(context)
-           is KClass<*> -> loggerForClass(context)
-           else -> loggerForObject(context)
-       }
+        return when (context) {
+            is String -> loggerForString(context)
+            is KClass<*> -> loggerForClass(context)
+            else -> loggerForObject(context)
+        }
     }
 
     /**

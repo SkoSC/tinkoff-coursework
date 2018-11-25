@@ -19,9 +19,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
-import com.skosc.tkffintech.utils.logging.Logger;
-import com.skosc.tkffintech.utils.logging.LoggerProvider;
-
 import java.net.CookieStore;
 import java.net.HttpCookie;
 import java.net.URI;

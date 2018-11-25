@@ -1,7 +1,7 @@
 package com.skosc.tkffintech.entities
 
 /**
- * List of all known user attributes, mapable to [UserInfo]
+ * List of all known user attributes, mappable to [UserInfo]
  */
 object ProfileAttributes {
     const val FIELD_MOBILE_PHONE = 11

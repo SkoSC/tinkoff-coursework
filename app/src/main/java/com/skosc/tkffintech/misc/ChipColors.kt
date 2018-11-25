@@ -35,7 +35,7 @@ object ChipColors {
      */
     @ColorRes
     fun colorForHomeworkStatus(status: HomeworkStatus): Int {
-        return when(status) {
+        return when (status) {
             HomeworkStatus.ACCEPTED -> R.color.event_chip_green
             HomeworkStatus.NEW -> R.color.event_chip_purple
             HomeworkStatus.TEST_RESULT -> R.color.event_chip_blue

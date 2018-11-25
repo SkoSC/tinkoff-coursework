@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.ProfileAttributes
 import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.misc.ProfileField
+import com.skosc.tkffintech.misc.Trigger
 import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.usecase.LoadCurrentUserInfo
 import com.skosc.tkffintech.usecase.PerformLogout
 import com.skosc.tkffintech.usecase.UpdateUserInfo
-import com.skosc.tkffintech.misc.Trigger
 import com.skosc.tkffintech.utils.extensions.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 

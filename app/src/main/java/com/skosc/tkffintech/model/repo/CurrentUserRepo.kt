@@ -1,6 +1,5 @@
 package com.skosc.tkffintech.model.repo
 
-import com.skosc.tkffintech.entities.User
 import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.misc.UpdateResult
 import io.reactivex.Observable

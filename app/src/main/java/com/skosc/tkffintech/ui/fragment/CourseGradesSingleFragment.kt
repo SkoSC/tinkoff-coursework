@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.entities.User
 import com.skosc.tkffintech.ui.adapter.TasksRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.UsersSpinnerAdapter
 import com.skosc.tkffintech.ui.model.toAdapterItems

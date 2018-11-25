@@ -17,7 +17,7 @@ abstract class GenericRecyclerAdapter<T, VH : BindableViewHolder<T>>(
     @Suppress("LeakingThis")
     private val differ = AsyncListDiffer(this, diffCallback)
 
-    final fun submitItems(items: List<T>) {
+    fun submitItems(items: List<T>) {
         differ.submitList(items)
     }
 

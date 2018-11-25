@@ -7,9 +7,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.utils.formatting.formatAsRatio
 import com.skosc.tkffintech.ui.model.CourseDetailModel
 import com.skosc.tkffintech.utils.extensions.ratio
+import com.skosc.tkffintech.utils.formatting.formatAsRatio
 
 class CoursesDetailedRecyclerAdapter(private val onDetailsClick: (v: View, model: CourseDetailModel) -> Unit) : RecyclerView.Adapter<CoursesDetailedRecyclerAdapter.ViewHolder>() {
 

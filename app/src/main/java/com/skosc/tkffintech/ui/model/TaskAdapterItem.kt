@@ -3,9 +3,9 @@ package com.skosc.tkffintech.ui.model
 import com.skosc.tkffintech.entities.HomeworkGrade
 import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.entities.HomeworkTask
+import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
 import com.skosc.tkffintech.misc.Ratio
 import com.skosc.tkffintech.utils.formatting.DateTimeFormatter
-import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
 
 sealed class TaskAdapterItem {
     class Header(
