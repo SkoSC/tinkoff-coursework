@@ -1,17 +1,22 @@
 package com.skosc.tkffintech.viewmodel.profile
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.entities.ProfileAttributes
+import com.skosc.tkffintech.entities.UserInfo
+import com.skosc.tkffintech.misc.ProfileField
+import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.usecase.LoadCurrentUserInfo
 import com.skosc.tkffintech.usecase.PerformLogout
+import com.skosc.tkffintech.usecase.UpdateUserInfo
 import com.skosc.tkffintech.utils.Trigger
 import com.skosc.tkffintech.utils.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class ProfileViewModelImpl(
         private val loadCurrentUserInfo: LoadCurrentUserInfo,
-        private val performLogout: PerformLogout
+        private val performLogout: PerformLogout,
+        private val updateUserInfo: UpdateUserInfo
 ) : ProfileViewModel() {
 
     override val fullName: MutableLiveData<String> = MutableLiveData()
@@ -69,5 +74,22 @@ class ProfileViewModelImpl(
 
     override fun update() {
         loadCurrentUserInfo.tryLoadUserInfoFromNetwork()
+    }
+
+    override fun changeInfo(fields: List<ProfileField>): LiveData<UpdateResult> {
+        val indicator = MutableLiveData<UpdateResult>()
+
+        cdisp own loadCurrentUserInfo.currentUserInfo
+                .map {
+                    var info = it
+                    fields.forEach { field ->
+                        info = field.modify(info)
+                    }
+                    info
+                }
+                .flatMapSingle { updateUserInfo.update(it) }
+                .subscribe { indicator.value = it }
+
+        return indicator
     }
 }

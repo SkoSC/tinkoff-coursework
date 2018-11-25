@@ -7,7 +7,7 @@ import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.utils.cantorPairing
 
 class ProfileField(
-        val value: String,
+        var value: String,
         @StringRes val header: Int,
         private val apply: (UserInfo, String) -> UserInfo,
         private val validate: (String) -> Boolean = { true }
@@ -27,6 +27,10 @@ class ProfileField(
     override fun hashCode(): Int {
         return cantorPairing(value.hashCode(), header.hashCode())
     }
+
+    fun modify(info: UserInfo): UserInfo = apply(info, value)
+
+    fun withValue(value: String) = ProfileField(value, header, apply, validate)
 }
 
 class ProfileFieldFactory(

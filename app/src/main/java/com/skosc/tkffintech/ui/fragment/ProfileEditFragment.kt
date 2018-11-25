@@ -16,7 +16,7 @@ import com.skosc.tkffintech.ui.view.UserInfoSectionCard
 import com.skosc.tkffintech.utils.addViews
 import com.skosc.tkffintech.utils.getDrawableCompat
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
-import kotlinx.android.synthetic.main.fragment_profile.*
+import kotlinx.android.synthetic.main.fragment_profile_edit.*
 
 class ProfileEditFragment : TKFFragment() {
 
@@ -57,6 +57,8 @@ class ProfileEditFragment : TKFFragment() {
         setupDataUpdateListener()
         setupPrimaryInfo()
         setupInfoCards()
+
+        profile_edit_apply_btn.setOnClickListener(this::onApplyButtonClicked)
     }
 
     private fun setupDataUpdateListener() {
@@ -65,7 +67,7 @@ class ProfileEditFragment : TKFFragment() {
 
     private fun setupPrimaryInfo() {
         vm.fullName.observe(this, Observer {
-            profile_name.text = it
+            profile_name.setText(it)
         })
 
         vm.avatarUrl.observe(this, Observer {
@@ -76,7 +78,7 @@ class ProfileEditFragment : TKFFragment() {
         })
 
         vm.quote.observe(this, Observer {
-            profile_quote.text = it
+            profile_quote.setText(it)
         })
     }
 
@@ -99,5 +101,13 @@ class ProfileEditFragment : TKFFragment() {
         if (view != null) {
             (view as ViewGroup).removeAllViews()
         }
+    }
+
+    private fun onApplyButtonClicked(v: View) {
+        val fiedls = listOf(contactInfoCard, schoolInfoCard, workInfoCard)
+                .map { it.recycler.adapter as ProfileAttributeEditAdapter }
+                .map { it.items }
+                .reduce { l, r -> l + r }
+        vm.changeInfo(fiedls)
     }
 }

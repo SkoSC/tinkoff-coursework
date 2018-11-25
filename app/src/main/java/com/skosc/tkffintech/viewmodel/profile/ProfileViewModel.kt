@@ -1,6 +1,8 @@
 package com.skosc.tkffintech.viewmodel.profile
 
 import androidx.lifecycle.LiveData
+import com.skosc.tkffintech.misc.ProfileField
+import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.utils.Trigger
 import com.skosc.tkffintech.viewmodel.RxViewModel
 
@@ -16,6 +18,8 @@ abstract class ProfileViewModel : RxViewModel() {
     abstract val contactInfo: LiveData<Map<Int, String>>
     abstract val schoolInfo: LiveData<Map<Int, String>>
     abstract val workInfo: LiveData<Map<Int, String>>
+
+    abstract fun changeInfo(fields: List<ProfileField>): LiveData<UpdateResult>
 
     abstract val dataUpdated: Trigger
 

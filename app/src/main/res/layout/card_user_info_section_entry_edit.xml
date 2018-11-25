@@ -15,7 +15,6 @@
         android:id="@+id/profile_attribute_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/placeholder_3x"
-        style="@style/Tinkoff.Text.Card.Header2" />
+        android:text="@string/placeholder_3x" />
 
 </LinearLayout>

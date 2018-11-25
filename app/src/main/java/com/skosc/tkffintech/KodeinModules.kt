@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.skosc.tkffintech.misc.gsonadapter.JodaDateTimeAdapter
@@ -114,7 +115,8 @@ fun webModule(ctx: Context) = Kodein.DefaultModule("retrofit") {
     val javaNetCookieJar = JavaNetCookieJar(cookieHandler)
     val okhttp = OkHttpClient.Builder()
             .cookieJar(javaNetCookieJar)
-            .addInterceptor(OkHttpLoggingInterceptor("OkHttp"))
+            .addNetworkInterceptor(OkHttpLoggingInterceptor("OkHttp"))
+            .addNetworkInterceptor(StethoInterceptor())
             .build()
 
     val retrofit = Retrofit.Builder()
@@ -152,4 +154,5 @@ val useCaseModule = Kodein.DefaultModule("user-case") {
     bind<LoadHomeworks>() with provider { LoadHomeworks(instance(), instance()) }
     bind<LoadUsers>() with provider { LoadUsers(instance()) }
     bind<LoadCourseStatistics>() with provider { LoadCourseStatistics(instance(), instance()) }
+    bind<UpdateUserInfo>() with provider { UpdateUserInfo(instance()) }
 }

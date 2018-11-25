@@ -1,6 +1,7 @@
 package com.skosc.tkffintech
 
 import android.app.Application
+import com.facebook.stetho.Stetho
 import org.kodein.di.Kodein
 
 class TKFApplication : Application() {
@@ -16,6 +17,11 @@ class TKFApplication : Application() {
         importOnce(webModule(applicationContext))
         importOnce(repoModule)
         importOnce(useCaseModule)
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        Stetho.initializeWithDefaults(this)
     }
 
 }

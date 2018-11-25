@@ -3,15 +3,18 @@ package com.skosc.tkffintech.model.repo
 import com.google.gson.Gson
 import com.skosc.tkffintech.entities.UserCredentials
 import com.skosc.tkffintech.entities.UserInfo
+import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.model.dao.SecurityDao
 import com.skosc.tkffintech.model.dao.UserInfoDao
 import com.skosc.tkffintech.model.webservice.TinkoffError
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
+import com.skosc.tkffintech.utils.extractUpdateResult
 import com.skosc.tkffintech.utils.own
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
+import retrofit2.Response
 
 class CurrentUserRepoImpl(
         private val userApi: TinkoffUserApi,
@@ -69,5 +72,10 @@ class CurrentUserRepoImpl(
         } catch (e: Throwable) {
             NetworkErrors.UNKNOWN
         }
+    }
+
+    override fun update(userInfo: UserInfo): Single<UpdateResult> {
+        return userApi.update(userInfo)
+                .map(Response<*>::extractUpdateResult)
     }
 }
