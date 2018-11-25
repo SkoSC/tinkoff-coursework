@@ -14,7 +14,7 @@ object Waiter {
      * Wait for some time, and than execute callback om main thread
      */
     fun wait(amount: Long, unit: TimeUnit, callback: () -> Unit) {
-        LoggerProvider.get(this).debug("Waiting for $amount ${unit.name}s to fire callback")
+        LoggerProvider.get(this).debug("Waiting for $amount ${unit.name} to fire callback")
         val disp = Single.timer(amount, unit)
                 .observeOnMainThread()
                 .subscribe { _ -> callback() }

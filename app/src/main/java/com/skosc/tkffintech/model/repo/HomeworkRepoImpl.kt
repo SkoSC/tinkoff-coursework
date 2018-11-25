@@ -21,6 +21,7 @@ import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import org.joda.time.DateTime
 import retrofit2.Response
+import java.util.concurrent.TimeUnit
 
 class HomeworkRepoImpl(
         private val gradesApi: TinkoffGradesApi,
@@ -60,10 +61,12 @@ class HomeworkRepoImpl(
 
     override fun tryForceRefresh(course: String): Single<UpdateResult> {
         return gradesApi.gradesForCourse(course)
+                .delay(1, TimeUnit.SECONDS)
                 .map { it ->
                     saveData(course, it)
                     it
                 }
+                .delay(1, TimeUnit.SECONDS)
                 .map(Response<*>::extractUpdateResult)
     }
 
