@@ -14,7 +14,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.utils.DateTimeFormatter
+import com.skosc.tkffintech.utils.formatting.DateTimeFormatter
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import kotlinx.android.synthetic.main.fragment_event_detail.*
 

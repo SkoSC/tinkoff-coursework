@@ -8,9 +8,9 @@ import com.skosc.tkffintech.model.room.EventInfoDao
 import com.skosc.tkffintech.model.room.model.RoomEventInfo
 import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
-import com.skosc.tkffintech.utils.SQLSearchQueryMaker
-import com.skosc.tkffintech.utils.SearchQueryMaker
-import com.skosc.tkffintech.utils.extractUpdateResult
+import com.skosc.tkffintech.misc.SQLSearchQueryMaker
+import com.skosc.tkffintech.misc.SearchQueryMaker
+import com.skosc.tkffintech.utils.extensions.extractUpdateResult
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.joda.time.DateTime

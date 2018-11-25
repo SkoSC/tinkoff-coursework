@@ -6,9 +6,9 @@ import com.skosc.tkffintech.entities.CourseInfo
 import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.misc.Ratio
 import com.skosc.tkffintech.usecase.LoadCourses
-import com.skosc.tkffintech.utils.own
-import com.skosc.tkffintech.viewmodel.CourseStatistics
-import com.skosc.tkffintech.viewmodel.CourseWithStatistics
+import com.skosc.tkffintech.utils.extensions.own
+import com.skosc.tkffintech.entities.CourseStatistics
+import com.skosc.tkffintech.entities.composite.CourseWithStatistics
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -54,7 +54,7 @@ class CourseViewModelImpl(private val loadCourses: LoadCourses) : CourseViewMode
                 .subscribe { courses ->
                     activeCourses.value = courses.map { course ->
                         CourseWithStatistics(
-                                info =course,
+                                info = course,
                                 statistics = CourseStatistics(Ratio(), Ratio(), Ratio(), Ratio())
                         )
                     }

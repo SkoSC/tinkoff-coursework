@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.viewmodel
+package com.skosc.tkffintech.entities.composite
 
 import androidx.room.Embedded
 import com.skosc.tkffintech.entities.User

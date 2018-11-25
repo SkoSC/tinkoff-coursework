@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.utils
+package com.skosc.tkffintech.misc
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData

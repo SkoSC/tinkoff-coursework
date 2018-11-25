@@ -1,6 +1,6 @@
 @file:Suppress("NOTHING_TO_INLINE")
 
-package com.skosc.tkffintech.utils
+package com.skosc.tkffintech.utils.extensions
 
 import android.util.TypedValue
 import android.view.View

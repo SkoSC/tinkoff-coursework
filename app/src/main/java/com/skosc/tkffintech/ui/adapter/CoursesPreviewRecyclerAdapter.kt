@@ -13,8 +13,8 @@ import com.skosc.tkffintech.entities.CourseInfo
 import com.skosc.tkffintech.entities.CourseInfo.Status.ONGOING
 import com.skosc.tkffintech.entities.CourseInfo.Status.UNKNOWN
 import com.skosc.tkffintech.ui.model.CoursePreviewModel
-import com.skosc.tkffintech.utils.DateTimeFormatter
-import com.skosc.tkffintech.utils.getColorCompat
+import com.skosc.tkffintech.utils.formatting.DateTimeFormatter
+import com.skosc.tkffintech.utils.extensions.getColorCompat
 
 class CoursesPreviewRecyclerAdapter(private val onClick: (View, CoursePreviewModel) -> Unit)
     : RecyclerView.Adapter<CoursesPreviewRecyclerAdapter.ViewHolder>() {

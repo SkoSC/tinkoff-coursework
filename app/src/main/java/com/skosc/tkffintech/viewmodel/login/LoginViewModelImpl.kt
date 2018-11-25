@@ -3,8 +3,8 @@ package com.skosc.tkffintech.viewmodel.login
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.model.repo.NetworkErrors
 import com.skosc.tkffintech.usecase.LoginUser
-import com.skosc.tkffintech.utils.observeOnMainThread
-import com.skosc.tkffintech.utils.own
+import com.skosc.tkffintech.utils.extensions.observeOnMainThread
+import com.skosc.tkffintech.utils.extensions.own
 
 class LoginViewModelImpl(private val loginUser: LoginUser) : LoginViewModel() {
     override val status: MutableLiveData<Status> = MutableLiveData()

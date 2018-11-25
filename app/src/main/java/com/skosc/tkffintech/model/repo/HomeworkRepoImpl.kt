@@ -12,11 +12,11 @@ import com.skosc.tkffintech.model.room.model.*
 import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
-import com.skosc.tkffintech.utils.extractUpdateResult
-import com.skosc.tkffintech.utils.mapEach
-import com.skosc.tkffintech.utils.own
-import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
-import com.skosc.tkffintech.viewmodel.UserWithGradesSum
+import com.skosc.tkffintech.utils.extensions.extractUpdateResult
+import com.skosc.tkffintech.utils.extensions.mapEach
+import com.skosc.tkffintech.utils.extensions.own
+import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
+import com.skosc.tkffintech.entities.composite.UserWithGradesSum
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import org.joda.time.DateTime

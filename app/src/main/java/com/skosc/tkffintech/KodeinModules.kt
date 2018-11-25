@@ -2,7 +2,6 @@ package com.skosc.tkffintech
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.facebook.stetho.okhttp3.StethoInterceptor
@@ -19,8 +18,8 @@ import com.skosc.tkffintech.model.room.*
 import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.*
 import com.skosc.tkffintech.usecase.*
-import com.skosc.tkffintech.utils.DefaultModule
-import com.skosc.tkffintech.utils.OkHttpLoggingInterceptor
+import com.skosc.tkffintech.utils.extensions.DefaultModule
+import com.skosc.tkffintech.misc.OkHttpLoggingInterceptor
 import com.skosc.tkffintech.viewmodel.ViewModelArgs
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModel
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModelFactory

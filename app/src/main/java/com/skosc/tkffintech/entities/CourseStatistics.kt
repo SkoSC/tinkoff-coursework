@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.viewmodel
+package com.skosc.tkffintech.entities
 
 import com.skosc.tkffintech.misc.Ratio
 

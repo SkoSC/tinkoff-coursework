@@ -1,7 +1,7 @@
 package com.skosc.tkffintech.model.entity
 
 import android.content.SharedPreferences
-import com.skosc.tkffintech.utils.subscribeOnIoThread
+import com.skosc.tkffintech.utils.extensions.subscribeOnIoThread
 import io.reactivex.Single
 import org.joda.time.DateTime
 

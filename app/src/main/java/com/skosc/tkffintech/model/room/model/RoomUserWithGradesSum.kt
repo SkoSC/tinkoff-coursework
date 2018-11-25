@@ -2,7 +2,7 @@ package com.skosc.tkffintech.model.room.model
 
 import androidx.room.ColumnInfo
 import com.skosc.tkffintech.entities.User
-import com.skosc.tkffintech.viewmodel.UserWithGradesSum
+import com.skosc.tkffintech.entities.composite.UserWithGradesSum
 
 data class RoomUserWithGradesSum(
         @ColumnInfo(name = "student_id") val userId: Long,

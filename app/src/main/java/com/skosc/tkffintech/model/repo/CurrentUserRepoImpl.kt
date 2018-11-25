@@ -8,8 +8,8 @@ import com.skosc.tkffintech.model.dao.SecurityDao
 import com.skosc.tkffintech.model.dao.UserInfoDao
 import com.skosc.tkffintech.model.webservice.TinkoffError
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
-import com.skosc.tkffintech.utils.extractUpdateResult
-import com.skosc.tkffintech.utils.own
+import com.skosc.tkffintech.utils.extensions.extractUpdateResult
+import com.skosc.tkffintech.utils.extensions.own
 import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable

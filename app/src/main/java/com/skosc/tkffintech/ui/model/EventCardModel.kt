@@ -4,7 +4,7 @@ import android.content.Context
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.misc.ChipColors
-import com.skosc.tkffintech.utils.DateTimeFormatter.DATE_FORMATTER_SHORT_EU
+import com.skosc.tkffintech.utils.formatting.DateTimeFormatter.DATE_FORMATTER_SHORT_EU
 import java.io.Serializable
 
 data class EventCardModel(

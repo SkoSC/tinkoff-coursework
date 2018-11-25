@@ -9,7 +9,7 @@ import android.util.AttributeSet
 import androidx.annotation.ColorInt
 import androidx.cardview.widget.CardView
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.utils.dp
+import com.skosc.tkffintech.utils.extensions.dp
 
 private const val DEFAULT_SCORE = "0.0"
 

@@ -5,9 +5,9 @@ import com.skosc.tkffintech.entities.HomeworkTaskType
 import com.skosc.tkffintech.misc.Ratio
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.model.repo.HomeworkRepo
-import com.skosc.tkffintech.viewmodel.CourseStatistics
-import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
-import com.skosc.tkffintech.viewmodel.UserWithGradesSum
+import com.skosc.tkffintech.entities.CourseStatistics
+import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
+import com.skosc.tkffintech.entities.composite.UserWithGradesSum
 import io.reactivex.Single
 
 class LoadCourseStatistics(private val currentUserRepo: CurrentUserRepo, private val homeworkRepo: HomeworkRepo) {

@@ -9,8 +9,8 @@ import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.usecase.LoadCurrentUserInfo
 import com.skosc.tkffintech.usecase.PerformLogout
 import com.skosc.tkffintech.usecase.UpdateUserInfo
-import com.skosc.tkffintech.utils.Trigger
-import com.skosc.tkffintech.utils.own
+import com.skosc.tkffintech.misc.Trigger
+import com.skosc.tkffintech.utils.extensions.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 
 class ProfileViewModelImpl(

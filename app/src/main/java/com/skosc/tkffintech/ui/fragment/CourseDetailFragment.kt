@@ -17,7 +17,7 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.ui.adapter.TasksRecyclerAdapter
 import com.skosc.tkffintech.ui.model.toAdapterItems
-import com.skosc.tkffintech.utils.NumberFormatter
+import com.skosc.tkffintech.utils.formatting.NumberFormatter
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModel
 import kotlinx.android.synthetic.main.card_profile_stats.*
 import kotlinx.android.synthetic.main.fragment_course_detail.*

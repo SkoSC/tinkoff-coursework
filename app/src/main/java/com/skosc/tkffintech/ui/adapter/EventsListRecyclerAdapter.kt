@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.EventTypeIconFinder
 import com.skosc.tkffintech.ui.model.EventCardModel
-import com.skosc.tkffintech.utils.getColorCompat
-import com.skosc.tkffintech.utils.getDrawableCompat
+import com.skosc.tkffintech.utils.extensions.getColorCompat
+import com.skosc.tkffintech.utils.extensions.getDrawableCompat
 
 class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (EventCardModel) -> Unit)
     : RecyclerView.Adapter<EventCardViewHolder>() {

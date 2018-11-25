@@ -1,5 +1,6 @@
-package com.skosc.tkffintech.utils
+package com.skosc.tkffintech.misc
 
+import com.skosc.tkffintech.utils.extensions.observeOnMainThread
 import io.reactivex.Single
 import java.util.concurrent.TimeUnit
 

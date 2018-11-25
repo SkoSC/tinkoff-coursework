@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.ItemSorter
 import com.skosc.tkffintech.usecase.LoadCourseStatistics
-import com.skosc.tkffintech.utils.own
-import com.skosc.tkffintech.viewmodel.UserWithGradesSum
+import com.skosc.tkffintech.utils.extensions.own
+import com.skosc.tkffintech.entities.composite.UserWithGradesSum
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject

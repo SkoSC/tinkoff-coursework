@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.utils
+package com.skosc.tkffintech.utils.formatting
 
 import org.joda.time.format.DateTimeFormat
 import org.joda.time.format.DateTimeFormatter

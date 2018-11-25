@@ -2,7 +2,7 @@ package com.skosc.tkffintech.model.repo
 
 import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.misc.UpdateResult
-import com.skosc.tkffintech.utils.SearchQueryMaker
+import com.skosc.tkffintech.misc.SearchQueryMaker
 import io.reactivex.Observable
 import io.reactivex.Single
 

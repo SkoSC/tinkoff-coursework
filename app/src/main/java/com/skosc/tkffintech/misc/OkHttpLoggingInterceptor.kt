@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.utils
+package com.skosc.tkffintech.misc
 
 import android.util.Log
 import okhttp3.Interceptor

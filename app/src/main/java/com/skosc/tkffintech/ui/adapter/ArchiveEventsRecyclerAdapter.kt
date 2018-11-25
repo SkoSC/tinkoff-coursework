@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.EventTypeIconFinder
 import com.skosc.tkffintech.ui.model.EventCardModel
-import com.skosc.tkffintech.utils.getDrawableCompat
+import com.skosc.tkffintech.utils.extensions.getDrawableCompat
 
 
 class ArchiveEventsRecyclerAdapter(private val onClick: (View, EventCardModel) -> Unit)

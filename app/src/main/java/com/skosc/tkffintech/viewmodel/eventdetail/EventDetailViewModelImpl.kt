@@ -2,8 +2,8 @@ package com.skosc.tkffintech.viewmodel.eventdetail
 
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.usecase.LoadEvents
-import com.skosc.tkffintech.utils.observeOnMainThread
-import com.skosc.tkffintech.utils.own
+import com.skosc.tkffintech.utils.extensions.observeOnMainThread
+import com.skosc.tkffintech.utils.extensions.own
 
 class EventDetailViewModelImpl(private val loadEvent: LoadEvents) : EventDetailViewModel() {
     override val title: MutableLiveData<String> = MutableLiveData()

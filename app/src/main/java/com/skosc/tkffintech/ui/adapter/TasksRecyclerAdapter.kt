@@ -14,7 +14,7 @@ import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.misc.ChipColors
 import com.skosc.tkffintech.ui.model.TaskAdapterItem
 import com.skosc.tkffintech.ui.view.ScoreView
-import com.skosc.tkffintech.utils.getColorCompat
+import com.skosc.tkffintech.utils.extensions.getColorCompat
 
 class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {

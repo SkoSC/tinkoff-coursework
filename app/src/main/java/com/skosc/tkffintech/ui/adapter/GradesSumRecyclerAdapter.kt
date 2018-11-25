@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.viewmodel.UserWithGradesSum
+import com.skosc.tkffintech.entities.composite.UserWithGradesSum
 
 class GradesSumRecyclerAdapter : RecyclerView.Adapter<GradesSumRecyclerAdapter.ViewHolder>() {
     val differ = AsyncListDiffer(this, GradeSumDiffCallback)

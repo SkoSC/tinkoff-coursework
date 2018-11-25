@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.utils.Waiter
+import com.skosc.tkffintech.misc.Waiter
 import com.skosc.tkffintech.viewmodel.splash.SplashScreenViewModel
 import java.util.concurrent.TimeUnit
 

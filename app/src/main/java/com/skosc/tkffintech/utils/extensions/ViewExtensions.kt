@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.utils
+package com.skosc.tkffintech.utils.extensions
 
 import android.view.View
 import android.view.ViewGroup

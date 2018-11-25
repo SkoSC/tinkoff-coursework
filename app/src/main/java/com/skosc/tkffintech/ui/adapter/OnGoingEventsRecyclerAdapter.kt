@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.model.EventCardModel
-import com.skosc.tkffintech.utils.getColorCompat
+import com.skosc.tkffintech.utils.extensions.getColorCompat
 
 
 class OnGoingEventsRecyclerAdapter(private val onClickCallback: (View, EventCardModel) -> Unit)

@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.utils
+package com.skosc.tkffintech.utils.extensions
 
 import io.reactivex.Observable
 import io.reactivex.Single

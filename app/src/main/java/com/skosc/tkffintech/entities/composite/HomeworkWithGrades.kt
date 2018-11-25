@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.viewmodel
+package com.skosc.tkffintech.entities.composite
 
 import com.skosc.tkffintech.entities.Homework
 import com.skosc.tkffintech.entities.HomeworkGrade

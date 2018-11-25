@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.utils
+package com.skosc.tkffintech.misc
 
 /**
  * Interface for making search query for different languages based on passed [Mode] parameter,

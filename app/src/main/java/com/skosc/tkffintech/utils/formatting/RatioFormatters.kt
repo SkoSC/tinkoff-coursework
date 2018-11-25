@@ -1,4 +1,6 @@
-package com.skosc.tkffintech.misc
+package com.skosc.tkffintech.utils.formatting
+
+import com.skosc.tkffintech.misc.Ratio
 
 /**
  * Formats [Ratio] to string as percentage.

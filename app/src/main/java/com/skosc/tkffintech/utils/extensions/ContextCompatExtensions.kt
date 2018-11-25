@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.utils
+package com.skosc.tkffintech.utils.extensions
 
 import android.content.Context
 import androidx.annotation.ColorRes

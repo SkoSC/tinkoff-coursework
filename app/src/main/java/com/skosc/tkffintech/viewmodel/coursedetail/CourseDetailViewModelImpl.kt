@@ -3,14 +3,12 @@ package com.skosc.tkffintech.viewmodel.coursedetail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.misc.UpdateResult
-import com.skosc.tkffintech.misc.formatAsRatio
 import com.skosc.tkffintech.usecase.LoadCourseStatistics
 import com.skosc.tkffintech.usecase.LoadHomeworks
-import com.skosc.tkffintech.utils.own
-import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
+import com.skosc.tkffintech.utils.extensions.own
+import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit
 import com.skosc.tkffintech.R
 
 class CourseDetailViewModelImpl(

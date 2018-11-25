@@ -3,7 +3,7 @@ package com.skosc.tkffintech.usecase
 import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.model.repo.HomeworkRepo
-import com.skosc.tkffintech.viewmodel.HomeworkWithGrades
+import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
 import io.reactivex.Single
 
 class LoadHomeworks(private val currentUserRepo: CurrentUserRepo, private val homeworkRepo: HomeworkRepo) {

@@ -1,8 +1,8 @@
 package com.skosc.tkffintech.misc.gsonadapter
 
 import com.google.gson.*
-import com.skosc.tkffintech.utils.DateTimeFormatter.DATE_TIME_FORMATTER_FULL
-import com.skosc.tkffintech.utils.DateTimeFormatter.DATE_TIME_FORMATTER_FULL_MILIS
+import com.skosc.tkffintech.utils.formatting.DateTimeFormatter.DATE_TIME_FORMATTER_FULL
+import com.skosc.tkffintech.utils.formatting.DateTimeFormatter.DATE_TIME_FORMATTER_FULL_MILIS
 import org.joda.time.DateTime
 import java.lang.reflect.Type
 

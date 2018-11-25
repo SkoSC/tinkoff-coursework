@@ -11,8 +11,8 @@ import com.skosc.tkffintech.model.room.model.RoomCourseInfo
 import com.skosc.tkffintech.model.room.model.RoomUser
 import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
-import com.skosc.tkffintech.utils.extractUpdateResult
-import com.skosc.tkffintech.utils.mapEach
+import com.skosc.tkffintech.utils.extensions.extractUpdateResult
+import com.skosc.tkffintech.utils.extensions.mapEach
 import io.reactivex.Single
 import org.joda.time.DateTime
 import retrofit2.Response

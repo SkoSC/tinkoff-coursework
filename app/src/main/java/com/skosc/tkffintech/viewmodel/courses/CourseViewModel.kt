@@ -3,7 +3,7 @@ package com.skosc.tkffintech.viewmodel.courses
 import androidx.lifecycle.LiveData
 import com.skosc.tkffintech.entities.CourseInfo
 import com.skosc.tkffintech.misc.UpdateResult
-import com.skosc.tkffintech.viewmodel.CourseWithStatistics
+import com.skosc.tkffintech.entities.composite.CourseWithStatistics
 import com.skosc.tkffintech.viewmodel.RxViewModel
 
 abstract class CourseViewModel : RxViewModel() {

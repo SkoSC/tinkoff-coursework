@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.utils
+package com.skosc.tkffintech.utils.formatting
 
 import java.math.BigDecimal
 import java.math.RoundingMode
