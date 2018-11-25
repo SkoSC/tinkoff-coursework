@@ -1,6 +1,7 @@
 package com.skosc.tkffintech.misc
 
 import android.util.Log
+import com.skosc.tkffintech.utils.logging.LoggerProvider
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.util.concurrent.atomic.AtomicLong
@@ -10,23 +11,19 @@ import java.util.concurrent.atomic.AtomicLong
  */
 class OkHttpLoggingInterceptor(private val tag: String) : Interceptor {
     private val requestCounter = AtomicLong(0)
+    private val logger = LoggerProvider.get("TKF-OKHttp")
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
 
         val id = requestCounter.getAndIncrement()
 
-        log("Request $id: (${request.method()}) ${request.url()}")
+        logger.debug("Request $id: (${request.method()}) ${request.url()}")
 
         val response = chain.proceed(request)
 
-        log("Response $id: ${response.code()}/${response.message()}")
+        logger.debug("Response $id: ${response.code()}/${response.message()}")
 
         return response
     }
-
-    private fun log(msg: String) {
-        Log.d(tag, msg)
-    }
-
 }
