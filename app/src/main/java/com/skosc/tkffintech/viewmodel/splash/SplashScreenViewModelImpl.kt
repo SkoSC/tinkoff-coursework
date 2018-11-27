@@ -11,6 +11,7 @@ class SplashScreenViewModelImpl(checkForLogin: IsCurrentUserLoggedIn) : SplashSc
 
     init {
         cdisp own checkForLogin.isLoggedIn
+                .firstOrError()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { isLoggedIn ->
                     if (isLoggedIn) {

@@ -19,7 +19,7 @@ abstract class GradesDao {
     abstract fun gradesForUserByTask(user: Long, task: Long): Observable<RoomGrade>
 
     @Query("""
-        SELECT user.*, SUM(grade.mark) AS gradesSum FROM user
+        SELECT user.*, COALESCE(SUM(grade.mark), 0) AS gradesSum FROM user
         LEFT JOIN grade ON grade.user_id_fk == user.student_id
         LEFT JOIN user_course_rel ON user_course_rel.user_id == user.student_id
         WHERE user_course_rel.course_url == :course
@@ -27,7 +27,7 @@ abstract class GradesDao {
     """)
     abstract fun gradesTotalForUsersWithCourse(course: String): Single<List<RoomUserWithGradesSum>>
 
-    @Query("SELECT SUM(grade.mark) FROM grade WHERE grade.user_id_fk == :user")
+    @Query("SELECT COALESCE(SUM(grade.mark), 0) FROM grade WHERE grade.user_id_fk == :user")
     abstract fun totalScoreOfUser(user: Long): Single<Double>
 
     @Query("SELECT * FROM grade WHERE grade.user_id_fk == :user")

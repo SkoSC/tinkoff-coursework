@@ -5,69 +5,86 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.core.net.toUri
-import androidx.lifecycle.Observer
 import com.skosc.tkffintech.R
+import com.skosc.tkffintech.utils.GlobalConstants
+import com.skosc.tkffintech.utils.extensions.observe
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
 
+/**
+ * Provides login functionality to user.
+ */
 class LoginActivity : TKFActivity() {
-    companion object {
-        private const val TINKOFF_REGISTER_URL = "https://fintech.tinkoff.ru/register"
-    }
-
     private val vm by lazy { getViewModel(LoginViewModel::class) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        login_register.setOnClickListener {
-            val browserIntent = Intent(Intent.ACTION_VIEW, TINKOFF_REGISTER_URL.toUri())
-            startActivity(browserIntent)
-        }
-
-        login_btn.setOnClickListener {
-            val email = email_et.text.toString()
-            val password = password_et.text.toString()
-            vm.login(email, password)
-        }
-
-        vm.status.observe(this, Observer(this::showLoginStatus))
+        setupInteractionCallbacks()
+        bindDataToViewModel()
     }
 
-    private fun showLoginStatus(status: LoginViewModel.Status) {
-        return when (status) {
-            is LoginViewModel.Status.Success -> {
-                startActivity(
-                        Intent(this, MainActivity::class.java)
-                )
-            }
-            is LoginViewModel.Status.InProgress -> {
-                login_loading_status.visibility = View.VISIBLE
-                login_btn.text = ""
-            }
-            is LoginViewModel.Status.Waiting -> {
-                login_loading_status.visibility = View.GONE
-                login_btn.text = getString(R.string.login_login_btn)
-            }
-            is LoginViewModel.Status.Error -> {
-                login_loading_status.visibility = View.GONE
-                login_btn.text = getString(R.string.login_login_btn)
-                showError(status.error)
-            }
+    private fun bindDataToViewModel() {
+        vm.dataIsLoading.observe(this, this::updateLoginButton)
+        vm.error.observe(this, this::showError)
+        vm.navigateToMain.observe(this, this::navigateToMainActivity)
+    }
+
+    private fun setupInteractionCallbacks() {
+        login_register.setOnClickListener(this::launchBrowserWithRegisterPage)
+        login_btn.setOnClickListener(this::startLoggingIn)
+    }
+
+    private fun startLoggingIn(v: View) {
+        val (email, password) = readUserCredentials()
+        vm.login(email, password)
+    }
+
+    private fun readUserCredentials(): Pair<String, String> {
+        val email = email_et.text.toString()
+        val password = password_et.text.toString()
+        return Pair(email, password)
+    }
+
+    private fun launchBrowserWithRegisterPage(v: View) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, GlobalConstants.URL.TINKOFF_REGISTER.toUri())
+        startActivity(browserIntent)
+    }
+
+    private fun updateLoginButton(dataIsLoading: Boolean) {
+        if (dataIsLoading) {
+            turnLoadingMode()
+        } else {
+            turnWaitingMode()
         }
     }
 
-    private fun showError(error: LoginViewModel.LoginError) {
-        val errText = when (error) {
-            LoginViewModel.LoginError.UNKNOWN -> R.string.login_error_wrong_unknown
-            LoginViewModel.LoginError.WRONG_CREDENTIALS -> R.string.login_error_wrong_credentials
-        }
+    private fun turnWaitingMode() {
+        login_loading_status.visibility = View.GONE
+        login_btn.text = getString(R.string.login_login_btn)
+        login_btn.isEnabled = true
+    }
+
+    private fun turnLoadingMode() {
+        login_loading_status.visibility = View.VISIBLE
+        login_btn.text = ""
+        login_btn.isEnabled = false
+    }
+
+    private fun showError(error: LoginViewModel.Error?) {
+        // Ignore empty errors
+        if (error == null) return
 
         AlertDialog.Builder(this)
                 .setTitle(R.string.login_error_title)
-                .setMessage(errText)
+                .setMessage(error.text)
                 .create()
                 .show()
+    }
+
+    private fun navigateToMainActivity() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }

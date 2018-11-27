@@ -1,18 +1,18 @@
 package com.skosc.tkffintech.viewmodel.login
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
+import com.skosc.tkffintech.misc.Trigger
 import com.skosc.tkffintech.viewmodel.RxViewModel
 
 
 abstract class LoginViewModel : RxViewModel() {
     enum class LoginError { UNKNOWN, WRONG_CREDENTIALS }
-    sealed class Status {
-        object Waiting : Status()
-        object InProgress : Status()
-        object Success : Status()
-        data class Error(val error: LoginError) : Status()
-    }
+    data class Error(val error: LoginError, @StringRes val text: Int)
 
-    abstract val status: LiveData<Status>
     abstract fun login(email: String, password: String)
+
+    abstract val dataIsLoading: LiveData<Boolean>
+    abstract val error: LiveData<Error?>
+    abstract val navigateToMain: Trigger
 }

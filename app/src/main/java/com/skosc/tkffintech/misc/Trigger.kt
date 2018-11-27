@@ -8,9 +8,7 @@ import androidx.lifecycle.Observer
  * Represents lifecycle aware relation: event <-> observer
  */
 class Trigger {
-    private val livedata = MutableLiveData<Long>().apply {
-        value = 0
-    }
+    private val livedata = MutableLiveData<Long>()
 
     /**
      * Register observer
@@ -23,6 +21,6 @@ class Trigger {
      * Fire event to observers
      */
     fun fire() {
-        livedata.value = livedata.value!!.inc()
+        livedata.value = livedata.value?.inc() ?: 0
     }
 }
