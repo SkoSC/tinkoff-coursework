@@ -17,5 +17,5 @@ interface CourseInfoDao {
     fun all(): Single<List<RoomCourseInfo>>
 
     @Query("SELECT COUNT(*) FROM course_info")
-    fun count(): Observable<Int>
+    fun count(): Single<Int>
 }

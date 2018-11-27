@@ -52,11 +52,9 @@ class CourseDetailViewModelImpl(
         cdisp own loadHomeworks.gradesForCurrentUser(course)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { freshGrades -> grades.value = freshGrades }
-        cdisp own courseStatistics.bundled(course)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { stats ->
+                .subscribe { freshGrades ->
+                    grades.value = freshGrades
+                    val stats = courseStatistics.calculateStatistics(freshGrades)
                     statsHomeWorks.value = stats.homeworkRatio.max.toInt()
                     statsTests.value = stats.testRatio.max.toInt()
                     statsScore.value = stats.scoreRatio.actual
@@ -66,6 +64,7 @@ class CourseDetailViewModelImpl(
                     } else {
                         topIcon.value = R.drawable.ic_sad
                     }
+
                 }
     }
 }

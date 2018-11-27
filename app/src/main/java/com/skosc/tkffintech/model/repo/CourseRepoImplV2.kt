@@ -72,7 +72,6 @@ class CourseRepoImplV2(
         get() = dataFreshUtil.isExpired
                 .flatMap { isExpired ->
                     coursesDao.count()
-                            .first(0)
                             .map { count -> count == 0 || isExpired }
                 }
 

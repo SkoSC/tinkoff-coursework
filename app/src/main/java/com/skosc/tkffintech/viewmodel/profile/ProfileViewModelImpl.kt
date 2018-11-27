@@ -8,13 +8,16 @@ import com.skosc.tkffintech.misc.ProfileField
 import com.skosc.tkffintech.misc.Trigger
 import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.usecase.LoadCurrentUserInfo
+import com.skosc.tkffintech.usecase.LoadCurrentUserStatistics
 import com.skosc.tkffintech.usecase.PerformLogout
 import com.skosc.tkffintech.usecase.UpdateUserInfo
 import com.skosc.tkffintech.utils.extensions.own
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 class ProfileViewModelImpl(
         private val loadCurrentUserInfo: LoadCurrentUserInfo,
+        private val statistics: LoadCurrentUserStatistics,
         private val performLogout: PerformLogout,
         private val updateUserInfo: UpdateUserInfo
 ) : ProfileViewModel() {
@@ -65,6 +68,15 @@ class ProfileViewModelImpl(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     bindUserInfoToLiveData(it)
+                }
+
+        cdisp own statistics.bundled()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe { stats ->
+                    statsCourses.value = stats.coursesCount
+                    statsTests.value = stats.testsCount
+                    statsScore.value = stats.totalScore
                 }
     }
 

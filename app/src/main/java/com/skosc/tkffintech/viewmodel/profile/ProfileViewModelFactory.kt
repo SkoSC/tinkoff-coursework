@@ -5,6 +5,6 @@ import org.kodein.di.Kodein
 
 class ProfileViewModelFactory(kodein: Kodein) : TKFViewModelFactory<ProfileViewModel>(kodein) {
     override fun create(): ProfileViewModel {
-        return ProfileViewModelImpl(inject(), inject(), inject())
+        return ProfileViewModelImpl(inject(), inject(), inject(), inject())
     }
 }

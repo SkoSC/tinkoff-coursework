@@ -46,6 +46,24 @@ class HomeworkRepoImpl(
         }
     }
 
+    override fun grades(user: Long): Single<List<HomeworkWithGrades>> {
+        return gradesDao.gradesWithHomework(user).map {
+            transform(it)
+        }
+    }
+
+    override fun coursesCount(user: Long): Single<Int> {
+        return courseInfoDao.count()
+    }
+
+    override fun totalScore(user: Long): Single<Double> {
+        return gradesDao.totalScoreOfUser(user)
+    }
+
+    override fun totalTests(user: Long): Single<Int> {
+        return gradesDao.testGradesForUser(user).map { it.size }
+    }
+
     override fun gradesSum(course: String): Single<List<UserWithGradesSum>> {
         return gradesDao.gradesTotalForUsersWithCourse(course).mapEach(RoomUserWithGradesSum::convert)
     }

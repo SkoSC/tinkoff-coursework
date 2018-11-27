@@ -20,7 +20,7 @@ class LoadCourseStatistics(private val currentUserRepo: CurrentUserRepo, private
         return homeworkRepo.grades(user, course).map(this::calculateStatistics)
     }
 
-    private fun calculateStatistics(data: List<HomeworkWithGrades>): CourseStatistics {
+    fun calculateStatistics(data: List<HomeworkWithGrades>): CourseStatistics {
 
         val homeworkRatio = calculateHomeworkRatio(data)
         val testRatio = calculateTestsRatio(data)

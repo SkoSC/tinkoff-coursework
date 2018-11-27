@@ -28,10 +28,10 @@ abstract class GradesDao {
     abstract fun gradesTotalForUsersWithCourse(course: String): Single<List<RoomUserWithGradesSum>>
 
     @Query("SELECT SUM(grade.mark) FROM grade WHERE grade.user_id_fk == :user")
-    abstract fun totalScoreOfUser(user: Long): Observable<Double>
+    abstract fun totalScoreOfUser(user: Long): Single<Double>
 
     @Query("SELECT * FROM grade WHERE grade.user_id_fk == :user")
-    abstract fun allGradesOfUser(user: Long): Observable<List<RoomGrade>>
+    abstract fun allGradesOfUser(user: Long): Single<List<RoomGrade>>
 
 
     @Query("""
@@ -43,7 +43,7 @@ abstract class GradesDao {
 	        grade.user_id_fk == :user
         )
         """)
-    abstract fun testGradesForUser(user: Long): Observable<List<RoomGrade>>
+    abstract fun testGradesForUser(user: Long): Single<List<RoomGrade>>
 
     @Query("""
         SELECT grade.* FROM grade
@@ -65,4 +65,13 @@ abstract class GradesDao {
         WHERE user.student_id == :user AND homework.homework_id IS NOT NULL AND homework_task.id IS NOT NULL AND grade.grade_id IS NOT NULL
     """)
     abstract fun gradesWithHomework(user: Long, course: String): Single<List<RoomHomworkToTasks>>
+
+    @Query("""
+        SELECT homework.*, homework_task.*, grade.* FROM user
+        LEFT JOIN homework
+        LEFT JOIN homework_task ON homework_task.homework_id_fk == homework.homework_id
+        LEFT JOIN grade ON grade.user_id_fk == user.student_id AND grade.task_id_fk == homework_task.contest_id
+        WHERE user.student_id == :user AND homework.homework_id IS NOT NULL AND homework_task.id IS NOT NULL AND grade.grade_id IS NOT NULL
+    """)
+    abstract fun gradesWithHomework(user: Long): Single<List<RoomHomworkToTasks>>
 }
