@@ -4,7 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 
-fun <T: Any> LiveData<T>.observe(owner: LifecycleOwner, callback: (T) -> Unit) {
+fun <T : Any> LiveData<T>.observe(owner: LifecycleOwner, callback: (T) -> Unit) {
     this.observe(owner, Observer(callback))
 }
 

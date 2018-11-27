@@ -15,7 +15,6 @@ import com.skosc.tkffintech.ui.adapter.ProfileAttributeAdapter
 import com.skosc.tkffintech.ui.view.UserInfoSectionCard
 import com.skosc.tkffintech.utils.extensions.addViews
 import com.skosc.tkffintech.utils.extensions.getDrawableCompat
-import com.skosc.tkffintech.utils.formatting.NumberFormatter
 import com.skosc.tkffintech.viewmodel.profile.ProfileViewModel
 import kotlinx.android.synthetic.main.card_profile_stats.*
 import kotlinx.android.synthetic.main.fragment_profile.*

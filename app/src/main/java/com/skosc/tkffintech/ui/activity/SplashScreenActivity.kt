@@ -35,7 +35,7 @@ class SplashScreenActivity : TKFActivity() {
      * Navigates to [TKFActivity]
      * @return Closure navigating to passed activity
      */
-    private fun <T: TKFActivity> navigateTo(activity: KClass<T>) = {
+    private fun <T : TKFActivity> navigateTo(activity: KClass<T>) = {
         Waiter.wait(TRANSITION_DELAY_SECONDS, TimeUnit.SECONDS) {
             val intent = Intent(this, activity.java)
             startActivity(intent)
