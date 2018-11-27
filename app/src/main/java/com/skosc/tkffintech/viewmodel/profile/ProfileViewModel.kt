@@ -10,9 +10,9 @@ abstract class ProfileViewModel : RxViewModel() {
     abstract val fullName: LiveData<String>
     abstract val shortInfo: LiveData<String>
     abstract val avatarUrl: LiveData<String>
-    abstract val statsScore: LiveData<Double>
-    abstract val statsTests: LiveData<Int>
-    abstract val statsCourses: LiveData<Int>
+    abstract val statsScore: LiveData<String>
+    abstract val statsTests: LiveData<String>
+    abstract val statsCourses: LiveData<String>
     abstract val quote: LiveData<String>
 
     abstract val contactInfo: LiveData<Map<Int, String>>

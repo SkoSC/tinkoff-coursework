@@ -116,17 +116,17 @@ class ProfileFragment : TKFFragment() {
     private fun setupStatisticsCard() {
         card_stats_left_slot_text.text = getString(R.string.stats_score)
         vm.statsScore.observe(this, Observer { scoreSum ->
-            card_stats_left_slot.text = NumberFormatter.userScore(scoreSum)
+            card_stats_left_slot.text = scoreSum
         })
 
         card_stats_center_slot_text.text = getString(R.string.stats_tests)
         vm.statsTests.observe(this, Observer {
-            card_stats_center_slot.text = it.toString()
+            card_stats_center_slot.text = it
         })
 
         card_stats_right_slot_text.text = getString(R.string.stats_courses)
         vm.statsCourses.observe(this, Observer {
-            card_stats_right_slot.text = it.toString()
+            card_stats_right_slot.text = it
         })
     }
 

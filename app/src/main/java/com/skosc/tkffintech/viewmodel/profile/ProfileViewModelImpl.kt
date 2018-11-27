@@ -12,6 +12,7 @@ import com.skosc.tkffintech.usecase.LoadCurrentUserStatistics
 import com.skosc.tkffintech.usecase.PerformLogout
 import com.skosc.tkffintech.usecase.UpdateUserInfo
 import com.skosc.tkffintech.utils.extensions.own
+import com.skosc.tkffintech.utils.formatting.NumberFormatter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -25,9 +26,9 @@ class ProfileViewModelImpl(
     override val fullName: MutableLiveData<String> = MutableLiveData()
     override val shortInfo: MutableLiveData<String> = MutableLiveData()
     override val avatarUrl: MutableLiveData<String> = MutableLiveData()
-    override val statsScore: MutableLiveData<Double> = MutableLiveData()
-    override val statsTests: MutableLiveData<Int> = MutableLiveData()
-    override val statsCourses: MutableLiveData<Int> = MutableLiveData()
+    override val statsScore: MutableLiveData<String> = MutableLiveData()
+    override val statsTests: MutableLiveData<String> = MutableLiveData()
+    override val statsCourses: MutableLiveData<String> = MutableLiveData()
     override val quote: MutableLiveData<String> = MutableLiveData()
 
     override val contactInfo: MutableLiveData<Map<Int, String>> = MutableLiveData()
@@ -74,9 +75,9 @@ class ProfileViewModelImpl(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { stats ->
-                    statsCourses.value = stats.coursesCount
-                    statsTests.value = stats.testsCount
-                    statsScore.value = stats.totalScore
+                    statsCourses.value = "${stats.coursesCount}+"
+                    statsTests.value = "${stats.testsCount}+"
+                    statsScore.value = "${NumberFormatter.userScore(stats.totalScore)}+"
                 }
     }
 
