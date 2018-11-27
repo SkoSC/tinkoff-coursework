@@ -8,6 +8,10 @@ import com.skosc.tkffintech.viewmodel.splash.SplashScreenViewModel
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 
+/**
+ * Screen that is shown to user, when he opens application with 'cold' start.
+ * Provides no useful features to user, but allows internal work to be done silently.
+ */
 class SplashScreenActivity : TKFActivity() {
     companion object {
         private const val TRANSITION_DELAY_SECONDS = 1L
