@@ -38,7 +38,7 @@ class ProfileViewModelImpl(
     override val dataUpdated: Trigger = Trigger()
 
     private val bindUserInfoToLiveData: (UserInfo) -> Unit = { info ->
-        dataUpdated.trigger()
+        dataUpdated.fire()
         fullName.value = "${info.firstName} ${info.lastName}"
         shortInfo.value = info.email
         avatarUrl.value = "https://fintech.tinkoff.ru${info.avatar}"

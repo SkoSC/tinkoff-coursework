@@ -22,7 +22,7 @@ class Trigger {
     /**
      * Fire event to observers
      */
-    fun trigger() {
+    fun fire() {
         livedata.value = livedata.value!!.inc()
     }
 }
