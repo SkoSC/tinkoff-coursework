@@ -12,14 +12,16 @@ abstract class TKFFragment : Fragment() {
     }
 
     fun <T : ViewModel> getViewModel(cls: KClass<T>): T {
-        if (activity !is TKFActivity) throw IllegalStateException(ACTIVITY_NOT_ATTACHED)
-        val tkfActivity = activity as TKFActivity
         return tkfActivity.getViewModel(cls)
     }
 
     fun <T : ViewModel> getViewModel(cls: KClass<T>, args: ViewModelArgs): T {
-        if (activity !is TKFActivity) throw IllegalStateException(ACTIVITY_NOT_ATTACHED)
-        val tkfActivity = activity as TKFActivity
         return tkfActivity.getViewModel(cls, args)
     }
+
+    private val tkfActivity: TKFActivity
+        get() {
+            if (activity !is TKFActivity) throw IllegalStateException(ACTIVITY_NOT_ATTACHED)
+            return activity as TKFActivity
+        }
 }
