@@ -148,7 +148,7 @@ val useCaseModule = Kodein.DefaultModule("user-case") {
     bind<LogoutBomb>() with provider { LogoutBomb(instance(), listOf(instance("timers"), instance("user-info"))) }
     bind<LoadEvents>() with provider { LoadEvents(instance(), instance("timers")) }
     bind<SearchForEvent>() with provider { SearchForEvent(instance()) }
-    bind<LoginUser>() with provider { LoginUser(instance()) }
+    bind<LoginUser>() with provider { LoginUser(instance(), instance(), instance()) }
     bind<IsCurrentUserLoggedIn>() with provider { IsCurrentUserLoggedIn(instance()) }
     bind<LoadCurrentUserInfo>() with provider { LoadCurrentUserInfo(instance()) }
     bind<PerformLogout>() with provider { PerformLogout(instance(), instance()) }
