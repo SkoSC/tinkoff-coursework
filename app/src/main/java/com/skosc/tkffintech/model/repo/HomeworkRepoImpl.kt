@@ -12,6 +12,7 @@ import com.skosc.tkffintech.model.room.HomeworkDao
 import com.skosc.tkffintech.model.room.UserDao
 import com.skosc.tkffintech.model.room.model.*
 import com.skosc.tkffintech.model.service.NetworkInfoService
+import com.skosc.tkffintech.model.webservice.model.GradesResp
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
 import com.skosc.tkffintech.utils.extensions.extractUpdateResult
@@ -89,7 +90,7 @@ class HomeworkRepoImpl(
     }
 
     // TODO Refactor
-    private fun saveData(course: String, resp: Response<List<TinkoffGradesApi.GradesResp>>) {
+    private fun saveData(course: String, resp: Response<List<GradesResp>>) {
         val nextUpdateTime = DateTime.now().plusSeconds(UPDATE_TIME_POLITIC_SECONDS)
         dataRefresh[course]!!.rewind(nextUpdateTime)
 

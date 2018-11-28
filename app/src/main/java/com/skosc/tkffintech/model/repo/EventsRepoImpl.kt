@@ -9,6 +9,7 @@ import com.skosc.tkffintech.model.entity.ExpirationTimer
 import com.skosc.tkffintech.model.room.EventInfoDao
 import com.skosc.tkffintech.model.room.model.RoomEventInfo
 import com.skosc.tkffintech.model.service.NetworkInfoService
+import com.skosc.tkffintech.model.webservice.model.EventBucketResp
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.utils.extensions.extractUpdateResult
 import io.reactivex.Observable
@@ -39,12 +40,12 @@ class EventsRepoImpl(
                 }.map(Response<*>::extractUpdateResult)
     }
 
-    private fun saveEventsToDb(events: Response<TinkoffEventsApi.EventBucket>) {
+    private fun saveEventsToDb(events: Response<EventBucketResp>) {
         if (!events.isSuccessful) {
             throw IllegalStateException("Network request failed")
         }
         dao.deleteAll()
-        val eventBucket = events.body() ?: TinkoffEventsApi.EventBucket()
+        val eventBucket = events.body() ?: EventBucketResp()
         val active = eventBucket.active.map { RoomEventInfo.from(it, true) }
         val archive = eventBucket.archive.map { RoomEventInfo.from(it, false) }
         dao.insertAll(active + archive)

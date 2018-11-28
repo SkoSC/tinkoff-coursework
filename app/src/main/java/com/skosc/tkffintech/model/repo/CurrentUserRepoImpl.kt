@@ -6,7 +6,7 @@ import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.misc.UpdateResult
 import com.skosc.tkffintech.model.dao.SecurityDao
 import com.skosc.tkffintech.model.dao.UserInfoDao
-import com.skosc.tkffintech.model.webservice.TinkoffError
+import com.skosc.tkffintech.model.webservice.model.TinkoffError
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.utils.extensions.extractUpdateResult
 import com.skosc.tkffintech.utils.extensions.own
