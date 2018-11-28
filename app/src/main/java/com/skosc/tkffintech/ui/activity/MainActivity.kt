@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.contracts.SearchViewProvider
+import com.skosc.tkffintech.utils.extensions.navigateTo
 import com.skosc.tkffintech.viewmodel.main.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -21,7 +22,7 @@ class MainActivity : TKFActivity(), SearchViewProvider {
 
     val vm by lazy { getViewModel(MainActivityViewModel::class) }
 
-    val navController by lazy { findNavController(nav_host_fragment) }
+    private val navController by lazy { findNavController(nav_host_fragment) }
     private var searchMenuItem: MenuItem? = null
 
     override val searchView: SearchView
@@ -33,16 +34,13 @@ class MainActivity : TKFActivity(), SearchViewProvider {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        setupNavigationBindings()
+
+        vm.navigateToSplash.observe(this, navigateTo(SplashScreenActivity::class))
+    }
+
+    private fun setupNavigationBindings() {
         NavigationUI.setupWithNavController(navigation, navController)
-
-        vm.isLoggedIn.observe(this, Observer { isLoggedIn ->
-            if (!isLoggedIn) {
-                startActivity(Intent(this, LoginActivity::class.java))
-            }
-
-
-        })
-
         navController.addOnNavigatedListener { _, destination ->
             updateSearchBarVisibility(destination)
             updateAppBarVisibility(destination)
@@ -93,6 +91,8 @@ class MainActivity : TKFActivity(), SearchViewProvider {
     private fun updateBackButtonVisibility(destination: NavDestination? = navController.currentDestination) {
         val isEnabled = when (destination?.id ?: UNKNOWN_DESTINATION) {
             R.id.navigation_event_list -> true
+            R.id.navigation_course_detail -> true
+            R.id.navigation_course_grades -> true
             else -> false
         }
 

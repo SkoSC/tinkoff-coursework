@@ -7,6 +7,7 @@ import android.view.View
 import androidx.core.net.toUri
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.utils.GlobalConstants
+import com.skosc.tkffintech.utils.extensions.navigateTo
 import com.skosc.tkffintech.utils.extensions.observe
 import com.skosc.tkffintech.viewmodel.login.LoginViewModel
 import kotlinx.android.synthetic.main.activity_login.*
@@ -28,7 +29,7 @@ class LoginActivity : TKFActivity() {
     private fun bindDataToViewModel() {
         vm.dataIsLoading.observe(this, this::updateLoginButton)
         vm.error.observe(this, this::showError)
-        vm.navigateToMain.observe(this, this::navigateToMainActivity)
+        vm.navigateToMain.observe(this, navigateTo(MainActivity::class))
     }
 
     private fun setupInteractionCallbacks() {
@@ -81,10 +82,5 @@ class LoginActivity : TKFActivity() {
                 .setMessage(error.text)
                 .create()
                 .show()
-    }
-
-    private fun navigateToMainActivity() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
     }
 }
