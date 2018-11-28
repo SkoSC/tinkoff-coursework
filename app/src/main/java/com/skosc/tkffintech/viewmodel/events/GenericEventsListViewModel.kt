@@ -3,7 +3,7 @@ package com.skosc.tkffintech.viewmodel.events
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.EventInfo
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.utils.extensions.own
 import io.reactivex.Observable
 import io.reactivex.Single

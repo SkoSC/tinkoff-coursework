@@ -7,7 +7,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.misc.Ratio
+import com.skosc.tkffintech.misc.model.Ratio
 import com.skosc.tkffintech.ui.model.CourseDetailModel
 import com.skosc.tkffintech.utils.extensions.ratio
 import com.skosc.tkffintech.utils.formatting.NumberFormatter

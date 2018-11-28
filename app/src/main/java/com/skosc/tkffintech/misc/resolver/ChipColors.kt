@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.misc
+package com.skosc.tkffintech.misc.resolver
 
 import androidx.annotation.ColorRes
 import com.skosc.tkffintech.R

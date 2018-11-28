@@ -4,7 +4,7 @@ import com.skosc.tkffintech.entities.HomeworkGrade
 import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.entities.HomeworkTask
 import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
-import com.skosc.tkffintech.misc.Ratio
+import com.skosc.tkffintech.misc.model.Ratio
 import com.skosc.tkffintech.utils.formatting.DateTimeFormatter
 
 sealed class TaskAdapterItem {

@@ -2,7 +2,7 @@ package com.skosc.tkffintech.model.repo
 
 import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
 import com.skosc.tkffintech.entities.composite.UserWithGradesSum
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import io.reactivex.Single
 
 interface HomeworkRepo {

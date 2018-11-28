@@ -3,7 +3,7 @@ package com.skosc.tkffintech.model.repo
 import android.content.SharedPreferences
 import com.skosc.tkffintech.entities.CourseInfo
 import com.skosc.tkffintech.entities.User
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.model.entity.ExpirationTimer
 import com.skosc.tkffintech.model.room.CourseInfoDao
 import com.skosc.tkffintech.model.room.UserDao

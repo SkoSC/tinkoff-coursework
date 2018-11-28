@@ -1,4 +1,4 @@
-package com.skosc.tkffintech.misc
+package com.skosc.tkffintech.misc.model
 
 import kotlin.math.sqrt
 

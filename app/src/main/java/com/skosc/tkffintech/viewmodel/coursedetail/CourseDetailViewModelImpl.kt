@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.usecase.LoadCourseStatistics
 import com.skosc.tkffintech.usecase.LoadHomeworks
 import com.skosc.tkffintech.utils.extensions.own

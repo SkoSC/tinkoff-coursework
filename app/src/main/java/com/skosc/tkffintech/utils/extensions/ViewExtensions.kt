@@ -3,7 +3,7 @@ package com.skosc.tkffintech.utils.extensions
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import com.skosc.tkffintech.misc.Ratio
+import com.skosc.tkffintech.misc.model.Ratio
 
 /**
  * Adds multiple [View]s to a single [ViewGroup]

@@ -3,7 +3,7 @@ package com.skosc.tkffintech.model.repo
 import com.google.gson.Gson
 import com.skosc.tkffintech.entities.UserCredentials
 import com.skosc.tkffintech.entities.UserInfo
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.model.dao.SecurityDao
 import com.skosc.tkffintech.model.dao.UserInfoDao
 import com.skosc.tkffintech.model.webservice.model.TinkoffError

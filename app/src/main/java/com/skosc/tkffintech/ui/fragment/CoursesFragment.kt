@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.ui.adapter.CoursesDetailedRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.CoursesPreviewRecyclerAdapter
 import com.skosc.tkffintech.ui.model.CourseDetailModel

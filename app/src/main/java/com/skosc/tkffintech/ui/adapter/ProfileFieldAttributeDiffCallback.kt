@@ -1,7 +1,7 @@
 package com.skosc.tkffintech.ui.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.skosc.tkffintech.misc.ProfileField
+import com.skosc.tkffintech.misc.model.ProfileField
 
 object ProfileFieldAttributeDiffCallback : DiffUtil.ItemCallback<ProfileField>() {
     override fun areItemsTheSame(oldItem: ProfileField, newItem: ProfileField): Boolean {

@@ -1,6 +1,6 @@
 package com.skosc.tkffintech.ui.model
 
-import com.skosc.tkffintech.misc.Ratio
+import com.skosc.tkffintech.misc.model.Ratio
 
 data class CourseDetailModel(
         val title: String = "",

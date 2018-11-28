@@ -1,6 +1,6 @@
 package com.skosc.tkffintech.utils.extensions
 
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import retrofit2.Response
 
 fun Response<*>.extractUpdateResult(): UpdateResult {

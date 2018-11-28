@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.misc.EventTypeIconFinder
+import com.skosc.tkffintech.misc.resolver.EventTypeIconFinder
 import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.utils.extensions.getColorCompat
 import com.skosc.tkffintech.utils.extensions.getDrawableCompat

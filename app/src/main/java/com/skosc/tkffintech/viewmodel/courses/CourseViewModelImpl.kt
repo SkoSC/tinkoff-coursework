@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.CourseInfo
 import com.skosc.tkffintech.entities.CourseStatistics
 import com.skosc.tkffintech.entities.composite.CourseWithStatistics
-import com.skosc.tkffintech.misc.Ratio
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.Ratio
+import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.usecase.LoadCourseStatistics
 import com.skosc.tkffintech.usecase.LoadCourses
 import com.skosc.tkffintech.utils.extensions.own

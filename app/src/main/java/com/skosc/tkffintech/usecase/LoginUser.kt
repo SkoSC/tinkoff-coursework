@@ -1,6 +1,6 @@
 package com.skosc.tkffintech.usecase
 
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.utils.extensions.mapEach
 import com.skosc.tkffintech.utils.logging.LoggerProvider

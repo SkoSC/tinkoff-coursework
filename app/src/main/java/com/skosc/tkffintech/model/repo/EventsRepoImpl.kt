@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 import com.skosc.tkffintech.entities.EventInfo
 import com.skosc.tkffintech.misc.SQLSearchQueryMaker
 import com.skosc.tkffintech.misc.SearchQueryMaker
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.model.entity.ExpirationTimer
 import com.skosc.tkffintech.model.room.EventInfoDao
 import com.skosc.tkffintech.model.room.model.RoomEventInfo

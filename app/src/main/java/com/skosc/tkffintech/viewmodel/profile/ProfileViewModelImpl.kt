@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.ProfileAttributes
 import com.skosc.tkffintech.entities.UserInfo
-import com.skosc.tkffintech.misc.ProfileField
+import com.skosc.tkffintech.misc.model.ProfileField
 import com.skosc.tkffintech.misc.Trigger
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.usecase.LoadCurrentUserInfo
 import com.skosc.tkffintech.usecase.LoadCurrentUserStatistics
 import com.skosc.tkffintech.usecase.PerformLogout

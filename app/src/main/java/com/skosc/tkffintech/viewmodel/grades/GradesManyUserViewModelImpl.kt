@@ -3,7 +3,7 @@ package com.skosc.tkffintech.viewmodel.grades
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.composite.UserWithGradesSum
-import com.skosc.tkffintech.misc.ItemSorter
+import com.skosc.tkffintech.misc.model.ItemSorter
 import com.skosc.tkffintech.usecase.LoadCourseStatistics
 import com.skosc.tkffintech.usecase.LoadHomeworks
 import com.skosc.tkffintech.utils.extensions.own

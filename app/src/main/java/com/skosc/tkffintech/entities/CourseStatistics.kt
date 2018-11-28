@@ -1,6 +1,6 @@
 package com.skosc.tkffintech.entities
 
-import com.skosc.tkffintech.misc.Ratio
+import com.skosc.tkffintech.misc.model.Ratio
 
 data class CourseStatistics(
         val homeworkRatio: Ratio,

@@ -2,7 +2,7 @@ package com.skosc.tkffintech.usecase
 
 import android.content.SharedPreferences
 import com.skosc.tkffintech.entities.EventInfo
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.model.entity.ExpirationTimer
 import com.skosc.tkffintech.model.repo.EventsRepo
 import io.reactivex.Observable

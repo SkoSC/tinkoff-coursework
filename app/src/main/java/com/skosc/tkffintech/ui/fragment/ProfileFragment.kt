@@ -10,7 +10,7 @@ import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.misc.ProfileFieldFactory
+import com.skosc.tkffintech.misc.model.ProfileFieldFactory
 import com.skosc.tkffintech.ui.adapter.ProfileAttributeAdapter
 import com.skosc.tkffintech.ui.view.UserInfoSectionCard
 import com.skosc.tkffintech.utils.extensions.addViews

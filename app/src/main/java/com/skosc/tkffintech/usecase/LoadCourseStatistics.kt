@@ -5,7 +5,7 @@ import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.entities.HomeworkTaskType
 import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
 import com.skosc.tkffintech.entities.composite.UserWithGradesSum
-import com.skosc.tkffintech.misc.Ratio
+import com.skosc.tkffintech.misc.model.Ratio
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.model.repo.HomeworkRepo
 import io.reactivex.Single

@@ -1,7 +1,7 @@
 package com.skosc.tkffintech.usecase
 
 import com.skosc.tkffintech.entities.UserInfo
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import io.reactivex.Single
 

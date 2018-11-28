@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.EventInfo
-import com.skosc.tkffintech.misc.UpdateResult
+import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.ui.adapter.ArchiveEventsRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.GenericRecyclerAdapter
 import com.skosc.tkffintech.ui.adapter.OnGoingEventsRecyclerAdapter

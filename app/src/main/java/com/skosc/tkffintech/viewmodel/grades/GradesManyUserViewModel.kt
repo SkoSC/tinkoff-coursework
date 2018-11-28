@@ -2,7 +2,7 @@ package com.skosc.tkffintech.viewmodel.grades
 
 import androidx.lifecycle.LiveData
 import com.skosc.tkffintech.entities.composite.UserWithGradesSum
-import com.skosc.tkffintech.misc.ItemSorter
+import com.skosc.tkffintech.misc.model.ItemSorter
 import com.skosc.tkffintech.viewmodel.RxViewModel
 
 abstract class GradesManyUserViewModel : RxViewModel() {

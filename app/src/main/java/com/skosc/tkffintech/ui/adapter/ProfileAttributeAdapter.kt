@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.misc.ProfileField
+import com.skosc.tkffintech.misc.model.ProfileField
 
 class ProfileAttributeAdapter : RecyclerView.Adapter<ProfileAttributeAdapter.ViewHolder>() {
     private val differ = AsyncListDiffer(this, ProfileFieldAttributeDiffCallback)
