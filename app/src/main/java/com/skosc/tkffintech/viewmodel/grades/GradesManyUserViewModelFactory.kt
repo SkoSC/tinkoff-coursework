@@ -5,6 +5,8 @@ import com.skosc.tkffintech.viewmodel.ViewModelArgs
 import org.kodein.di.Kodein
 
 class GradesManyUserViewModelFactory(kodein: Kodein, private val args: ViewModelArgs) : TKFViewModelFactory<GradesManyUserViewModel>(kodein) {
+    override val key: String = args.hashCode().toString()
+
     override fun create(): GradesManyUserViewModel {
         return GradesManyUserViewModelImpl(args["course"]!!, inject(), inject())
     }

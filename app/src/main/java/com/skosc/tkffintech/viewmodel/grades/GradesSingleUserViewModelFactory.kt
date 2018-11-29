@@ -5,6 +5,8 @@ import com.skosc.tkffintech.viewmodel.ViewModelArgs
 import org.kodein.di.Kodein
 
 class GradesSingleUserViewModelFactory(kodein: Kodein, private val args: ViewModelArgs) : TKFViewModelFactory<GradesSingleUserViewModel>(kodein) {
+    override val key: String = args.hashCode().toString()
+
     override fun create(): GradesSingleUserViewModel {
         return GradesSingleUserViewModelImpl(args["course"]!!, inject(), inject())
     }

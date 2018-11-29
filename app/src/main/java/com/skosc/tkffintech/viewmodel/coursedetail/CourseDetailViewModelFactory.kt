@@ -7,6 +7,8 @@ import org.kodein.di.Kodein
 class CourseDetailViewModelFactory(kodein: Kodein, private val args: ViewModelArgs)
     : TKFViewModelFactory<CourseDetailViewModel>(kodein) {
 
+    override val key: String = args.hashCode().toString()
+
     private val course
         get() = args[CourseDetailViewModel.COURSE_ARG]
                 ?: throw IllegalStateException("No argument: 'course' passed to factory")
