@@ -10,6 +10,7 @@ typealias ViewModelArgs = Map<String, String>
 
 abstract class TKFViewModelFactory<T : ViewModel>(protected val kodein: Kodein) : ViewModelProvider.Factory {
     abstract fun create(): T
+    open val key: String = ""
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         @Suppress("UNCHECKED_CAST")

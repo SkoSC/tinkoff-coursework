@@ -14,6 +14,8 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.skosc.tkffintech.R
+import com.skosc.tkffintech.entities.GeoAddress
+import com.skosc.tkffintech.utils.extensions.observe
 import com.skosc.tkffintech.utils.formatting.DateTimeFormatter
 import com.skosc.tkffintech.viewmodel.eventdetail.EventDetailViewModel
 import kotlinx.android.synthetic.main.fragment_event_detail.*
@@ -25,16 +27,15 @@ class EventDetailFragment : TKFFragment() {
         const val DEFAULT_MAP_PADDING = 10
     }
 
-    private val vm by lazy { getViewModel(EventDetailViewModel::class) }
+    private var modelHid: Long = 0
+
+    private lateinit var vm: EventDetailViewModel
+
     private val geocoder by lazy { Geocoder(context) }
 
-    private var modelHid: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            modelHid = it.getLong(ARG_MODEL)
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -47,9 +48,15 @@ class EventDetailFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
+
+        arguments?.let {
+            vm = getViewModel(EventDetailViewModel::class, mapOf(
+                    EventDetailViewModel.ARG_HID to it.getLong(ARG_MODEL).toString()
+            ))
+        }
+
         event_detail_map.onStart()
 
-        vm.init(modelHid)
         vm.title.observe(this, Observer {
             event_detail_title.text = it
         })
@@ -63,15 +70,18 @@ class EventDetailFragment : TKFFragment() {
             event_detail_short_info.text = "$from - $to"
         })
 
-        vm.place.observe(this, Observer { place ->
+        vm.place.observe(this) { place ->
             event_detail_place.text = place
-            event_detail_map.getMapAsync(onMapReady(place))
-        })
+        }
+
+        vm.addresses.observe(this) { addresses ->
+            event_detail_map.getMapAsync(onMapReady(addresses))
+        }
     }
 
-    private fun onMapReady(places: String) = { map: GoogleMap ->
+    private fun onMapReady(addresses: List<GeoAddress>) = { map: GoogleMap ->
         try {
-            setupMap(map, places)
+            setupMap(map, addresses)
         } catch (e: Exception) {
             fallbackSetupMap()
         }
@@ -81,27 +91,25 @@ class EventDetailFragment : TKFFragment() {
         event_detail_place_card.visibility = View.GONE
     }
 
-    private fun setupMap(map: GoogleMap, places: String) {
+    private fun setupMap(map: GoogleMap, addresses: List<GeoAddress>) {
         data class Location(val title: String, val latLng: LatLng)
         map.setOnMarkerClickListener { true }
 
         val latLngBounds = LatLngBounds.Builder()
 
-        val addresses = places.split(";", ",", "и")
-                .map { rowPlace -> rowPlace.trim().toLowerCase() }
-                .map { name -> geocoder.getFromLocationName(name, 1) }
-                .filter { addresses -> !addresses.isEmpty() }
-                .map { addresses -> addresses.first() }
-                .map { address -> Location(address.featureName, LatLng(address.latitude, address.longitude)) }
-        addresses.forEach { latLngBounds.include(it.latLng) }
-        addresses.forEach {
+        val resolvedAddresses = addresses
+                .map { address -> Location(address.title, LatLng(address.lat, address.lon)) }
+
+        resolvedAddresses.forEach { latLngBounds.include(it.latLng) }
+
+        resolvedAddresses.forEach {
             map.addMarker(MarkerOptions()
                     .position(it.latLng)
                     .title(it.title)
             )
         }
 
-        if (!addresses.isEmpty()) {
+        if (!resolvedAddresses.isEmpty()) {
             val bounds = latLngBounds.build()
 
             val cu = CameraUpdateFactory.newLatLngBounds(bounds, DEFAULT_MAP_PADDING)

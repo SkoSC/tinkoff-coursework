@@ -16,6 +16,7 @@ import com.skosc.tkffintech.model.dao.UserInfoDao
 import com.skosc.tkffintech.model.dao.UserInfoDaoImpl
 import com.skosc.tkffintech.model.repo.*
 import com.skosc.tkffintech.model.room.*
+import com.skosc.tkffintech.model.service.GeoSearcher
 import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
@@ -75,6 +76,7 @@ fun systemService(ctx: Context) = Kodein.DefaultModule("system-service") {
     bind<SharedPreferences>("timers") with singleton { ctx.getSharedPreferences("tkf-timers", Context.MODE_PRIVATE) }
     bind<SharedPreferences>("user-info") with singleton { ctx.getSharedPreferences("tkf-user-info", Context.MODE_PRIVATE) }
     bind<NetworkInfoService>() with singleton { NetworkInfoService(ctx) }
+    bind<GeoSearcher>() with singleton { GeoSearcher(ctx) }
 }
 
 val daoModule = Kodein.DefaultModule("dao") {
@@ -87,7 +89,9 @@ val viewModelFactoryModule = Kodein.DefaultModule("view-model") {
     bind<MainActivityViewModelFactory>(MainActivityViewModel::class) with provider { MainActivityViewModelFactory(kodein) }
     bind<SplashScreenViewModelFactory>(SplashScreenViewModel::class) with provider { SplashScreenViewModelFactory(kodein) }
     bind<ProfileViewModelFactory>(ProfileViewModel::class) with provider { ProfileViewModelFactory(kodein) }
-    bind<EventDetailViewModelFactory>(EventDetailViewModel::class) with provider { EventDetailViewModelFactory(kodein) }
+    bind<EventDetailViewModelFactory>(EventDetailViewModel::class) with factory { args: ViewModelArgs ->
+        EventDetailViewModelFactory(kodein, args)
+    }
     bind<EventsListViewModelOngoingFactory>(OngoingEventsListViewModel::class) with provider {
         EventsListViewModelOngoingFactory(kodein)
     }
@@ -158,4 +162,5 @@ val useCaseModule = Kodein.DefaultModule("user-case") {
     bind<LoadCourseStatistics>() with provider { LoadCourseStatistics(instance(), instance()) }
     bind<UpdateUserInfo>() with provider { UpdateUserInfo(instance()) }
     bind<LoadCurrentUserStatistics>() with provider { LoadCurrentUserStatistics(instance(), instance()) }
+    bind<SearchLocation>() with provider { SearchLocation(instance()) }
 }

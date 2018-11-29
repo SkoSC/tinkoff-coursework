@@ -3,11 +3,11 @@ package com.skosc.tkffintech.model.service
 import android.content.Context
 import android.net.ConnectivityManager
 import android.util.Log
+import com.skosc.tkffintech.utils.logging.LoggerProvider
 
 class NetworkInfoService(ctx: Context) {
-    companion object {
-        private const val TAG = "TKF_SERVICE_NETWORK_INFO"
-    }
+
+    private val logger = LoggerProvider.get("NETWORK_INFO")
 
     private val connectivityService: ConnectivityManager = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
@@ -16,7 +16,7 @@ class NetworkInfoService(ctx: Context) {
      */
     fun checkConnection(): Boolean {
         val networkInfo = connectivityService.activeNetworkInfo
-        Log.w(TAG, "Network connection date: is_connected=${networkInfo.isConnected}")
+        logger.debug("Network connection date: is_connected=${networkInfo.isConnected}")
         return networkInfo.isConnected
     }
 }
