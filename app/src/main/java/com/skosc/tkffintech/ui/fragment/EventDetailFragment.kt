@@ -1,6 +1,7 @@
 package com.skosc.tkffintech.ui.fragment
 
 
+import android.annotation.SuppressLint
 import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,7 +25,8 @@ import kotlinx.android.synthetic.main.fragment_event_detail.*
 class EventDetailFragment : TKFFragment() {
     companion object {
         const val ARG_MODEL = "model_hid"
-        const val DEFAULT_MAP_PADDING = 10
+        const val DEFAULT_MAP_PADDING_MULTI = 10
+        const val DEFAULT_MAP_ZOOM_SINGLE = 12f
     }
 
     private var modelHid: Long = 0
@@ -48,6 +50,7 @@ class EventDetailFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
+        event_detail_map.onStart()
 
         arguments?.let {
             vm = getViewModel(EventDetailViewModel::class, mapOf(
@@ -55,20 +58,14 @@ class EventDetailFragment : TKFFragment() {
             ))
         }
 
-        event_detail_map.onStart()
-
         vm.title.observe(this, Observer {
             event_detail_title.text = it
         })
 
-        vm.description.observe(this, Observer {
+        vm.description.observe(this) {
             event_detail_description.text = it
-        })
-        vm.eventDates.observe(this, Observer {
-            val from = DateTimeFormatter.DATE_FORMATTER_SHORT_EU.print(it.from)
-            val to = DateTimeFormatter.DATE_FORMATTER_SHORT_EU.print(it.to)
-            event_detail_short_info.text = "$from - $to"
-        })
+        }
+        vm.eventDates.observe(this, this::showEventDates)
 
         vm.place.observe(this) { place ->
             event_detail_place.text = place
@@ -87,35 +84,55 @@ class EventDetailFragment : TKFFragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun showEventDates(eventDates: EventDetailViewModel.EventDates) {
+        val from = DateTimeFormatter.DATE_FORMATTER_SHORT_EU.print(eventDates.from)
+        val to = DateTimeFormatter.DATE_FORMATTER_SHORT_EU.print(eventDates.to)
+        event_detail_short_info.text = "$from - $to"
+    }
+
     private fun fallbackSetupMap() {
         event_detail_place_card.visibility = View.GONE
     }
 
     private fun setupMap(map: GoogleMap, addresses: List<GeoAddress>) {
-        data class Location(val title: String, val latLng: LatLng)
         map.setOnMarkerClickListener { true }
 
+        if (addresses.size > 1) {
+            showMultipleLocations(map, addresses)
+        } else if (addresses.size == 1) {
+            showSingleLocation(map, addresses.first())
+        }
+    }
+
+    private fun showMultipleLocations(map: GoogleMap, addresses: List<GeoAddress>) {
         val latLngBounds = LatLngBounds.Builder()
+        addresses.forEach { latLngBounds.include(it.latlon) }
 
-        val resolvedAddresses = addresses
-                .map { address -> Location(address.title, LatLng(address.lat, address.lon)) }
-
-        resolvedAddresses.forEach { latLngBounds.include(it.latLng) }
-
-        resolvedAddresses.forEach {
+        addresses.forEach {
             map.addMarker(MarkerOptions()
-                    .position(it.latLng)
+                    .position(it.latlon)
                     .title(it.title)
             )
         }
 
-        if (!resolvedAddresses.isEmpty()) {
-            val bounds = latLngBounds.build()
+        val bounds = latLngBounds.build()
 
-            val cu = CameraUpdateFactory.newLatLngBounds(bounds, DEFAULT_MAP_PADDING)
-            map.animateCamera(cu)
+        val cu = CameraUpdateFactory.newLatLngBounds(bounds, DEFAULT_MAP_PADDING_MULTI)
+        map.animateCamera(cu)
+    }
 
-        }
+    private fun showSingleLocation(map: GoogleMap, address: GeoAddress) {
+        val latLng = address.latlon
+
+        map.addMarker(MarkerOptions()
+                .position(latLng)
+                .title(address.title)
+        )
+
+
+        val cu = CameraUpdateFactory.newLatLngZoom(latLng, DEFAULT_MAP_ZOOM_SINGLE)
+        map.animateCamera(cu)
     }
 
     override fun onStop() {
@@ -143,4 +160,5 @@ class EventDetailFragment : TKFFragment() {
         event_detail_map.onLowMemory()
     }
 
+    private val GeoAddress.latlon get() = LatLng(lat, lon)
 }
