@@ -20,6 +20,10 @@ abstract class UserDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract fun insertCourseUserRelations(realtions: List<RoomUserCourseRelation>): LongArray
 
-    @Query("SELECT user.* FROM user JOIN  user_course_rel WHERE user_course_rel.course_url == :course AND user_course_rel.user_id == user.student_id")
+    @Query("""
+        SELECT user.* FROM user
+        JOIN  user_course_rel
+        WHERE user_course_rel.course_url == :course AND user_course_rel.user_id == user.student_id
+    """)
     abstract fun usersForCourse(course: String): Single<List<RoomUser>>
 }

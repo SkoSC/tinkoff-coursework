@@ -71,7 +71,7 @@ class CourseDetailFragment : TKFFragment() {
     private fun setupTopIcon() {
         course_detail_top_image.setOnClickListener {
             navController.navigate(R.id.action_navigation_course_grades, bundleOf(
-                    ARG_COURSE to course
+                    CourseGradesFragment.ARG_COURSE to course
             ))
         }
         vm.topIcon.observe(this, Observer {

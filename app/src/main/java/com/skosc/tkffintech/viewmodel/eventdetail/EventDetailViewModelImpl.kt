@@ -38,7 +38,8 @@ class EventDetailViewModelImpl(
     }
 
     private fun tokenizePlace(place: String): List<String> {
-        return place.split('.', ' ', ',')
+        return place.split('.', ' ', ',', 'и')
+                .filter { it.isNotBlank() }
                 .map { it.trim() }
     }
 }

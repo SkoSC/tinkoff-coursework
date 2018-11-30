@@ -15,23 +15,15 @@ class GradesSingleUserViewModelImpl(
         private val loadHomeworks: LoadHomeworks,
         private val loadUsers: LoadUsers
 ) : GradesSingleUserViewModel() {
-    private val gradesSubject = BehaviorSubject.create<List<HomeworkWithGrades>>()
-
     override val grades: MutableLiveData<List<HomeworkWithGrades>> = MutableLiveData()
     override val users: MutableLiveData<List<User>> = MutableLiveData()
 
     init {
-        cdisp own loadHomeworks.checkForUpdates(course).subscribe { success ->
-            cdisp own gradesSubject
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe { grades.value = it }
-
-            cdisp own loadUsers.loadUsersWithCourse(course)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe { freshUsers -> users.value = freshUsers }
-        }
+        cdisp own loadUsers.loadUsersWithCourse(course)
+                .subscribeOn(Schedulers.io())
+                .subscribe { freshUsers ->
+                    users.postValue(freshUsers)
+                }
     }
 
     override fun setUser(user: User) {
@@ -39,7 +31,7 @@ class GradesSingleUserViewModelImpl(
         cdisp own loadHomeworks.gradesForUser(user.id, course)
                 .subscribeOn(Schedulers.io())
                 .subscribe { data ->
-                    gradesSubject.onNext(data)
+                    grades.postValue(data)
                 }
     }
 }

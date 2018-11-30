@@ -27,7 +27,6 @@ class CourseRepoImplV2(
 ) : CourseRepo {
     companion object {
         private const val UPDATE_TIME_POLITIC_SECONDS = 60 * 60 * 12
-        private const val TAG = "TKF_REPO_COURSE"
     }
 
     private val dataFreshUtil = ExpirationTimer.create(timerSharedPreferences, "v2-course-data-refresh")

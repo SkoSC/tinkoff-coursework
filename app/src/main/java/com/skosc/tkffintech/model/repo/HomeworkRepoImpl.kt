@@ -12,9 +12,9 @@ import com.skosc.tkffintech.model.room.HomeworkDao
 import com.skosc.tkffintech.model.room.UserDao
 import com.skosc.tkffintech.model.room.model.*
 import com.skosc.tkffintech.model.service.NetworkInfoService
-import com.skosc.tkffintech.model.webservice.model.GradesResp
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
+import com.skosc.tkffintech.model.webservice.model.GradesResp
 import com.skosc.tkffintech.utils.extensions.extractUpdateResult
 import com.skosc.tkffintech.utils.extensions.mapEach
 import com.skosc.tkffintech.utils.extensions.own
@@ -42,9 +42,15 @@ class HomeworkRepoImpl(
     private val dataRefresh = HashMap<String, ExpirationTimer>()
 
     override fun grades(user: Long, course: String): Single<List<HomeworkWithGrades>> {
-        return gradesDao.gradesWithHomework(user, course).map {
-            transform(it)
+        return Single.fromCallable {
+            val a = gradesDao.gradesWithHomework(user, course)
+            a
         }
+                .doOnError { it }
+                .doOnSuccess { it }
+                .map {
+                    transform(it)
+                }
     }
 
     override fun grades(user: Long): Single<List<HomeworkWithGrades>> {
