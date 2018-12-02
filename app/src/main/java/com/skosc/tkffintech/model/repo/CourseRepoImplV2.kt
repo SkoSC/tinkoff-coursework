@@ -14,8 +14,8 @@ import com.skosc.tkffintech.model.webservice.model.ConnectionsResp
 import com.skosc.tkffintech.utils.extensions.extractUpdateResult
 import com.skosc.tkffintech.utils.extensions.mapEach
 import io.reactivex.Single
-import org.joda.time.DateTime
 import retrofit2.Response
+import java.util.concurrent.TimeUnit
 
 class CourseRepoImplV2(
         private val api: TinkoffCursesApi,
@@ -24,7 +24,7 @@ class CourseRepoImplV2(
         timerSharedPreferences: SharedPreferences
 ) : CourseRepo {
     companion object {
-        private const val UPDATE_TIME_POLITIC_SECONDS = 60 * 60 * 12
+        private const val UPDATE_TIME_POLITIC_SECONDS: Long = 60 * 60 * 12
     }
 
     private val dataFreshUtil = ExpirationTimer.create(timerSharedPreferences, "v2-course-data-refresh")
@@ -45,8 +45,7 @@ class CourseRepoImplV2(
     override fun tryForceRefresh(): Single<UpdateResult> {
         return api.connections()
                 .doAfterSuccess { events ->
-                    val nextUpdateTime = DateTime.now().plusSeconds(UPDATE_TIME_POLITIC_SECONDS)
-                    dataFreshUtil.rewind(nextUpdateTime)
+                    dataFreshUtil.rewindForward(UPDATE_TIME_POLITIC_SECONDS, TimeUnit.SECONDS)
                     saveCoursesToDb(events)
                 }.map(Response<*>::extractUpdateResult)
     }

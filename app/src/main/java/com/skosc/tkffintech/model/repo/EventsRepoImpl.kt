@@ -17,6 +17,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import org.joda.time.DateTime
 import retrofit2.Response
+import java.util.concurrent.TimeUnit
 
 class EventsRepoImpl(
         private val api: TinkoffEventsApi,
@@ -25,7 +26,7 @@ class EventsRepoImpl(
         private val networkInfo: NetworkInfoService
 ) : EventsRepo {
     companion object {
-        private const val UPDATE_TIME_POLITIC_SECONDS = 60 * 60 * 12
+        private const val UPDATE_TIME_POLITIC_SECONDS: Long = 60 * 60 * 12
     }
 
     private val expTimer = ExpirationTimer.create(timerSharedPreferences, "event-info-tryForceUpdate")
@@ -35,8 +36,7 @@ class EventsRepoImpl(
     override fun tryForceRefresh(): Single<UpdateResult> {
         return api.getAllEvents()
                 .doAfterSuccess { events ->
-                    val nextUpdateTime = DateTime.now().plusSeconds(UPDATE_TIME_POLITIC_SECONDS)
-                    expTimer.rewind(nextUpdateTime)
+                    expTimer.rewindForward(UPDATE_TIME_POLITIC_SECONDS, TimeUnit.SECONDS)
                     saveEventsToDb(events)
                 }.map(Response<*>::extractUpdateResult)
     }

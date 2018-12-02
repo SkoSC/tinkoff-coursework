@@ -13,7 +13,7 @@ class ExpirationTimer private constructor(private val sp: SharedPreferences, pri
         }
     }
 
-    fun rewind(time: DateTime) {
+    private fun rewind(time: DateTime) {
         sp.edit().putLong(name, time.millis)
                 .apply()
     }
