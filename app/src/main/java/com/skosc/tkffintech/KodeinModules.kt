@@ -23,6 +23,7 @@ import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
 import com.skosc.tkffintech.model.webservice.TinkoffUserApi
 import com.skosc.tkffintech.usecase.*
+import com.skosc.tkffintech.utils.GlobalConstants
 import com.skosc.tkffintech.utils.extensions.DefaultModule
 import com.skosc.tkffintech.viewmodel.ViewModelArgs
 import com.skosc.tkffintech.viewmodel.coursedetail.CourseDetailViewModel
@@ -59,8 +60,13 @@ import java.net.CookieManager
 import java.net.CookiePolicy
 import java.net.CookieStore
 
+private object KodeinTags {
+    const val SP_TIMERS = "timers"
+    const val SP_USER_INFO = "user-info"
+}
+
 fun roomModule(ctx: Context) = Kodein.DefaultModule("room-db") {
-    val db: TKFRoomDatabase = Room.databaseBuilder(ctx, TKFRoomDatabase::class.java, "tkf-default-db")
+    val db: TKFRoomDatabase = Room.databaseBuilder(ctx, TKFRoomDatabase::class.java, GlobalConstants.Room.DB_NAME)
             .fallbackToDestructiveMigration()
             .build()
 
@@ -73,15 +79,19 @@ fun roomModule(ctx: Context) = Kodein.DefaultModule("room-db") {
 }
 
 fun systemService(ctx: Context) = Kodein.DefaultModule("system-service") {
-    bind<SharedPreferences>("timers") with singleton { ctx.getSharedPreferences("tkf-timers", Context.MODE_PRIVATE) }
-    bind<SharedPreferences>("user-info") with singleton { ctx.getSharedPreferences("tkf-user-info", Context.MODE_PRIVATE) }
+    bind<SharedPreferences>(KodeinTags.SP_TIMERS) with singleton {
+        ctx.getSharedPreferences(GlobalConstants.SharedPrefs.Timers.NAME, Context.MODE_PRIVATE)
+    }
+    bind<SharedPreferences>(KodeinTags.SP_USER_INFO) with singleton {
+        ctx.getSharedPreferences(GlobalConstants.SharedPrefs.UserInfo.NAME, Context.MODE_PRIVATE)
+    }
     bind<NetworkInfoService>() with singleton { NetworkInfoService(ctx) }
     bind<GeoSearcher>() with singleton { GeoSearcher(ctx) }
 }
 
 val daoModule = Kodein.DefaultModule("dao") {
     bind<SecurityDao>() with singleton { SecurityDaoPrefImpl(instance()) }
-    bind<UserInfoDao>() with singleton { UserInfoDaoImpl(instance("user-info"), instance()) }
+    bind<UserInfoDao>() with singleton { UserInfoDaoImpl(instance(KodeinTags.SP_USER_INFO), instance()) }
 }
 
 val viewModelFactoryModule = Kodein.DefaultModule("view-model") {
@@ -126,7 +136,7 @@ fun webModule(ctx: Context) = Kodein.DefaultModule("retrofit") {
             .build()
 
     val retrofit = Retrofit.Builder()
-            .baseUrl("https://fintech.tinkoff.ru/api/")
+            .baseUrl(GlobalConstants.URL.TINKOFF_API_ENDPOINT)
             .client(okhttp)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync())
             .addConverterFactory(GsonConverterFactory.create(gson))
@@ -143,14 +153,14 @@ fun webModule(ctx: Context) = Kodein.DefaultModule("retrofit") {
 
 val repoModule = Kodein.DefaultModule("repo") {
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
-    bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
-    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance(), instance("timers")) }
-    bind<CourseRepo>() with singleton { CourseRepoImplV2(instance(), instance(), instance(), instance("timers")) }
+    bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance(KodeinTags.SP_TIMERS), instance()) }
+    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance(), instance(KodeinTags.SP_TIMERS)) }
+    bind<CourseRepo>() with singleton { CourseRepoImplV2(instance(), instance(), instance(), instance(KodeinTags.SP_TIMERS)) }
 }
 
 val useCaseModule = Kodein.DefaultModule("user-case") {
-    bind<LogoutBomb>() with provider { LogoutBomb(instance(), listOf(instance("timers"), instance("user-info"))) }
-    bind<LoadEvents>() with provider { LoadEvents(instance(), instance("timers")) }
+    bind<LogoutBomb>() with provider { LogoutBomb(instance(), listOf(instance(KodeinTags.SP_TIMERS), instance(KodeinTags.SP_USER_INFO))) }
+    bind<LoadEvents>() with provider { LoadEvents(instance(), instance(KodeinTags.SP_TIMERS)) }
     bind<SearchForEvent>() with provider { SearchForEvent(instance()) }
     bind<LoginUser>() with provider { LoginUser(instance(), instance(), instance()) }
     bind<IsCurrentUserLoggedIn>() with provider { IsCurrentUserLoggedIn(instance()) }
