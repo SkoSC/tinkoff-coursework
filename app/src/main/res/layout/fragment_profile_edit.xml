@@ -31,28 +31,16 @@
             app:layout_constraintBottom_toBottomOf="@+id/imageView5"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
+        <TextView
             android:id="@+id/profile_name"
             style="@style/Tinkoff.Text.Card.Header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
             android:text="@string/placeholder_2x"
-            app:layout_constraintStart_toEndOf="@+id/profile_avatar"
-            app:layout_constraintTop_toTopOf="@+id/profile_avatar" />
-
-        <TextView
-            android:id="@+id/profile_edit_change_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:text="@string/placeholder_5x"
-            android:textColor="@color/text_link"
             app:layout_constraintBottom_toBottomOf="@+id/profile_avatar"
             app:layout_constraintStart_toEndOf="@+id/profile_avatar"
-            app:layout_constraintTop_toBottomOf="@+id/profile_name" />
+            app:layout_constraintTop_toTopOf="@+id/profile_avatar" />
 
         <EditText
             android:id="@+id/profile_quote"

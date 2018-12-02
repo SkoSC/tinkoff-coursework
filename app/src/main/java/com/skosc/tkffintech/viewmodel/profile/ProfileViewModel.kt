@@ -15,9 +15,9 @@ abstract class ProfileViewModel : RxViewModel() {
     abstract val statsCourses: LiveData<String>
     abstract val quote: LiveData<String>
 
-    abstract val contactInfo: LiveData<Map<Int, String>>
-    abstract val schoolInfo: LiveData<Map<Int, String>>
-    abstract val workInfo: LiveData<Map<Int, String>>
+    abstract val contactInfo: LiveData<List<ProfileField>>
+    abstract val schoolInfo: LiveData<List<ProfileField>>
+    abstract val workInfo: LiveData<List<ProfileField>>
 
     abstract fun changeInfo(fields: List<ProfileField>): LiveData<UpdateResult>
 

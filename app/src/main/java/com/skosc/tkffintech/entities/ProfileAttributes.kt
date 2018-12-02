@@ -14,4 +14,5 @@ object ProfileAttributes {
     const val FIELD_UNIVERSITY_GRADUATION = 18
     const val FIELD_DEPARTMENT = 19
     const val FIELD_WORKPLACE = 20
+    const val FIELD_DESCRIPTION = 21
 }

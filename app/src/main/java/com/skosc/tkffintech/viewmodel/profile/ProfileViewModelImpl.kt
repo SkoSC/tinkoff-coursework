@@ -6,6 +6,7 @@ import com.skosc.tkffintech.entities.ProfileAttributes
 import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.misc.Trigger
 import com.skosc.tkffintech.misc.model.ProfileField
+import com.skosc.tkffintech.misc.model.ProfileFieldFactory
 import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.usecase.LoadCurrentUserInfo
 import com.skosc.tkffintech.usecase.LoadCurrentUserStatistics
@@ -31,9 +32,9 @@ class ProfileViewModelImpl(
     override val statsCourses: MutableLiveData<String> = MutableLiveData()
     override val quote: MutableLiveData<String> = MutableLiveData()
 
-    override val contactInfo: MutableLiveData<Map<Int, String>> = MutableLiveData()
-    override val schoolInfo: MutableLiveData<Map<Int, String>> = MutableLiveData()
-    override val workInfo: MutableLiveData<Map<Int, String>> = MutableLiveData()
+    override val contactInfo: MutableLiveData<List<ProfileField>> = MutableLiveData()
+    override val schoolInfo: MutableLiveData<List<ProfileField>> = MutableLiveData()
+    override val workInfo: MutableLiveData<List<ProfileField>> = MutableLiveData()
 
     override val dataUpdated: Trigger = Trigger()
 
@@ -44,22 +45,23 @@ class ProfileViewModelImpl(
         avatarUrl.value = "https://fintech.tinkoff.ru${info.avatar}"
         quote.value = info.description
 
-        contactInfo.value = mapOf(
-                ProfileAttributes.FIELD_MOBILE_PHONE to info.phoneMobile,
-                ProfileAttributes.FIELD_EMAIL to info.email,
-                ProfileAttributes.FIELD_HOME_CITY to info.region
+        contactInfo.value = listOf(
+                ProfileFieldFactory.lookup(ProfileAttributes.FIELD_MOBILE_PHONE).make(info.phoneMobile),
+                ProfileFieldFactory.lookup(ProfileAttributes.FIELD_EMAIL).make(info.email),
+                ProfileFieldFactory.lookup(ProfileAttributes.FIELD_HOME_CITY).make(info.region)
         )
 
-        schoolInfo.value = mapOf(
-                ProfileAttributes.FIELD_SCHOOL to info.school,
-                ProfileAttributes.FIELD_SCHOOL_GRADUATION to info.schoolGraduation.toString(),
-                ProfileAttributes.FIELD_UNIVERSITY to info.university,
-                ProfileAttributes.FIELD_FACILITY to info.faculty,
-                ProfileAttributes.FIELD_DEPARTMENT to info.department,
-                ProfileAttributes.FIELD_UNIVERSITY_GRADUATION to info.universityGraduation.toString()
+        schoolInfo.value = listOf(
+                ProfileFieldFactory.lookup(ProfileAttributes.FIELD_SCHOOL).make(info.school),
+                ProfileFieldFactory.lookup(ProfileAttributes.FIELD_SCHOOL_GRADUATION).make(info.schoolGraduation.toString()),
+                ProfileFieldFactory.lookup(ProfileAttributes.FIELD_UNIVERSITY).make(info.university),
+                ProfileFieldFactory.lookup(ProfileAttributes.FIELD_FACILITY).make(info.faculty),
+                ProfileFieldFactory.lookup(ProfileAttributes.FIELD_DEPARTMENT).make(info.department),
+                ProfileFieldFactory.lookup(ProfileAttributes.FIELD_UNIVERSITY_GRADUATION).make(info.universityGraduation.toString())
         )
-        workInfo.value = mapOf(
-                ProfileAttributes.FIELD_WORKPLACE to info.currentWork
+
+        workInfo.value = listOf(
+                ProfileFieldFactory.lookup(ProfileAttributes.FIELD_WORKPLACE).make(info.currentWork)
         )
     }
 

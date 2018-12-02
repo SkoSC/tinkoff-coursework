@@ -10,7 +10,7 @@ import androidx.navigation.Navigation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.skosc.tkffintech.R
-import com.skosc.tkffintech.misc.model.ProfileFieldFactory
+import com.skosc.tkffintech.misc.model.ProfileField
 import com.skosc.tkffintech.ui.adapter.ProfileAttributeAdapter
 import com.skosc.tkffintech.ui.view.UserInfoSectionCard
 import com.skosc.tkffintech.utils.extensions.addViews
@@ -129,11 +129,10 @@ class ProfileFragment : TKFFragment() {
         })
     }
 
-    private fun userInfoAttributesObserver(card: UserInfoSectionCard): Observer<Map<Int, String>> {
-        return Observer {
-            val entries = it.entries.map { ProfileFieldFactory.lookup(it.key).make(it.value) }
+    private fun userInfoAttributesObserver(card: UserInfoSectionCard): Observer<List<ProfileField>> {
+        return Observer { fields ->
             val adapter = card.recycler.adapter as ProfileAttributeAdapter
-            adapter.submitItems(entries)
+            adapter.submitItems(fields)
         }
     }
 }

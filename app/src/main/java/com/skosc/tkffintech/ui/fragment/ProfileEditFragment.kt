@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-
 import com.skosc.tkffintech.R
+import com.skosc.tkffintech.entities.ProfileAttributes
+import com.skosc.tkffintech.misc.model.ProfileField
 import com.skosc.tkffintech.misc.model.ProfileFieldFactory
 import com.skosc.tkffintech.ui.adapter.ProfileAttributeEditAdapter
 import com.skosc.tkffintech.ui.view.UserInfoSectionCard
@@ -88,11 +89,10 @@ class ProfileEditFragment : TKFFragment() {
         vm.workInfo.observe(this, userInfoAttributesObserver(workInfoCard))
     }
 
-    private fun userInfoAttributesObserver(card: UserInfoSectionCard): Observer<Map<Int, String>> {
-        return Observer {
-            val entries = it.entries.map { it -> ProfileFieldFactory.lookup(it.key).make(it.value) }
+    private fun userInfoAttributesObserver(card: UserInfoSectionCard): Observer<List<ProfileField>> {
+        return Observer { fields ->
             val adapter = card.recycler.adapter as ProfileAttributeEditAdapter
-            adapter.submitItems(entries)
+            adapter.submitItems(fields)
         }
     }
 
@@ -104,10 +104,18 @@ class ProfileEditFragment : TKFFragment() {
     }
 
     private fun onApplyButtonClicked(v: View) {
-        val fiedls = listOf(contactInfoCard, schoolInfoCard, workInfoCard)
+        val fields = listOf(contactInfoCard, schoolInfoCard, workInfoCard)
                 .map { it.recycler.adapter as ProfileAttributeEditAdapter }
                 .map { it.items }
+                .map(this::addDescriptionField)
                 .reduce { l, r -> l + r }
-        vm.changeInfo(fiedls)
+        vm.changeInfo(fields)
+    }
+
+    private fun addDescriptionField(fields: List<ProfileField>): List<ProfileField> {
+        val descriptionValue = vm.quote.value ?: ""
+        val name = ProfileFieldFactory.lookup(ProfileAttributes.FIELD_DESCRIPTION).make(descriptionValue)
+
+        return fields + name
     }
 }
