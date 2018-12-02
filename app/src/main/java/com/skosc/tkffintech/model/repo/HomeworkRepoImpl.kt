@@ -14,12 +14,12 @@ import com.skosc.tkffintech.model.room.model.*
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
 import com.skosc.tkffintech.model.webservice.model.GradesResp
+import com.skosc.tkffintech.model.webservice.model.HomeworksResp
 import com.skosc.tkffintech.utils.extensions.extractUpdateResult
 import com.skosc.tkffintech.utils.extensions.mapEach
 import com.skosc.tkffintech.utils.extensions.own
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import org.joda.time.DateTime
 import retrofit2.Response
 import java.util.concurrent.TimeUnit
 
@@ -33,7 +33,7 @@ class HomeworkRepoImpl(
         private val timersSharedPreferences: SharedPreferences
 ) : HomeworkRepo {
     companion object {
-        private const val UPDATE_TIME_POLITIC_SECONDS = 60 * 60
+        private const val UPDATE_TIME_POLITIC_SECONDS: Long = 60 * 60
     }
 
     private val cdisp = CompositeDisposable()
@@ -86,27 +86,44 @@ class HomeworkRepoImpl(
                 .map(Response<*>::extractUpdateResult)
     }
 
-    // TODO Refactor
     private fun saveData(course: String, resp: Response<List<GradesResp>>) {
-        val nextUpdateTime = DateTime.now().plusSeconds(UPDATE_TIME_POLITIC_SECONDS)
-        dataRefresh[course]!!.rewind(nextUpdateTime)
+        dataRefresh[course]!!.rewindForward(UPDATE_TIME_POLITIC_SECONDS, TimeUnit.SECONDS)
 
         val rowGrades = resp.body()!!
         val students = rowGrades.flatMap { it.students }
         val roomUsers = students.map { RoomUser(it.id, it.name) }
+
+        saveUsers(roomUsers)
+        saveCourseRealtions(roomUsers, course)
+        saveGrades(rowGrades)
+        loadAndSaveHomeworks(course)
+    }
+
+    private fun saveUsers(roomUsers: List<RoomUser>) {
         userDao.insertOrUpdate(roomUsers)
+    }
 
-        val courseRelation = roomUsers.map { RoomUserCourseRelation(0, it.id, course) }
-        userDao.insertCourseUserRelations(courseRelation)
+    private fun loadAndSaveHomeworks(course: String) {
+        cdisp own cursesApi.homeworks(course).subscribe { homeworksRow ->
+            saveHomeworks(homeworksRow, course)
+        }
+    }
 
+    private fun saveHomeworks(homeworksRow: HomeworksResp, course: String) {
+        val homeworks = homeworksRow.homeworks.map { it.convert(course) }.map { hw ->
+            RoomHomeworkAndTasks(RoomHomework.from(hw), hw.tasks.map { RoomHomeworkTask.from(it, hw.id) })
+        }
+        homeworks.forEach { homeworkDao.insert(it) }
+    }
+
+    private fun saveGrades(rowGrades: List<GradesResp>) {
         val grades = rowGrades.flatMap { it.grades() }.map { RoomGrade.from(it) }
         gradesDao.insert(grades)
-        cdisp own cursesApi.homeworks(course).subscribe { homeworksRow ->
-            val homeworks = homeworksRow.homeworks.map { it.convert(course) }.map { hw ->
-                RoomHomeworkAndTasks(RoomHomework.from(hw), hw.tasks.map { RoomHomeworkTask.from(it, hw.id) })
-            }
-            homeworks.forEach { homeworkDao.insert(it) }
-        }
+    }
+
+    private fun saveCourseRealtions(roomUsers: List<RoomUser>, course: String) {
+        val courseRelation = roomUsers.map { RoomUserCourseRelation(0, it.id, course) }
+        userDao.insertCourseUserRelations(courseRelation)
     }
 
     override fun checkForUpdates(course: String): Single<UpdateResult> {
@@ -124,10 +141,14 @@ class HomeworkRepoImpl(
             return dataRefresh[course]!!.isExpired
         }
 
+        return makeExpirationTimer(course).isExpired
+    }
+
+    private fun makeExpirationTimer(course: String): ExpirationTimer {
         val key = makeRefreshKey(course)
         val expirationTimer = ExpirationTimer.create(timersSharedPreferences, key)
         dataRefresh[course] = expirationTimer
-        return expirationTimer.isExpired
+        return expirationTimer
     }
 
     private fun makeRefreshKey(course: String): String {

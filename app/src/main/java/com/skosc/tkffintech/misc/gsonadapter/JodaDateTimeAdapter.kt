@@ -17,11 +17,15 @@ class JodaDateTimeAdapter : JsonDeserializer<DateTime>, JsonSerializer<DateTime>
         return if (je.asString.isEmpty()) {
             null
         } else {
-            try {
-                DATE_TIME_FORMATTER_FULL.parseDateTime(je.asString)
-            } catch (e: Exception) {
-                DATE_TIME_FORMATTER_FULL_MILIS.parseDateTime(je.asString)
-            }
+            tryParseDateTime(je)
+        }
+    }
+
+    private fun tryParseDateTime(je: JsonElement): DateTime? {
+        return try {
+            DATE_TIME_FORMATTER_FULL.parseDateTime(je.asString)
+        } catch (e: Exception) {
+            DATE_TIME_FORMATTER_FULL_MILIS.parseDateTime(je.asString)
         }
     }
 
