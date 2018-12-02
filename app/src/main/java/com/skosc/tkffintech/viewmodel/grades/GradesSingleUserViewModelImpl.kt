@@ -5,6 +5,7 @@ import com.skosc.tkffintech.entities.User
 import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
 import com.skosc.tkffintech.usecase.LoadHomeworks
 import com.skosc.tkffintech.usecase.LoadUsers
+import com.skosc.tkffintech.utils.extensions.observeOnMainThread
 import com.skosc.tkffintech.utils.extensions.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -15,15 +16,23 @@ class GradesSingleUserViewModelImpl(
         private val loadHomeworks: LoadHomeworks,
         private val loadUsers: LoadUsers
 ) : GradesSingleUserViewModel() {
+    private val gradesSubject = BehaviorSubject.create<List<HomeworkWithGrades>>()
+
     override val grades: MutableLiveData<List<HomeworkWithGrades>> = MutableLiveData()
     override val users: MutableLiveData<List<User>> = MutableLiveData()
 
     init {
-        cdisp own loadUsers.loadUsersWithCourse(course)
-                .subscribeOn(Schedulers.io())
-                .subscribe { freshUsers ->
-                    users.postValue(freshUsers)
-                }
+        cdisp own loadHomeworks.checkForUpdates(course).subscribe { success ->
+            cdisp own gradesSubject
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe { grades.value = it }
+
+            cdisp own loadUsers.loadUsersWithCourse(course)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe { freshUsers -> users.value = freshUsers }
+        }
     }
 
     override fun setUser(user: User) {
@@ -31,7 +40,7 @@ class GradesSingleUserViewModelImpl(
         cdisp own loadHomeworks.gradesForUser(user.id, course)
                 .subscribeOn(Schedulers.io())
                 .subscribe { data ->
-                    grades.postValue(data)
+                    gradesSubject.onNext(data)
                 }
     }
 }

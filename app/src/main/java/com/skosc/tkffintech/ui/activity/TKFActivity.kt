@@ -29,6 +29,8 @@ abstract class TKFActivity : AppCompatActivity() {
                     "allowed to be requested with arguments")
         }
 
-        return ViewModelProviders.of(this, factory).get(factory.key, cls.java)
+        // Fixes wired bug when ViewModel was cleared on creation, when there is the ViewModel with same args
+        val key = factory.key + "_" +  (cls.java.canonicalName ?: "")
+        return ViewModelProviders.of(this, factory).get(key, cls.java)
     }
 }

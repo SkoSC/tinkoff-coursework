@@ -19,6 +19,7 @@ import com.skosc.tkffintech.utils.extensions.extractUpdateResult
 import com.skosc.tkffintech.utils.extensions.mapEach
 import com.skosc.tkffintech.utils.extensions.own
 import io.reactivex.Single
+import io.reactivex.SingleEmitter
 import io.reactivex.disposables.CompositeDisposable
 import org.joda.time.DateTime
 import retrofit2.Response
@@ -42,9 +43,9 @@ class HomeworkRepoImpl(
     private val dataRefresh = HashMap<String, ExpirationTimer>()
 
     override fun grades(user: Long, course: String): Single<List<HomeworkWithGrades>> {
-        return Single.fromCallable {
+        return Single.create { emitter: SingleEmitter<List<RoomHomworkToTasks>> ->
             val a = gradesDao.gradesWithHomework(user, course)
-            a
+            emitter.onSuccess(a)
         }
                 .doOnError { it }
                 .doOnSuccess { it }

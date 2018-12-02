@@ -32,7 +32,12 @@ class CourseGradesSingleFragment : TKFFragment() {
         }
     }
 
-    private lateinit var vm: GradesSingleUserViewModel
+    private lateinit var courseName: String
+    private val vm by lazy {
+        getViewModel(GradesSingleUserViewModel::class, mapOf(
+                GradesSingleUserViewModel.ARG_COURSE to courseName
+        ))
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -42,26 +47,18 @@ class CourseGradesSingleFragment : TKFFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        arguments?.let {
+            courseName = it.getString(ARG_COURSE)
+                    ?: throw IllegalStateException("${CourseGradesSingleFragment::class.java.simpleName} " +
+                    "requires: $ARG_COURSE argument")
+        }
     }
 
     override fun onStart() {
         super.onStart()
-
-        arguments?.let {
-            val courseName = it.getString(ARG_COURSE)
-                    ?: throw IllegalStateException("${CourseGradesSingleFragment::class.java.simpleName} " +
-                    "requires: $ARG_COURSE argument")
-
-            vm = getViewModel(GradesSingleUserViewModel::class, mapOf(
-                    GradesSingleUserViewModel.ARG_COURSE to courseName
-            ))
-        }
-
         vm.users.observe(this, Observer {
             grades_user_spinner.adapter = UsersSpinnerAdapter(context!!, it)
         })
-
         grades_user_spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
@@ -72,6 +69,7 @@ class CourseGradesSingleFragment : TKFFragment() {
                 val user = adapter.items[position]
                 vm.setUser(user)
             }
+
         }
 
         grades_list_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
