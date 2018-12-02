@@ -14,7 +14,7 @@ import io.reactivex.subjects.BehaviorSubject
 class GradesManyUserViewModelImpl(
         private val course: String,
         private val courseStatistics: LoadCourseStatistics,
-        private val loadHomeworks: LoadHomeworks
+        loadHomeworks: LoadHomeworks
 ) : GradesManyUserViewModel() {
     private var currentSorter: ItemSorter<UserWithGradesSum>
     private val gradesSubject = BehaviorSubject.createDefault<List<UserWithGradesSum>>(listOf())

@@ -23,6 +23,7 @@ import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ARCHIVE
 import com.skosc.tkffintech.ui.fragment.EventsListFragment.Companion.ON_GOING
 import com.skosc.tkffintech.ui.model.EventCardModel
 import com.skosc.tkffintech.ui.model.toAdapterModels
+import com.skosc.tkffintech.utils.extensions.observe
 import com.skosc.tkffintech.viewmodel.events.ArchiveEventsListViewModel
 import com.skosc.tkffintech.viewmodel.events.EventsListViewModel
 import com.skosc.tkffintech.viewmodel.events.OngoingEventsListViewModel
@@ -57,10 +58,9 @@ class EventsFragment : TKFFragment() {
 
     override fun onResume() {
         super.onResume()
-        listOf(onGoingVm, archiveVm)
-                .forEach {
-                    it.checkForUpdates().observe(this, Observer { handleUpdate(it) })
-                }
+        listOf(onGoingVm, archiveVm).forEach { vm ->
+            vm.checkForUpdates().observe(this, this::handleUpdate)
+        }
     }
 
     private fun setupCardExpansion(vm: EventsListViewModel, recycler: RecyclerView, button: View) {
@@ -83,7 +83,7 @@ class EventsFragment : TKFFragment() {
     private fun setupRefresh() {
         events_refresh.setOnRefreshListener {
             listOf(onGoingVm.forceUpdate(), archiveVm.forceUpdate()).map {
-                it.observe(this, Observer { handleUpdate(it) })
+                it.observe(this, this::handleUpdate)
             }
         }
     }

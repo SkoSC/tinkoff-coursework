@@ -15,11 +15,6 @@ data class Ratio(val actual: Double = 0.0, val max: Double = 0.0) {
     }
 
     /**
-     * Difference between [max] and [actual] values
-     */
-    val left: Double = max - actual
-
-    /**
      * Ratio value in range from 0 to 1
      * */
     fun asDouble(): Double = actual / max

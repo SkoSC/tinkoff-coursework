@@ -59,13 +59,16 @@ class LoadCourseStatistics(private val currentUserRepo: CurrentUserRepo, private
 
     private fun calculateHomeworkRatio(data: List<HomeworkWithGrades>): Ratio {
         val groupedHomeworks = data.groupBy { it.homework }
+
         val totalHomeworks = groupedHomeworks.size
         val completedHomeworks = groupedHomeworks.values
-                .map {
-                    it.flatMap { it.grades }
-                            .map { it.second }
-                            .all { it.status == HomeworkStatus.ACCEPTED }
-                }.filter { it }.count()
+                .map(this::allAccepted)
+                .filter { it }.count()
+
         return Ratio(completedHomeworks, totalHomeworks)
     }
+
+    private fun allAccepted(it: List<HomeworkWithGrades>) = it.flatMap { it.grades }
+            .map { it.second }
+            .all { it.status == HomeworkStatus.ACCEPTED }
 }

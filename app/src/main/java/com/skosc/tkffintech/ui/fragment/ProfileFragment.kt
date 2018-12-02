@@ -24,7 +24,7 @@ class ProfileFragment : TKFFragment() {
     private val navController by lazy { Navigation.findNavController(profile_info_cards) }
     private val vm by lazy { getViewModel(ProfileViewModel::class) }
 
-    val contactInfoCard by lazy {
+    private val contactInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
             headerText = context.getString(R.string.profile_attributes_card_contact)
             iconDrawable = context.getDrawableCompat(R.drawable.ic_contacts)!!
@@ -32,7 +32,7 @@ class ProfileFragment : TKFFragment() {
         }
     }
 
-    val schoolInfoCard by lazy {
+    private val schoolInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
             headerText = context.getString(R.string.profile_attributes_card_school)
             iconDrawable = context.getDrawable(R.drawable.ic_education)!!
@@ -40,7 +40,7 @@ class ProfileFragment : TKFFragment() {
         }
     }
 
-    val workInfoCard by lazy {
+    private val workInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
             headerText = context.getString(R.string.profile_attributes_card_work)
             iconDrawable = context.getDrawableCompat(R.drawable.ic_work)!!

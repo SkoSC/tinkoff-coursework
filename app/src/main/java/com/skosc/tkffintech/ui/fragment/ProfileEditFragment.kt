@@ -22,7 +22,7 @@ class ProfileEditFragment : TKFFragment() {
 
     val vm by lazy { getViewModel(ProfileViewModel::class) }
 
-    val contactInfoCard by lazy {
+    private val contactInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
             headerText = context.getString(R.string.profile_attributes_card_contact)
             iconDrawable = context.getDrawableCompat(R.drawable.ic_contacts)!!
@@ -30,7 +30,7 @@ class ProfileEditFragment : TKFFragment() {
         }
     }
 
-    val schoolInfoCard by lazy {
+    private val schoolInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
             headerText = context.getString(R.string.profile_attributes_card_school)
             iconDrawable = context.getDrawable(R.drawable.ic_education)!!
@@ -38,7 +38,7 @@ class ProfileEditFragment : TKFFragment() {
         }
     }
 
-    val workInfoCard by lazy {
+    private val workInfoCard by lazy {
         UserInfoSectionCard(context!!).apply {
             headerText = context.getString(R.string.profile_attributes_card_work)
             iconDrawable = context.getDrawableCompat(R.drawable.ic_work)!!
@@ -90,7 +90,7 @@ class ProfileEditFragment : TKFFragment() {
 
     private fun userInfoAttributesObserver(card: UserInfoSectionCard): Observer<Map<Int, String>> {
         return Observer {
-            val entries = it.entries.map { ProfileFieldFactory.lookup(it.key).make(it.value) }
+            val entries = it.entries.map { it -> ProfileFieldFactory.lookup(it.key).make(it.value) }
             val adapter = card.recycler.adapter as ProfileAttributeEditAdapter
             adapter.submitItems(entries)
         }

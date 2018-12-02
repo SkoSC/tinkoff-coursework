@@ -1,6 +1,5 @@
 package com.skosc.tkffintech.ui.activity
 
-import android.content.Intent
 import android.os.Bundle
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.Waiter
@@ -32,7 +31,7 @@ class SplashScreenActivity : TKFActivity() {
         vm.navigateToMain.observe(this, navigateToWithDelay(MainActivity::class))
     }
 
-    private fun <T: TKFActivity> navigateToWithDelay(destination: KClass<T>): () -> Unit = {
+    private fun <T : TKFActivity> navigateToWithDelay(destination: KClass<T>): () -> Unit = {
         Waiter.wait(TRANSITION_DELAY_SECONDS, TimeUnit.SECONDS) {
             navigateTo(destination).invoke()
         }

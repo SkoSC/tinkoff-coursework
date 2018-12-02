@@ -30,7 +30,7 @@ abstract class TKFActivity : AppCompatActivity() {
         }
 
         // Fixes wired bug when ViewModel was cleared on creation, when there is the ViewModel with same args
-        val key = factory.key + "_" +  (cls.java.canonicalName ?: "")
+        val key = factory.key + "_" + (cls.java.canonicalName ?: "")
         return ViewModelProviders.of(this, factory).get(key, cls.java)
     }
 }

@@ -9,9 +9,10 @@ import com.skosc.tkffintech.model.entity.ExpirationTimer
 import com.skosc.tkffintech.model.room.EventInfoDao
 import com.skosc.tkffintech.model.room.model.RoomEventInfo
 import com.skosc.tkffintech.model.service.NetworkInfoService
-import com.skosc.tkffintech.model.webservice.model.EventBucketResp
 import com.skosc.tkffintech.model.webservice.TinkoffEventsApi
+import com.skosc.tkffintech.model.webservice.model.EventBucketResp
 import com.skosc.tkffintech.utils.extensions.extractUpdateResult
+import com.skosc.tkffintech.utils.extensions.mapEach
 import io.reactivex.Observable
 import io.reactivex.Single
 import org.joda.time.DateTime
@@ -53,7 +54,8 @@ class EventsRepoImpl(
 
     override fun searchEvents(query: String, isOnGoing: Boolean, mode: SearchQueryMaker.Mode): Observable<List<EventInfo>> {
         val sqlQuery = queryMaker.from(query, mode)
-        return dao.search(sqlQuery, isOnGoing).map { it.map { it.convert() } }
+        return dao.search(sqlQuery, isOnGoing)
+                .mapEach(RoomEventInfo::convert)
     }
 
     override val onGoingEvents: Observable<List<EventInfo>> by lazy {

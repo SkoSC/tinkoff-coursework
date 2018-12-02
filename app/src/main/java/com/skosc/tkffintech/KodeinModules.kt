@@ -121,7 +121,7 @@ fun webModule(ctx: Context) = Kodein.DefaultModule("retrofit") {
     val javaNetCookieJar = JavaNetCookieJar(cookieHandler)
     val okhttp = OkHttpClient.Builder()
             .cookieJar(javaNetCookieJar)
-            .addNetworkInterceptor(OkHttpLoggingInterceptor("OkHttp"))
+            .addNetworkInterceptor(OkHttpLoggingInterceptor())
             .addNetworkInterceptor(StethoInterceptor())
             .build()
 
@@ -144,8 +144,8 @@ fun webModule(ctx: Context) = Kodein.DefaultModule("retrofit") {
 val repoModule = Kodein.DefaultModule("repo") {
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance("timers"), instance()) }
-    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance(), instance("timers"), instance()) }
-    bind<CourseRepo>() with singleton { CourseRepoImplV2(instance(), instance(), instance(), instance("timers"), instance()) }
+    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance(), instance("timers")) }
+    bind<CourseRepo>() with singleton { CourseRepoImplV2(instance(), instance(), instance(), instance("timers")) }
 }
 
 val useCaseModule = Kodein.DefaultModule("user-case") {

@@ -9,8 +9,7 @@ import com.skosc.tkffintech.utils.cantorPairing
 class ProfileField(
         var value: String,
         @StringRes val header: Int,
-        private val apply: (UserInfo, String) -> UserInfo,
-        private val validate: (String) -> Boolean = { true }
+        private val apply: (UserInfo, String) -> UserInfo
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -30,7 +29,6 @@ class ProfileField(
 
     fun modify(info: UserInfo): UserInfo = apply(info, value)
 
-    fun withValue(value: String) = ProfileField(value, header, apply, validate)
 }
 
 class ProfileFieldFactory(
@@ -94,6 +92,6 @@ class ProfileFieldFactory(
     }
 
     fun make(value: String): ProfileField {
-        return ProfileField(value, header, apply, validate)
+        return ProfileField(value, header, apply)
     }
 }

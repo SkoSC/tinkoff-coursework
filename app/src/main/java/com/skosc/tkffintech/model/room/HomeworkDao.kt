@@ -14,9 +14,11 @@ abstract class HomeworkDao {
     @Query("DELETE FROM `homework`")
     abstract fun deleteAllHomeworks()
 
+    @Suppress("FunctionName") // considered private
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun _insertHomework(hw: RoomHomework): Long
 
+    @Suppress("FunctionName") // considered private
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun _insertHomeworkTasks(tasks: List<RoomHomeworkTask>): LongArray
 

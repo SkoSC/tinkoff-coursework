@@ -58,7 +58,6 @@ class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (Eve
         private val date by lazy { view.findViewById<TextView>(R.id.event_card_date) }
         private val typeTitle by lazy { view.findViewById<TextView>(R.id.event_card_type_title) }
         private val description by lazy { view.findViewById<TextView>(R.id.event_card_description) }
-        private val icon by lazy { view.findViewById<ImageView>(R.id.event_card_icon) }
 
         override fun bind(model: EventCardModel, onClick: (EventCardModel) -> Unit) {
             super.bind(model, onClick)

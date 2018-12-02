@@ -18,10 +18,3 @@ inline fun View.dp(value: Int): Float {
  */
 inline fun View.dp(value: Float): Float = dp(value.toInt())
 
-/**
- * Convert sp to pixels
- */
-inline fun View.sp(value: Int): Float {
-    val metrics = context.resources.displayMetrics
-    return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, value.toFloat(), metrics)
-}

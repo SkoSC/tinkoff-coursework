@@ -1,8 +1,8 @@
 package com.skosc.tkffintech.viewmodel.profile
 
 import androidx.lifecycle.LiveData
-import com.skosc.tkffintech.misc.model.ProfileField
 import com.skosc.tkffintech.misc.Trigger
+import com.skosc.tkffintech.misc.model.ProfileField
 import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.viewmodel.RxViewModel
 

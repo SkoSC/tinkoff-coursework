@@ -65,13 +65,13 @@ data class GradesResp(
     }
 
     fun grades(): List<HomeworkGrade> {
-        val tasks = this.groupedTasks.flatMap { it }
+        val tasks = this.groupedTasks.flatten()
 
         return this.students.map { student ->
             val studentId = student.id
             student.grades.mapIndexed { index, grade ->
                 grade.toBuissnesGrade(student.toUser(), tasks[index].id)
             }
-        }.flatMap { it }
+        }.flatten()
     }
 }

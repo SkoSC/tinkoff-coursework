@@ -5,7 +5,6 @@ import com.skosc.tkffintech.entities.User
 import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
 import com.skosc.tkffintech.usecase.LoadHomeworks
 import com.skosc.tkffintech.usecase.LoadUsers
-import com.skosc.tkffintech.utils.extensions.observeOnMainThread
 import com.skosc.tkffintech.utils.extensions.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

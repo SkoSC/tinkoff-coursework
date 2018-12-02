@@ -9,9 +9,8 @@ import com.skosc.tkffintech.model.room.CourseInfoDao
 import com.skosc.tkffintech.model.room.UserDao
 import com.skosc.tkffintech.model.room.model.RoomCourseInfo
 import com.skosc.tkffintech.model.room.model.RoomUser
-import com.skosc.tkffintech.model.service.NetworkInfoService
-import com.skosc.tkffintech.model.webservice.model.ConnectionsResp
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
+import com.skosc.tkffintech.model.webservice.model.ConnectionsResp
 import com.skosc.tkffintech.utils.extensions.extractUpdateResult
 import com.skosc.tkffintech.utils.extensions.mapEach
 import io.reactivex.Single
@@ -22,8 +21,7 @@ class CourseRepoImplV2(
         private val api: TinkoffCursesApi,
         private val coursesDao: CourseInfoDao,
         private val userDao: UserDao,
-        private val timerSharedPreferences: SharedPreferences,
-        private val networkInfo: NetworkInfoService
+        timerSharedPreferences: SharedPreferences
 ) : CourseRepo {
     companion object {
         private const val UPDATE_TIME_POLITIC_SECONDS = 60 * 60 * 12

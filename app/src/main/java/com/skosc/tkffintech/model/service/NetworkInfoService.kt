@@ -2,7 +2,6 @@ package com.skosc.tkffintech.model.service
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.util.Log
 import com.skosc.tkffintech.utils.logging.LoggerProvider
 
 class NetworkInfoService(ctx: Context) {

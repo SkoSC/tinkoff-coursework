@@ -2,7 +2,6 @@ package com.skosc.tkffintech.ui.fragment
 
 
 import android.annotation.SuppressLint
-import android.location.Geocoder
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -29,16 +28,8 @@ class EventDetailFragment : TKFFragment() {
         const val DEFAULT_MAP_ZOOM_SINGLE = 12f
     }
 
-    private var modelHid: Long = 0
-
     private lateinit var vm: EventDetailViewModel
 
-    private val geocoder by lazy { Geocoder(context) }
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

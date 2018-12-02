@@ -11,7 +11,7 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.composite.UserWithGradesSum
 
 class GradesSumRecyclerAdapter : RecyclerView.Adapter<GradesSumRecyclerAdapter.ViewHolder>() {
-    val differ = AsyncListDiffer(this, GradeSumDiffCallback)
+    private val differ = AsyncListDiffer(this, GradeSumDiffCallback)
 
     fun submitItems(items: List<UserWithGradesSum>) {
         differ.submitList(items)

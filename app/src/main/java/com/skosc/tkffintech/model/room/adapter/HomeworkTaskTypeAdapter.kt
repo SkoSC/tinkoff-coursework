@@ -15,7 +15,7 @@ class HomeworkTaskTypeAdapter {
     }
 
     @TypeConverter
-    fun TypeToInt(date: HomeworkTaskType): Int {
+    fun typeToInt(date: HomeworkTaskType): Int {
         return when (date) {
             HomeworkTaskType.TEST -> 1
             HomeworkTaskType.FULL -> 2

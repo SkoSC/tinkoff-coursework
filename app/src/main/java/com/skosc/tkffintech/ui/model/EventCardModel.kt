@@ -16,7 +16,7 @@ data class EventCardModel(
         val description: String
 ) : Serializable {
     companion object {
-        const val UNKNOWN_COLOR = "unknown"
+        private const val UNKNOWN_COLOR = "unknown"
 
         fun from(ctx: Context, eventInfo: EventInfo): EventCardModel {
             return EventCardModel(

@@ -14,8 +14,6 @@ infix fun CompositeDisposable.own(disp: Disposable) {
 fun <T, F> Single<List<T>>.mapEach(fn: (T) -> F): Single<List<F>> = this.map { it.map(fn) }
 fun <T, F> Observable<List<T>>.mapEach(fn: (T) -> F): Observable<List<F>> = this.map { it.map(fn) }
 
-fun <T> Single<List<T>>.filterEach(fn: (T) -> Boolean): Single<List<T>> = this.map { it.filter(fn) }
+fun <T> Single<T>.observeOnMainThread(): Single<T> = this.observeOn(AndroidSchedulers.mainThread())
 
-fun <T> Single<T>.observeOnMainThread() = this.observeOn(AndroidSchedulers.mainThread())
-
-fun <T> Single<T>.subscribeOnIoThread() = this.subscribeOn(Schedulers.io())
+fun <T> Single<T>.subscribeOnIoThread(): Single<T> = this.subscribeOn(Schedulers.io())

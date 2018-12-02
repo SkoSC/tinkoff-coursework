@@ -4,7 +4,6 @@ import kotlin.reflect.KClass
 
 object LoggerProvider {
     private const val PREFIX = "TKF"
-    private const val STATIC_TAG = "TinkoffFintech"
 
     /**
      * Returns logger for given context, supports: Strings, KClasses and other arbitrary Objects.
@@ -21,11 +20,6 @@ object LoggerProvider {
      * Returns logger for anonymous context
      */
     fun get(): Logger = LogcatLogger("$PREFIX-LOG")
-
-    /**
-     * Provides singleton logger
-     */
-    val static: Logger = LogcatLogger(STATIC_TAG)
 
     private fun loggerForObject(context: Any): Logger {
         val shortName = context.javaClass.simpleName

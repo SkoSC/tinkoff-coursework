@@ -22,7 +22,7 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private const val TYPE_ENTRY = 1
     }
 
-    val differ = AsyncListDiffer(this, TaskAdapterDiffCallback)
+    private val differ = AsyncListDiffer(this, TaskAdapterDiffCallback)
 
     init {
         setHasStableIds(true)

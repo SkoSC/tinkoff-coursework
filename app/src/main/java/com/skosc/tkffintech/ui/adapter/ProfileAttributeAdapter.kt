@@ -30,8 +30,8 @@ class ProfileAttributeAdapter : RecyclerView.Adapter<ProfileAttributeAdapter.Vie
     override fun getItemCount(): Int = differ.currentList.size
 
     class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-        val title by lazy { view.findViewById<TextView>(R.id.profile_attribute_title) }
-        val value by lazy { view.findViewById<TextView>(R.id.profile_attribute_value) }
+        private val title: TextView by lazy { view.findViewById<TextView>(R.id.profile_attribute_title) }
+        private val value: TextView by lazy { view.findViewById<TextView>(R.id.profile_attribute_value) }
 
         fun bind(model: ProfileField) {
             title.text = view.context.getString(model.header)

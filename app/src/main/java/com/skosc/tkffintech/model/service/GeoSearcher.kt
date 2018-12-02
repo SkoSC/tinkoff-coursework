@@ -4,9 +4,7 @@ import android.content.Context
 import android.location.Address
 import android.location.Geocoder
 import com.skosc.tkffintech.entities.GeoAddress
-import io.reactivex.Maybe
 import io.reactivex.Single
-import java.lang.Exception
 
 class GeoSearcher(private val context: Context) {
     private val geocoder: Geocoder by lazy { Geocoder(context) }

@@ -8,7 +8,7 @@ import kotlin.reflect.KClass
  * Navigates to [TKFActivity]
  * @return Closure navigating to passed activity
  */
-fun <T: TKFActivity> TKFActivity.navigateTo(destination: KClass<T>): () -> Unit = {
+fun <T : TKFActivity> TKFActivity.navigateTo(destination: KClass<T>): () -> Unit = {
     val intent = Intent(this, destination.java)
     startActivity(intent)
 }

@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.ProfileAttributes
 import com.skosc.tkffintech.entities.UserInfo
-import com.skosc.tkffintech.misc.model.ProfileField
 import com.skosc.tkffintech.misc.Trigger
+import com.skosc.tkffintech.misc.model.ProfileField
 import com.skosc.tkffintech.misc.model.UpdateResult
 import com.skosc.tkffintech.usecase.LoadCurrentUserInfo
 import com.skosc.tkffintech.usecase.LoadCurrentUserStatistics
@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 
 class ProfileViewModelImpl(
         private val loadCurrentUserInfo: LoadCurrentUserInfo,
-        private val statistics: LoadCurrentUserStatistics,
+        statistics: LoadCurrentUserStatistics,
         private val performLogout: PerformLogout,
         private val updateUserInfo: UpdateUserInfo
 ) : ProfileViewModel() {

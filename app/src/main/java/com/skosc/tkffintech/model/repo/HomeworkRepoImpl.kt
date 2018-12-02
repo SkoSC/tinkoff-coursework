@@ -11,7 +11,6 @@ import com.skosc.tkffintech.model.room.GradesDao
 import com.skosc.tkffintech.model.room.HomeworkDao
 import com.skosc.tkffintech.model.room.UserDao
 import com.skosc.tkffintech.model.room.model.*
-import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.TinkoffGradesApi
 import com.skosc.tkffintech.model.webservice.model.GradesResp
@@ -31,8 +30,7 @@ class HomeworkRepoImpl(
         private val gradesDao: GradesDao,
         private val userDao: UserDao,
         private val homeworkDao: HomeworkDao,
-        private val timersSharedPreferences: SharedPreferences,
-        private val networkInfo: NetworkInfoService
+        private val timersSharedPreferences: SharedPreferences
 ) : HomeworkRepo {
     companion object {
         private const val UPDATE_TIME_POLITIC_SECONDS = 60 * 60

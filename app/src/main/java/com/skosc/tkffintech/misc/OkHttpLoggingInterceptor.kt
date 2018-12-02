@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicLong
 /**
  * Logs intercepted requests of OKHTTP
  */
-class OkHttpLoggingInterceptor(private val tag: String) : Interceptor {
+class OkHttpLoggingInterceptor : Interceptor {
     private val requestCounter = AtomicLong(0)
     private val logger = LoggerProvider.get("TKF-OKHttp")
 

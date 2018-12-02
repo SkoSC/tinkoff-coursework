@@ -15,9 +15,6 @@ interface TinkoffUserApi {
     @POST("signin")
     fun signIn(@Body body: UserCredentials): Single<Response<UserInfo>>
 
-    @POST("signout")
-    fun signOut(): Single<Response<Any>>
-
     @GET("user")
     @Headers("Content-Type: application/json")
     fun getCurrentUserInfo(): Single<Response<UserInfoResp>>

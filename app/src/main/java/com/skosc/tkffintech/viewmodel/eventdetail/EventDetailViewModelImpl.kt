@@ -9,8 +9,8 @@ import com.skosc.tkffintech.utils.extensions.own
 import com.skosc.tkffintech.utils.extensions.subscribeOnIoThread
 
 class EventDetailViewModelImpl(
-        private val hid: Long,
-        private val loadEvent: LoadEvents,
+        hid: Long,
+        loadEvent: LoadEvents,
         private val searchLocation: SearchLocation
 ) : EventDetailViewModel() {
 

@@ -45,13 +45,18 @@ class LoginUser(private val currentUserRepo: CurrentUserRepo, private val loadCo
                 .delay(UPDATE_DELAY, TimeUnit.SECONDS) //TODO Dirty hack, remove
                 .flatMap {
                     blockingUpdateCourses()
-                }.subscribe({
-                    val preloaded = it.filter { it == UpdateResult.Updated }.size
-                    val total = it.size
+                }.subscribe({ results ->
+                    val (preloaded, total) = calculatePreloadRatio(results)
                     logger.verbose("Persuading success: $preloaded/$total")
                 }, {
                     logger.warning("Preload failed, reason: ${it.message}")
                 })
+    }
+
+    private fun calculatePreloadRatio(results: List<UpdateResult>): Pair<Int, Int> {
+        val preloaded = results.filter { result -> result == UpdateResult.Updated }.size
+        val total = results.size
+        return Pair(preloaded, total)
     }
 
     private fun blockingUpdateCourses() = loadCourses.courses
