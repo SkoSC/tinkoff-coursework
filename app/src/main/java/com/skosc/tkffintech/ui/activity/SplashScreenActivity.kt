@@ -28,7 +28,13 @@ class SplashScreenActivity : TKFActivity() {
     override fun onStart() {
         super.onStart()
 
-        vm.navigateToLogin.observe(this, navigateTo(LoginActivity::class))
-        vm.navigateToMain.observe(this, navigateTo(MainActivity::class))
+        vm.navigateToLogin.observe(this, navigateToWithDelay(LoginActivity::class))
+        vm.navigateToMain.observe(this, navigateToWithDelay(MainActivity::class))
+    }
+
+    private fun <T: TKFActivity> navigateToWithDelay(destination: KClass<T>): () -> Unit = {
+        Waiter.wait(TRANSITION_DELAY_SECONDS, TimeUnit.SECONDS) {
+            navigateTo(destination).invoke()
+        }
     }
 }

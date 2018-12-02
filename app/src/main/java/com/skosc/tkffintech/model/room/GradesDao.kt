@@ -64,7 +64,7 @@ abstract class GradesDao {
         LEFT JOIN grade ON grade.user_id_fk == user.student_id AND grade.task_id_fk == homework_task.contest_id
         WHERE user.student_id == :user AND homework.homework_id IS NOT NULL AND homework_task.id IS NOT NULL AND grade.grade_id IS NOT NULL
     """)
-    abstract fun gradesWithHomework(user: Long, course: String): List<RoomHomworkToTasks>
+    abstract fun gradesWithHomework(user: Long, course: String): Single<List<RoomHomworkToTasks>>
 
     @Query("""
         SELECT homework.*, homework_task.*, grade.* FROM user

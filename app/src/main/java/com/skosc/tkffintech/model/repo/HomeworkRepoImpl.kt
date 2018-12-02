@@ -19,7 +19,6 @@ import com.skosc.tkffintech.utils.extensions.extractUpdateResult
 import com.skosc.tkffintech.utils.extensions.mapEach
 import com.skosc.tkffintech.utils.extensions.own
 import io.reactivex.Single
-import io.reactivex.SingleEmitter
 import io.reactivex.disposables.CompositeDisposable
 import org.joda.time.DateTime
 import retrofit2.Response
@@ -43,20 +42,13 @@ class HomeworkRepoImpl(
     private val dataRefresh = HashMap<String, ExpirationTimer>()
 
     override fun grades(user: Long, course: String): Single<List<HomeworkWithGrades>> {
-        return Single.create { emitter: SingleEmitter<List<RoomHomworkToTasks>> ->
-            val a = gradesDao.gradesWithHomework(user, course)
-            emitter.onSuccess(a)
-        }
-                .doOnError { it }
-                .doOnSuccess { it }
-                .map {
-                    transform(it)
-                }
+        return gradesDao.gradesWithHomework(user, course)
+                .map(this::tasksToBindedGrades)
     }
 
     override fun grades(user: Long): Single<List<HomeworkWithGrades>> {
         return gradesDao.gradesWithHomework(user).map {
-            transform(it)
+            tasksToBindedGrades(it)
         }
     }
 
@@ -76,7 +68,7 @@ class HomeworkRepoImpl(
         return gradesDao.gradesTotalForUsersWithCourse(course).mapEach(RoomUserWithGradesSum::convert)
     }
 
-    private fun transform(roomData: List<RoomHomworkToTasks>): List<HomeworkWithGrades> {
+    private fun tasksToBindedGrades(roomData: List<RoomHomworkToTasks>): List<HomeworkWithGrades> {
         val groupedByHomework = roomData.groupBy { it.homework }
         return groupedByHomework.entries.map { (roomHomework, value) ->
             val taskToGrade = value.map { Pair(it.task.convert(), it.grade.convert(User(0, ""))) }
