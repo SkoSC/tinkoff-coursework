@@ -21,7 +21,11 @@ class TKFApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Stetho.initializeWithDefaults(this)
     }
 
+    private fun initDebug() {
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this)
+        }
+    }
 }

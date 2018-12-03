@@ -13,7 +13,7 @@ import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.misc.resolver.ChipColors
 import com.skosc.tkffintech.ui.model.TaskAdapterItem
 import com.skosc.tkffintech.ui.view.ScoreView
-import com.skosc.tkffintech.utils.GenericDiffutilCallback
+import com.skosc.tkffintech.utils.GenericDiffUtilCallback
 import com.skosc.tkffintech.utils.extensions.getColorCompat
 
 class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -22,7 +22,7 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private const val TYPE_ENTRY = 1
     }
 
-    private val differ = AsyncListDiffer(this, GenericDiffutilCallback<TaskAdapterItem>())
+    private val differ = AsyncListDiffer(this, GenericDiffUtilCallback<TaskAdapterItem>())
 
     init {
         setHasStableIds(true)

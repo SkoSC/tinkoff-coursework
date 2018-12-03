@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.resolver.EventTypeIconFinder
 import com.skosc.tkffintech.ui.model.EventCardModel
-import com.skosc.tkffintech.utils.GenericDiffutilCallback
+import com.skosc.tkffintech.utils.GenericDiffUtilCallback
 import com.skosc.tkffintech.utils.extensions.getColorCompat
 import com.skosc.tkffintech.utils.extensions.getDrawableCompat
 
@@ -22,7 +22,7 @@ class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (Eve
         const val MODE_SMALL: Int = 1
     }
 
-    private val differ = AsyncListDiffer(this, GenericDiffutilCallback<EventCardModel>())
+    private val differ = AsyncListDiffer(this, GenericDiffUtilCallback<EventCardModel>())
 
     fun submitItems(items: List<EventCardModel>) {
         differ.submitList(items)

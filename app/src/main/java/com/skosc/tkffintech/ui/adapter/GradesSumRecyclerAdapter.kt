@@ -8,11 +8,11 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.composite.UserWithGradesSum
-import com.skosc.tkffintech.utils.GenericDiffutilCallback
+import com.skosc.tkffintech.utils.GenericDiffUtilCallback
 import com.skosc.tkffintech.utils.formatting.NumberFormatter
 
 class GradesSumRecyclerAdapter : RecyclerView.Adapter<GradesSumRecyclerAdapter.ViewHolder>() {
-    private val differ = AsyncListDiffer(this, GenericDiffutilCallback<UserWithGradesSum>())
+    private val differ = AsyncListDiffer(this, GenericDiffUtilCallback<UserWithGradesSum>())
 
     fun submitItems(items: List<UserWithGradesSum>) {
         differ.submitList(items)
