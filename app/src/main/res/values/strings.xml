@@ -11,6 +11,7 @@
     <string name="placeholder_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
     <string name="placeholder_digit_x1">2</string>
     <string name="placeholder_digit_empty">0</string>
+    <string name="placeholder_ratio">2/20</string>
 
     <!-- Bottom navbar -->
     <string name="nav_event">Events</string>
@@ -33,6 +34,12 @@
     <string name="events_header_archive">Archive</string>
     <string name="event_detail_description">Description</string>
     <string name="event_detail_location">Location</string>
+
+    <!-- Profile screen -->
+    <string name="quote_left">❝</string>
+    <string name="quote_right">❞</string>
+    <string name="profile_edit">Edit</string>
+    <string name="profile_sign_out">Sign out</string>
 
     <!-- Profile attribute -->
     <string name="profile_attribute_mobile_phone">Mobile Phone</string>
@@ -63,6 +70,11 @@
     <string name="course_status_ongoing">Ongoing</string>
     <string name="courses_my_courses">My Courses</string>
     <string name="course_detail_empty_msg">Nothing here yet, either you don\'t have any homeworks yet,  or you should reload the page</string>
+    <string name="course_score">Score</string>
+    <string name="course_rating">Global rating 🌟</string>
+    <string name="course_tests_completed">Tests completed</string>
+    <string name="course_homeworks_completed">Homeworks completed</string>
+    <string name="course_name">Course Rate</string>
 
     <!-- Grades screen -->
     <string name="grades_sorted_by">Sorted by:</string>
@@ -79,14 +91,4 @@
     <!-- Generic error -->
     <string name="error_title">Error</string>
     <string name="error_data_not_updated">Some error occurred during data updating</string>
-    <string name="course_name">Course Rate</string>
-    <string name="course_score">Score</string>
-    <string name="course_rating">Global rating 🌟</string>
-    <string name="course_tests_completed">Tests completed</string>
-    <string name="course_homeworks_completed">Homeworks completed</string>
-    <string name="placeholder_ratio">2/20</string>
-    <string name="quote_left">❝</string>
-    <string name="quote_right">❞</string>
-    <string name="profile_edit">Edit</string>
-    <string name="profile_sign_out">Sign out</string>
 </resources>
