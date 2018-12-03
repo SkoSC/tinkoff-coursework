@@ -12,7 +12,7 @@ import com.skosc.tkffintech.utils.extensions.getDrawableCompat
 
 
 class ArchiveEventsRecyclerAdapter(private val onClick: (View, EventCardModel) -> Unit)
-    : GenericRecyclerAdapter<EventCardModel, ArchiveEventsRecyclerAdapter.ViewHolder>(EventCardModelDifferCallback) {
+    : GenericRecyclerAdapter<EventCardModel, ArchiveEventsRecyclerAdapter.ViewHolder>() {
 
     override fun getItemId(item: EventCardModel): Long {
         return item.hid

@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.resolver.EventTypeIconFinder
 import com.skosc.tkffintech.ui.model.EventCardModel
+import com.skosc.tkffintech.utils.GenericDiffutilCallback
 import com.skosc.tkffintech.utils.extensions.getColorCompat
 import com.skosc.tkffintech.utils.extensions.getDrawableCompat
 
@@ -22,7 +22,7 @@ class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (Eve
         const val MODE_SMALL: Int = 1
     }
 
-    private val differ = AsyncListDiffer(this, EventsListEventCardModelDiffCallback)
+    private val differ = AsyncListDiffer(this, GenericDiffutilCallback<EventCardModel>())
 
     fun submitItems(items: List<EventCardModel>) {
         differ.submitList(items)
@@ -87,15 +87,5 @@ class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (Eve
             title.text = model.title
             dateAndType.text = "%s/%s".format(model.typeTitle, model.date)
         }
-    }
-}
-
-private object EventsListEventCardModelDiffCallback : DiffUtil.ItemCallback<EventCardModel>() {
-    override fun areItemsTheSame(oldItem: EventCardModel, newItem: EventCardModel): Boolean {
-        return oldItem === newItem
-    }
-
-    override fun areContentsTheSame(oldItem: EventCardModel, newItem: EventCardModel): Boolean {
-        return oldItem == newItem
     }
 }

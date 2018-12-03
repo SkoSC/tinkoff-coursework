@@ -8,9 +8,10 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.model.ProfileField
+import com.skosc.tkffintech.utils.GenericDiffutilCallback
 
 class ProfileAttributeAdapter : RecyclerView.Adapter<ProfileAttributeAdapter.ViewHolder>() {
-    private val differ = AsyncListDiffer(this, ProfileFieldAttributeDiffCallback)
+    private val differ = AsyncListDiffer(this, GenericDiffutilCallback<ProfileField>())
 
     fun submitItems(items: List<ProfileField>) {
         differ.submitList(items)

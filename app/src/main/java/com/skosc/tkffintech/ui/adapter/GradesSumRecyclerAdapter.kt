@@ -5,13 +5,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.composite.UserWithGradesSum
+import com.skosc.tkffintech.utils.GenericDiffutilCallback
+import com.skosc.tkffintech.utils.formatting.NumberFormatter
 
 class GradesSumRecyclerAdapter : RecyclerView.Adapter<GradesSumRecyclerAdapter.ViewHolder>() {
-    private val differ = AsyncListDiffer(this, GradeSumDiffCallback)
+    private val differ = AsyncListDiffer(this, GenericDiffutilCallback<UserWithGradesSum>())
 
     fun submitItems(items: List<UserWithGradesSum>) {
         differ.submitList(items)
@@ -37,17 +38,7 @@ class GradesSumRecyclerAdapter : RecyclerView.Adapter<GradesSumRecyclerAdapter.V
         fun bind(pos: Int, model: UserWithGradesSum) {
             position.text = pos.toString()
             username.text = model.user.name
-            scoreSum.text = model.gradesSum.toString()
+            scoreSum.text = NumberFormatter.userScore(model.gradesSum)
         }
-    }
-}
-
-private object GradeSumDiffCallback : DiffUtil.ItemCallback<UserWithGradesSum>() {
-    override fun areItemsTheSame(oldItem: UserWithGradesSum, newItem: UserWithGradesSum): Boolean {
-        return oldItem === newItem
-    }
-
-    override fun areContentsTheSame(oldItem: UserWithGradesSum, newItem: UserWithGradesSum): Boolean {
-        return oldItem == newItem
     }
 }

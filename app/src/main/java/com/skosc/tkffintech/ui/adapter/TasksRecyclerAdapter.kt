@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.ColorInt
 import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.misc.resolver.ChipColors
 import com.skosc.tkffintech.ui.model.TaskAdapterItem
 import com.skosc.tkffintech.ui.view.ScoreView
+import com.skosc.tkffintech.utils.GenericDiffutilCallback
 import com.skosc.tkffintech.utils.extensions.getColorCompat
 
 class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -22,7 +22,7 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         private const val TYPE_ENTRY = 1
     }
 
-    private val differ = AsyncListDiffer(this, TaskAdapterDiffCallback)
+    private val differ = AsyncListDiffer(this, GenericDiffutilCallback<TaskAdapterItem>())
 
     init {
         setHasStableIds(true)
@@ -121,15 +121,5 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 HomeworkStatus.UNKNOWN -> view.context.getColorCompat(R.color.task_score_failed_bg)
             }
         }
-    }
-}
-
-private object TaskAdapterDiffCallback : DiffUtil.ItemCallback<TaskAdapterItem>() {
-    override fun areItemsTheSame(oldItem: TaskAdapterItem, newItem: TaskAdapterItem): Boolean {
-        return oldItem === newItem
-    }
-
-    override fun areContentsTheSame(oldItem: TaskAdapterItem, newItem: TaskAdapterItem): Boolean {
-        return oldItem == newItem
     }
 }

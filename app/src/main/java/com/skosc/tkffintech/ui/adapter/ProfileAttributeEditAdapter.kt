@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.model.ProfileField
+import com.skosc.tkffintech.utils.GenericDiffutilCallback
 import com.skosc.tkffintech.utils.extensions.addAfterTextChangedListener
 
 class ProfileAttributeEditAdapter : RecyclerView.Adapter<ProfileAttributeEditAdapter.ViewHolder>() {
 
-    private val differ = AsyncListDiffer(this, ProfileFieldAttributeDiffCallback)
+    private val differ = AsyncListDiffer(this, GenericDiffutilCallback<ProfileField>())
     val items: List<ProfileField> get() = differ.currentList
 
     fun submitItems(items: List<ProfileField>) {

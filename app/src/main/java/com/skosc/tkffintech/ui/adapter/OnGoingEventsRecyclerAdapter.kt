@@ -11,7 +11,7 @@ import com.skosc.tkffintech.utils.extensions.getColorCompat
 
 
 class OnGoingEventsRecyclerAdapter(private val onClickCallback: (View, EventCardModel) -> Unit)
-    : GenericRecyclerAdapter<EventCardModel, OnGoingEventsRecyclerAdapter.ViewHolder>(EventCardModelDifferCallback) {
+    : GenericRecyclerAdapter<EventCardModel, OnGoingEventsRecyclerAdapter.ViewHolder>() {
 
     override fun getItemId(item: EventCardModel): Long {
         return item.hid
