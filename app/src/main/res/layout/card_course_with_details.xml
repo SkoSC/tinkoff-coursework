@@ -14,9 +14,9 @@
             android:id="@+id/courses_entry_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Course Rate"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:text="@string/course_name"
             style="@style/Tinkoff.Text.Card.Header"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,11 +24,11 @@
         <ProgressBar
             android:id="@+id/courses_entry_score_progress"
             style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="120dp"
-            android:layout_height="123dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_width="@dimen/course_card_spinner_size"
+            android:layout_height="@dimen/course_card_spinner_size"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_small"
             android:indeterminate="false"
             android:max="100"
             android:progress="65"
@@ -42,7 +42,7 @@
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/margin_small"
             android:gravity="center"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="@+id/courses_entry_score_progress"
@@ -54,13 +54,13 @@
                 android:id="@+id/courses_entry_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="136"
+                android:text="@string/placeholder_digit_x1"
                 style="@style/Tinkoff.Text.Card.Header2" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Score" />
+                android:text="@string/course_score" />
         </LinearLayout>
 
 
@@ -68,8 +68,8 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="Global rating 🌟"
+            android:layout_marginStart="@dimen/margin_big"
+            android:text="@string/course_rating"
             app:layout_constraintBaseline_toBaselineOf="@+id/courses_entry_global_rate"
             app:layout_constraintStart_toEndOf="@+id/courses_entry_score_progress" />
 
@@ -78,9 +78,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="Tests completed"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
+            android:text="@string/course_tests_completed"
             app:layout_constraintEnd_toStartOf="@+id/courses_entry_tests_passed"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/textView3"
@@ -90,8 +90,8 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
-            android:text="Homeworks completed"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:text="@string/course_homeworks_completed"
             app:layout_constraintBaseline_toBaselineOf="@+id/courses_entry_homework_completed"
             app:layout_constraintEnd_toStartOf="@+id/courses_entry_homework_completed"
             app:layout_constraintHorizontal_bias="0.0"
@@ -104,8 +104,8 @@
             android:id="@+id/courses_entry_global_rate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:text="2/20"
+            android:layout_marginEnd="@dimen/course_details_ratio_margin"
+            android:text="@string/placeholder_ratio"
             style="@style/Tinkoff.Text.Card.Header2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/courses_entry_score_progress" />
@@ -114,8 +114,8 @@
             android:id="@+id/courses_entry_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_small"
             android:text="@string/course_more_details"
             style="@style/Tinkoff.Text.Card.Link"
             app:layout_constraintEnd_toEndOf="parent"
@@ -125,9 +125,9 @@
             android:id="@+id/courses_entry_tests_passed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="15dp"
-            android:text="12/15"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/course_details_ratio_margin"
+            android:text="@string/placeholder_ratio"
             style="@style/Tinkoff.Text.Card.Header2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/courses_entry_global_rate" />
@@ -138,9 +138,9 @@
             android:id="@+id/courses_entry_homework_completed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="15dp"
-            android:text="1/10"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/course_details_ratio_margin"
+            android:text="@string/placeholder_ratio"
             style="@style/Tinkoff.Text.Card.Header2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/courses_entry_tests_passed" />

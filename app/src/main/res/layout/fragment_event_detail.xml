@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/event_card_image"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="@dimen/event_detail_image_height"
             android:scaleType="centerCrop"
             android:src="@drawable/bg_fancy"
             android:transitionName="event_card_image_shared"
@@ -28,17 +28,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:paddingStart="16dp"
+            android:paddingStart="@dimen/margin_medium"
             android:text="@string/placeholder_3x"
             app:layout_constraintBottom_toTopOf="@+id/event_detail_short_info"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="RtlSymmetry" />
 
         <TextView
             android:id="@+id/event_detail_short_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginStart="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:text="@string/placeholder_2x"
             app:layout_constraintBottom_toBottomOf="@+id/event_card_image"
             app:layout_constraintStart_toStartOf="parent" />
@@ -47,9 +48,9 @@
             android:id="@+id/cardView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/event_card_image">
@@ -63,16 +64,16 @@
                     style="@style/Tinkoff.Text.Card.Header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_margin="@dimen/margin_medium"
                     android:text="@string/event_detail_description" />
 
                 <TextView
                     android:id="@+id/event_detail_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:layout_marginBottom="@dimen/margin_medium"
                     android:text="@string/placeholder_long" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -81,9 +82,9 @@
             android:id="@+id/event_detail_place_card"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginStart="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginEnd="@dimen/margin_small"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView2">
@@ -97,15 +98,15 @@
                     style="@style/Tinkoff.Text.Card.Header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_margin="@dimen/margin_medium"
                     android:text="@string/event_detail_location" />
 
                 <TextView
                     android:id="@+id/event_detail_place"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginBottom="@dimen/margin_medium"
                     android:text="@string/placeholder_5x">
 
                 </TextView>
@@ -113,10 +114,10 @@
                 <com.google.android.gms.maps.MapView
                     android:id="@+id/event_detail_map"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_height="@dimen/event_detail_map_height"
+                    android:layout_marginStart="@dimen/margin_medium"
+                    android:layout_marginEnd="@dimen/margin_medium"
+                    android:layout_marginBottom="@dimen/margin_medium"
                     android:clickable="false"
                     android:text="@string/placeholder_long"
                     app:liteMode="true" />

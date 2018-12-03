@@ -17,6 +17,16 @@
         <item name="android:windowContentTransitions">true</item>
     </style>
 
+    <style name="Tinkoff.TextEdit.Login" parent="Base.Widget.MaterialComponents.TextInputEditText">
+        <item name="android:layout_width">@dimen/login_edit_width</item>
+        <item name="android:layout_height">@dimen/login_edit_height</item>
+        <item name="android:background">@drawable/bcg_edittext_gray</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textSize">@dimen/text_size_medium</item>
+        <item name="android:textCursorDrawable">@drawable/nothing</item>
+    </style>
+
     <style name="Tinkoff.Text.Card.Header" parent="TextAppearance.AppCompat">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/text_dark</item>
@@ -46,9 +56,9 @@
         <item name="android:background">@drawable/bcg_rect_round</item>
         <item name="android:backgroundTint">@color/event_chip_default</item>
         <item name="android:maxLines">1</item>
-        <item name="android:elevation">1dp</item>
-        <item name="android:paddingStart">8dp</item>
-        <item name="android:paddingEnd">8dp</item>
+        <item name="android:elevation">@dimen/elevation_small</item>
+        <item name="android:paddingStart">@dimen/margin_small</item>
+        <item name="android:paddingEnd">@dimen/margin_small</item>
     </style>
 
 </resources>

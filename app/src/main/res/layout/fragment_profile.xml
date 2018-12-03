@@ -19,7 +19,7 @@
             <ImageView
                 android:id="@+id/imageView5"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="@dimen/profile_image_height"
                 android:scaleType="centerCrop"
                 android:src="@drawable/bg_fancy"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -28,10 +28,10 @@
 
             <ImageView
                 android:id="@+id/profile_avatar"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="32dp"
+                android:layout_width="@dimen/user_avatar_size"
+                android:layout_height="@dimen/user_avatar_size"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_large"
                 android:src="@drawable/circle_avatar"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView5"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -41,8 +41,8 @@
                 style="@style/Tinkoff.Text.Card.Header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/placeholder_2x"
                 app:layout_constraintStart_toEndOf="@+id/profile_avatar"
                 app:layout_constraintTop_toTopOf="@+id/profile_avatar" />
@@ -51,8 +51,8 @@
                 android:id="@+id/profile_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_smaller"
                 android:text="@string/placeholder_5x"
                 app:layout_constraintStart_toEndOf="@+id/profile_avatar"
                 app:layout_constraintTop_toBottomOf="@+id/profile_name" />
@@ -60,16 +60,16 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
                 android:layout_width="match_parent"
-                android:layout_height="84dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="8dp"
+                android:layout_height="@dimen/stats_strip_height"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/profile_stats_card_margin_top"
+                android:layout_marginEnd="@dimen/margin_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_info">
 
-                <include layout="@layout/card_profile_stats"></include>
+                <include layout="@layout/card_profile_stats" />
 
             </androidx.cardview.widget.CardView>
 
@@ -77,24 +77,24 @@
                 android:id="@+id/profile_quote"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="64dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="64dp"
+                android:layout_marginStart="@dimen/margin_giant"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_giant"
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:text="@string/placeholder_long"
                 style="@style/Tinkoff.Text.Card.Header"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cardView"></TextView>
+                app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="❝"
-                android:textSize="30sp"
+                android:layout_marginEnd="@dimen/margin_small"
+                android:text="@string/quote_left"
+                android:textSize="@dimen/text_size_large"
                 app:layout_constraintEnd_toStartOf="@+id/profile_quote"
                 app:layout_constraintTop_toTopOf="@+id/profile_quote" />
 
@@ -102,8 +102,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="30sp"
-                android:text="❞"
-                android:textSize="30sp"
+                android:text="@string/quote_right"
+                android:textSize="@dimen/margin_large"
                 app:layout_constraintBottom_toBottomOf="@+id/profile_quote"
                 app:layout_constraintStart_toEndOf="@+id/profile_quote" />
 
@@ -111,9 +111,9 @@
                 android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profile_quote">
@@ -131,9 +131,9 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginEnd="@dimen/margin_small"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -144,14 +144,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Edit" />
+                    android:text="@string/profile_edit" />
 
                 <Button
                     android:id="@+id/profile_signout_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Sign out" />
+                    android:text="@string/profile_sign_out" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

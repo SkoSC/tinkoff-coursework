@@ -7,7 +7,7 @@
     tools:context=".ui.fragment.CourseGradesManyFragment">
 
     <androidx.cardview.widget.CardView
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/margin_small"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -20,13 +20,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="16dp"
-                android:textSize="18sp"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:textSize="@dimen/text_size_medium"
                 android:text="@string/grades_sorted_by"/>
 
             <Spinner
                 android:id="@+id/grades_sort_spinner"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/margin_small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>

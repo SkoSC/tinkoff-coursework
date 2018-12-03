@@ -10,12 +10,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="206dp"
-        android:layout_height="174dp"
-        android:layout_marginStart="77dp"
-        android:layout_marginTop="77dp"
-        android:layout_marginEnd="77dp"
-        android:layout_marginBottom="77dp"
+        android:layout_width="@dimen/login_logo_width"
+        android:layout_height="@dimen/login_logo_height"
+        android:layout_marginTop="@dimen/login_logo_margin_vertical"
+        android:layout_marginBottom="@dimen/login_logo_margin_vertical"
         android:src="@drawable/bitmap_3_x"
         app:layout_constraintBottom_toTopOf="@+id/email_et"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,48 +21,36 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        style="@style/Tinkoff.TextEdit.Login"
         android:id="@+id/email_et"
-        android:layout_width="296dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/bcg_edittext_gray"
+        android:layout_marginStart="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginBottom="@dimen/login_edit_bottom_margin"
         android:hint="@string/login_email"
-        android:inputType="text"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textCursorDrawable="@drawable/nothing"
-        android:textSize="18sp"
+        android:inputType="textEmailAddress"
         app:layout_constraintBottom_toTopOf="@+id/password_et"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
+        style="@style/Tinkoff.TextEdit.Login"
         android:id="@+id/password_et"
-        android:layout_width="296dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/bcg_edittext_gray"
+        android:layout_marginStart="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginBottom="@dimen/login_edit_bottom_margin"
         android:hint="@string/login_password"
         android:inputType="textPassword"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textCursorDrawable="@drawable/nothing"
-        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/login_btn_frame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
         android:id="@+id/login_btn_frame"
-        android:layout_width="296dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="18dp"
+        android:layout_width="@dimen/login_edit_width"
+        android:layout_height="@dimen/login_edit_height"
+        android:layout_marginStart="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginBottom="@dimen/login_edit_bottom_margin"
         app:layout_constraintBottom_toTopOf="@+id/login_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -76,15 +62,15 @@
             android:background="@drawable/bcg_button_yellow"
             android:text="@string/login_login_btn"
             android:textCursorDrawable="@drawable/nothing"
-            android:textSize="18sp" />
+            android:textSize="@dimen/text_size_medium" />
 
         <ProgressBar
             android:id="@+id/login_loading_status"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="@dimen/margin_large"
+            android:layout_height="@dimen/margin_large"
             android:layout_gravity="center"
-            android:elevation="2dp"
-            android:indeterminateTint="#000000"
+            android:elevation="@dimen/elevation_small"
+            android:indeterminateTint="@color/absolute_black"
             android:indeterminateTintMode="src_in" />
     </FrameLayout>
 
@@ -92,13 +78,13 @@
         android:id="@+id/login_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginStart="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_large"
+        android:layout_marginBottom="@dimen/login_logo_margin_vertical"
         android:gravity="center_horizontal"
         android:text="@string/login_create_account"
         android:textColor="@color/absolute_white"
-        android:textSize="18sp"
+        android:textSize="@dimen/text_size_medium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

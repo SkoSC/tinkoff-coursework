@@ -1,29 +1,40 @@
 <resources>
+    <!-- Primary -->
     <string name="app_name">TKFFintech</string>
-    <string name="login_create_account">Make New Account</string>
-    <string name="login_login_btn">Login</string>
-    <string name="login_password">Password</string>
-    <string name="login_email">Email</string>
-    <string name="nav_event">Events</string>
-    <string name="nav_courses">Courses</string>
-    <string name="nav_profile">Profile</string>
+    <string name="tinkoff_fintech_2lines">Tinkoff \nFintech</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-
+    <!-- Placeholders -->
     <string name="placeholder_1x">Lorem</string>
     <string name="placeholder_2x">Lorem Ipsilum</string>
     <string name="placeholder_3x">Lorem Ipsilum Dolor</string>
     <string name="placeholder_5x">Lorem Ipsilum Dolor Si Amlet</string>
     <string name="placeholder_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-    <string name="events_header_on_going">On Going</string>
-    <string name="events_header_more">More</string>
+    <string name="placeholder_digit_x1">2</string>
+    <string name="placeholder_digit_empty">0</string>
 
-    <string name="event_type_unknown">Event</string>
-    <string name="events_header_archive">Archive</string>
+    <!-- Bottom navbar -->
+    <string name="nav_event">Events</string>
+    <string name="nav_courses">Courses</string>
+    <string name="nav_profile">Profile</string>
 
+    <!-- Login screen -->
+    <string name="login_create_account">Make New Account</string>
+    <string name="login_login_btn">Login</string>
+    <string name="login_password">Password</string>
+    <string name="login_email">Email</string>
     <string name="login_error_wrong_credentials">Wrong Credentials</string>
     <string name="login_error_wrong_unknown">Unknown Error</string>
+    <string name="login_error_title">Login Failed</string>
 
+    <!-- Events screen -->
+    <string name="events_header_on_going">On Going</string>
+    <string name="events_header_more">More</string>
+    <string name="event_type_unknown">Event</string>
+    <string name="events_header_archive">Archive</string>
+    <string name="event_detail_description">Description</string>
+    <string name="event_detail_location">Location</string>
+
+    <!-- Profile attribute -->
     <string name="profile_attribute_mobile_phone">Mobile Phone</string>
     <string name="profile_attribute_email">Email</string>
     <string name="profile_attribute_home_city">Home City</string>
@@ -34,33 +45,48 @@
     <string name="profile_attribute_facility">Facility</string>
     <string name="profile_attribute_department">Department</string>
     <string name="profile_attribute_wrokplace">Work Place</string>
-    <string name="event_detail_description">Description</string>
-    <string name="event_detail_location">Location</string>
-    <string name="login_error_title">Login Failed</string>
     <string name="profile_attributes_card_contact">Contact Info</string>
     <string name="profile_attributes_card_school">School Info</string>
     <string name="profile_attributes_card_work">Work Info</string>
-    <string name="options_search">Search</string>
-    <string name="course_more_details">Details</string>
 
-    <string name="sort_descending">Descending</string>
-    <string name="sort_ascending">Ascending</string>
-    <string name="sort_by_name">By Name</string>
-    <string name="placeholder_digit_x1">2</string>
+    <!-- Search bar -->
+    <string name="options_search">Search</string>
+
+    <!-- Stats strip -->
     <string name="stats_score">Score</string>
     <string name="stats_tests">Tests</string>
     <string name="stats_courses">Curse</string>
     <string name="stats_homeworks">Home works</string>
 
+    <!-- Course screen -->
+    <string name="course_more_details">Details</string>
     <string name="course_status_ongoing">Ongoing</string>
-    <string name="grades_sorted_by">Sorted by:</string>
     <string name="courses_my_courses">My Courses</string>
     <string name="course_detail_empty_msg">Nothing here yet, either you don\'t have any homeworks yet,  or you should reload the page</string>
-    <string name="placeholder_digit_empty">0</string>
 
+    <!-- Grades screen -->
+    <string name="grades_sorted_by">Sorted by:</string>
     <string name="homework_status_new">New</string>
     <string name="homework_status_accepted">Accepted</string>
     <string name="homework_status_test_result">Test Result</string>
     <string name="homework_status_unknown">Unknown</string>
 
+    <!-- Grades screen, sorting -->
+    <string name="sort_descending">Descending</string>
+    <string name="sort_ascending">Ascending</string>
+    <string name="sort_by_name">By Name</string>
+
+    <!-- Generic error -->
+    <string name="error_title">Error</string>
+    <string name="error_data_not_updated">Some error occurred during data updating</string>
+    <string name="course_name">Course Rate</string>
+    <string name="course_score">Score</string>
+    <string name="course_rating">Global rating 🌟</string>
+    <string name="course_tests_completed">Tests completed</string>
+    <string name="course_homeworks_completed">Homeworks completed</string>
+    <string name="placeholder_ratio">2/20</string>
+    <string name="quote_left">❝</string>
+    <string name="quote_right">❞</string>
+    <string name="profile_edit">Edit</string>
+    <string name="profile_sign_out">Sign out</string>
 </resources>

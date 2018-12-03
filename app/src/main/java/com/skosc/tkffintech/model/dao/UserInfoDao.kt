@@ -4,6 +4,13 @@ import com.skosc.tkffintech.entities.UserInfo
 import io.reactivex.Observable
 
 interface UserInfoDao {
-    val rxUserInfo: Observable<UserInfo>
+    /**
+     * Object containing information about current user. If user is not currently set, calls onError
+     */
+    val userInfo: Observable<UserInfo>
+
+    /**
+     * Sets current user info and stores it to db
+     */
     fun saveUserInfo(info: UserInfo)
 }

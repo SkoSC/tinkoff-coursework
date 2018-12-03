@@ -156,8 +156,8 @@ class EventsFragment : TKFFragment() {
 
         if (update is UpdateResult.Error) {
             AlertDialog.Builder(context)
-                    .setTitle("Error")
-                    .setMessage("Some error occurred during data updating")
+                    .setTitle(getString(R.string.error_title))
+                    .setMessage(getString(R.string.error_data_not_updated))
                     .create()
                     .show()
         }

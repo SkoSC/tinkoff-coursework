@@ -22,24 +22,24 @@
                 android:layout_width="match_parent"
                 android:animateLayoutChanges="true"
                 android:foreground="?android:attr/selectableItemBackground"
-                android:minHeight="64dp"
+                android:minHeight="@dimen/foldable_card_min_height"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:elevation="50dp">
+                android:layout_margin="@dimen/margin_small"
+                android:elevation="@dimen/elevation_gigant">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/events_ongoing_const"
                     android:animateLayoutChanges="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:layout_height="300dp">
+                    tools:layout_height="@dimen/events_ongoing_layout_height">
 
                     <ImageView
                         android:id="@+id/events_ongoing_dropdown"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_width="@dimen/icon_size_big"
+                        android:layout_height="@dimen/icon_size_big"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_medium"
                         android:src="@drawable/ic_arrow_drop_down"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -49,8 +49,8 @@
                         style="@style/Tinkoff.Text.Card.Header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="22dp"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/events_card_title_top_margin"
                         android:text="@string/events_header_on_going"
                         app:layout_constraintStart_toEndOf="@+id/events_ongoing_dropdown"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -60,8 +60,8 @@
                         style="@style/Tinkoff.Text.Card.Link"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:layout_marginEnd="@dimen/margin_medium"
                         android:text="@string/events_header_more"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -70,10 +70,10 @@
                         android:id="@+id/events_ongoing_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_small"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -85,9 +85,9 @@
                         android:id="@+id/events_loading_spinner_ongoing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_small"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/events_ongoing_recycler"
                         app:layout_constraintStart_toStartOf="@+id/events_ongoing_recycler"
@@ -100,12 +100,12 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/events_archive_card"
                 android:layout_width="match_parent"
-                android:minHeight="64dp"
+                android:minHeight="@dimen/foldable_card_min_height"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:layout_height="match_parent"
                 android:animateLayoutChanges="true"
-                android:layout_margin="8dp"
-                android:elevation="50dp">
+                android:layout_margin="@dimen/margin_small"
+                android:elevation="@dimen/elevation_gigant">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -114,10 +114,10 @@
 
                     <ImageView
                         android:id="@+id/events_archive_dropdown"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_width="@dimen/icon_size_big"
+                        android:layout_height="@dimen/icon_size_big"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_medium"
                         android:src="@drawable/ic_arrow_drop_down"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -127,8 +127,8 @@
                         style="@style/Tinkoff.Text.Card.Header"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="22dp"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/events_card_title_top_margin"
                         android:text="@string/events_header_archive"
                         app:layout_constraintStart_toEndOf="@+id/events_archive_dropdown"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -138,8 +138,8 @@
                         style="@style/Tinkoff.Text.Card.Link"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="16dp"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:layout_marginEnd="@dimen/margin_medium"
                         android:text="@string/events_header_more"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -148,10 +148,10 @@
                         android:id="@+id/events_archive_recycler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginBottom="16dp"
+                        android:layout_marginStart="@dimen/margin_small"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:layout_marginBottom="@dimen/margin_medium"
                         android:orientation="vertical"
                         app:layout_behavior="@string/appbar_scrolling_view_behavior"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -166,8 +166,6 @@
                         android:id="@+id/events_loading_spinner_archive"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/events_archive_recycler"
                         app:layout_constraintStart_toStartOf="@+id/events_archive_recycler"

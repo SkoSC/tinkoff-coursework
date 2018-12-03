@@ -29,9 +29,9 @@
 
     <View
         android:id="@+id/sep1"
-        android:layout_width="1sp"
+        android:layout_width="@dimen/divider_width"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/margin_small"
         android:background="@color/card_sep_color" />
 
     <LinearLayout
@@ -59,9 +59,9 @@
 
     <View
         android:id="@+id/sep2"
-        android:layout_width="1sp"
+        android:layout_width="@dimen/divider_width"
         android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_margin="@dimen/margin_small"
 
         android:background="@color/card_sep_color" />
 

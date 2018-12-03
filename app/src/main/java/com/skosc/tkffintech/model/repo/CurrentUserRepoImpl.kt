@@ -26,13 +26,13 @@ class CurrentUserRepoImpl(
     private val cdisp: CompositeDisposable = CompositeDisposable()
 
     override val info: Observable<UserInfo> by lazy {
-        userInfoDao.rxUserInfo
+        userInfoDao.userInfo
     }
 
     override val isLoggedIn: BehaviorSubject<Boolean> = BehaviorSubject.create()
 
     override val id: Observable<Long> = info.map { it.id }
-    override var idBlocking: Long? = userInfoDao.rxUserInfo.map { it.id }.blockingFirst(null)
+    override var idBlocking: Long? = userInfoDao.userInfo.map { it.id }.blockingFirst(null)
 
     init {
         cdisp own securityDao.hasAuthCredentials.subscribe(isLoggedIn::onNext)

@@ -9,12 +9,8 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="@dimen/splash_logo_size"
+        android:layout_height="@dimen/splash_logo_size"
         android:src="@drawable/ic_splash_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,12 +20,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        android:textSize="30sp"
+        android:layout_marginStart="@dimen/splash_logo_text_margin"
+        android:layout_marginTop="@dimen/splash_logo_text_margin"
+        android:textSize="@dimen/text_size_large"
         android:textStyle="bold"
         android:textColor="@color/text_dark"
-        android:text="Tinkoff\nFintech"
+        android:text="@string/tinkoff_fintech_2lines"
         app:layout_constraintStart_toStartOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
 

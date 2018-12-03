@@ -17,31 +17,29 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
 
-            android:layout_height="200dp"
-            android:layout_margin="8dp">
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
-
                 <FrameLayout
                     android:id="@+id/frameLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="@dimen/stats_strip_height"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent">
 
-                    <include layout="@layout/card_profile_stats"></include>
+                    <include layout="@layout/card_profile_stats" />
                 </FrameLayout>
 
                 <ImageView
                     android:id="@+id/course_detail_top_image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_width="@dimen/course_detail_spinner_size"
+                    android:layout_height="@dimen/course_detail_spinner_size"
+                    android:layout_marginBottom="@dimen/margin_small"
                     app:layout_constraintBottom_toTopOf="@+id/frameLayout"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -49,9 +47,9 @@
 
                 <ProgressBar
                     android:id="@+id/course_detail_top_progress"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:elevation="10dp"
+                    android:layout_width="@dimen/course_detail_spinner_size"
+                    android:layout_height="@dimen/course_detail_spinner_size"
+                    android:elevation="@dimen/elevation_big"
                     app:layout_constraintBottom_toBottomOf="@+id/course_detail_top_image"
                     app:layout_constraintEnd_toEndOf="@+id/course_detail_top_image"
                     app:layout_constraintStart_toStartOf="@+id/course_detail_top_image"
@@ -64,7 +62,7 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp">
+            android:layout_margin="@dimen/margin_small">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/course_detail_tasks"
