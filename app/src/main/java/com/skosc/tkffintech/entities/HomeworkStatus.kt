@@ -9,6 +9,7 @@ enum class HomeworkStatus(@Transient val resourse: Int) {
     NEW(R.string.homework_status_new),
     ACCEPTED(R.string.homework_status_accepted),
     TEST_RESULT(R.string.homework_status_test_result),
+    FAILED(R.string.homework_status_test_failed),
     UNKNOWN(R.string.homework_status_unknown);
 
     companion object {
@@ -19,6 +20,7 @@ enum class HomeworkStatus(@Transient val resourse: Int) {
             "new" -> NEW
             "accepted" -> ACCEPTED
             "contest_review" -> TEST_RESULT
+            "failed" -> FAILED
             else -> UNKNOWN
         }
     }

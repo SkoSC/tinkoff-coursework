@@ -11,6 +11,7 @@ class HomeworkStatusAdapter {
             1 -> HomeworkStatus.NEW
             2 -> HomeworkStatus.ACCEPTED
             3 -> HomeworkStatus.TEST_RESULT
+            4 -> HomeworkStatus.FAILED
             else -> HomeworkStatus.UNKNOWN
         }
     }
@@ -21,6 +22,7 @@ class HomeworkStatusAdapter {
             HomeworkStatus.NEW -> 1
             HomeworkStatus.ACCEPTED -> 2
             HomeworkStatus.TEST_RESULT -> 3
+            HomeworkStatus.FAILED -> 4
             else -> 0
         }
     }

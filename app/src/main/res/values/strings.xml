@@ -81,6 +81,7 @@
     <string name="homework_status_new">New</string>
     <string name="homework_status_accepted">Accepted</string>
     <string name="homework_status_test_result">Test Result</string>
+    <string name="homework_status_test_failed">Failed</string>
     <string name="homework_status_unknown">Unknown</string>
 
     <!-- Grades screen, sorting -->

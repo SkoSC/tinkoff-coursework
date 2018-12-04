@@ -39,6 +39,7 @@ object ChipColors {
             HomeworkStatus.ACCEPTED -> R.color.event_chip_green
             HomeworkStatus.NEW -> R.color.event_chip_purple
             HomeworkStatus.TEST_RESULT -> R.color.event_chip_blue
+            HomeworkStatus.FAILED -> R.color.event_chip_red
             HomeworkStatus.UNKNOWN -> R.color.event_chip_red
         }
     }

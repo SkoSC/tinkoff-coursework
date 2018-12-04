@@ -107,6 +107,7 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 HomeworkStatus.NEW -> view.context.getColorCompat(R.color.task_score_inwork)
                 HomeworkStatus.ACCEPTED -> view.context.getColorCompat(R.color.task_score_success)
                 HomeworkStatus.TEST_RESULT -> view.context.getColorCompat(R.color.task_score_success)
+                HomeworkStatus.FAILED -> view.context.getColorCompat(R.color.task_score_failed)
                 HomeworkStatus.UNKNOWN -> view.context.getColorCompat(R.color.task_score_failed)
             }
         }
@@ -117,6 +118,7 @@ class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 HomeworkStatus.NEW -> view.context.getColorCompat(R.color.task_score_inwork_bg)
                 HomeworkStatus.ACCEPTED -> view.context.getColorCompat(R.color.task_score_success_bg)
                 HomeworkStatus.TEST_RESULT -> view.context.getColorCompat(R.color.task_score_success_bg)
+                HomeworkStatus.FAILED -> view.context.getColorCompat(R.color.task_score_failed_bg)
                 HomeworkStatus.UNKNOWN -> view.context.getColorCompat(R.color.task_score_failed_bg)
             }
         }
