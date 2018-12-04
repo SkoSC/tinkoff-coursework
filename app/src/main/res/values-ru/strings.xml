@@ -54,5 +54,5 @@
     <string name="profile_attribute_mobile_phone">Телефон</string>
     <string name="profile_attribute_home_city">Город</string>
     <string name="profile_attribute_department">Департамент</string>
-    <string name="profile_attribute_facility">Кафедра</string>
+    <string name="profile_attribute_facility">Кафедр</string>
 </resources>

@@ -7,6 +7,7 @@ object GlobalConstants {
 
     object URL {
         const val TINKOFF_REGISTER = "https://fintech.tinkoff.ru/register"
+        const val TINKOFF_ROOT = "https://tinkoff.ru/"
         const val TINKOFF_FINTECH_ROOT = "https://fintech.tinkoff.ru/"
         const val TINKOFF_API_ENDPOINT = "https://fintech.tinkoff.ru/api/"
     }

@@ -5,10 +5,7 @@ import com.skosc.tkffintech.entities.UserInfo
 import com.skosc.tkffintech.model.webservice.model.UserInfoResp
 import io.reactivex.Single
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface TinkoffUserApi {
 
@@ -19,7 +16,7 @@ interface TinkoffUserApi {
     @Headers("Content-Type: application/json")
     fun getCurrentUserInfo(): Single<Response<UserInfoResp>>
 
-    @POST("register_user")
-    @Headers("content-type: application/json", "Referer: https://fintech.tinkoff.ru/edit")
+    @PUT("register_user")
+    @Headers("Referer: https://fintech.tinkoff.ru")
     fun update(@Body user: UserInfo): Single<Response<UserInfoResp>>
 }

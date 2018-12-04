@@ -127,10 +127,12 @@ fun webModule(ctx: Context) = Kodein.DefaultModule("web") {
             .registerTypeAdapter(DateTime::class.java, JodaDateTimeAdapter())
             .create()
 
-    val cookieHandler = CookieManager(PersistentCookieStore(ctx), CookiePolicy.ACCEPT_ALL)
+    val cookieStore = PersistentCookieStore(ctx)
+    val cookieHandler = CookieManager(cookieStore, CookiePolicy.ACCEPT_ALL)
     val javaNetCookieJar = JavaNetCookieJar(cookieHandler)
     val okhttp = OkHttpClient.Builder()
             .cookieJar(javaNetCookieJar)
+            //.addNetworkInterceptor(CookieInterceptor(cookieStore))
             .addNetworkInterceptor(OkHttpLoggingInterceptor())
             .addNetworkInterceptor(StethoInterceptor())
             .build()
