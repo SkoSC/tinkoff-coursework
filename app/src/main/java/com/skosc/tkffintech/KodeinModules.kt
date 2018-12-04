@@ -78,7 +78,7 @@ fun roomModule(ctx: Context) = Kodein.DefaultModule("room-db") {
     bind<CourseInfoDao>() with singleton { db.courseInfoDao }
 }
 
-fun systemService(ctx: Context) = Kodein.DefaultModule("system-service") {
+fun systemService(ctx: Context) = Kodein.DefaultModule("android-system-service") {
     bind<SharedPreferences>(KodeinTags.SP_TIMERS) with singleton {
         ctx.getSharedPreferences(GlobalConstants.SharedPrefs.Timers.NAME, Context.MODE_PRIVATE)
     }
@@ -122,7 +122,7 @@ val viewModelFactoryModule = Kodein.DefaultModule("view-model") {
     }
 }
 
-fun webModule(ctx: Context) = Kodein.DefaultModule("retrofit") {
+fun webModule(ctx: Context) = Kodein.DefaultModule("web") {
     val gson = GsonBuilder()
             .registerTypeAdapter(DateTime::class.java, JodaDateTimeAdapter())
             .create()

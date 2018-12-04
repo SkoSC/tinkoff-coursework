@@ -11,12 +11,12 @@ import androidx.cardview.widget.CardView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.utils.extensions.dp
 
-private const val DEFAULT_SCORE = "0.0"
 
 class ScoreView(context: Context, attributeSet: AttributeSet? = null, defStyleAttr: Int = 0)
     : CardView(context, attributeSet, defStyleAttr) {
     companion object {
-        const val MAX_TEXT_LEN = 4
+        private const val MAX_TEXT_LEN = 4
+        private const val DEFAULT_SCORE = "0.0"
     }
 
     constructor(context: Context, attributeSet: AttributeSet?) : this(context, attributeSet, 0)
