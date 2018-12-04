@@ -6,7 +6,9 @@ import com.skosc.tkffintech.model.repo.EventsRepo
 import io.reactivex.Observable
 
 class SearchForEvent(private val eventsRepo: EventsRepo) {
-    fun searchForOngoingEvent(query: String): Observable<List<EventInfo>> = eventsRepo.searchEvents(query, true, SearchQueryMaker.Mode.PARTIAL)
+    fun searchForOngoingEvent(query: String): Observable<List<EventInfo>>
+            = eventsRepo.searchEvents(query, true, SearchQueryMaker.Mode.PARTIAL)
 
-    fun searchForArchiveEvent(query: String): Observable<List<EventInfo>> = eventsRepo.searchEvents(query, false, SearchQueryMaker.Mode.PARTIAL)
+    fun searchForArchiveEvent(query: String): Observable<List<EventInfo>>
+            = eventsRepo.searchEvents(query, false, SearchQueryMaker.Mode.PARTIAL)
 }

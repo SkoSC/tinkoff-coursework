@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.model.ProfileField
-import com.skosc.tkffintech.utils.GenericDiffUtilCallback
 
 class ProfileAttributeAdapter : RecyclerView.Adapter<ProfileAttributeAdapter.ViewHolder>() {
     private val differ = AsyncListDiffer(this, GenericDiffUtilCallback<ProfileField>())

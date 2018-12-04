@@ -21,6 +21,7 @@ class TKFApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        initDebug()
     }
 
     private fun initDebug() {

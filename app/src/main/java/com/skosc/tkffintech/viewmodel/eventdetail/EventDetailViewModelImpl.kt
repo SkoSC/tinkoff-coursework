@@ -2,16 +2,16 @@ package com.skosc.tkffintech.viewmodel.eventdetail
 
 import androidx.lifecycle.MutableLiveData
 import com.skosc.tkffintech.entities.GeoAddress
-import com.skosc.tkffintech.usecase.LoadEvents
-import com.skosc.tkffintech.usecase.SearchLocation
+import com.skosc.tkffintech.model.repo.EventsRepo
+import com.skosc.tkffintech.model.service.GeoSearcher
 import com.skosc.tkffintech.utils.extensions.observeOnMainThread
 import com.skosc.tkffintech.utils.extensions.own
 import com.skosc.tkffintech.utils.extensions.subscribeOnIoThread
 
 class EventDetailViewModelImpl(
         hid: Long,
-        loadEvent: LoadEvents,
-        private val searchLocation: SearchLocation
+        eventsRepo: EventsRepo,
+        private val geoSearcher: GeoSearcher
 ) : EventDetailViewModel() {
 
     override val title: MutableLiveData<String> = MutableLiveData()
@@ -21,14 +21,14 @@ class EventDetailViewModelImpl(
     override val addresses: MutableLiveData<List<GeoAddress>> = MutableLiveData()
 
     init {
-        cdisp own loadEvent.loadEvent(hid).observeOnMainThread().subscribe { eventInfo ->
+        cdisp own eventsRepo.findEventByHid(hid).observeOnMainThread().subscribe { eventInfo ->
             title.value = eventInfo.title
             description.value = eventInfo.description
             place.value = eventInfo.place
             eventDates.value = EventDates(eventInfo.dateBegin, eventInfo.dateEnd)
 
             val tokenizePlaces = tokenizePlace(eventInfo.place)
-            cdisp own searchLocation.findAddresses(tokenizePlaces)
+            cdisp own geoSearcher.findAll(tokenizePlaces)
                     .subscribeOnIoThread()
                     .observeOnMainThread()
                     .subscribe { resolved ->

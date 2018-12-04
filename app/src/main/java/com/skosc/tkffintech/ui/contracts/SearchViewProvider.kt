@@ -4,4 +4,5 @@ import androidx.appcompat.widget.SearchView
 
 interface SearchViewProvider {
     val searchView: SearchView
+    fun dismissSearchView()
 }

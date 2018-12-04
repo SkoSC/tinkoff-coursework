@@ -3,7 +3,6 @@ package com.skosc.tkffintech.ui.adapter
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.skosc.tkffintech.utils.GenericDiffUtilCallback
 
 abstract class GenericRecyclerAdapter<T, VH : BindableViewHolder<T>>(
         diffCallback: DiffUtil.ItemCallback<T> = GenericDiffUtilCallback()

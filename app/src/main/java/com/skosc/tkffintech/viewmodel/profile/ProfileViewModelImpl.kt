@@ -8,20 +8,18 @@ import com.skosc.tkffintech.misc.Trigger
 import com.skosc.tkffintech.misc.model.ProfileField
 import com.skosc.tkffintech.misc.model.ProfileFieldFactory
 import com.skosc.tkffintech.misc.model.UpdateResult
-import com.skosc.tkffintech.usecase.LoadCurrentUserInfo
+import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.usecase.LoadCurrentUserStatistics
 import com.skosc.tkffintech.usecase.PerformLogout
-import com.skosc.tkffintech.usecase.UpdateUserInfo
 import com.skosc.tkffintech.utils.extensions.own
 import com.skosc.tkffintech.utils.formatting.NumberFormatter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class ProfileViewModelImpl(
-        private val loadCurrentUserInfo: LoadCurrentUserInfo,
+        private val userRepo: CurrentUserRepo,
         statistics: LoadCurrentUserStatistics,
-        private val performLogout: PerformLogout,
-        private val updateUserInfo: UpdateUserInfo
+        private val performLogout: PerformLogout
 ) : ProfileViewModel() {
 
     override val fullName: MutableLiveData<String> = MutableLiveData()
@@ -67,7 +65,7 @@ class ProfileViewModelImpl(
 
 
     init {
-        cdisp own loadCurrentUserInfo.currentUserInfo
+        cdisp own userRepo.info
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     bindUserInfoToLiveData(it)
@@ -88,13 +86,13 @@ class ProfileViewModelImpl(
     }
 
     override fun update() {
-        loadCurrentUserInfo.tryLoadUserInfoFromNetwork()
+        userRepo.forceRefreshUserInfo()
     }
 
     override fun changeInfo(fields: List<ProfileField>): LiveData<UpdateResult> {
         val indicator = MutableLiveData<UpdateResult>()
 
-        cdisp own loadCurrentUserInfo.currentUserInfo
+        cdisp own userRepo.info
                 .map {
                     var info = it
                     fields.forEach { field ->
@@ -102,7 +100,7 @@ class ProfileViewModelImpl(
                     }
                     info
                 }
-                .flatMapSingle { updateUserInfo.update(it) }
+                .flatMapSingle { userRepo.update(it) }
                 .subscribe { indicator.value = it }
 
         return indicator

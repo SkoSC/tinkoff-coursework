@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.resolver.EventTypeIconFinder
 import com.skosc.tkffintech.ui.model.EventCardModel
-import com.skosc.tkffintech.utils.GenericDiffUtilCallback
 import com.skosc.tkffintech.utils.extensions.getColorCompat
 import com.skosc.tkffintech.utils.extensions.getDrawableCompat
 

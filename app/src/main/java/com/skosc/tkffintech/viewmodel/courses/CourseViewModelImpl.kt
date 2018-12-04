@@ -7,13 +7,13 @@ import com.skosc.tkffintech.entities.CourseStatistics
 import com.skosc.tkffintech.entities.composite.CourseWithStatistics
 import com.skosc.tkffintech.misc.model.Ratio
 import com.skosc.tkffintech.misc.model.UpdateResult
+import com.skosc.tkffintech.model.repo.CourseRepo
 import com.skosc.tkffintech.usecase.LoadCourseStatistics
-import com.skosc.tkffintech.usecase.LoadCourses
 import com.skosc.tkffintech.utils.extensions.own
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class CourseViewModelImpl(private val loadCourses: LoadCourses, private val statistics: LoadCourseStatistics) : CourseViewModel() {
+class CourseViewModelImpl(private val coursesRepo: CourseRepo, private val statistics: LoadCourseStatistics) : CourseViewModel() {
 
     override val activeCourses: MutableLiveData<List<CourseWithStatistics>> = MutableLiveData()
     override val allCourses: MutableLiveData<List<CourseInfo>> = MutableLiveData()
@@ -24,7 +24,7 @@ class CourseViewModelImpl(private val loadCourses: LoadCourses, private val stat
 
     override fun forceUpdate(): LiveData<UpdateResult> {
         val indicator = MutableLiveData<UpdateResult>()
-        cdisp own loadCourses.forceRefresh()
+        cdisp own coursesRepo.tryForceRefresh()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess {
                     pushData()
@@ -37,7 +37,7 @@ class CourseViewModelImpl(private val loadCourses: LoadCourses, private val stat
 
     override fun checkForUpdate(): LiveData<UpdateResult> {
         val indicator = MutableLiveData<UpdateResult>()
-        cdisp own loadCourses.checkForUpdates()
+        cdisp own coursesRepo.checkForUpdates()
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSuccess {
                     pushData()
@@ -49,14 +49,14 @@ class CourseViewModelImpl(private val loadCourses: LoadCourses, private val stat
     }
 
     private fun pushData() {
-        cdisp own loadCourses.courses
+        cdisp own coursesRepo.courses
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe { courses ->
                     allCourses.value = courses
                 }
 
-        cdisp own loadCourses.courses
+        cdisp own coursesRepo.courses
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { courses ->

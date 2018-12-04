@@ -1,6 +1,7 @@
 package com.skosc.tkffintech.usecase
 
 import com.skosc.tkffintech.misc.model.UpdateResult
+import com.skosc.tkffintech.model.repo.CourseRepo
 import com.skosc.tkffintech.model.repo.CurrentUserRepo
 import com.skosc.tkffintech.utils.extensions.mapEach
 import com.skosc.tkffintech.utils.logging.LoggerProvider
@@ -10,7 +11,7 @@ import java.util.concurrent.TimeUnit
 /**
  * Performs user login. Updates data if possible
  */
-class LoginUser(private val currentUserRepo: CurrentUserRepo, private val loadCourses: LoadCourses, private val loadHomeworks: LoadHomeworks) {
+class LoginUser(private val currentUserRepo: CurrentUserRepo, private val coursesRepo: CourseRepo, private val loadHomeworks: LoadHomeworks) {
     companion object {
         /**
          * Arbitrary delay between loading courses and updating homeworks info
@@ -41,7 +42,7 @@ class LoginUser(private val currentUserRepo: CurrentUserRepo, private val loadCo
      */
     private fun tryPreload() {
         logger.verbose("Trying to preload data")
-        val disp = loadCourses.checkForUpdates()
+        val disp = coursesRepo.checkForUpdates()
                 .delay(UPDATE_DELAY, TimeUnit.SECONDS) //TODO Dirty hack, remove
                 .flatMap {
                     blockingUpdateCourses()
@@ -59,7 +60,7 @@ class LoginUser(private val currentUserRepo: CurrentUserRepo, private val loadCo
         return Pair(preloaded, total)
     }
 
-    private fun blockingUpdateCourses() = loadCourses.courses
+    private fun blockingUpdateCourses() = coursesRepo.courses
             .mapEach { course ->
                 loadHomeworks.checkForUpdates(course.url).blockingGet()
             }

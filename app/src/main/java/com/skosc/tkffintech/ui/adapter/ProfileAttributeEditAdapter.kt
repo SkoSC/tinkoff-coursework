@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.skosc.tkffintech.R
 import com.skosc.tkffintech.misc.model.ProfileField
-import com.skosc.tkffintech.utils.GenericDiffUtilCallback
 import com.skosc.tkffintech.utils.extensions.addAfterTextChangedListener
 
 class ProfileAttributeEditAdapter : RecyclerView.Adapter<ProfileAttributeEditAdapter.ViewHolder>() {

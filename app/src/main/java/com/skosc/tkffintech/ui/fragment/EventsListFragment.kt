@@ -14,6 +14,7 @@ import com.skosc.tkffintech.R
 import com.skosc.tkffintech.ui.adapter.EventsListRecyclerAdapter
 import com.skosc.tkffintech.ui.contracts.SearchViewProvider
 import com.skosc.tkffintech.ui.model.toAdapterModels
+import com.skosc.tkffintech.utils.extensions.observe
 import com.skosc.tkffintech.viewmodel.events.ArchiveEventsListViewModel
 import com.skosc.tkffintech.viewmodel.events.OngoingEventsListViewModel
 import kotlinx.android.synthetic.main.fragment_events_list.*
@@ -71,9 +72,13 @@ class EventsListFragment : TKFFragment() {
             vm.forceUpdate()
         }
 
-        vm.events.observe(this, Observer {
+        vm.events.observe(this) {
             events_refresh.isRefreshing = false
-        })
+        }
+
+        vm.hideSearcheView.observe(this) {
+            collapseSearch()
+        }
     }
 
     private fun setupEventsRecycler() {
@@ -90,5 +95,9 @@ class EventsListFragment : TKFFragment() {
             adapter.submitItems(items)
             adapter.notifyDataSetChanged()
         })
+    }
+
+    private fun collapseSearch() {
+        (activity as SearchViewProvider).dismissSearchView()
     }
 }

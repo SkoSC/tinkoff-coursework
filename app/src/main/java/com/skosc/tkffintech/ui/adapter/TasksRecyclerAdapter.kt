@@ -13,7 +13,6 @@ import com.skosc.tkffintech.entities.HomeworkStatus
 import com.skosc.tkffintech.misc.resolver.ChipColors
 import com.skosc.tkffintech.ui.model.TaskAdapterItem
 import com.skosc.tkffintech.ui.view.ScoreView
-import com.skosc.tkffintech.utils.GenericDiffUtilCallback
 import com.skosc.tkffintech.utils.extensions.getColorCompat
 
 class TasksRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

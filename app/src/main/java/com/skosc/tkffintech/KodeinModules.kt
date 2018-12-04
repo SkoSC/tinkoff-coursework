@@ -160,17 +160,10 @@ val repoModule = Kodein.DefaultModule("repo") {
 
 val useCaseModule = Kodein.DefaultModule("user-case") {
     bind<LogoutBomb>() with provider { LogoutBomb(instance(), listOf(instance(KodeinTags.SP_TIMERS), instance(KodeinTags.SP_USER_INFO))) }
-    bind<LoadEvents>() with provider { LoadEvents(instance(), instance(KodeinTags.SP_TIMERS)) }
     bind<SearchForEvent>() with provider { SearchForEvent(instance()) }
     bind<LoginUser>() with provider { LoginUser(instance(), instance(), instance()) }
-    bind<IsCurrentUserLoggedIn>() with provider { IsCurrentUserLoggedIn(instance()) }
-    bind<LoadCurrentUserInfo>() with provider { LoadCurrentUserInfo(instance()) }
     bind<PerformLogout>() with provider { PerformLogout(instance(), instance()) }
-    bind<LoadCourses>() with provider { LoadCourses(instance()) }
     bind<LoadHomeworks>() with provider { LoadHomeworks(instance(), instance()) }
-    bind<LoadUsers>() with provider { LoadUsers(instance()) }
     bind<LoadCourseStatistics>() with provider { LoadCourseStatistics(instance(), instance()) }
-    bind<UpdateUserInfo>() with provider { UpdateUserInfo(instance()) }
     bind<LoadCurrentUserStatistics>() with provider { LoadCurrentUserStatistics(instance(), instance()) }
-    bind<SearchLocation>() with provider { SearchLocation(instance()) }
 }

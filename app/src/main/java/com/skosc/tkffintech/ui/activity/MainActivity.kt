@@ -96,4 +96,9 @@ class MainActivity : TKFActivity(), SearchViewProvider {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(isEnabled)
     }
+
+    override fun dismissSearchView() {
+        searchView.isIconified = true
+        searchMenuItem!!.collapseActionView()
+    }
 }

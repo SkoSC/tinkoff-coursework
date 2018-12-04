@@ -86,6 +86,10 @@ class ProfileFieldFactory(
                         R.string.profile_attribute_wrokplace,
                         { info, value -> info.copy(currentWork = value) }
                 )
+                ProfileAttributes.FIELD_DESCRIPTION -> ProfileFieldFactory(
+                        0,
+                        { info, value -> info.copy(description = value) }
+                )
                 else -> throw RuntimeException("Unsupported user profile attribute with homeworkId: $field")
             }
         }
