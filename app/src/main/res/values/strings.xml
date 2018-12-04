@@ -1,17 +1,17 @@
 <resources>
     <!-- Primary -->
     <string name="app_name">TKFFintech</string>
-    <string name="tinkoff_fintech_2lines">Tinkoff \nFintech</string>
+    <string name="tinkoff_fintech_2lines" translatable="false">Tinkoff \nFintech</string>
 
     <!-- Placeholders -->
-    <string name="placeholder_1x">Lorem</string>
-    <string name="placeholder_2x">Lorem Ipsilum</string>
-    <string name="placeholder_3x">Lorem Ipsilum Dolor</string>
-    <string name="placeholder_5x">Lorem Ipsilum Dolor Si Amlet</string>
-    <string name="placeholder_long">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
-    <string name="placeholder_digit_x1">2</string>
-    <string name="placeholder_digit_empty">0</string>
-    <string name="placeholder_ratio">2/20</string>
+    <string name="placeholder_1x" translatable="false">Lorem</string>
+    <string name="placeholder_2x" translatable="false">Lorem Ipsilum</string>
+    <string name="placeholder_3x" translatable="false">Lorem Ipsilum Dolor</string>
+    <string name="placeholder_5x" translatable="false">Lorem Ipsilum Dolor Si Amlet</string>
+    <string name="placeholder_long" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
+    <string name="placeholder_digit_x1" translatable="false">2</string>
+    <string name="placeholder_digit_empty" translatable="false">0</string>
+    <string name="placeholder_ratio" translatable="false">2/20</string>
 
     <!-- Bottom navbar -->
     <string name="nav_event">Events</string>
@@ -22,7 +22,7 @@
     <string name="login_create_account">Make New Account</string>
     <string name="login_login_btn">Login</string>
     <string name="login_password">Password</string>
-    <string name="login_email">Email</string>
+    <string name="login_email" translatable="false">Email</string>
     <string name="login_error_wrong_credentials">Wrong Credentials</string>
     <string name="login_error_wrong_unknown">Unknown Error</string>
     <string name="login_error_title">Login Failed</string>
@@ -36,14 +36,14 @@
     <string name="event_detail_location">Location</string>
 
     <!-- Profile screen -->
-    <string name="quote_left">❝</string>
-    <string name="quote_right">❞</string>
+    <string name="quote_left" translatable="false">❝</string>
+    <string name="quote_right" translatable="false">❞</string>
     <string name="profile_edit">Edit</string>
     <string name="profile_sign_out">Sign out</string>
 
     <!-- Profile attribute -->
     <string name="profile_attribute_mobile_phone">Mobile Phone</string>
-    <string name="profile_attribute_email">Email</string>
+    <string name="profile_attribute_email" translatable="false">Email</string>
     <string name="profile_attribute_home_city">Home City</string>
     <string name="profile_attribute_school">School</string>
     <string name="profile_attribute_school_grad">School Graduation</string>
