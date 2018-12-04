@@ -15,7 +15,6 @@ import com.skosc.tkffintech.utils.extensions.extractUpdateResult
 import com.skosc.tkffintech.utils.extensions.mapEach
 import io.reactivex.Observable
 import io.reactivex.Single
-import org.joda.time.DateTime
 import retrofit2.Response
 import java.util.concurrent.TimeUnit
 

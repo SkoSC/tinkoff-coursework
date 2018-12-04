@@ -68,7 +68,7 @@ class ProfileEditFragment : TKFFragment() {
 
     private fun setupPrimaryInfo() {
         vm.fullName.observe(this, Observer {
-            profile_name.setText(it)
+            profile_name.text = it
         })
 
         vm.avatarUrl.observe(this, Observer {
