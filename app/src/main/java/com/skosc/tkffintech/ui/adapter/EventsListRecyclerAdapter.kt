@@ -23,6 +23,10 @@ class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (Eve
 
     private val differ = AsyncListDiffer(this, GenericDiffUtilCallback<EventCardModel>())
 
+    init {
+        setHasStableIds(true)
+    }
+
     fun submitItems(items: List<EventCardModel>) {
         differ.submitList(items)
     }
@@ -51,6 +55,8 @@ class EventsListRecyclerAdapter(private val mode: Int, private val onClick: (Eve
     override fun getItemViewType(position: Int): Int = mode
 
     override fun getItemCount(): Int = differ.currentList.size
+
+    override fun getItemId(position: Int): Long = differ.currentList[position].hid
 
     class LargeViewHolder(private val view: View) : EventCardViewHolder(view) {
         private val title by lazy { view.findViewById<TextView>(R.id.event_card_title) }
