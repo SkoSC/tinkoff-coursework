@@ -13,6 +13,7 @@ import com.skosc.tkffintech.utils.extensions.navigateTo
 import com.skosc.tkffintech.viewmodel.main.MainActivityViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainActivity : TKFActivity(), SearchViewProvider {
     companion object {
         private const val UNKNOWN_DESTINATION = 0

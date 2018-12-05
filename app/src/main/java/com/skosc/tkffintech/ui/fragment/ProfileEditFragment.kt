@@ -1,6 +1,7 @@
 package com.skosc.tkffintech.ui.fragment
 
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -59,7 +60,7 @@ class ProfileEditFragment : TKFFragment() {
         setupPrimaryInfo()
         setupInfoCards()
 
-        profile_edit_apply_btn.setOnClickListener(this::onApplyButtonClicked)
+        profile_edit_apply_btn.setOnClickListener(this::showPlaceholderDialog)
     }
 
     private fun setupDataUpdateListener() {
@@ -103,6 +104,7 @@ class ProfileEditFragment : TKFFragment() {
         }
     }
 
+    @Deprecated("Can't properly access network")
     private fun onApplyButtonClicked(v: View) {
         val fields = listOf(contactInfoCard, schoolInfoCard, workInfoCard)
                 .map { it.recycler.adapter as ProfileAttributeEditAdapter }
@@ -117,5 +119,14 @@ class ProfileEditFragment : TKFFragment() {
         val name = ProfileFieldFactory.lookup(ProfileAttributes.FIELD_DESCRIPTION).make(descriptionValue)
 
         return fields + name
+    }
+
+    private fun showPlaceholderDialog(v: View) {
+        AlertDialog.Builder(context)
+                .setTitle(getString(R.string.error_not_implemented))
+                .setMessage(getString(R.string.profile_edit_not_impl_msg))
+                .setPositiveButton("") { _, _ -> }
+                .create()
+                .show()
     }
 }

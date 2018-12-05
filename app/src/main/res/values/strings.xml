@@ -1,6 +1,6 @@
 <resources>
     <!-- Primary -->
-    <string name="app_name">TKFFintech</string>
+    <string name="app_name" translatable="false">Tinkoff Fintech School</string>
     <string name="tinkoff_fintech_2lines" translatable="false">Tinkoff \nFintech</string>
 
     <!-- Placeholders -->
@@ -55,6 +55,8 @@
     <string name="profile_attributes_card_contact">Contact Info</string>
     <string name="profile_attributes_card_school">School Info</string>
     <string name="profile_attributes_card_work">Work Info</string>
+    <string name="profile_apply_changes">Apply changes</string>
+    <string name="profile_edit_not_impl_msg" translatable="false">You came to the wrong pace…</string>
 
     <!-- Search bar -->
     <string name="options_search">Search</string>
@@ -92,4 +94,5 @@
     <!-- Generic error -->
     <string name="error_title">Error</string>
     <string name="error_data_not_updated">Some error occurred during data updating</string>
+    <string name="error_not_implemented" translatable="false">Not implemented yet</string>
 </resources>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">TKFFintech</string>
     <string name="course_detail_empty_msg">Тут пока ничего нет, попробуйте обновить список</string>
     <string name="course_homeworks_completed">Завершено домашек</string>
     <string name="course_more_details">Больше</string>
@@ -55,4 +54,5 @@
     <string name="profile_attribute_home_city">Город</string>
     <string name="profile_attribute_department">Департамент</string>
     <string name="profile_attribute_facility">Кафедр</string>
+    <string name="profile_apply_changes">Применить</string>
 </resources>

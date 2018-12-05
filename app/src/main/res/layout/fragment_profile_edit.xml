@@ -113,7 +113,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Apply changes" />
+                android:backgroundTint="@color/login_activity_button_background"
+                android:text="@string/profile_apply_changes" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
