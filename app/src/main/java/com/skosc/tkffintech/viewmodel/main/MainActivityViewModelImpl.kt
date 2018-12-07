@@ -11,10 +11,10 @@ class MainActivityViewModelImpl(currentUserRepo: CurrentUserRepo) : MainActivity
     init {
         cdisp own currentUserRepo.isLoggedIn
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { isLoggedIn ->
+                .subscribe ({ isLoggedIn ->
                     if (!isLoggedIn) {
                         navigateToSplash.fire()
                     }
-                }
+                }, {})
     }
 }

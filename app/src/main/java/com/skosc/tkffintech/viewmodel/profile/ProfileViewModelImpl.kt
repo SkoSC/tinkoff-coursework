@@ -101,7 +101,7 @@ class ProfileViewModelImpl(
                     info
                 }
                 .flatMapSingle { userRepo.update(it) }
-                .subscribe { indicator.value = it }
+                .subscribe ({ indicator.value = it }, {})
 
         return indicator
     }

@@ -52,9 +52,11 @@ class CourseViewModelImpl(private val coursesRepo: CourseRepo, private val stati
         cdisp own coursesRepo.courses
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { courses ->
+                .subscribe ({ courses ->
                     allCourses.value = courses
-                }
+                }, {
+
+                })
 
         cdisp own coursesRepo.courses
                 .subscribeOn(Schedulers.io())
@@ -75,8 +77,8 @@ class CourseViewModelImpl(private val coursesRepo: CourseRepo, private val stati
                                         .blockingGet()
                         )
                     }
-                }.subscribe { courses ->
+                }.subscribe ({ courses ->
                     activeCourses.value = courses
-                }
+                }, {})
     }
 }

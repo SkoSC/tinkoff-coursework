@@ -27,9 +27,9 @@ abstract class GenericEventsListViewModel : EventsListViewModel() {
         cardExpanded.value = false
         cdisp own eventsSubject
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { eventList ->
+                .subscribe ({ eventList ->
                     events.value = eventList
-                }
+                }, {})
     }
 
     final override fun searchEvents(query: String) {

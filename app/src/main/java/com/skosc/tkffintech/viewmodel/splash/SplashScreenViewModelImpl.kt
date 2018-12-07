@@ -13,12 +13,12 @@ class SplashScreenViewModelImpl(currentUserRepo: CurrentUserRepo) : SplashScreen
         cdisp own currentUserRepo.isLoggedIn
                 .firstOrError()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe { isLoggedIn ->
+                .subscribe ({ isLoggedIn ->
                     if (isLoggedIn) {
                         navigateToMain.fire()
                     } else {
                         navigateToLogin.fire()
                     }
-                }
+                }, {})
     }
 }

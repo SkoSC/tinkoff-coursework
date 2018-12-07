@@ -31,9 +31,9 @@ class EventDetailViewModelImpl(
             cdisp own geoSearcher.findAll(tokenizePlaces)
                     .subscribeOnIoThread()
                     .observeOnMainThread()
-                    .subscribe { resolved ->
+                    .subscribe ({ resolved ->
                         addresses.value = resolved
-                    }
+                    }, {})
         }
     }
 

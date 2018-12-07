@@ -32,7 +32,7 @@ class CourseGradesFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        course_grades_pager.adapter = CourseGradesFragmentsAdapter(course, childFragmentManager)
+        course_grades_pager.adapter = CourseGradesFragmentsAdapter(course, childFragmentManager, context!!)
     }
 
 

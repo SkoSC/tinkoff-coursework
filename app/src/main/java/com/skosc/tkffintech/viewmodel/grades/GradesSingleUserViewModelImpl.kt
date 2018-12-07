@@ -25,12 +25,13 @@ class GradesSingleUserViewModelImpl(
             cdisp own gradesSubject
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
-                    .subscribe { grades.value = it }
+                    .subscribe ({ grades.value = it }, {})
 
             cdisp own courseRepo.usersWithCourse(course)
+                    .map { it.sortedBy { it.name } }
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
-                    .subscribe { freshUsers -> users.value = freshUsers }
+                    .subscribe ({ freshUsers -> users.value = freshUsers }, {})
         }
     }
 
@@ -38,8 +39,8 @@ class GradesSingleUserViewModelImpl(
         grades.value = listOf()
         cdisp own loadHomeworks.gradesForUser(user.id, course)
                 .subscribeOn(Schedulers.io())
-                .subscribe { data ->
+                .subscribe ({ data ->
                     gradesSubject.onNext(data)
-                }
+                }, {})
     }
 }

@@ -6,8 +6,10 @@ import com.skosc.tkffintech.entities.HomeworkTask
 import com.skosc.tkffintech.entities.composite.HomeworkWithGrades
 import com.skosc.tkffintech.misc.model.Ratio
 import com.skosc.tkffintech.utils.formatting.DateTimeFormatter
+import org.joda.time.DateTime
 
 sealed class TaskAdapterItem {
+
     class Header(
             val title: String = ""
     ) : TaskAdapterItem()
@@ -28,14 +30,30 @@ fun List<HomeworkWithGrades>.toAdapterItems(): List<TaskAdapterItem> {
 fun List<Pair<HomeworkTask, HomeworkGrade>>.toAdapterItems(): List<TaskAdapterItem> {
     return this.map { pair ->
         val (task, grade) = pair
+        val info = parseInfoField(task)
         TaskAdapterItem.Entry(
                 task.title,
                 Ratio(
                         grade.mark.toDouble(),
                         task.maxScore.toDouble()
                 ),
-                DateTimeFormatter.DATE_FORMATTER_SHORT_EU.print(task.deadlineDate),
+                info,
                 grade.status
         )
     }
 }
+
+private fun parseInfoField(task: HomeworkTask): String {
+    val isSet = task.deadlineDate != null && !task.deadlineDate.isAtTheBeginningOfUnixEra
+    return if (isSet) {
+        DateTimeFormatter.DATE_FORMATTER_SHORT_EU.print(task.deadlineDate)
+    } else {
+        ""
+    }
+}
+
+
+private val DateTime.isAtTheBeginningOfUnixEra
+    get() = this.isBefore(
+            DateTime(0).plusSeconds(1)
+    )

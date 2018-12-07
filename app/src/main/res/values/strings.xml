@@ -85,6 +85,8 @@
     <string name="homework_status_test_result">Test Result</string>
     <string name="homework_status_test_failed">Failed</string>
     <string name="homework_status_unknown">Unknown</string>
+    <string name="grades_title_single">Single</string>
+    <string name="grades_title_many">Many</string>
 
     <!-- Grades screen, sorting -->
     <string name="sort_descending">Descending</string>

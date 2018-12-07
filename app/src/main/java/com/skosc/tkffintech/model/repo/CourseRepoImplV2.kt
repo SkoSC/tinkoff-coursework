@@ -9,6 +9,7 @@ import com.skosc.tkffintech.model.room.CourseInfoDao
 import com.skosc.tkffintech.model.room.UserDao
 import com.skosc.tkffintech.model.room.model.RoomCourseInfo
 import com.skosc.tkffintech.model.room.model.RoomUser
+import com.skosc.tkffintech.model.service.NetworkInfoService
 import com.skosc.tkffintech.model.webservice.TinkoffCursesApi
 import com.skosc.tkffintech.model.webservice.model.ConnectionsResp
 import com.skosc.tkffintech.utils.extensions.extractUpdateResult
@@ -21,7 +22,8 @@ class CourseRepoImplV2(
         private val api: TinkoffCursesApi,
         private val coursesDao: CourseInfoDao,
         private val userDao: UserDao,
-        timerSharedPreferences: SharedPreferences
+        timerSharedPreferences: SharedPreferences,
+        private val networkInfo: NetworkInfoService
 ) : CourseRepo {
     companion object {
         private const val UPDATE_TIME_POLITIC_SECONDS: Long = 60 * 60 * 12
@@ -71,5 +73,6 @@ class CourseRepoImplV2(
                     coursesDao.count()
                             .map { count -> count == 0 || isExpired }
                 }
+                .map { it && networkInfo.checkConnection() }
 
 }

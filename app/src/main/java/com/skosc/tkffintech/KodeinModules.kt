@@ -156,8 +156,8 @@ fun webModule(ctx: Context) = Kodein.DefaultModule("web") {
 val repoModule = Kodein.DefaultModule("repo") {
     bind<CurrentUserRepo>() with singleton { CurrentUserRepoImpl(instance(), instance(), instance(), instance()) }
     bind<EventsRepo>() with singleton { EventsRepoImpl(instance(), instance(), instance(KodeinTags.SP_TIMERS), instance()) }
-    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance(), instance(KodeinTags.SP_TIMERS)) }
-    bind<CourseRepo>() with singleton { CourseRepoImplV2(instance(), instance(), instance(), instance(KodeinTags.SP_TIMERS)) }
+    bind<HomeworkRepo>() with singleton { HomeworkRepoImpl(instance(), instance(), instance(), instance(), instance(), instance(), instance(KodeinTags.SP_TIMERS), instance()) }
+    bind<CourseRepo>() with singleton { CourseRepoImplV2(instance(), instance(), instance(), instance(KodeinTags.SP_TIMERS), instance()) }
 }
 
 val useCaseModule = Kodein.DefaultModule("user-case") {

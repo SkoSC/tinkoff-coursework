@@ -39,14 +39,14 @@ class GradesManyUserViewModelImpl(
             cdisp own gradesSubject
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { grades ->
+                    .subscribe ({ grades ->
                         userWithGradesSum.value = grades.sortedWith(currentSorter.comparator)
-                    }
+                    }, {})
 
             cdisp own courseStatistics.gradeSumForUserOnCourse(course)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { data -> gradesSubject.onNext(data) }
+                    .subscribe ({ data -> gradesSubject.onNext(data) }, {})
         }
     }
 
