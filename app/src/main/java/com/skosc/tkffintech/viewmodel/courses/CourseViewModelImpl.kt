@@ -29,9 +29,11 @@ class CourseViewModelImpl(private val coursesRepo: CourseRepo, private val stati
                 .doOnSuccess {
                     pushData()
                 }
-                .subscribe { status ->
+                .subscribe ({ status ->
                     indicator.value = status
-                }
+                }, {
+                    indicator.value = UpdateResult.Error
+                })
         return indicator
     }
 
@@ -42,9 +44,11 @@ class CourseViewModelImpl(private val coursesRepo: CourseRepo, private val stati
                 .doOnSuccess {
                     pushData()
                 }
-                .subscribe { status ->
+                .subscribe({ status ->
                     indicator.value = status
-                }
+                }, {
+                    indicator.value = UpdateResult.Error
+                })
         return indicator
     }
 
