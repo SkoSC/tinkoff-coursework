@@ -83,4 +83,6 @@ class LoginActivity : TKFActivity() {
                 .create()
                 .show()
     }
+
+    override fun onBackPressed() {}
 }

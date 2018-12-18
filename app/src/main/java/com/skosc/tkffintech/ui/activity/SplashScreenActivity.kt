@@ -36,4 +36,6 @@ class SplashScreenActivity : TKFActivity() {
             navigateTo(destination).invoke()
         }
     }
+
+    override fun onBackPressed() {}
 }
