@@ -54,8 +54,8 @@ class CourseGradesSingleFragment : TKFFragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         vm.users.observe(this, Observer {
             grades_user_spinner.adapter = UsersSpinnerAdapter(context!!, it)
         })

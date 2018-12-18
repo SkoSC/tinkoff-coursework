@@ -30,10 +30,9 @@ class CourseGradesFragment : Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         course_grades_pager.adapter = CourseGradesFragmentsAdapter(course, childFragmentManager, context!!)
     }
-
 
 }

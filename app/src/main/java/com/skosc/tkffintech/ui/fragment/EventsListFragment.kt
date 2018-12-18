@@ -48,10 +48,13 @@ class EventsListFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
+        setupSearch() // Requires activity attached
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupEventsRecycler()
         setupRefreshView()
-        setupSearch()
     }
 
     private fun setupSearch() {

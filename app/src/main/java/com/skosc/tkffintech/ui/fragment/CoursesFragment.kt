@@ -32,39 +32,25 @@ class CoursesFragment : TKFFragment() {
 
     override fun onStart() {
         super.onStart()
-
         vm.checkForUpdate().observe(this, Observer { result ->
-            handleUdateResult(result)
+            handleUpdateResult(result)
         })
+    }
 
-        courses_all_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        courses_all_recycler.adapter = CoursesPreviewRecyclerAdapter { _, model ->
-            navController.navigate(R.id.navigation_course_grades, bundleOf(
-                    CourseGradesFragment.ARG_COURSE to model.url
-            ))
-        }
-        courses_all_recycler.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupAllCoursesRecycler()
+        setupFreshCoursesRecycler()
 
+    }
+
+    private fun setupFreshCoursesRecycler() {
         courses_fresh_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
         courses_fresh_recycler.adapter = CoursesDetailedRecyclerAdapter { _, model ->
             navController.navigate(R.id.navigation_course_detail, bundleOf(
                     CourseDetailFragment.ARG_COURSE to model.url
             ))
         }
-
-
-        vm.allCourses.observe(this, Observer {
-            val adapter = courses_all_recycler.adapter as CoursesPreviewRecyclerAdapter
-            adapter.items = it.map { info ->
-                CoursePreviewModel(
-                        url = info.url,
-                        title = info.title,
-                        status = info.status,
-                        date = info.starts
-                )
-            }
-            adapter.notifyDataSetChanged()
-        })
 
         vm.activeCourses.observe(this, Observer {
             val adapter = courses_fresh_recycler.adapter as CoursesDetailedRecyclerAdapter
@@ -83,12 +69,34 @@ class CoursesFragment : TKFFragment() {
 
         courses_refresh.setOnRefreshListener {
             vm.forceUpdate().observe(this, Observer { result ->
-                handleUdateResult(result)
+                handleUpdateResult(result)
             })
         }
     }
 
-    private fun handleUdateResult(result: UpdateResult) {
+    private fun setupAllCoursesRecycler() {
+        courses_all_recycler.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
+        courses_all_recycler.adapter = CoursesPreviewRecyclerAdapter { _, model ->
+            navController.navigate(R.id.navigation_course_grades, bundleOf(
+                    CourseGradesFragment.ARG_COURSE to model.url
+            ))
+        }
+        courses_all_recycler.addItemDecoration(DividerItemDecoration(context, RecyclerView.VERTICAL))
+        vm.allCourses.observe(this, Observer {
+            val adapter = courses_all_recycler.adapter as CoursesPreviewRecyclerAdapter
+            adapter.items = it.map { info ->
+                CoursePreviewModel(
+                        url = info.url,
+                        title = info.title,
+                        status = info.status,
+                        date = info.starts
+                )
+            }
+            adapter.notifyDataSetChanged()
+        })
+    }
+
+    private fun handleUpdateResult(result: UpdateResult) {
         courses_refresh.isRefreshing = false
     }
 

@@ -53,9 +53,8 @@ class ProfileEditFragment : TKFFragment() {
         return inflater.inflate(R.layout.fragment_profile_edit, container, false)
     }
 
-
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         setupDataUpdateListener()
         setupPrimaryInfo()
         setupInfoCards()

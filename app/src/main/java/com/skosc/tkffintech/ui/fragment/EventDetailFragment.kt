@@ -42,7 +42,10 @@ class EventDetailFragment : TKFFragment() {
     override fun onStart() {
         super.onStart()
         event_detail_map.onStart()
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         arguments?.let {
             vm = getViewModel(EventDetailViewModel::class, mapOf(
                     EventDetailViewModel.ARG_HID to it.getLong(ARG_MODEL).toString()

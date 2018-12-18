@@ -50,8 +50,8 @@ class CourseGradesManyFragment : TKFFragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         vm.sorters.observe(this, Observer {
             grades_sort_spinner.adapter = SortSpinnerAdapter(context!!, it)
         })

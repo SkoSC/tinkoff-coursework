@@ -44,8 +44,8 @@ class EventsFragment : TKFFragment() {
         return inflater.inflate(R.layout.fragment_events, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setupCardExpansion(onGoingVm, events_ongoing_recycler, events_ongoing_dropdown)
         setupCardExpansion(archiveVm, events_archive_recycler, events_archive_dropdown)
@@ -53,7 +53,6 @@ class EventsFragment : TKFFragment() {
         setupOnGoingEventsRecycler()
         setupArchiveEventsRecycler()
         setupRefresh()
-
     }
 
     override fun onResume() {

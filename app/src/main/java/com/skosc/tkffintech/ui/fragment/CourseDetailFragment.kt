@@ -52,8 +52,8 @@ class CourseDetailFragment : TKFFragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         vm.checkForUpdates().observe(this, this::handleUpdate)
 
         setupGradesList()
