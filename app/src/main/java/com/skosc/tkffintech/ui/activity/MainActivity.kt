@@ -3,6 +3,7 @@ package com.skosc.tkffintech.ui.activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.widget.SearchView
 import androidx.navigation.NavDestination
 import androidx.navigation.fragment.NavHostFragment.findNavController
@@ -44,6 +45,7 @@ class MainActivity : TKFActivity(), SearchViewProvider {
             updateSearchBarVisibility(destination)
             updateAppBarVisibility(destination)
             updateBackButtonVisibility(destination)
+            updateBottomNavigation(destination)
         }
     }
 
@@ -95,6 +97,19 @@ class MainActivity : TKFActivity(), SearchViewProvider {
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(isEnabled)
+    }
+
+    private fun updateBottomNavigation(destination: NavDestination? = navController.currentDestination) {
+        val rootDestinations = setOf(
+                R.id.navigation_event,
+                R.id.navigation_course,
+                R.id.navigation_profile
+        )
+
+        val destinationId = destination?.id ?: UNKNOWN_DESTINATION
+        val isVisible = destinationId in rootDestinations
+
+        navigation.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
     override fun dismissSearchView() {
