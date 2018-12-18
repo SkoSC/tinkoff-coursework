@@ -48,10 +48,9 @@ class MainActivity : TKFActivity(), SearchViewProvider {
     }
 
     override fun onBackPressed() {
-        // TODO Add more elegant way to handle exiting application
         val success = navController.navigateUp()
         if (!success) {
-            finishAndRemoveTask()
+            finishAffinity()
         }
     }
 
